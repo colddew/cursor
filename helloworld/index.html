@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+            color: #1d1d1f;
+            margin-bottom: 30px;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #0071e3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin: 0 10px;
+            cursor: pointer;
+            border-radius: 980px;
+            font-size: 16px;
+            font-weight: 400;
+            transition: all 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #0077ed;
+            transform: scale(1.02);
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <h1 id="text">Hello world</h1>
+    <div class="button-container">
+        <button onclick="changeColor('#f7c942')">黄色</button>
+        <button onclick="changeColor('#0071e3')">蓝色</button>
+    </div>
+
+    <script>
+        function changeColor(color) {
+            document.getElementById('text').style.color = color;
+            document.getElementById('text').style.transition = 'color 0.3s ease';
+        }
+    </script>
+</body>
+</html> 
