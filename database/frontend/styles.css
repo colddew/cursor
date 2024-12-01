@@ -1,0 +1,250 @@
+:root {
+    --system-gray: #8E8E93;
+    --system-blue: #007AFF;
+    --system-red: #FF3B30;
+    --system-background: #F2F2F7;
+    --card-background: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    background-color: var(--system-background);
+    color: #000000;
+}
+
+.container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h1 {
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.add-todo {
+    background: var(--card-background);
+    border-radius: 12px;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin-bottom: 24px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    font-size: 17px;
+    background: transparent;
+    outline: none;
+}
+
+input[type="text"]::placeholder {
+    color: var(--system-gray);
+}
+
+button {
+    background: var(--system-blue);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+ul {
+    list-style: none;
+    background: var(--card-background);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+li {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--system-background);
+    animation: fadeIn 0.3s ease;
+}
+
+li:last-child {
+    border-bottom: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+li input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    margin-right: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--system-gray);
+    appearance: none;
+    cursor: pointer;
+    position: relative;
+}
+
+li input[type="checkbox"]:checked {
+    background: var(--system-blue);
+    border-color: var(--system-blue);
+}
+
+li input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 4px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+li span {
+    flex: 1;
+    font-size: 17px;
+    transition: all 0.2s ease;
+}
+
+li .completed {
+    color: var(--system-gray);
+    text-decoration: line-through;
+}
+
+li button {
+    background: var(--system-red);
+    margin-left: 12px;
+    width: auto;
+    padding: 0 16px;
+    font-size: 15px;
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 20px auto;
+    }
+    
+    h1 {
+        font-size: 28px;
+    }
+    
+    li {
+        padding: 12px;
+    }
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal.show {
+    display: block;
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--card-background);
+    padding: 24px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 320px;
+    box-shadow: 0 4px 23px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.3s ease;
+}
+
+.modal h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.modal p {
+    color: var(--system-gray);
+    margin-bottom: 24px;
+    line-height: 1.4;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.modal-buttons button {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    width: auto;
+    height: auto;
+}
+
+.cancel-btn {
+    background: var(--system-background) !important;
+    color: var(--system-blue) !important;
+}
+
+.delete-btn {
+    background: var(--system-red) !important;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+} 

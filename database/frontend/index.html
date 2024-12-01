@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>待办事项</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600&display=swap">
+</head>
+<body>
+    <div class="container">
+        <h1>待办事项</h1>
+        <div class="add-todo">
+            <input type="text" id="todoInput" placeholder="添加新的待办事项">
+            <button onclick="addTodo()">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" fill="none"/>
+                </svg>
+            </button>
+        </div>
+        <ul id="todoList"></ul>
+    </div>
+
+    <!-- 确认删除对话框 -->
+    <div id="confirmDialog" class="modal">
+        <div class="modal-content">
+            <h2>确认删除</h2>
+            <p id="confirmMessage"></p>
+            <div class="modal-buttons">
+                <button class="cancel-btn" onclick="closeConfirmDialog()">取消</button>
+                <button class="delete-btn" onclick="executeDelete()">删除</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
