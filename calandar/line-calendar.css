@@ -11,6 +11,7 @@
 .month-calendar {
     width: 100%;
     padding: 16px 24px;
+    position: relative;
 }
 
 .month-header {
@@ -161,5 +162,122 @@
         padding: 5px 10px;
         min-width: auto;
         margin-right: 10px;
+    }
+}
+
+/* 修改下载按钮容器和按钮样式 */
+.download-btn-container {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.month-calendar:hover .download-btn-container {
+    opacity: 1;
+}
+
+.download-btn {
+    width: 32px;
+    height: 32px;
+    background-color: rgba(0, 122, 255, 0.1);
+    color: #007AFF;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    position: relative;
+}
+
+.download-btn:hover {
+    background-color: rgba(0, 122, 255, 0.2);
+}
+
+/* 下载图标样式 */
+.download-icon {
+    width: 18px;
+    height: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23007AFF'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .download-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .download-icon {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+/* 确保月份卡片有相对定位，以便放置下载按钮 */
+.month-calendar {
+    position: relative;
+}
+
+/* 下载全部按钮样式 */
+.download-all-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: #007AFF;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: opacity 0.2s ease;
+    z-index: 100;
+    opacity: 0;
+}
+
+/* 当鼠标移动到右上角区域时显示按钮 */
+.download-all-btn-area {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 60px;
+    z-index: 99;
+}
+
+.download-all-btn-area:hover .download-all-btn {
+    opacity: 1;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .download-all-btn {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .download-btn {
+        width: 28px;
+        height: 28px;
+    }
+
+    .download-icon {
+        width: 16px;
+        height: 16px;
     }
 } 

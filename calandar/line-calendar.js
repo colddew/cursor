@@ -38,6 +38,7 @@ class LineCalendar {
         this.container = document.querySelector('.calendar-line-container');
         this.renderAllMonths();
         this.initCountdown();
+        this.initDownloadButtons();
     }
 
     // 添加倒计时初始化方法
@@ -66,9 +67,88 @@ class LineCalendar {
         setInterval(updateCountdown, 1000);
     }
 
+    // 添加下载功能初始化
+    initDownloadButtons() {
+        const downloadAllBtn = document.querySelector('.download-all-btn');
+        downloadAllBtn.addEventListener('click', () => this.downloadAllMonths());
+    }
+
+    // 修改单个月份下载功能
+    async downloadMonth(monthElement, monthName) {
+        // 临时隐藏下载按钮，避免其出现在导出图片中
+        const downloadBtn = monthElement.querySelector('.download-btn');
+        downloadBtn.style.display = 'none';
+        
+        try {
+            const canvas = await html2canvas(monthElement, {
+                backgroundColor: '#ffffff',
+                scale: 2, // 提高图片质量
+                logging: false, // 关闭日志
+                useCORS: true // 允许跨域图片
+            });
+            
+            const link = document.createElement('a');
+            link.download = `2025年${monthName}日历.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        } catch (error) {
+            console.error('导出图片失败:', error);
+        } finally {
+            // 恢复下载按钮显示
+            downloadBtn.style.display = 'block';
+        }
+    }
+
+    // 修改批量下载功能
+    async downloadAllMonths() {
+        const months = document.querySelectorAll('.month-calendar');
+        const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月',
+                          '七月', '八月', '九月', '十月', '十一月', '十二月'];
+        
+        // 临时隐藏所有下载按钮
+        const allButtons = document.querySelectorAll('.download-btn');
+        allButtons.forEach(btn => btn.style.display = 'none');
+        
+        try {
+            for (let i = 0; i < months.length; i++) {
+                await this.downloadMonth(months[i], monthNames[i]);
+                // 添加延时防止浏览器阻止多次下载
+                if (i < months.length - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 1000));
+                }
+            }
+        } finally {
+            // 恢复所有下载按钮显示
+            allButtons.forEach(btn => btn.style.display = 'block');
+        }
+    }
+
     createMonthCalendar(year, month) {
         const monthDiv = document.createElement('div');
         monthDiv.className = 'month-calendar';
+        
+        // 创建下载按钮容器，使其位于右上角
+        const downloadBtnContainer = document.createElement('div');
+        downloadBtnContainer.className = 'download-btn-container';
+        
+        // 创建下载按钮
+        const downloadBtn = document.createElement('button');
+        downloadBtn.className = 'download-btn';
+        downloadBtn.title = '下载本月';
+        downloadBtn.onclick = (e) => {
+            e.stopPropagation();
+            const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月',
+                              '七月', '八月', '九月', '十月', '十一月', '十二月'];
+            this.downloadMonth(monthDiv, monthNames[month]);
+        };
+        
+        // 创建下载图标
+        const downloadIcon = document.createElement('div');
+        downloadIcon.className = 'download-icon';
+        downloadBtn.appendChild(downloadIcon);
+        
+        downloadBtnContainer.appendChild(downloadBtn);
+        monthDiv.appendChild(downloadBtnContainer);
 
         // 月份标题
         const monthNames = ['一　月', '二　月', '三　月', '四　月', '五　月', '六　月',
