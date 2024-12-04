@@ -75,21 +75,31 @@ class LineCalendar {
 
     // 修改单个月份下载功能
     async downloadMonth(monthElement, monthName) {
-        // 临时隐藏下载按钮，避免其出现在导出图片中
+        // 临时隐藏下载按钮
         const downloadBtn = monthElement.querySelector('.download-btn');
         downloadBtn.style.display = 'none';
         
         try {
+            // 提高图片质量的设置
             const canvas = await html2canvas(monthElement, {
                 backgroundColor: '#ffffff',
-                scale: 2, // 提高图片质量
-                logging: false, // 关闭日志
-                useCORS: true // 允许跨域图片
+                scale: 3, // 增加缩放比例，提高清晰度
+                logging: false,
+                useCORS: true,
+                allowTaint: true,
+                imageTimeout: 0,
+                removeContainer: true,
+                // 优化文字渲染
+                letterRendering: true,
+                // 使用更好的缩放算法
+                windowWidth: monthElement.scrollWidth * 3,
+                windowHeight: monthElement.scrollHeight * 3
             });
             
+            // 使用更高质量的图片格式和设置
             const link = document.createElement('a');
             link.download = `2025年${monthName}日历.png`;
-            link.href = canvas.toDataURL('image/png');
+            link.href = canvas.toDataURL('image/png', 1.0); // 使用最高质量设置
             link.click();
         } catch (error) {
             console.error('导出图片失败:', error);

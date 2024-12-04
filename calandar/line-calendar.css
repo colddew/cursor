@@ -2,50 +2,66 @@
 .calendar-line-container {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 36px;
     padding: 0 20px;
-    max-width: 900px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 .month-calendar {
-    width: 100%;
-    padding: 16px 24px;
+    background: linear-gradient(to bottom right, #fafaf9, #ffffff);
+    border: 1px solid #f5f5f4;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+    border-radius: 28px;
+    padding: 24px 32px;
     position: relative;
+    width: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 .month-header {
     text-align: center;
-    margin-bottom: 12px;
+    margin: -24px -32px 20px;
+    padding: 24px 32px 20px;
     color: #1d1d1f;
-    font-size: 18px;
+    font-size: 24px;
     font-weight: 600;
-    border-bottom: 1px solid #e6f0ff;
-    padding-bottom: 8px;
+    background: linear-gradient(to bottom right, #f7faff, #fbfcff);
+    border-bottom: 1px solid #edf2ff;
+    border-radius: 28px 28px 0 0;
+    font-smooth: always;
 }
 
 .calendar-content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
 }
 
 .weekdays {
     margin-bottom: 4px;
 }
 
-/* 修改高亮日期样式为更小的圆形 */
+.weekdays div {
+    font-size: 16px;
+    padding: 6px 0;
+}
+
+/* 修改高��日期样式为更小的圆形 */
 .days-grid .exam-day .date-number {
     background-color: rgba(255, 59, 48, 0.1);
     color: #ff3b30;
     font-weight: 500;
-    width: 24px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: all 0.2s ease;
+    font-smooth: always;
 }
 
 .days-grid .exam-day:hover .date-number {
@@ -58,7 +74,11 @@
 }
 
 .days-grid .exam-day .exam-info {
-    margin-top: 2px;
+    font-size: 12px;
+    margin-top: 6px;
+    line-height: 1.4;
+    font-weight: 450;
+    font-smooth: always;
 }
 
 /* 调整移动端样式 */
@@ -68,22 +88,31 @@
     }
 
     .month-calendar {
-        padding: 12px 16px;
+        padding: 16px 20px;
+        border-radius: 20px;
     }
 
     .month-header {
-        font-size: 16px;
-        margin-bottom: 8px;
-        padding-bottom: 6px;
+        margin: -16px -20px 12px;
+        padding: 16px 20px 12px;
+        font-size: 18px;
+        border-radius: 20px 20px 0 0;
+    }
+
+    .days-grid .date-number {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
     }
 
     .days-grid .exam-day .date-number {
-        width: 20px;
-        height: 20px;
+        width: 32px;
+        height: 32px;
     }
 
-    .days-grid .exam-day {
-        gap: 4px;
+    .days-grid .exam-day .exam-info {
+        font-size: 10px;
+        margin-top: 4px;
     }
 }
 
@@ -280,4 +309,9 @@
         width: 16px;
         height: 16px;
     }
+}
+
+/* 调整页面背景色以配合卡片颜色 */
+body {
+    background-color: #ffffff;
 } 
