@@ -1,13 +1,11 @@
-from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips, CompositeAudioClip, VideoClip, CompositeVideoClip
+from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_videoclips, CompositeAudioClip, VideoClip
 import librosa
 import numpy as np
 import soundfile as sf
 from PIL import Image, ImageDraw, ImageFont
-import numpy as np
 import os
-from vosk import Model, KaldiRecognizer
-import json
-import wave
+import whisper
+import re
 
 # 尝试不同的字体路径
 FONT_PATHS = [
@@ -26,6 +24,17 @@ for path in FONT_PATHS:
 
 if FONT_PATH is None:
     raise Exception("找不到可用的中文字体文件")
+
+# 在文件开头添加全局模型变量
+_whisper_model = None
+
+def get_whisper_model():
+    """获取或初始化 whisper 模型（单例模式）"""
+    global _whisper_model
+    if _whisper_model is None:
+        print("加载语音识别模型...")
+        _whisper_model = whisper.load_model("medium")
+    return _whisper_model
 
 def create_text_clip(text, size, font_size=55, duration=None):
     """使用 PIL 创建文字图片"""
@@ -79,6 +88,7 @@ def add_subtitle(video_clip, text, font_size=55):
     return final_clip
 
 def detect_silence_segments(audio_path, threshold=0.02):
+    """检测静音片段"""
     # 加载音频
     y, sr = librosa.load(audio_path)
     
@@ -161,39 +171,55 @@ def detect_similar_segments(audio_path, threshold=0.85, min_duration=1.0, max_du
 def get_speech_content(audio_path, start_time, end_time, sample_rate=16000):
     """获取指定时间段的语音内容"""
     try:
-        # 指定模型路径，这里需要先下载模型并解压
-        model_path = "vosk-model-cn-0.1"
-        if not os.path.exists(model_path):
-            print("请先下载中文语音模型！")
-            print("下载地址：https://alphacephei.com/vosk/models/vosk-model-cn-0.1.zip")
-            print("下载后解压到当前目录")
-            return "..."
+        print(f"\n处理时间段 {start_time:.2f}-{end_time:.2f}")
         
-        # 加载语音识别模型
-        model = Model(model_path)
+        # 使用 moviepy 处理音频
+        audio = AudioFileClip(audio_path)
         
-        # 将音频转换为正确的格式
-        os.system(f"ffmpeg -i {audio_path} -ar {sample_rate} -ac 1 -f wav temp_segment.wav")
+        # 调整音频片段的时间，前后各延长 0.2 秒以获取更完整的语音
+        actual_start = max(0, start_time - 0.2)
+        actual_end = min(audio.duration, end_time + 0.2)
+        segment = audio.subclip(actual_start, actual_end)
         
-        # 读取音频文件
-        wf = wave.open("temp_segment.wav", "rb")
+        # 保存音频片段
+        temp_wav = "temp_segment.wav"
+        segment.write_audiofile(temp_wav, fps=sample_rate, nbytes=2, codec='pcm_s16le', verbose=False)
         
-        # 创建识别器
-        rec = KaldiRecognizer(model, sample_rate)
+        # 获取模型实例
+        model = get_whisper_model()
         
-        # 读取音频数据
-        while True:
-            data = wf.readframes(4000)
-            if len(data) == 0:
-                break
-            rec.AcceptWaveform(data)
+        # 优化识别参数
+        result = model.transcribe(
+            temp_wav,
+            language="zh",
+            task="transcribe",
+            beam_size=10,        # 增加搜索宽度
+            best_of=10,          # 增加候选数量
+            temperature=0.2,     # 适当增加采样温度
+            fp16=False,
+            condition_on_previous_text=True,
+            initial_prompt=(
+                "这是一段中文口播视频。内容可能包含：产品介绍、教程讲解、"
+                "新闻播报等。语言风格正式、清晰。请以准确、自然的方式转录。"
+            ),
+            word_timestamps=True,  # 启用词级时间戳
+            suppress_tokens=[-1],  # 抑制特殊标记
+            compression_ratio_threshold=2.4,  # 调整压缩比阈值
+            no_speech_threshold=0.6,  # 调整无语音检测阈值
+            logprob_threshold=-1.0    # 调整对数概率阈值
+        )
         
-        # 获取识别结果
-        result = json.loads(rec.FinalResult())
-        text = result.get('text', '')
+        text = result["text"].strip()
         
-        # 清理临时文件
-        os.remove("temp_segment.wav")
+        # 后处理文本
+        text = post_process_text(text)
+        
+        print(f"识别结果: {text}")
+        
+        # 清理资源
+        audio.close()
+        segment.close()
+        os.remove(temp_wav)
         
         return text if text else "..."
         
@@ -201,91 +227,119 @@ def get_speech_content(audio_path, start_time, end_time, sample_rate=16000):
         print(f"语音识别错误: {str(e)}")
         return "..."
 
+def post_process_text(text):
+    """对识别文本进行后处理"""
+    if not text:
+        return text
+        
+    # 移除多余的标点符号
+    text = re.sub(r'[，。！？]+(?=[，。！？])', '', text)
+    
+    # 移除重复的词语
+    text = re.sub(r'([，。！？\s])?([^，。！？\s]{1,4})\2+', r'\1\2', text)
+    
+    # 移除语气词和填充词
+    filler_words = ['呃', '啊', '嗯', '那个', '就是说', '你知道']
+    for word in filler_words:
+        text = text.replace(word, '')
+    
+    # 修正常见错误
+    corrections = {
+        '的的': '的',
+        '了了': '了',
+        '吗吗': '吗',
+        '呢呢': '呢',
+        '把把': '把'
+    }
+    for wrong, right in corrections.items():
+        text = text.replace(wrong, right)
+    
+    return text.strip()
+
 def process_video(video_path, output_path, background_music_path):
-    print("开始处理视频...")
-    video = VideoFileClip(video_path)
-    
-    temp_audio_path = "temp_audio.wav"
-    print("提取音频...")
-    video.audio.write_audiofile(temp_audio_path)
-    
-    print("检测静音片段...")
-    silence_segments = detect_silence_segments(temp_audio_path)
-    
-    print("检测重复语音片段...")
-    segments_to_remove = detect_similar_segments(temp_audio_path)
-    
-    # 处理视频片段
-    processed_segments = []
-    last_end = 0
-    current_time = 0
-    
-    # 修改排序逻辑
-    all_cuts = (
-        [(start, end, 'remove') for start, end in segments_to_remove] +
-        [(start, end, 'silence') for start, end in silence_segments]
-    )
-    all_cuts.sort(key=lambda x: x[0])
-    
-    print("处理视频片段...")
-    for start, end, cut_type in all_cuts:
-        # 添加上一个结束点到当前开始点的片段
-        if start > last_end:
-            current_time = last_end
-            clip = video.subclip(last_end, start)
-            # 获取这段视频的语音内容
-            speech_text = get_speech_content(temp_audio_path, last_end, start)
-            if not speech_text:  # 如果没有识别出内容
-                speech_text = "..."
-            clip = add_subtitle(clip, speech_text)
+    """处理视频：添加字幕、删除静音、添加背景音乐"""
+    try:
+        print("开始处理视频...")
+        video = VideoFileClip(video_path)
+        
+        temp_audio_path = "temp_audio.wav"
+        print("提取音频...")
+        video.audio.write_audiofile(temp_audio_path, verbose=False)
+        
+        print("检测静音片段...")
+        silence_segments = detect_silence_segments(temp_audio_path)
+        
+        print("检测重复语音片段...")
+        segments_to_remove = detect_similar_segments(temp_audio_path)
+        
+        # 处理视频片段
+        processed_segments = []
+        last_end = 0
+        
+        # 合并并排序所有需要处理的片段
+        all_cuts = (
+            [(start, end, 'remove') for start, end in segments_to_remove] +
+            [(start, end, 'silence') for start, end in silence_segments]
+        )
+        all_cuts.sort(key=lambda x: x[0])
+        
+        print("处理视频片段...")
+        for start, end, cut_type in all_cuts:
+            # 处理有语音的片段
+            if start > last_end:
+                clip = video.subclip(last_end, start)
+                speech_text = get_speech_content(temp_audio_path, last_end, start)
+                if speech_text and speech_text != "...":
+                    clip = add_subtitle(clip, speech_text)
+                processed_segments.append(clip)
+            
+            # 处理静音片段
+            if cut_type == 'silence':
+                clip_duration = 0.5 if end - start > 0.5 else end - start
+                clip = video.subclip(start, start + clip_duration)
+                processed_segments.append(clip)
+            
+            last_end = end
+        
+        # 处理最后一段
+        if last_end < video.duration:
+            clip = video.subclip(last_end, video.duration)
+            speech_text = get_speech_content(temp_audio_path, last_end, video.duration)
+            if speech_text and speech_text != "...":
+                clip = add_subtitle(clip, speech_text)
             processed_segments.append(clip)
         
-        # 处理当前片段
-        if cut_type == 'silence' and end - start > 0.5:
-            current_time = start
-            clip = video.subclip(start, start + 0.5)
-            clip = add_subtitle(clip, "...")  # 静音片段显示省略号
-            processed_segments.append(clip)
-        elif cut_type == 'silence':
-            current_time = start
-            clip = video.subclip(start, end)
-            clip = add_subtitle(clip, "...")  # 静音片段显示省略号
-            processed_segments.append(clip)
+        print("合并片段...")
+        final_video = concatenate_videoclips(processed_segments)
         
-        last_end = end
-    
-    # 添加最后一段
-    if last_end < video.duration:
-        current_time = last_end
-        clip = video.subclip(last_end, video.duration)
-        speech_text = get_speech_content(temp_audio_path, last_end, video.duration)
-        if not speech_text:
-            speech_text = "..."
-        clip = add_subtitle(clip, speech_text)
-        processed_segments.append(clip)
-    
-    print("合并片段...")
-    final_video = concatenate_videoclips(processed_segments)
-    
-    print("添加背景音乐...")
-    background_music = AudioFileClip(background_music_path)
-    background_music = background_music.subclip(0, final_video.duration)
-    background_music = background_music.volumex(0.3)
-    
-    final_audio = CompositeAudioClip([final_video.audio, background_music])
-    final_video = final_video.set_audio(final_audio)
-    
-    print("保存视频...")
-    final_video.write_videofile(output_path, codec='libx264', audio_codec='aac')
-    
-    video.close()
-    final_video.close()
-    background_music.close()
-    print("处理完成！")
+        print("添加背景音乐...")
+        background_music = AudioFileClip(background_music_path)
+        background_music = background_music.subclip(0, final_video.duration)
+        background_music = background_music.volumex(0.3)
+        
+        final_audio = CompositeAudioClip([final_video.audio, background_music])
+        final_video = final_video.set_audio(final_audio)
+        
+        print("保存视频...")
+        final_video.write_videofile(output_path, codec='libx264', audio_codec='aac')
+        
+        # 清理资源
+        video.close()
+        final_video.close()
+        background_music.close()
+        os.remove(temp_audio_path)
+        
+        print("处理完成！")
+        
+    except Exception as e:
+        print(f"处理视频时出错: {str(e)}")
+        raise
 
-# 执行视频处理
-video_path = '/Users/colddew/Downloads/test/2.mp4'
-output_path = '/Users/colddew/Downloads/test/2-2.mp4'
-background_music_path = '/Users/colddew/Downloads/test/1.m4a'
-
-process_video(video_path, output_path, background_music_path) 
+if __name__ == "__main__":
+    # 视频路径配置
+    video_path = '/Users/colddew/Downloads/test/2.mp4'
+    output_path = '/Users/colddew/Downloads/test/2-2.mp4'
+    background_music_path = '/Users/colddew/Downloads/test/1.m4a'
+    
+    # 处理视频
+    process_video(video_path, output_path, background_music_path) 
