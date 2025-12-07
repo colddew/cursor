@@ -1,0 +1,541 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+header h1 {
+    color: #2c5f2d;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #4a7c59;
+    font-size: 1.1rem;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 400px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.form-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    color: #2c5f2d;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4a7c59;
+    box-shadow: 0 0 0 3px rgba(74, 124, 89, 0.1);
+}
+
+.avatar-btn {
+    width: 100%;
+    padding: 10px 15px;
+    background: white;
+    color: #4a7c59;
+    border: 2px solid #4a7c59;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.avatar-btn:hover {
+    background: #4a7c59;
+    color: white;
+}
+
+.download-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #4a7c59 0%, #2c5f2d 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.download-btn:hover {
+    transform: translateY(-2px);
+}
+
+.download-btn:active {
+    transform: translateY(0);
+}
+
+.preview-section {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.card-styles {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.style-option {
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.style-option:hover {
+    transform: translateY(-2px);
+}
+
+.style-option.active {
+    transform: translateY(-4px);
+}
+
+.style-option.active .mini-card {
+    box-shadow: 0 8px 20px rgba(74, 124, 89, 0.3);
+}
+
+.mini-card {
+    width: 80px;
+    height: 50px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.apple-preview {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 50%, #e8e8ed 100%);
+    color: #1d1d1f;
+}
+
+.professional-preview {
+    background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 50%, #5a5a5a 100%);
+}
+
+.tech-preview {
+    background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 50%, #42a5f5 100%);
+}
+
+.cool-preview {
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+}
+
+.preview-section h2 {
+    color: #2c5f2d;
+    margin-bottom: 20px;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.business-card {
+    width: 90mm;
+    height: 54mm;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+/* 苹果风格 */
+.apple-style {
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f7 50%, #e8e8ed 100%);
+    color: #1d1d1f;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    position: relative;
+    overflow: hidden;
+}
+
+.apple-style::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, rgba(74, 124, 89, 0.1) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.apple-style .name {
+    color: #1d1d1f;
+    font-weight: 600;
+    font-size: 1.7rem;
+}
+
+.apple-style .title {
+    color: #4a7c59;
+    font-weight: 500;
+}
+
+.apple-style .company {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.apple-style .bio {
+    color: #555;
+    font-style: italic;
+}
+
+.apple-style .contact-item {
+    color: #666;
+}
+
+.apple-style .card-footer {
+    border-top: 1px solid rgba(74, 124, 89, 0.2);
+}
+
+/* 职业风格 */
+.professional-style {
+    background: linear-gradient(135deg, #3a3a3a 0%, #4a4a4a 50%, #5a5a5a 100%);
+    color: #ffffff;
+    position: relative;
+}
+
+.professional-style::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.professional-style .name {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.professional-style .title {
+    color: #e0e0e0;
+    font-weight: 500;
+}
+
+.professional-style .company {
+    color: #b0b0b0;
+    font-size: 0.95rem;
+}
+
+.professional-style .bio {
+    color: #d0d0d0;
+    font-style: normal;
+}
+
+.professional-style .contact-item {
+    color: #b0b0b0;
+}
+
+.professional-style .card-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 科技风格 */
+.tech-style {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 25%, #90caf9 50%, #64b5f6 75%, #42a5f5 100%);
+    color: #0d47a1;
+    position: relative;
+}
+
+.tech-style::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #1976d2 0%, #42a5f5 50%, #1976d2 100%);
+}
+
+.tech-style::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.5) 100%);
+    pointer-events: none;
+}
+
+.tech-style .name {
+    color: #0d47a1;
+    font-weight: 600;
+    font-size: 1.6rem;
+}
+
+.tech-style .title {
+    color: #1565c0;
+    font-weight: 500;
+}
+
+.tech-style .company {
+    color: #1976d2;
+    font-size: 0.95rem;
+}
+
+.tech-style .bio {
+    color: #1e88e5;
+    font-style: normal;
+}
+
+.tech-style .contact-item {
+    color: #1565c0;
+}
+
+.tech-style .card-footer {
+    border-top: 1px solid rgba(13, 71, 161, 0.2);
+}
+
+/* 炫酷风格 */
+.cool-style {
+    background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 100%);
+    color: #ffffff;
+    position: relative;
+}
+
+.cool-style::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: var(--temp-animation, rotate 20s linear infinite);
+}
+
+.cool-style::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.5) 50%, transparent 100%);
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.cool-style .name {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.cool-style .title {
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 500;
+}
+
+.cool-style .company {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+}
+
+.cool-style .bio {
+    color: rgba(255, 255, 255, 0.95);
+    font-style: normal;
+}
+
+.cool-style .contact-item {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.cool-style .card-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* 通用卡片结构 */
+.card-header {
+    padding-bottom: 8px;
+    z-index: 1;
+    position: relative;
+}
+
+.header-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    min-width: 60px;
+    min-height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid transparent;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+.info-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.name {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0 0 2px 0;
+}
+
+.title {
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 2px 0;
+}
+
+.company {
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.card-body {
+    text-align: center;
+    padding: 6px 0;
+    flex: 0 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    position: relative;
+}
+
+.bio {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 8px 0 0 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1;
+    position: relative;
+    margin-top: auto;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+.contact-item .label {
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+
+    .business-card {
+        width: 100%;
+        max-width: 350px;
+        height: auto;
+        aspect-ratio: 90/54;
+    }
+
+    .card-footer {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
