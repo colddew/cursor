@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>三位一体计算器</title>
+    <style>
+        :root {
+            --apple-blue: #007AFF;
+            --bg-color: #F5F5F7;
+            --card-bg: #FFFFFF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            margin: 2rem;
+            background: var(--bg-color);
+        }
+
+        .calculator {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            background: var(--card-bg);
+            border-radius: 18px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group div {
+            flex: 1 1 23%;
+            min-width: 180px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            min-width: 2em;
+            text-align: right;
+        }
+
+        .input-group input {
+            flex-grow: 1;
+            width: auto;
+        }
+
+        input[type="number"] {
+            padding: 0.8rem 0.8rem;
+            border: 1px solid #DDD;
+            border-radius: 12px;
+            font-size: 14px;
+            width: calc(25% - 1rem);
+            min-width: 60px;
+            box-sizing: border-box;
+        }
+
+        /* 覆盖特定输入框样式 */
+        #maxTotal,
+        #targetScore {
+            width: calc(25% - 1rem);
+        }
+
+        .input-group div,
+        .score-settings div {
+            position: relative;
+        }
+
+        .error-hint {
+            position: absolute;
+            left: 50%;
+            top: 110%;
+            transform: translateX(-50%);
+            color: #FF3B30;
+            font-size: 13px;
+            padding-left: 24px;
+            background-size: 18px;
+            opacity: 0;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            pointer-events: none;
+        }
+
+        input:invalid + .error-hint {
+            opacity: 1;
+            transform: translateX(-50%) translateY(5px);
+        }
+
+        button {
+            background: var(--apple-blue);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #results {
+            margin-top: 2rem;
+            border-top: 1px solid #EEE;
+            padding-top: 2rem;
+        }
+
+        .combination {
+            background: var(--bg-color);
+            padding: 1rem;
+            margin: 0.5rem 0;
+            border-radius: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: none; }
+        }
+
+
+
+            
+
+            
+            .dynamic-subject input[type='number'] {
+                width: 100%;
+                max-width: 80px;
+                padding: 0.6rem;
+            }
+
+            .subject-checkbox-group label {
+                display: grid;
+                grid-template-columns: auto auto;
+                gap: 1rem;
+                align-items: center;
+            }
+            .dynamic-subject {
+                grid-column: 2;
+                justify-self: end;
+                margin: 0;
+                padding: 0;
+            }
+            @media (max-width: 600px) {
+            .dynamic-subject {
+                max-width: 100%;
+                min-width: 180px;
+            }
+        }
+
+            .input-group div {
+                min-width: 140px;
+                margin-bottom: 0.2rem;
+            }
+            
+            .dynamic-subject input[type='number'] {
+                width: 100%;
+                max-width: 80px;
+                padding: 0.6rem;
+            }
+            .subject-checkbox-group {
+                margin-left: 0;
+                max-width: 100%;
+                margin-bottom: 0.8rem;
+                padding: 0.5rem;
+            }
+</style>
+</head>
+<body>
+    <div class="calculator">
+        <h1 style="color: var(--apple-blue); text-align: center; font-weight: 900; margin-bottom: 2rem;">三位一体计算器</h1>
+        
+        <div class="input-group">
+            <div>
+                <label for="aScore">A=</label>
+                <input type="number" id="aScore" placeholder="分数值" min="0" value="0">
+                <span class="error-hint"></span>
+            </div>
+            <div>
+                <label for="bScore">B=</label>
+                <input type="number" id="bScore" placeholder="分数值" min="0" value="0">
+                <span class="error-hint"></span>
+            </div>
+            <div>
+                <label for="cScore">C=</label>
+                <input type="number" id="cScore" placeholder="分数值" min="0" value="0">
+                <span class="error-hint"></span>
+            </div>
+            <div>
+                <label for="dScore">D=</label>
+                <input type="number" id="dScore" placeholder="分数值" min="0" value="0">
+                <span class="error-hint"></span>
+            </div>
+
+        </div>
+
+        <div class="score-settings">
+            <div class="score-settings" style="position: relative">
+              <h3 style="font-size:14px; font-weight: normal; margin: 1rem 0; display: flex; align-items: center; gap: 1rem;">
+                <label for="maxTotal">满分=</label> <input type="number" id="maxTotal" placeholder="满分" min="1" style="width: 120px" value="0">
+
+            </h3>
+            <hr style="border-top: 1px solid #EEE; margin: 2rem 0 1rem; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 1rem; margin-top: 1rem;">
+                <div style="position: relative">
+                    <label for="targetScore" style="font-size:14px">折算分=</label> <input type="number" id="targetScore" placeholder="折算分" style="width: 120px" value="0">
+                    <span class="error-hint"></span>
+                </div>
+                <button id="calculateBtn" type="button" style="margin-left: auto;">开始计算</button>
+              </h3>
+            </div>
+        </div>
+        
+        <div id="results">
+        </div>
+    </div>
+    <script>
+        function getScores() {
+            return ['a','b','c','d'].map(level => 
+                parseInt(document.getElementById(`${level}Score`).value) || 0
+            );
+        }
+
+        function* countCombinations(scores, maxTotal, target, index = 0, counts = [0,0,0,0], currentSubjects = 0, currentScore = 0) {
+            if (index === scores.length) {
+                if (currentSubjects === 10 && currentScore === target && currentScore <= maxTotal) {
+                    yield {
+                    counts: [...counts],
+                    total: currentScore,
+                    formula: counts.map((count, i) => 
+                        count > 0 ? `${count}×${scores[i]}` : ''
+                    ).filter(Boolean).join(' + '),
+                    letterPrefix: counts.map((count, i) => 
+                        count > 0 ? `${count}${String.fromCharCode(65 + i)}` : ''
+                    ).filter(Boolean).join('')
+                };
+                }
+                return;
+            }
+
+            const remainingSubjects = 10 - currentSubjects;
+                const maxBySubjects = remainingSubjects;
+                const maxByScore = scores[index] > 0 ? Math.floor((maxTotal - currentScore) / scores[index]) : remainingSubjects;
+                const maxCount = Math.min(maxBySubjects, maxByScore);
+
+            for (let count = 0; count <= maxCount; count++) {
+                counts[index] = count;
+                yield* countCombinations(
+                    scores,
+                    maxTotal,
+                    target,
+                    index + 1,
+                    [...counts],
+                    currentSubjects + count,
+                    currentScore + count * scores[index]
+                );
+            }
+        }
+
+        let isManualMaxTotal = false;
+
+// 自动计算满分值
+function updateMaxTotal() {
+    if (!isManualMaxTotal) {
+        document.getElementById('aScore').addEventListener('input', updateMaxTotal);
+const aValue = parseInt(document.getElementById('aScore').value) || 0;
+        document.getElementById('maxTotal').addEventListener('input', handleMaxTotalChange);
+document.getElementById('maxTotal').value = aValue * 10;
+    }
+}
+
+// 监听满分输入框变化
+function handleMaxTotalChange() {
+    isManualMaxTotal = parseInt(document.getElementById('maxTotal').value) !== (parseInt(document.getElementById('aScore').value || 0) * 10);
+}
+
+function calculateCombinations() {
+            const scores = getScores();
+            const maxTotal = parseInt(document.getElementById('maxTotal').value) || 0;
+            // 在calculateCombinations函数中调整目标分计算
+            const target = parseInt(document.getElementById('targetScore').value) || 0;
+            const results = document.getElementById('results');
+            results.innerHTML = '';
+
+            const inputs = [...document.querySelectorAll('input[type="number"]')];
+            // 分离校验规则
+const abInvalid = scores.slice(0,2).some((v,i) => isNaN(v) || v < 1);
+const cdInvalid = scores.slice(2).some(v => isNaN(v) || v < 0);
+const inputErrors = inputs.map(input => ({ 
+    element: input,
+    isValid: !!input.value && !isNaN(input.value) && (input.id.includes('aScore')||input.id.includes('bScore') ? input.value >=1 : input.value >=0)
+}));
+const hasInvalid = abInvalid || cdInvalid || inputErrors.some(e => !e.isValid);
+            // 执行完整校验
+if (hasInvalid || isNaN(maxTotal) || maxTotal < 1 || isNaN(target) || target <= 0 || target > maxTotal) {
+                // 显示具体错误提示
+const errorDetails = inputErrors.filter(e => !e.isValid).map(e => {
+    const label = document.querySelector(`label[for='${e.element.id}']`).textContent.replace('=','');
+    const minValue = e.element.id.includes('aScore') || e.element.id.includes('bScore') ? '大于0' : '大于等于0';
+    e.element.style.borderColor = '#FF3B30';
+    return `${label}必须为${minValue}的整数`;
+}).join('，');
+results.innerHTML = `<div class="combination error" style="border-left: 4px solid #FF3B30;">
+    <div style="color:#FF3B30; margin-bottom:8px;">${errorDetails || '分数值校验失败'}</div>
+    <div>请检查红色标记的输入框</div>
+</div>`;
+                return;
+            }
+
+            const startTime = performance.now();
+            const combinations = [...countCombinations(scores, maxTotal, target)];
+            const duration = performance.now() - startTime;
+
+            if (combinations.length === 0) {
+                results.innerHTML = `<div class="combination">
+                    <h4>无匹配组合</h4>
+                    <p>计算耗时：${duration.toFixed(2)}ms</p>
+                </div>`;
+                return;
+            }
+
+            results.innerHTML = `
+                <div class="combination">
+                    共找到 ${combinations.length} 种组合方式<br>
+                    计算耗时：${duration.toFixed(2)}ms
+                </div>
+                ${combinations.map(combo => {
+                    const countStr = combo.formula;
+                    const total = combo.total;
+                    // 找出最大A数量
+function findOptimalCombination(combinations) {
+    let candidates = combinations;
+    
+    for (let i = 0; i < 4; i++) {
+        if (candidates.length <= 1) break;
+        const minVal = Math.min(...candidates.map(c => c.counts[i]));
+        candidates = candidates.filter(c => c.counts[i] === minVal);
+    }
+    return candidates;
+}
+
+const optimal = findOptimalCombination(combinations);
+const isOptimal = optimal.length === 1 && optimal[0] === combo;
+return `
+    <div class="combination" style="${isOptimal ? 'border: 2px solid #4CAF50;' : ''}">
+        ${combo.letterPrefix}（${countStr} → 总分=${total}分）
+        ${isOptimal ? '<span style="color: #4CAF50; margin-left: 2rem;">★ 推荐</span>' : ''}
+    </div>
+`;
+                }).join('')}
+            `;
+        }
+            // 绑定A值输入监听
+document.getElementById('aScore').addEventListener('input', function() {
+    updateMaxTotal();
+    handleMaxTotalChange();
+});
+
+document.getElementById('maxTotal').addEventListener('input', handleMaxTotalChange);
+document.querySelector('.calculator').addEventListener('blur', (e) => {
+    if (e.target.tagName === 'INPUT') {
+        const input = e.target;
+        let defaultValue = 0;
+        
+        if (input.id.includes('aScore') || input.id.includes('bScore')) {
+            defaultValue = 1;
+        
+            defaultValue = 100;
+        }
+        
+        if (!input.value || isNaN(input.value)) {
+            input.value = defaultValue;
+            const event = new Event('input');
+            input.dispatchEvent(event);
+        }
+    }
+}, true);
+
+document.getElementById('calculateBtn').addEventListener('click', calculateCombinations);
+// 初始化绑定校验事件
+updateMaxTotal();
+handleMaxTotalChange();
+// 创建错误提示容器
+const errorContainer = document.createElement('div');
+errorContainer.id = 'error-messages';
+errorContainer.style.color = '#FF3B30';
+errorContainer.style.marginBottom = '1.5rem';
+document.querySelector('.calculator').insertBefore(errorContainer, document.querySelector('.score-settings'));
+
+// 通用校验函数
+function validateInputs() {
+    document.querySelectorAll('.error-hint').forEach(el => el.textContent = '');
+    
+    const validations = [
+        {id: 'aScore', condition: v => v < 1, message: '≥1'},
+        {id: 'bScore', condition: v => v < 1, message: '≥1'},
+        {id: 'cScore', condition: v => v < 0, message: '≥0'},
+        {id: 'dScore', condition: v => v < 0, message: '≥0'},
+        {id: 'maxTotal', condition: v => v < 1, message: '≥1'},
+        {id: 'targetScore', condition: v => v <= 0 || v > maxTotal, message: '需＞0且≤满分'},
+        {id: 'ratio', condition: v => v < 1, message: '≥1%'}
+    ];
+
+    return validations.every(({id, condition, message}) => {
+        const input = document.getElementById(id);
+        const hint = input.parentNode.querySelector('.error-hint');
+        const value = parseInt(input.value) || 0;
+        
+        if (!condition(value)) {
+            hint.textContent = '';
+            input.style.borderColor = '';
+            return true;
+        }
+
+        hint.textContent = message;
+        input.style.borderColor = '#FF3B30';
+        return false;
+    });
+}
+
+// 为所有输入框添加实时校验
+const inputs = document.querySelectorAll('input[type="number"]');
+inputs.forEach(input => {
+    input.addEventListener('input', function() {
+        this.value = this.value === '' || isNaN(this.value) ? '' : Math.max(0, this.value);
+        validateInputs();
+    });
+    input.addEventListener('focus', function() {
+        this.classList.remove('error');
+        this.nextElementSibling.textContent = '';
+    });
+});
+
+// 修改计算按钮点击事件
+document.getElementById('calculateBtn').addEventListener('click', () => {
+    if (validateInputs()) {
+        calculateCombinations();
+    }
+});
+
+// 修改推荐逻辑
+function findOptimalCombination(combinations) {
+    const filterByMin = (arr, index) => {
+        const minVal = Math.min(...arr.map(c => c.counts[index]));
+        return arr.filter(c => c.counts[index] === minVal);
+    };
+
+    let candidates = combinations;
+    
+    candidates = filterByMin(candidates, 0);  // A最小
+    if (candidates.length === 1) return candidates;
+    
+    candidates = filterByMin(candidates, 1);  // B最小
+    if (candidates.length === 1) return candidates;
+    
+    candidates = filterByMin(candidates, 2);  // C最小
+    if (candidates.length === 1) return candidates;
+    
+    return filterByMin(candidates, 3);  // D最小
+}
+function showResults(combinations) {
+    const optimal = findOptimalCombination(combinations);
+    combinations.forEach(combination => {
+        const div = document.createElement('div');
+        div.className = 'combination';
+        div.innerHTML = `
+            <span style="color:var(--apple-blue)">${combination.letterPrefix}</span>
+            ${combination.formula} = ${combination.total}
+            ${optimal.length === 1 && combination === optimal[0] ? '<span style="color:#34C759;margin-left:1rem">推荐</span>' : ''}
+        `;
+        results.appendChild(div);
+    });
+}
+
+</script>
+</body>
+</html>
