@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>早读动物园</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 顶部标题区 -->
+        <header class="header">
+            <h1>早读动物园</h1>
+            <p class="subtitle">大声朗读，收集可爱的小动物吧！</p>
+        </header>
+
+        <!-- 动物展示区 -->
+        <main class="zoo-area" id="zooArea">
+            <div class="ground"></div>
+            <div class="animals-container" id="animalsContainer"></div>
+        </main>
+
+        <!-- 底部控制栏 -->
+        <footer class="control-bar">
+            <!-- 左侧：音量控制 -->
+            <div class="volume-section">
+                <div class="volume-info">
+                    <span>当前音量: </span>
+                    <span id="currentVolume">0</span>
+                    <span> / 100</span>
+                </div>
+                <div class="threshold-control">
+                    <label for="thresholdSlider">阈值:</label>
+                    <input type="range" id="thresholdSlider" min="0" max="50" value="15">
+                    <span id="thresholdValue">15</span>
+                </div>
+            </div>
+
+            <!-- 中间：计时器 -->
+            <div class="timer-section">
+                <div class="timer">
+                    <span id="timerDisplay">00:00:00</span>
+                    <button id="resetTimerBtn" class="btn btn-small btn-reset" title="复位计时器">↺</button>
+                </div>
+            </div>
+
+            <!-- 右侧：控制按钮 -->
+            <div class="buttons-section">
+                <button id="pauseBtn" class="btn btn-start">开始</button>
+                <button id="settingsBtn" class="btn btn-settings">设置</button>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 设置面板 -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>设置</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- 动物生成速度设置 -->
+                <div class="setting-group">
+                    <label for="speedSlider">动物生成速度（秒）</label>
+                    <input type="range" id="speedSlider" min="1" max="60" value="5">
+                    <span id="speedValue">5</span>
+                </div>
+
+                <!-- 动物种类选择 -->
+                <div class="setting-group">
+                    <label>选择动物种类</label>
+                    <div class="animals-selection" id="animalsSelection">
+                        <label><input type="checkbox" value="🐶" checked> 🐶</label>
+                        <label><input type="checkbox" value="🐱" checked> 🐱</label>
+                        <label><input type="checkbox" value="🐰" checked> 🐰</label>
+                        <label><input type="checkbox" value="🐻" checked> 🐻</label>
+                        <label><input type="checkbox" value="🐨" checked> 🐨</label>
+                        <label><input type="checkbox" value="🦊" checked> 🦊</label>
+                        <label><input type="checkbox" value="🦁" checked> 🦁</label>
+                        <label><input type="checkbox" value="🐐" checked> 🐐</label>
+                        <label><input type="checkbox" value="🐷" checked> 🐷</label>
+                        <label><input type="checkbox" value="🐸" checked> 🐸</label>
+                        <label><input type="checkbox" value="🐔" checked> 🐔</label>
+                        <label><input type="checkbox" value="🐧" checked> 🐧</label>
+                        <label><input type="checkbox" value="🦆" checked> 🦆</label>
+                    </div>
+                    <div class="selection-buttons">
+                        <button id="selectAllBtn" class="btn btn-small">全选</button>
+                        <button id="selectNoneBtn" class="btn btn-small">全不选</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettingsBtn" class="btn btn-primary">保存</button>
+                <button id="resetSettingsBtn" class="btn btn-secondary">重置</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
