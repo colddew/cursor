@@ -1,0 +1,276 @@
+/* 地球动画容器 */
+.earth-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.3;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+/* 基础地球样式 */
+.earth {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-style: preserve-3d;
+    animation: earthRotate 30s linear infinite;
+}
+
+@keyframes earthRotate {
+    from { transform: translate(-50%, -50%) rotateY(0deg) rotateX(-15deg); }
+    to { transform: translate(-50%, -50%) rotateY(360deg) rotateX(-15deg); }
+}
+
+/* 地球表面 */
+.earth-surface {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(
+        90deg,
+        #1e3c72 0%,
+        #2a5298 25%,
+        #7e8ba3 50%,
+        #2a5298 75%,
+        #1e3c72 100%
+    );
+    box-shadow:
+        inset -30px -30px 40px rgba(0,0,0,0.5),
+        inset 10px 10px 30px rgba(255,255,255,0.2),
+        0 0 50px rgba(74, 144, 226, 0.3);
+}
+
+/* 地球网格 */
+.earth-grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-image:
+        linear-gradient(0deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent),
+        linear-gradient(90deg, transparent 24%, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.05) 26%, transparent 27%, transparent 74%, rgba(255,255,255,0.05) 75%, rgba(255,255,255,0.05) 76%, transparent 77%, transparent);
+    background-size: 50px 50px;
+}
+
+/* 地球上的光点效果 */
+.earth-surface::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at 30% 30%,
+        rgba(255,255,255,0.4) 0%,
+        rgba(255,255,255,0.2) 20%,
+        transparent 50%
+    );
+}
+
+/* 地球光晕效果 */
+.earth-surface::after {
+    content: '';
+    position: absolute;
+    width: 120%;
+    height: 120%;
+    top: -10%;
+    left: -10%;
+    border-radius: 50%;
+    background: radial-gradient(
+        circle at center,
+        rgba(118, 75, 162, 0.2) 0%,
+        rgba(118, 75, 162, 0.1) 40%,
+        transparent 70%
+    );
+    z-index: -1;
+}
+
+/* 随机点名页面的地球 */
+.selection-earth {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: earthRotate 10s linear infinite;
+    perspective: 1000px;
+    transform: rotateX(-15deg);
+}
+
+.selection-earth .earth-surface {
+    background: linear-gradient(
+        90deg,
+        #667eea 0%,
+        #764ba2 25%,
+        #f093fb 50%,
+        #667eea 75%,
+        #764ba2 100%
+    );
+    box-shadow:
+        inset -25px -25px 35px rgba(0,0,0,0.6),
+        inset 8px 8px 25px rgba(255,255,255,0.4),
+        0 0 40px rgba(118, 75, 162, 0.6),
+        0 0 80px rgba(118, 75, 162, 0.3);
+    border-radius: 50%;
+    position: relative;
+}
+
+/* 地球状态颜色 */
+.earth-good {
+    filter: hue-rotate(120deg) saturate(1.2);
+}
+
+.earth-warning {
+    filter: hue-rotate(60deg) saturate(1.5);
+}
+
+.earth-danger {
+    filter: hue-rotate(0deg) saturate(2);
+}
+
+/* 选中动画 */
+@keyframes earthSelect {
+    0% {
+        transform: scale(1) rotateY(0deg) rotateX(-15deg);
+        box-shadow:
+            inset -25px -25px 35px rgba(0,0,0,0.6),
+            inset 8px 8px 25px rgba(255,255,255,0.4),
+            0 0 40px rgba(118, 75, 162, 0.6),
+            0 0 80px rgba(118, 75, 162, 0.3);
+    }
+    25% {
+        transform: scale(1.15) rotateY(90deg) rotateX(-20deg);
+        box-shadow:
+            inset -25px -25px 35px rgba(0,0,0,0.6),
+            inset 8px 8px 25px rgba(255,255,255,0.4),
+            0 0 60px rgba(118, 75, 162, 0.8),
+            0 0 120px rgba(118, 75, 162, 0.5);
+    }
+    50% {
+        transform: scale(1.25) rotateY(180deg) rotateX(-25deg);
+        box-shadow:
+            inset -25px -25px 35px rgba(0,0,0,0.6),
+            inset 8px 8px 25px rgba(255,255,255,0.4),
+            0 0 80px rgba(118, 75, 162, 1),
+            0 0 160px rgba(118, 75, 162, 0.7);
+    }
+    75% {
+        transform: scale(1.15) rotateY(270deg) rotateX(-20deg);
+        box-shadow:
+            inset -25px -25px 35px rgba(0,0,0,0.6),
+            inset 8px 8px 25px rgba(255,255,255,0.4),
+            0 0 60px rgba(118, 75, 162, 0.8),
+            0 0 120px rgba(118, 75, 162, 0.5);
+    }
+    100% {
+        transform: scale(1) rotateY(360deg) rotateX(-15deg);
+        box-shadow:
+            inset -25px -25px 35px rgba(0,0,0,0.6),
+            inset 8px 8px 25px rgba(255,255,255,0.4),
+            0 0 40px rgba(118, 75, 162, 0.6),
+            0 0 80px rgba(118, 75, 162, 0.3);
+    }
+}
+
+.selection-earth.selecting {
+    animation: earthSelect 2s ease-in-out;
+}
+
+/* 升起的姓名动画 */
+@keyframes nameRise3D {
+    0% {
+        transform: translateX(-50%) translateY(50px) scale(0) rotateX(90deg);
+        opacity: 0;
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px) scale(1.1) rotateX(45deg);
+        opacity: 0.8;
+    }
+    80% {
+        transform: translateX(-50%) translateY(5px) scale(0.95) rotateX(15deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(-50%) translateY(0) scale(1) rotateX(0deg);
+        opacity: 1;
+    }
+}
+
+.selected-name {
+    animation: nameRise3D 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation-fill-mode: both;
+}
+
+/* 星星背景效果 */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(1px 1px at 25px 5px, white, transparent),
+        radial-gradient(1px 1px at 50px 25px, white, transparent),
+        radial-gradient(1px 1px at 125px 20px, white, transparent),
+        radial-gradient(1.5px 1.5px at 50px 75px, white, transparent),
+        radial-gradient(2px 2px at 15px 125px, white, transparent),
+        radial-gradient(2.5px 2.5px at 175px 150px, white, transparent);
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    animation: zoom 10s infinite;
+    opacity: 0.5;
+}
+
+@keyframes zoom {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 0.5; }
+    100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* 地球环带效果 */
+.earth-ring {
+    position: absolute;
+    width: 150%;
+    height: 150%;
+    border: 2px solid rgba(74, 144, 226, 0.3);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(60deg);
+    animation: ringRotate 20s linear infinite reverse;
+}
+
+@keyframes ringRotate {
+    from { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(0deg); }
+    to { transform: translate(-50%, -50%) rotateX(60deg) rotateZ(360deg); }
+}
+
+/* 响应式地球 */
+@media (max-width: 768px) {
+    .earth {
+        width: 300px;
+        height: 300px;
+    }
+
+    .selection-earth {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .earth {
+        width: 200px;
+        height: 200px;
+    }
+
+    .selection-earth {
+        width: 120px;
+        height: 120px;
+    }
+}

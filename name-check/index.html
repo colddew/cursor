@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>课堂点名签到系统</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/earth.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 背景地球动画 -->
+        <div class="earth-container">
+            <div class="earth">
+                <div class="earth-surface"></div>
+                <div class="earth-grid"></div>
+            </div>
+        </div>
+
+        <!-- 主应用界面 -->
+        <div class="main-app">
+            <!-- 头部导航 -->
+            <header class="app-header">
+                <h1 class="app-title">
+                    <span class="earth-icon">🌍</span>
+                    课堂点名签到系统
+                </h1>
+                <div class="header-stats">
+                    <div class="stat-item">
+                        <span class="stat-label">今日出勤率</span>
+                        <span class="stat-value" id="todayAttendanceRate">-</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">学生总数</span>
+                        <span class="stat-value" id="totalStudents">0</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- 导航标签 -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="attendance">点名签到</button>
+                <button class="tab-btn" data-tab="roster">学生名单</button>
+                <button class="tab-btn" data-tab="random">随机点名</button>
+                <button class="tab-btn" data-tab="records">考勤记录</button>
+                <button class="tab-btn" data-tab="export">导出数据</button>
+            </nav>
+
+            <!-- 内容区域 -->
+            <main class="content-area">
+                <!-- 点名签到页面 -->
+                <div class="tab-content active" id="attendance-tab">
+                    <div class="attendance-container">
+                        <div class="attendance-header">
+                            <h2>今日考勤</h2>
+                            <div class="date-info">
+                                <span id="currentDate"></span>
+                            </div>
+                            <div class="attendance-buttons" id="attendanceButtons">
+                                <!-- 考勤按钮将在这里动态生成 -->
+                            </div>
+                        </div>
+                        <div class="attendance-grid" id="attendanceGrid">
+                            <!-- 学生列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 学生名单页面 -->
+                <div class="tab-content" id="roster-tab">
+                    <div class="roster-container">
+                        <div class="roster-header">
+                            <h2>学生名单管理</h2>
+                            <div class="roster-stats">
+                                <span class="student-count">共 <strong id="totalStudentCount">0</strong> 名学生</span>
+                            </div>
+                        </div>
+                        <div class="roster-toolbar">
+                            <div class="search-bar">
+                                <input type="text" id="studentSearch" placeholder="搜索学生姓名或学号...">
+                            </div>
+                            <div class="batch-actions" id="batchActions" style="display: none;">
+                                <button class="btn btn-secondary btn-small" id="selectAllBtn">全选</button>
+                                <button class="btn btn-secondary btn-small" id="deselectAllBtn">取消全选</button>
+                                <button class="btn btn-danger btn-small" id="batchDeleteBtn">批量删除</button>
+                            </div>
+                        </div>
+                        <div class="roster-actions">
+                            <button class="btn btn-secondary" id="importBtn">导入CSV</button>
+                            <button class="btn btn-primary" id="addStudentBtn">添加学生</button>
+                            <button class="btn btn-danger" id="clearDataBtn">清除所有数据</button>
+                        </div>
+                        <div class="roster-list" id="rosterList">
+                            <!-- 学生列表将在这里动态生成 -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 随机点名页面 -->
+                <div class="tab-content" id="random-tab">
+                    <div class="random-container">
+                        <div class="random-header">
+                            <h2>随机点名</h2>
+                            <div class="random-settings">
+                                <label>选择人数：</label>
+                                <select id="selectCount">
+                                    <option value="1">1人</option>
+                                    <option value="2">2人</option>
+                                    <option value="3" selected>3人</option>
+                                    <option value="5">5人</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="random-display">
+                            <div class="earth-viewer">
+                                <div class="selection-earth"></div>
+                                <div class="selected-names" id="selectedNames"></div>
+                            </div>
+                            <button class="btn btn-primary btn-large" id="randomSelectBtn">
+                                <span class="btn-text">开始随机选择</span>
+                                <span class="btn-icon">🎲</span>
+                            </button>
+                        </div>
+                        <div class="random-history">
+                            <h3>历史记录</h3>
+                            <div class="history-list" id="randomHistory"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 考勤记录页面 -->
+                <div class="tab-content" id="records-tab">
+                    <div class="records-container">
+                        <div class="records-header">
+                            <h2>考勤记录</h2>
+                            <div class="filter-controls">
+                                <input type="date" id="startDate">
+                                <span>至</span>
+                                <input type="date" id="endDate">
+                                <button class="btn btn-secondary" id="filterBtn">筛选</button>
+                            </div>
+                        </div>
+                        <div class="records-stats">
+                            <div class="stat-card">
+                                <h4>平均出勤率</h4>
+                                <p class="stat-value" id="avgAttendanceRate">-</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>迟到次数</h4>
+                                <p class="stat-value" id="totalTardyCount">-</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>缺勤次数</h4>
+                                <p class="stat-value" id="totalAbsentCount">-</p>
+                            </div>
+                        </div>
+                        <div class="records-table">
+                            <table id="recordsTable">
+                                <thead>
+                                    <tr>
+                                        <th>日期</th>
+                                        <th>学生姓名</th>
+                                        <th>状态</th>
+                                        <th>签到时间</th>
+                                        <th>迟到分钟</th>
+                                        <th>备注</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recordsTableBody">
+                                    <!-- 记录将在这里动态生成 -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 导出数据页面 -->
+                <div class="tab-content" id="export-tab">
+                    <div class="export-container">
+                        <div class="export-header">
+                            <h2>导出数据</h2>
+                        </div>
+                        <div class="export-options">
+                            <div class="option-group">
+                                <h3>时间范围</h3>
+                                <div class="date-range">
+                                    <input type="date" id="exportStartDate">
+                                    <span>至</span>
+                                    <input type="date" id="exportEndDate">
+                                </div>
+                            </div>
+                            <div class="option-group">
+                                <h3>导出内容</h3>
+                                <div class="checkbox-group">
+                                    <label><input type="checkbox" id="exportAttendance" checked> 考勤记录</label>
+                                    <label><input type="checkbox" id="exportStudents"> 学生名单</label>
+                                    <label><input type="checkbox" id="exportStatistics"> 统计信息</label>
+                                </div>
+                            </div>
+                            <div class="option-group">
+                                <h3>导出格式</h3>
+                                <div class="radio-group">
+                                    <label><input type="radio" name="format" value="csv" checked> CSV</label>
+                                    <label><input type="radio" name="format" value="json"> JSON</label>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-large" id="exportBtn">导出数据</button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <div class="modal-header">
+                <h3 id="modalTitle">标题</h3>
+                <button class="modal-close" id="modalClose">×</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 模态框内容 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入CSV的隐藏input -->
+    <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+
+    <!-- JavaScript文件 -->
+    <script src="js/config/settings.js"></script>
+    <script src="js/utils/date-utils.js"></script>
+    <script src="js/utils/csv-parser.js"></script>
+    <script src="js/utils/statistics.js"></script>
+    <script src="js/storage/storage-manager.js"></script>
+    <script src="js/models/student.js"></script>
+    <script src="js/models/attendance.js"></script>
+    <script src="js/models/session.js"></script>
+    <script src="js/services/attendance-service.js"></script>
+    <script src="js/services/import-service.js"></script>
+    <script src="js/services/export-service.js"></script>
+    <script src="js/services/selection-service.js"></script>
+    <script src="js/components/earth-viewer.js"></script>
+    <script src="js/components/roster-manager.js"></script>
+    <script src="js/components/attendance-tracker.js"></script>
+    <script src="js/components/random-selector.js"></script>
+    <script src="js/components/records-viewer.js"></script>
+    <script src="js/components/export-manager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
