@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(open:*)",
+      "Bash(node:*)",
+      "Bash(grep:*)",
+      "Bash(mkdir:*)",
+      "mcp__chrome-devtools__new_page",
+      "mcp__chrome-devtools__list_pages",
+      "Bash(pkill:*)"
+    ]
+  }
+}

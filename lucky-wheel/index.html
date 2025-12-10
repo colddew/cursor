@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>幸运转盘</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="dark-theme">
+    <div class="container">
+        <h1>幸运转盘</h1>
+
+        <div class="config-section">
+            <div class="form-group">
+                <label for="wheel-title">转盘标题</label>
+                <input type="text" id="wheel-title" placeholder="输入转盘标题，如：今晚吃什么？" value="我的幸运转盘">
+            </div>
+
+            <div class="form-group">
+                <label>选项管理</label>
+                <div class="options-list" id="options-list">
+                    <div class="option-item">
+                        <input type="text" class="option-input" placeholder="选项名称" value="火锅">
+                        <input type="number" class="weight-input" placeholder="权重" value="1" min="1">
+                        <button class="btn btn-secondary" onclick="wheelApp.removeOption(this)">删除</button>
+                    </div>
+                    <div class="option-item">
+                        <input type="text" class="option-input" placeholder="选项名称" value="烧烤">
+                        <input type="number" class="weight-input" placeholder="权重" value="1" min="1">
+                        <button class="btn btn-secondary" onclick="wheelApp.removeOption(this)">删除</button>
+                    </div>
+                    <div class="option-item">
+                        <input type="text" class="option-input" placeholder="选项名称" value="日料">
+                        <input type="number" class="weight-input" placeholder="权重" value="1" min="1">
+                        <button class="btn btn-secondary" onclick="wheelApp.removeOption(this)">删除</button>
+                    </div>
+                </div>
+                <button class="btn btn-equal" onclick="wheelApp.equalizeWeights()">权重均分</button>
+                <button class="btn" style="background:#2196F3;color:white;margin-left:10px;" onclick="wheelApp.addOption()">添加选项</button>
+            </div>
+
+            <div class="form-group">
+                <label>主题选择</label>
+                <div class="theme-selector">
+                    <div class="theme-option selected" data-theme="dark-theme">
+                        <div>暗黑模式</div>
+                        <small>深色背景，护眼舒适</small>
+                    </div>
+                    <div class="theme-option" data-theme="macaroon-theme">
+                        <div>清新马卡龙</div>
+                        <small>明亮活泼，轻松愉快</small>
+                    </div>
+                    <div class="theme-option" data-theme="cyberpunk-theme">
+                        <div>赛博朋克</div>
+                        <small>科技感十足，未来风格</small>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="wheelApp.generateWheel()">生成转盘</button>
+        </div>
+    </div>
+
+    <!-- 游戏界面模态窗口 -->
+    <div class="modal" id="game-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="wheel-title" id="display-title">我的幸运转盘</h2>
+                <div>
+                    <button class="save-btn">保存</button>
+                    <span class="close-btn" onclick="wheelApp.closeModal()">&times;</span>
+                </div>
+            </div>
+
+            <div class="wheel-container">
+                <div class="wheel-section">
+                    <div class="wheel-wrapper">
+                        <svg id="wheel-svg" width="350" height="350" viewBox="0 0 350 350">
+                            <g id="wheel-group" transform="translate(175, 175)">
+                                <!-- Wheel segments will be drawn here -->
+                            </g>
+                        </svg>
+                        <div class="wheel-pointer"></div>
+                    </div>
+                </div>
+
+                <button class="spin-btn" id="spin-btn" onclick="wheelApp.spinWheel()">开始</button>
+
+                <div class="result-display" id="result-display">
+                    点击"开始"按钮开始转盘
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/wheel-app.js"></script>
+</body>
+</html>
