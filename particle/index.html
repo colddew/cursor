@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D粒子交互系统</title>
+    <meta name="description" content="基于手势控制的实时3D粒子系统，支持多种形状变换">
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Three.js -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.158.0/build/three.min.js"></script>
+    <!-- MediaPipe Hands -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/hands@0.4.1675469240/hands.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675466862/camera_utils.min.js"></script>
+</head>
+
+<body>
+    <!-- 3D Canvas容器 -->
+    <div id="canvas-container"></div>
+
+    <!-- 摄像头预览 -->
+    <div class="camera-preview">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="gesture-canvas"></canvas>
+        <div class="camera-status" id="camera-status">
+            <span class="status-dot"></span>
+            <span>摄像头初始化中...</span>
+        </div>
+    </div>
+
+    <!-- 控制面板 -->
+    <div class="control-panel" id="control-panel">
+        <div class="panel-header">
+            <h3>粒子控制器</h3>
+            <button class="panel-toggle" id="panel-toggle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="panel-content">
+            <!-- 粒子形状选择 -->
+            <div class="control-group">
+                <label>粒子形状</label>
+                <div class="shape-buttons">
+                    <button class="shape-btn active" data-shape="heart">
+                        <span class="icon">❤️</span>
+                        <span>爱心</span>
+                    </button>
+                    <button class="shape-btn" data-shape="flower">
+                        <span class="icon">🌸</span>
+                        <span>花朵</span>
+                    </button>
+                    <button class="shape-btn" data-shape="saturn">
+                        <span class="icon">🪐</span>
+                        <span>土星</span>
+                    </button>
+                    <button class="shape-btn" data-shape="buddha">
+                        <span class="icon">🧘</span>
+                        <span>佛像</span>
+                    </button>
+                    <button class="shape-btn" data-shape="firework">
+                        <span class="icon">🎆</span>
+                        <span>烟花</span>
+                    </button>
+                    <button class="shape-btn" data-shape="love-text">
+                        <span class="icon">💕</span>
+                        <span>我爱你</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- 粒子颜色 -->
+            <div class="control-group">
+                <label>粒子颜色</label>
+                <div class="color-picker-wrapper">
+                    <input type="color" id="particle-color" value="#ff6b9d">
+                    <span class="color-value" id="color-value">#FF6B9D</span>
+                </div>
+            </div>
+
+            <!-- 粒子密度 -->
+            <div class="control-group">
+                <label>粒子数量</label>
+                <div class="slider-wrapper">
+                    <input type="range" id="particle-count" min="1000" max="6000" value="3000" step="500">
+                    <span class="slider-value" id="count-value">3000</span>
+                </div>
+            </div>
+
+            <!-- 粒子速度 -->
+            <div class="control-group">
+                <label>粒子速度</label>
+                <div class="slider-wrapper">
+                    <input type="range" id="particle-speed" min="0.1" max="5" value="1" step="0.1">
+                    <span class="slider-value" id="speed-value">1x</span>
+                </div>
+            </div>
+
+            <!-- 手势信息 -->
+            <div class="control-group gesture-info">
+                <label>手势控制</label>
+                <div class="gesture-status">
+                    <div class="gesture-item">
+                        <span class="label">🤲 双手:</span>
+                        <span class="value" id="hands-status">未检测</span>
+                    </div>
+                    <div class="gesture-item">
+                        <span class="label">📏 距离:</span>
+                        <span class="value" id="distance-value">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Right Icons -->
+    <div class="top-right-icons">
+        <button id="camera-toggle-btn" class="icon-btn" title="显示/隐藏画面">
+            <!-- Eye open icon (camera visible) -->
+            <svg class="eye-icon eye-open" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z"
+                    fill="currentColor" />
+            </svg>
+            <!-- Eye closed/slash icon (camera hidden) -->
+            <svg class="eye-icon eye-closed" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <path
+                    d="M12 4.5C7 4.5 2.73 7.61 1 12C2.73 16.39 7 19.5 12 19.5C17 19.5 21.27 16.39 23 12C21.27 7.61 17 4.5 12 4.5ZM12 17C9.24 17 7 14.76 7 12C7 9.24 9.24 7 12 7C14.76 7 17 9.24 17 12C17 14.76 14.76 17 12 17ZM12 9C10.34 9 9 10.34 9 12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12C15 10.34 13.66 9 12 9Z"
+                    fill="currentColor" />
+                <!-- Slash line -->
+                <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" />
+            </svg>
+        </button>
+        <button id="fullscreen-btn" class="icon-btn" title="全屏模式">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" color="white"
+                xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 9V3H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M3 15V21H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M21 15V21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M3 9V3H9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+            </svg>
+        </button>
+    </div>
+
+    <!-- 加载动画 -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+        <p>初始化粒子系统...</p>
+    </div>
+
+    <!-- JavaScript模块 -->
+    <script src="js/shapes.js"></script>
+    <script src="js/particle.js"></script>
+    <script src="js/gesture.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/assets.js"></script> <!-- Preload Assets -->
+    <script src="js/main.js"></script>
+</body>
+
+</html>

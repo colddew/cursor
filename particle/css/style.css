@@ -1,0 +1,511 @@
+/* ===== 全局变量 ===== */
+:root {
+    --primary: #ff6b9d;
+    --primary-glow: rgba(255, 107, 157, 0.4);
+    --secondary: #7c3aed;
+    --accent: #06b6d4;
+    --bg-dark: #0a0a0f;
+    --bg-card: rgba(20, 20, 30, 0.85);
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+    --text-muted: rgba(255, 255, 255, 0.5);
+    --success: #22c55e;
+    --warning: #f59e0b;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 重置样式 ===== */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #000000;
+    /* 强制纯黑背景 */
+    color: var(--text-primary);
+}
+
+/* ===== 3D Canvas容器 ===== */
+#canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background: #000000;
+    /* 确保容器也是纯黑 */
+}
+
+#canvas-container canvas {
+    display: block;
+}
+
+/* ===== 摄像头预览 ===== */
+.camera-preview {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 200px;
+    height: 150px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    z-index: 100;
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    transform-origin: bottom right;
+}
+
+.camera-preview.hidden {
+    opacity: 0;
+    transform: scale(0.8);
+    pointer-events: none;
+}
+
+.camera-preview:hover {
+    transform: scale(1.05);
+    border-color: var(--primary);
+}
+
+.camera-preview video,
+.camera-preview canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scaleX(-1);
+}
+
+.camera-preview #gesture-canvas {
+    z-index: 2;
+}
+
+.camera-status {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    font-size: 11px;
+    color: var(--text-secondary);
+    z-index: 3;
+    backdrop-filter: blur(4px);
+}
+
+.camera-status .status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--warning);
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.camera-status.active .status-dot {
+    background: var(--success);
+    animation: none;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+/* ===== 控制面板 ===== */
+.control-panel {
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 280px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    z-index: 100;
+    transition: var(--transition);
+}
+
+.control-panel.collapsed .panel-content {
+    display: none;
+}
+
+.control-panel.collapsed .panel-toggle svg {
+    transform: rotate(180deg);
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.panel-header h3 {
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.panel-toggle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.panel-toggle:hover {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+}
+
+.panel-toggle svg {
+    transition: transform 0.3s ease;
+}
+
+.panel-content {
+    padding: 16px 20px 20px;
+}
+
+/* ===== 控制组 ===== */
+.control-group {
+    margin-bottom: 20px;
+}
+
+.control-group:last-child {
+    margin-bottom: 0;
+}
+
+.control-group>label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+/* ===== 形状按钮 ===== */
+.shape-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+}
+
+.shape-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    font-size: 13px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.shape-btn .icon {
+    font-size: 16px;
+}
+
+.shape-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transform: translateY(-2px);
+}
+
+.shape-btn.active {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.2), rgba(124, 58, 237, 0.2));
+    border-color: var(--primary);
+    color: var(--text-primary);
+    box-shadow: 0 0 20px var(--primary-glow);
+}
+
+/* ===== 颜色选择器 ===== */
+.color-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.color-picker-wrapper input[type="color"] {
+    width: 48px;
+    height: 36px;
+    padding: 2px;
+    background: transparent;
+    border: 2px solid var(--glass-border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.color-picker-wrapper input[type="color"]:hover {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.color-picker-wrapper input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 2px;
+}
+
+.color-picker-wrapper input[type="color"]::-webkit-color-swatch {
+    border-radius: 4px;
+    border: none;
+}
+
+.color-value {
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 6px 10px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 6px;
+}
+
+/* ===== 滑块 ===== */
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.slider-wrapper input[type="range"] {
+    flex: 1;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 2px;
+    outline: none;
+}
+
+.slider-wrapper input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px var(--primary-glow);
+    transition: var(--transition);
+}
+
+.slider-wrapper input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider-value {
+    min-width: 50px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-family: 'SF Mono', 'Fira Code', monospace;
+}
+
+/* ===== 手势信息 ===== */
+.gesture-info {
+    padding-top: 16px;
+    border-top: 1px solid var(--glass-border);
+}
+
+.gesture-status {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.gesture-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.gesture-item .label {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.gesture-item .value {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.gesture-item .value.detected {
+    color: var(--success);
+}
+
+/* ===== Top Right Icons ===== */
+.top-right-icons {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    display: flex;
+    gap: 12px;
+    z-index: 100;
+}
+
+.icon-btn {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.icon-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: scale(1.1);
+    border-color: var(--primary);
+}
+
+.icon-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===== 加载动画 ===== */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-dark);
+    z-index: 1000;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.loading-spinner {
+    width: 60px;
+    height: 60px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-overlay p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+    .control-panel {
+        top: auto;
+        bottom: 180px;
+        left: 16px;
+        right: 16px;
+        width: auto;
+    }
+
+    .camera-preview {
+        width: 140px;
+        height: 105px;
+        bottom: 16px;
+        right: 16px;
+    }
+
+    .top-right-icons {
+        top: 16px;
+        right: 16px;
+    }
+
+    .icon-btn {
+        width: 40px;
+        height: 40px;
+    }
+
+    .shape-buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* ===== 全屏模式下隐藏控制面板 ===== */
+body.immersive-mode .control-panel,
+body.immersive-mode .camera-preview,
+body.immersive-mode .fullscreen-btn {
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.immersive-mode:hover .control-panel,
+body.immersive-mode:hover .camera-preview,
+body.immersive-mode:hover .fullscreen-btn {
+    opacity: 1;
+    pointer-events: auto;
+}
