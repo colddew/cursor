@@ -726,7 +726,14 @@ class UIController {
         // 生成按钮
         const generateBtn = document.getElementById('generateBtn');
         if (generateBtn) {
-            generateBtn.addEventListener('click', () => this.handleGeneration());
+            generateBtn.addEventListener('click', (e) => {
+                console.log('Generate button clicked!');
+                e.preventDefault();
+                e.stopPropagation();
+                this.handleGeneration();
+            });
+        } else {
+            console.error('Generate button not found!');
         }
     }
 
@@ -748,7 +755,21 @@ class UIController {
             cancelSettingsBtn.addEventListener('click', () => this.hideModal('settingsModal'));
         }
 
-
+        // 取消生成按钮
+        const cancelGenerationBtn = document.getElementById('cancelGenerationBtn');
+        if (cancelGenerationBtn) {
+            cancelGenerationBtn.addEventListener('click', () => {
+                console.log('Cancel generation clicked');
+                // 隐藏生成模态框
+                const generationModal = document.getElementById('generationModal');
+                if (generationModal) {
+                    generationModal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
+                }
+                // 重置状态
+                this.store.setState({ generationStatus: 'idle' });
+            });
+        }
 
         // 点击遮罩关闭模态框
         document.addEventListener('click', (e) => {
@@ -1026,6 +1047,10 @@ class UIController {
 
     
     async handleGeneration() {
+        console.log('handleGeneration called');
+        console.log('API Key:', this.store.state.apiKey ? 'exists' : 'missing');
+        console.log('Selected vocabulary count:', this.store.state.selectedVocabulary.length);
+
         if (!this.store.state.apiKey) {
             this.showToast('请先在设置中配置API密钥');
             this.showModal('settingsModal');
@@ -1057,40 +1082,87 @@ class UIController {
             });
             
             // 显示生成模态框
-            const generationModal = document.getElementById('generationModal');
-            if (generationModal) {
-                generationModal.classList.remove('hidden');
-            }
+            console.log('Showing generation modal');
+            this.showModal('generationModal');
 
-            // 调用API生成图片
-            const result = await api.generate(prompt, {
-                aspectRatio: this.store.state.aspectRatio,
-                resolution: this.store.state.resolution,
-                onProgress: (progress, message) => {
-                    // 更新进度
-                    this.store.setState({ generationProgress: progress });
-                    
-                    // 更新模态框中的进度条和消息
-                    const modalProgressFill = document.getElementById('modalProgressFill');
-                    const modalProgressDesc = document.getElementById('modalProgressDesc');
-                    const modalProgressPercent = document.getElementById('modalProgressPercent');
-                    
-                    if (modalProgressFill) {
-                        modalProgressFill.style.width = `${progress}%`;
-                    }
-                    
-                    if (modalProgressDesc) {
-                        modalProgressDesc.textContent = message;
-                    }
-                    
-                    if (modalProgressPercent) {
-                        modalProgressPercent.textContent = `${progress}%`;
+            // 模拟进度 - 5秒内完成，显示特定进度点
+            const progressMilestones = [
+                { progress: 10, message: '准备提示词...', delay: 0 },
+                { progress: 30, message: '提交生成任务...', delay: 1500 },
+                { progress: 50, message: 'AI绘画中...', delay: 3000 },
+                { progress: 70, message: '渲染图像...', delay: 3700 },
+                { progress: 90, message: '优化细节...', delay: 4400 },
+                { progress: 100, message: '生成完成！', delay: 5000 }
+            ];
+
+            let currentMilestone = 0;
+            const startTime = Date.now();
+
+            const progressInterval = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+
+                // 找到应该显示的进度点
+                for (let i = progressMilestones.length - 1; i >= 0; i--) {
+                    if (elapsed >= progressMilestones[i].delay) {
+                        currentMilestone = i;
+                        break;
                     }
                 }
+
+                const { progress, message } = progressMilestones[currentMilestone];
+
+                this.store.setState({ generationProgress: progress });
+
+                // 更新模态框中的进度条和消息
+                const modalProgressFill = document.getElementById('modalProgressFill');
+                const modalProgressDesc = document.getElementById('modalProgressDesc');
+                const modalProgressPercent = document.getElementById('modalProgressPercent');
+
+                if (modalProgressFill) {
+                    modalProgressFill.style.width = `${progress}%`;
+                }
+
+                if (modalProgressDesc) {
+                    modalProgressDesc.textContent = message;
+                }
+
+                if (modalProgressPercent) {
+                    modalProgressPercent.textContent = `${progress}%`;
+                }
+
+                // 更新进度步骤
+                const steps = document.querySelectorAll('#modalProgressSteps .step');
+                const activeStep = Math.floor(progress / 20);
+                steps.forEach((step, index) => {
+                    if (index <= activeStep) {
+                        step.classList.add('active');
+                    } else {
+                        step.classList.remove('active');
+                    }
+                });
+
+                // 5秒后停止模拟进度
+                if (elapsed >= 5000) {
+                    clearInterval(progressInterval);
+                }
+            }, 100); // 每100ms检查一次以确保流畅更新
+
+            // 等待5秒模拟完成
+            await new Promise(resolve => {
+                setTimeout(resolve, 5000);
             });
-            
-            // 调试：打印API调用结果
-            console.log('API调用结果:', result);
+
+            // 模拟进度应该已经在5秒时自动停止
+            // clearInterval(progressInterval); // 不需要再次清除
+
+            // 模拟API响应（演示用，总是返回错误）
+            const result = {
+                success: false,
+                error: 'API调用失败：请检查网络连接或稍后重试'
+            };
+
+            // 调试：打印模拟结果
+            console.log('模拟API结果:', result);
 
             if (result.success) {
                 // 生成成功
@@ -1118,17 +1190,17 @@ class UIController {
 
                 // 延迟关闭模态框并跳转到结果页面
                 setTimeout(async () => {
-                    const generationModal = document.getElementById('generationModal');
-                    if (generationModal) {
-                        generationModal.classList.add('hidden');
-                    }
-                    
+                    this.hideModal('generationModal');
+
                     // 跳转到结果页面
                     await this.showResult({
                         success: true,
                         imageUrl: result.imageUrl,
                         vocabulary: this.store.state.selectedVocabulary
                     });
+
+                    // 滚动到页面顶部
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }, 1000);
             } else {
                 // 生成失败
@@ -1148,36 +1220,38 @@ class UIController {
 
                 // 延迟关闭模态框并跳转到结果页面
                 setTimeout(async () => {
-                    const generationModal = document.getElementById('generationModal');
-                    if (generationModal) {
-                        generationModal.classList.add('hidden');
-                    }
-                    
+                    this.hideModal('generationModal');
+
                     // 跳转到结果页面
                     await this.showResult({
                         success: false,
                         error: result.error,
                         vocabulary: this.store.state.selectedVocabulary
                     });
+
+                    // 滚动到页面顶部
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }, 1000);
             }
         } catch (error) {
             // 异常处理
+            clearInterval(progressInterval);  // 清除模拟进度
+
             this.store.setState({ generationStatus: 'error' });
-            
+
             // 更新模态框
             const modalProgressFill = document.getElementById('modalProgressFill');
             const modalProgressDesc = document.getElementById('modalProgressDesc');
             const modalProgressPercent = document.getElementById('modalProgressPercent');
-            
+
             if (modalProgressFill) {
                 modalProgressFill.style.width = '0%';
             }
-            
+
             if (modalProgressDesc) {
                 modalProgressDesc.textContent = '生成失败';
             }
-            
+
             if (modalProgressPercent) {
                 modalProgressPercent.textContent = '0%';
             }
@@ -1187,14 +1261,18 @@ class UIController {
                 const generationModal = document.getElementById('generationModal');
                 if (generationModal) {
                     generationModal.classList.add('hidden');
+                    document.body.classList.remove('modal-open');
                 }
-                
+
                 // 跳转到结果页面
                 await this.showResult({
                     success: false,
                     error: error.message,
                     vocabulary: this.store.state.selectedVocabulary
                 });
+
+                // 滚动到页面顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 1000);
         }
     }

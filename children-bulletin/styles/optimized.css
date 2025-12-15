@@ -357,7 +357,7 @@ body {
 
 /* 保留词汇卡片本身的样式（如果需要的话） */
 #resultDisplay .result-word {
-  background: white;
+  background: white !important;
   border-radius: var(--radius-xl);
   padding: var(--space-2);
   text-align: center;
@@ -831,48 +831,7 @@ body {
   padding: 16px;
 }
 
-/* 词汇卡片样式 */
-.word-item {
-  background: white;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  padding: 12px 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.word-item:hover {
-  border-color: var(--primary, #667eea);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
-}
-
-.word-item.selected {
-  background: var(--gradient-primary);
-  border-color: var(--primary, #667eea);
-  color: white;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-}
-
-.word-item.selected .word-english,
-.word-item.selected .word-chinese {
-  color: white;
-}
-
-.word-english {
-  font-weight: 700;
-  font-size: 14px;
-  margin-bottom: 4px;
-  color: var(--text-primary, #2d3748);
-}
-
-.word-chinese {
-  font-size: 12px;
-  color: var(--text-secondary, #718096);
-}
+/* 词汇卡片样式 - 使用下面的新定义 */
 
 /* 重新设计主题显示区域 */
 .theme-display {
@@ -1061,15 +1020,15 @@ body {
 }
 
 .word-item {
-  background: var(--gray-50);
-  border: 2px solid var(--gray-200);
-  border-radius: var(--radius-lg);
+  background: white;
+  border: 2px solid transparent;
+  border-radius: var(--radius-xl);
   padding: var(--space-2);
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--transition-normal);
   position: relative;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   height: 80px;
 }
 
@@ -1079,16 +1038,36 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 3px;
   background: var(--gradient-primary);
-  opacity: 0;
-  transition: opacity var(--transition-fast);
+  transform: scaleX(0);
+  transition: transform var(--transition-normal);
+}
+
+.word-item::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 70%);
+  transform: scale(0);
+  transition: transform var(--transition-slow);
 }
 
 .word-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: var(--shadow-colorful);
   border-color: var(--primary);
+}
+
+.word-item:hover::before {
+  transform: scaleX(1);
+}
+
+.word-item:hover::after {
+  transform: scale(1);
 }
 
 .word-item.selected {
@@ -1099,7 +1078,11 @@ body {
 }
 
 .word-item.selected::before {
-  opacity: 0.05;
+  transform: scaleX(1);
+}
+
+.word-item.selected::after {
+  transform: scale(1);
 }
 
 .word-content {
@@ -1710,6 +1693,53 @@ body {
   display: flex;
   justify-content: center;
   gap: var(--space-2);
+}
+
+/* 进度步骤样式 */
+#modalProgressSteps.progress-steps {
+  display: flex !important;
+  justify-content: space-between;
+  margin: var(--space-4) 0;
+  gap: var(--space-2);
+}
+
+#modalProgressSteps .step {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+}
+
+#modalProgressSteps .step-number {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: var(--gray-200) !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  color: var(--text-secondary) !important;
+  margin-bottom: var(--space-1) !important;
+  transition: all var(--transition-normal);
+  flex-shrink: 0;
+}
+
+#modalProgressSteps .step.active .step-number {
+  background: var(--primary) !important;
+  color: white !important;
+}
+
+#modalProgressSteps .step-text {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary) !important;
+  max-width: 80px;
+  line-height: 1.2;
+}
+
+#modalProgressSteps .step.active .step-text {
+  color: var(--text-primary) !important;
 }
 
 .dot {
