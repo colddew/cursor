@@ -658,13 +658,13 @@ class UIController {
         // 欢迎页面开始按钮
         const startBtn = document.getElementById('startBtn');
         if (startBtn) {
-            startBtn.addEventListener('click', async () => await this.showSection('themeSelection'));
+            startBtn.addEventListener('click', async () => await this.showSection('welcomeSection'));
         }
 
         // 返回按钮
         const backBtn = document.getElementById('backToTheme');
         if (backBtn) {
-            backBtn.addEventListener('click', async () => await this.showSection('themeSelection'));
+            backBtn.addEventListener('click', async () => await this.showSection('welcomeSection'));
         }
 
         // 词汇选择按钮
@@ -776,7 +776,7 @@ class UIController {
         if (sectionName === 'contentConfig') {
             this.updateThemeDisplay();
             this.initializeVocabularyEditor();
-        } else if (sectionName === 'themeSelection') {
+        } else if (sectionName === 'welcomeSection') {
             // 重新渲染主题列表
             await renderThemes();
         }
@@ -934,26 +934,34 @@ class UIController {
     async showResult(result) {
         // 显示结果页面
         await this.showSection('resultDisplay');
-        
+
         // 更新结果状态
         const imageStatusBadge = document.getElementById('imageStatusBadge');
         const statusText = document.getElementById('statusText');
         const statusIcon = document.getElementById('statusIcon');
         const generatedImage = document.getElementById('generatedImage');
         const resultVocabularyGrid = document.getElementById('resultVocabularyGrid');
-        
+
+        // 获取标题元素
+        const resultHeader = document.querySelector('.result-header h2');
+        const resultSubtitle = document.querySelector('.result-subtitle');
+
         if (imageStatusBadge && statusText && statusIcon && generatedImage && resultVocabularyGrid) {
             imageStatusBadge.classList.remove('hidden');
-            
+
             // 检查是否真正成功 - 即使result.success为true，如果存在任何error信息，也视为失败
             const isActuallySuccess = result.success && !result.error;
-            
+
             if (isActuallySuccess) {
                 // 成功状态
                 imageStatusBadge.className = 'image-status-badge success';
                 statusIcon.textContent = '✓';
                 statusText.textContent = '小报生成成功！';
                 generatedImage.src = result.imageUrl;
+
+                // 更新标题为成功信息
+                if (resultHeader) resultHeader.textContent = '生成完成！';
+                if (resultSubtitle) resultSubtitle.textContent = '你的英语小报已经创建成功';
             } else {
                 // 失败状态
                 imageStatusBadge.className = 'image-status-badge error';
@@ -972,6 +980,10 @@ class UIController {
                 }
                 statusText.textContent = errorMsg;
                 generatedImage.src = 'images/default-bulletin.svg';
+
+                // 更新标题为错误信息
+                if (resultHeader) resultHeader.textContent = '生成失败！';
+                if (resultSubtitle) resultSubtitle.textContent = errorMsg;
             }
             
             // 渲染词汇表
@@ -995,9 +1007,10 @@ class UIController {
         const createNewBtn = document.getElementById('createNewBtn');
         if (createNewBtn) {
             createNewBtn.addEventListener('click', async () => {
-                // 返回主题选择页面，但保留当前状态（不清除词汇选择）
-                await this.showSection('themeSelection');
-                // 不再调用clearAllVocabulary，这样会保留之前的选择
+                // 重置状态
+                this.resetForNewCreation();
+                // 直接跳转到主题选择，和第一次进入时的逻辑完全一样
+                await this.showSection('welcomeSection');
             });
         }
         
@@ -1185,21 +1198,57 @@ class UIController {
             }, 1000);
         }
     }
+
+    // 重置为新创建
+    resetForNewCreation() {
+        console.log('resetForNewCreation called');
+
+        // 重置生成相关的状态，但保留用户设置
+        this.store.setState({
+            generationStatus: 'idle',
+            generationProgress: 0,
+            currentWork: null,
+            currentTheme: null,
+            currentScene: null,
+            selectedVocabulary: []
+        });
+
+        // 清空自定义标题
+        const customTitleInput = document.getElementById('customTitle');
+        if (customTitleInput) {
+            customTitleInput.value = '';
+            this.store.setState({ customTitle: '' });
+        }
+    }
 }
 
 // 主题渲染函数
 async function renderThemes() {
     const themeGrid = document.getElementById('themeGrid');
-    if (!themeGrid) return;
+    if (!themeGrid) {
+        return;
+    }
 
     try {
+        // 显示加载提示
+        themeGrid.innerHTML = '<div class="loading-themes">正在加载主题数据...</div>';
+
         // 每次都直接从themes.json加载数据，不依赖全局变量
         const response = await fetch('themes.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
         const themes = data.themes;
-        
+
+        if (!themes || !Array.isArray(themes)) {
+            throw new Error('主题数据格式错误');
+        }
+
         // 更新全局变量，以便其他地方使用
         window.themes = themes;
+        console.log('主题数据加载成功:', themes.length, '个主题');
 
         const themesHtml = themes.map(theme => `
             <div class="theme-card" data-theme-id="${theme.id}">
@@ -1207,9 +1256,9 @@ async function renderThemes() {
                 <h3>${theme.name}</h3>
                 <p>${theme.description}</p>
                 <div class="theme-scenes">
-                    ${theme.scenes.map(scene => `
+                    ${theme.scenes ? theme.scenes.map(scene => `
                         <span class="scene-tag">${scene.name}</span>
-                    `).join('')}
+                    `).join('') : ''}
                 </div>
             </div>
         `).join('');
@@ -1217,7 +1266,13 @@ async function renderThemes() {
         themeGrid.innerHTML = themesHtml;
     } catch (error) {
         console.error('加载主题数据失败:', error);
-        return;
+        themeGrid.innerHTML = `
+            <div class="error-message">
+                <p>加载主题数据失败</p>
+                <p>${error.message}</p>
+                <button onclick="renderThemes()" class="modern-btn btn-primary">重试</button>
+            </div>
+        `;
     }
 }
 
