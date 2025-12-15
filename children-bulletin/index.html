@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>青少年英语小报生成器</title>
+    <link rel="stylesheet" href="styles/optimized.css?v=20241215-38">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-wrapper">
+        <header class="modern-header">
+        <div class="header-content">
+            <div class="logo-section">
+                <h1 class="app-title">📖 青少年英语小报生成器</h1>
+                <p class="app-subtitle">轻松创建有趣的英语学习小报</p>
+            </div>
+            <div class="header-actions" id="headerActionsContainer" style="display: flex;">
+                <button id="settingsBtn" class="icon-btn" title="设置">
+                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" class="gear-center"></circle>
+                        <path d="M12 1v6m0 6v6m9-9h-6m-6 0H3" class="gear-teeth"></path>
+                        <path d="M20.364 5.636l-4.243 4.243m0 7.071l4.243 4.243M23 12h-6m-6 0H1" class="gear-teeth"></path>
+                        <path d="M5.636 20.364l4.243-4.243m7.071-7.071l4.243-4.243" class="gear-teeth"></path>
+                    </svg>
+                </button>
+                <button id="themeStyleBtn" class="icon-btn" title="系统配色">
+                    <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5" class="sun-center"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3" class="sun-rays"></line>
+                        <line x1="12" y1="21" x2="12" y2="23" class="sun-rays"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" class="sun-rays"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" class="sun-rays"></line>
+                        <line x1="1" y1="12" x2="3" y2="12" class="sun-rays"></line>
+                        <line x1="21" y1="12" x2="23" y2="12" class="sun-rays"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" class="sun-rays"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" class="sun-rays"></line>
+                    </svg>
+                </button>
+
+            </div>
+          </div>
+    </header>
+
+    <main class="modern-main">
+        <!-- 合并的欢迎和主题选择页面 -->
+        <section id="welcomeSection" class="content-section">
+            <div class="welcome-container">
+                <div class="welcome-illustration">
+                    <div class="floating-elements">
+                        <div class="element book">📖</div>
+                        <div class="element pen">✏️</div>
+                        <div class="element star">⭐</div>
+                        <div class="element heart">❤️</div>
+                    </div>
+                </div>
+                <h1 class="welcome-title">✨ 开启你的英语学习之旅</h1>
+                <p class="welcome-desc">选择一个你喜欢的主题，开始创作精美的英语学习小报</p>
+            </div>
+
+            <!-- 主题选择区 -->
+            <div class="section-header">
+                <h2>◈ 精选主题</h2>
+                <p class="section-desc">每一个主题都为你精心准备，包含丰富的词汇和场景</p>
+            </div>
+            <div id="themeGrid" class="theme-grid">
+                <!-- 主题卡片将动态生成 -->
+            </div>
+        </section>
+
+        <!-- 内容配置区 -->
+        <section id="contentConfig" class="content-section hidden">
+            <!-- 显示选中的主题 -->
+            <div class="theme-display" id="selectedThemeDisplay">
+                <div class="theme-info">
+                    <div class="theme-icon" id="selectedThemeIcon"></div>
+                    <div class="theme-details">
+                        <h3 id="selectedThemeName"></h3>
+                        <p id="selectedSceneName"></p>
+                    </div>
+                </div>
+                <div class="default-title">
+                    <h4>默认标题</h4>
+                    <p id="defaultTitleDisplay">走进<span id="defaultThemeName"></span></p>
+                </div>
+            </div>
+
+            <!-- 标题设置 -->
+            <div class="config-section">
+                <h3>📝 小报标题</h3>
+                <div class="form-group">
+                    <label for="customTitle">自定义标题（可选）</label>
+                    <input
+                        type="text"
+                        id="customTitle"
+                        class="modern-input"
+                        placeholder="留空将使用智能生成的标题"
+                    >
+                    <p class="help-text">留空将使用根据主题和场景生成的智能标题</p>
+                </div>
+            </div>
+
+            <!-- 词汇选择 -->
+            <div class="config-section">
+                <h3>📚 选择词汇</h3>
+                <div class="vocabulary-controls">
+                    <div class="vocabulary-stats">
+                        <span>已选择 <strong id="selectedCount">0</strong> / 20 个词汇</span>
+                        <button id="selectAllBtn" class="modern-btn btn-primary btn-sm">全选</button>
+                        <button id="clearAllBtn" class="modern-btn btn-secondary btn-sm">清空</button>
+                    </div>
+                </div>
+                <div id="vocabularyList" class="vocabulary-list">
+                    <div class="vocabulary-categories">
+                        <!-- 词汇分类将动态生成 -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- 图片设置 -->
+            <div class="config-section">
+                <h3>🌄 图片设置</h3>
+                <div class="image-settings">
+                    <div class="form-group">
+                        <label>图片比例</label>
+                        <select id="aspectRatio" class="modern-input">
+                            <option value="auto">Auto (自动)</option>
+                            <option value="1:1">正方形 (1:1)</option>
+                            <option value="2:3">竖版 (2:3)</option>
+                            <option value="3:2">横版 (3:2)</option>
+                            <option value="3:4" selected>竖版 (3:4)</option>
+                            <option value="4:3">横版 (4:3)</option>
+                            <option value="4:5">竖版 (4:5)</option>
+                            <option value="5:4">横版 (5:4)</option>
+                            <option value="9:16">竖版 (9:16)</option>
+                            <option value="16:9">横版 (16:9)</option>
+                            <option value="21:9">超宽 (21:9)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>分辨率</label>
+                        <select id="resolution" class="modern-input">
+                            <option value="1K">1K (快速生成)</option>
+                            <option value="2K">2K (平衡质量)</option>
+                            <option value="4K" selected>4K (最佳质量)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>输出格式</label>
+                        <select id="outputFormat" class="modern-input">
+                            <option value="png" selected>PNG</option>
+                            <option value="jpg">JPG</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="action-buttons">
+                <button id="backToTheme" class="modern-btn btn-secondary">
+                    <span>← 返回主题选择</span>
+                </button>
+                <button id="generateBtn" class="modern-btn btn-primary btn-lg">生成小报</button>
+            </div>
+        </section>
+
+  
+        <!-- 结果展示区 -->
+        <section id="resultDisplay" class="content-section hidden">
+            <div class="result-container">
+                <div class="result-header">
+                    <h2>生成完成！</h2>
+                    <p class="result-subtitle">你的英语小报已经创建成功</p>
+                </div>
+
+                <div class="image-preview-wrapper">
+                    <div class="image-preview">
+                        <img id="generatedImage" src="" alt="生成的小报" class="generated-image">
+                        <div id="imageStatusBadge" class="image-status-badge hidden">
+                            <span id="statusIcon" class="status-icon"></span>
+                            <span id="statusText" class="status-text"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+
+                    <button id="createNewBtn" class="modern-btn btn-secondary">创建新的小报</button>
+                    <button id="regenerateBtn" class="modern-btn btn-secondary">重新生成</button>
+                </div>
+
+                <!-- 词汇展示区 -->
+                <div class="vocabulary-display" id="vocabularyDisplay">
+                    <h3>📚 词汇表</h3>
+                    <div class="vocabulary-grid" id="resultVocabularyGrid">
+                        <!-- 结果词汇将动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 设置弹窗 -->
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>⚙️ 设置</h3>
+                <button id="closeSettingsBtn" class="modal-close">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-section">
+                    <h4>API配置</h4>
+                    <div class="form-group">
+                        <label for="apiKey">API密钥</label>
+                        <div class="password-input-wrapper">
+                            <input
+                                type="password"
+                                id="apiKey"
+                                class="modern-input"
+                                placeholder="输入您的API密钥"
+                            >
+                            <button type="button" id="toggleApiKeyVisibility" class="toggle-visibility" title="显示密钥">
+                                <!-- 密文状态：斜杠眼睛 -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" class="eye-off-icon">
+                                    <path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/>
+                                </svg>
+                                <!-- 明文状态：正常眼睛（无斜杠） -->
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" class="eye-icon">
+                                    <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="help-text">
+                            获取API密钥：
+                            <a href="https://kie.ai/api-key" target="_blank" rel="noopener">https://kie.ai/api-key</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h4>偏好设置</h4>
+                    <div class="preference-list">
+                        <label class="preference-item">
+                            <input type="checkbox" id="autoSave" checked>
+                            <span class="preference-label">自动保存作品到作品库</span>
+                        </label>
+                        <label class="preference-item">
+                            <input type="checkbox" id="showTutorial" checked>
+                            <span class="preference-label">显示新手教程</span>
+                        </label>
+                        <label class="preference-item">
+                            <input type="checkbox" id="autoDownload">
+                            <span class="preference-label">生成完成后自动下载</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="saveSettingsBtn" class="modern-btn btn-primary">保存设置</button>
+                <button id="cancelSettingsBtn" class="modern-btn btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作品库弹窗 -->
+
+
+    <!-- 主题风格选择器 -->
+    <div id="themeStyleOverlay" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>🎨 选择主题风格</h3>
+                <button class="modal-close" onclick="window.enhancedFeatures.hideStylePicker()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="style-picker">
+                    <div class="style-option" data-style="default">
+                        <div class="style-preview default-preview">
+                            <div class="preview-name">默认风格</div>
+                        </div>
+                    </div>
+                    <div class="style-option" data-style="dark">
+                        <div class="style-preview dark-preview">
+                            <div class="preview-name">深色模式</div>
+                        </div>
+                    </div>
+                    <div class="style-option" data-style="cyber">
+                        <div class="style-preview cyber-preview">
+                            <div class="preview-name">赛博朋克</div>
+                        </div>
+                    </div>
+                    <div class="style-option" data-style="macaron">
+                        <div class="style-preview macaron-preview">
+                            <div class="preview-name">马卡龙</div>
+                        </div>
+                    </div>
+                    <div class="style-option" data-style="apple">
+                        <div class="style-preview apple-preview">
+                            <div class="preview-name">苹果风格</div>
+                        </div>
+                    </div>
+                    <div class="style-option" data-style="ocean">
+                        <div class="style-preview ocean-preview">
+                            <div class="preview-name">海洋风格</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmStylePicker" class="modern-btn btn-primary">确定</button>
+                <button id="cancelStylePicker" class="modern-btn btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div id="toast" class="toast hidden"></div>
+
+    <!-- 加载中遮罩 -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- 生成进度模态框 -->
+    <div id="generationModal" class="modal-overlay hidden">
+        <div class="modal generation-modal">
+            <div class="modal-header">
+                <h3>🎨 正在生成英语小报</h3>
+            </div>
+            <div class="modal-body">
+                <div class="progress-container">
+                    <div class="progress-bar-wrapper">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="modalProgressFill"></div>
+                        </div>
+                        <span class="progress-percent" id="modalProgressPercent">0%</span>
+                    </div>
+
+                    <div class="progress-steps" id="modalProgressSteps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-text">准备提示词</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-text">提交生成任务</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-text">AI绘画中</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-text">优化细节</span>
+                        </div>
+                        <div class="step" data-step="5">
+                            <span class="step-number">5</span>
+                            <span class="step-text">完成！</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-description" id="modalProgressDesc">
+                        准备生成中...
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelGenerationBtn" class="modern-btn btn-secondary">取消生成</button>
+            </div>
+        </div>
+    </div>
+
+      <!-- 核心脚本 -->
+    <script src="js/modern-main.js"></script>
+    <!-- 词汇选择修复 -->
+    <script src="js/vocabulary-fix.js"></script>
+    <!-- 增强功能 -->
+    <script src="js/enhanced-features.js"></script>
+    <!-- 模态框强制修复 -->
+    <script src="js/fix-modals.js"></script>
+      </div> <!-- 关闭 app-container -->
+</body>
+</html>

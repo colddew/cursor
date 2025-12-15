@@ -1,0 +1,30 @@
+{
+  "name": "children-bulletin-generator",
+  "version": "1.0.0",
+  "description": "青少年英语小报生成器",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
+  },
+  "dependencies": {
+    "lucide-react": "^0.560.0"
+  },
+  "devDependencies": {
+    "vite": "^5.1.0",
+    "terser": "^5.19.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2"
+  },
+  "keywords": [
+    "英语学习",
+    "小报生成",
+    "AI绘画",
+    "教育工具",
+    "儿童"
+  ],
+  "author": "Children Bulletin Generator",
+  "license": "MIT"
+}

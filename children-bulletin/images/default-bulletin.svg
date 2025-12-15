@@ -1,0 +1,118 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8F5FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#FFE8F5;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E0E0E0" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="800" height="1000" fill="url(#bgGradient)"/>
+  <rect width="800" height="1000" fill="url(#grid)"/>
+
+  <!-- 标题区域 -->
+  <rect x="50" y="30" width="700" height="100" rx="15" fill="white" filter="drop-shadow(0 4px 6px rgba(0,0,0,0.1))"/>
+
+  <!-- 装饰元素 -->
+  <circle cx="100" cy="80" r="25" fill="#FFD700" opacity="0.3"/>
+  <circle cx="700" cy="80" r="25" fill="#FF69B4" opacity="0.3"/>
+  <polygon points="400,40 410,60 390,60" fill="#87CEEB" opacity="0.5"/>
+
+  <!-- 标题文字 -->
+  <text x="400" y="70" font-family="Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#2C3E50">
+    English Learning Bulletin
+  </text>
+  <text x="400" y="105" font-family="Arial, sans-serif" font-size="18" text-anchor="middle" fill="#7F8C8D">
+    英语学习小报 - 示例展示
+  </text>
+
+  <!-- 分隔线 -->
+  <line x1="100" y1="160" x2="700" y2="160" stroke="#E0E0E0" stroke-width="2"/>
+
+  <!-- 主题信息区域 -->
+  <rect x="50" y="180" width="700" height="120" rx="10" fill="white" opacity="0.9"/>
+  <text x="80" y="210" font-family="Arial, sans-serif" font-size="20" font-weight="600" fill="#34495E">
+    📚 主题: Daily Life (日常生活)
+  </text>
+  <text x="80" y="240" font-family="Arial, sans-serif" font-size="16" fill="#5D6D7E">
+    🏠 场景: Home (家)
+  </text>
+  <text x="80" y="270" font-family="Arial, sans-serif" font-size="14" fill="#7F8C8D" font-style="italic">
+    温馨提示：这是示例图片，请配置API密钥后生成真实的小报
+  </text>
+
+  <!-- 词汇展示区域 -->
+  <rect x="50" y="320" width="340" height="400" rx="10" fill="white" opacity="0.9"/>
+  <text x="220" y="355" font-family="Arial, sans-serif" font-size="22" font-weight="600" text-anchor="middle" fill="#2C3E50">
+    📖 Vocabulary (词汇表)
+  </text>
+
+  <!-- 示例词汇 -->
+  <g font-family="Arial, sans-serif">
+    <!-- 词汇1 -->
+    <rect x="70" y="380" width="300" height="60" rx="8" fill="#F0F8FF" stroke="#4A90E2" stroke-width="1"/>
+    <text x="90" y="405" font-size="16" font-weight="600" fill="#2C3E50">Family</text>
+    <text x="90" y="425" font-size="14" fill="#7F8C8D">/ˈfæməli/ - 家庭</text>
+
+    <!-- 词汇2 -->
+    <rect x="70" y="450" width="300" height="60" rx="8" fill="#FFF0F5" stroke="#FF69B4" stroke-width="1"/>
+    <text x="90" y="475" font-size="16" font-weight="600" fill="#2C3E50">House</text>
+    <text x="90" y="495" font-size="14" fill="#7F8C8D">/haʊs/ - 房子</text>
+
+    <!-- 词汇3 -->
+    <rect x="70" y="520" width="300" height="60" rx="8" fill="#F0FFF0" stroke="#50C878" stroke-width="1"/>
+    <text x="90" y="545" font-size="16" font-weight="600" fill="#2C3E50">Kitchen</text>
+    <text x="90" y="565" font-size="14" fill="#7F8C8D">/ˈkɪtʃən/ - 厨房</text>
+
+    <!-- 词汇4 -->
+    <rect x="70" y="590" width="300" height="60" rx="8" fill="#FFF8DC" stroke="#FFD700" stroke-width="1"/>
+    <text x="90" y="615" font-size="16" font-weight="600" fill="#2C3E50">Bedroom</text>
+    <text x="90" y="635" font-size="14" fill="#7F8C8D">/ˈbedruːm/ - 卧室</text>
+  </g>
+
+  <!-- 图片展示区域 -->
+  <rect x="410" y="320" width="340" height="400" rx="10" fill="white" opacity="0.9"/>
+  <text x="580" y="355" font-family="Arial, sans-serif" font-size="22" font-weight="600" text-anchor="middle" fill="#2C3E50">
+    🎨 Illustration (插图)
+  </text>
+
+  <!-- 示例插图 -->
+  <rect x="430" y="380" width="300" height="300" rx="8" fill="#F5F5F5" stroke="#E0E0E0" stroke-width="1" stroke-dasharray="5,5"/>
+
+  <!-- 简单的房子图标 -->
+  <g transform="translate(530, 480)">
+    <polygon points="50,0 100,40 0,40" fill="#8B4513"/>
+    <rect x="10" y="40" width="80" height="70" fill="#D2691E"/>
+    <rect x="25" y="60" width="20" height="20" fill="#87CEEB"/>
+    <rect x="55" y="60" width="20" height="20" fill="#87CEEB"/>
+    <rect x="40" y="90" width="30" height="20" fill="#654321"/>
+    <circle cx="30" cy="50" r="5" fill="#FFD700"/>
+  </g>
+
+  <text x="580" y="700" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#7F8C8D">
+    (真实生成时会显示相关插图)
+  </text>
+
+  <!-- 底部信息 -->
+  <rect x="50" y="740" width="700" height="80" rx="10" fill="white" opacity="0.9"/>
+  <text x="400" y="770" font-family="Arial, sans-serif" font-size="16" font-weight="600" text-anchor="middle" fill="#2C3E50">
+    ✨ Learning Tips (学习提示)
+  </text>
+  <text x="400" y="795" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#5D6D7E">
+    Practice these words daily to improve your English vocabulary!
+  </text>
+
+  <!-- 页脚 -->
+  <text x="400" y="880" font-family="Arial, sans-serif" font-size="12" text-anchor="middle" fill="#95A5A6">
+    Generated by English Bulletin Generator • v1.0
+  </text>
+
+  <!-- 装饰星星 -->
+  <text x="150" y="150" font-size="24">⭐</text>
+  <text x="650" y="150" font-size="24">⭐</text>
+  <text x="100" y="850" font-size="20">✨</text>
+  <text x="700" y="850" font-size="20">✨</text>
+</svg>

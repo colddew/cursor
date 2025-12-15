@@ -1,0 +1,1936 @@
+{
+  "themes": [
+    {
+      "id": "daily-life",
+      "name": "日常生活",
+      "icon": "🏠",
+      "description": "家庭、学校、社区等生活场景",
+      "scenes": [
+        {
+          "id": "home",
+          "name": "家庭",
+          "vocabulary": [
+            {
+              "english": "home",
+              "chinese": "家",
+              "phonetic": "həʊm",
+              "category": "environment"
+            },
+            {
+              "english": "father",
+              "chinese": "爸爸",
+              "phonetic": "ˈfɑːðə(r)",
+              "category": "character"
+            },
+            {
+              "english": "mother",
+              "chinese": "妈妈",
+              "phonetic": "ˈmʌðə(r)",
+              "category": "character"
+            },
+            {
+              "english": "bedroom",
+              "chinese": "卧室",
+              "phonetic": "ˈbedruːm",
+              "category": "environment"
+            },
+            {
+              "english": "kitchen",
+              "chinese": "厨房",
+              "phonetic": "ˈkɪtʃɪn",
+              "category": "environment"
+            },
+            {
+              "english": "living room",
+              "chinese": "客厅",
+              "phonetic": "ˈlɪvɪŋ ruːm",
+              "category": "environment"
+            },
+            {
+              "english": "sofa",
+              "chinese": "沙发",
+              "phonetic": "ˈsəʊfə",
+              "category": "object"
+            },
+            {
+              "english": "TV",
+              "chinese": "电视",
+              "phonetic": "ˌtiː ˈviː",
+              "category": "object"
+            },
+            {
+              "english": "table",
+              "chinese": "桌子",
+              "phonetic": "ˈteɪbl",
+              "category": "object"
+            },
+            {
+              "english": "chair",
+              "chinese": "椅子",
+              "phonetic": "tʃeə(r)",
+              "category": "object"
+            },
+            {
+              "english": "book",
+              "chinese": "书",
+              "phonetic": "bʊk",
+              "category": "object"
+            },
+            {
+              "english": "computer",
+              "chinese": "电脑",
+              "phonetic": "kəmˈpjuːtə(r)",
+              "category": "object"
+            },
+            {
+              "english": "phone",
+              "chinese": "手机",
+              "phonetic": "fəʊn",
+              "category": "object"
+            },
+            {
+              "english": "bed",
+              "chinese": "床",
+              "phonetic": "bed",
+              "category": "object"
+            },
+            {
+              "english": "window",
+              "chinese": "窗户",
+              "phonetic": "ˈwɪndəʊ",
+              "category": "environment"
+            },
+            {
+              "english": "door",
+              "chinese": "门",
+              "phonetic": "dɔː(r)",
+              "category": "environment"
+            },
+            {
+              "english": "cat",
+              "chinese": "猫",
+              "phonetic": "kæt",
+              "category": "character"
+            },
+            {
+              "english": "dog",
+              "chinese": "狗",
+              "phonetic": "dɒɡ",
+              "category": "character"
+            },
+            {
+              "english": "flower",
+              "chinese": "花",
+              "phonetic": "ˈflaʊə(r)",
+              "category": "object"
+            },
+            {
+              "english": "tree",
+              "chinese": "树",
+              "phonetic": "triː",
+              "category": "environment"
+            }
+          ]
+        },
+        {
+          "id": "neighborhood",
+          "name": "社区",
+          "vocabulary": [
+            {
+              "english": "park",
+              "chinese": "公园",
+              "phonetic": "pɑːk",
+              "category": "environment"
+            },
+            {
+              "english": "playground",
+              "chinese": "游乐场",
+              "phonetic": "ˈpleɪɡraʊnd",
+              "category": "environment"
+            },
+            {
+              "english": "library",
+              "chinese": "图书馆",
+              "phonetic": "ˈlaɪbrəri",
+              "category": "environment"
+            },
+            {
+              "english": "supermarket",
+              "chinese": "超市",
+              "phonetic": "ˈsuːpəmɑːkɪt",
+              "category": "environment"
+            },
+            {
+              "english": "neighbor",
+              "chinese": "邻居",
+              "phonetic": "ˈneɪbə(r)",
+              "category": "character"
+            },
+            {
+              "english": "friend",
+              "chinese": "朋友",
+              "phonetic": "frend",
+              "category": "character"
+            },
+            {
+              "english": "shop",
+              "chinese": "商店",
+              "phonetic": "ʃɒp",
+              "category": "environment"
+            },
+            {
+              "english": "restaurant",
+              "chinese": "餐厅",
+              "phonetic": "ˈrestrɒnt",
+              "category": "environment"
+            },
+            {
+              "english": "hospital",
+              "chinese": "医院",
+              "phonetic": "ˈhɒspɪtl",
+              "category": "environment"
+            },
+            {
+              "english": "school",
+              "chinese": "学校",
+              "phonetic": "skuːl",
+              "category": "environment"
+            },
+            {
+              "english": "bus",
+              "chinese": "公交车",
+              "phonetic": "bʌs",
+              "category": "object"
+            },
+            {
+              "english": "bicycle",
+              "chinese": "自行车",
+              "phonetic": "ˈbaɪsɪkl",
+              "category": "object"
+            },
+            {
+              "english": "ball",
+              "chinese": "球",
+              "phonetic": "bɔːl",
+              "category": "object"
+            },
+            {
+              "english": "slide",
+              "chinese": "滑梯",
+              "phonetic": "slaɪd",
+              "category": "object"
+            },
+            {
+              "english": "swing",
+              "chinese": "秋千",
+              "phonetic": "swɪŋ",
+              "category": "object"
+            },
+            {
+              "english": "bench",
+              "chinese": "长椅",
+              "phonetic": "bentʃ",
+              "category": "object"
+            },
+            {
+              "english": "fountain",
+              "chinese": "喷泉",
+              "phonetic": "ˈfaʊntən",
+              "category": "environment"
+            },
+            {
+              "english": "street",
+              "chinese": "街道",
+              "phonetic": "striːt",
+              "category": "environment"
+            },
+            {
+              "english": "traffic light",
+              "chinese": "红绿灯",
+              "phonetic": "ˈtræfɪk laɪt",
+              "category": "object"
+            },
+            {
+              "english": "mailbox",
+              "chinese": "邮箱",
+              "phonetic": "ˈmeɪlbɒks",
+              "category": "object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shopping",
+      "name": "购物",
+      "icon": "🛒",
+      "description": "超市、商场、市场等购物场景",
+      "scenes": [
+        {
+          "id": "supermarket",
+          "name": "超市",
+          "vocabulary": [
+            {
+              "english": "cashier",
+              "chinese": "收银员",
+              "phonetic": "kæˈʃɪə(r)",
+              "category": "character"
+            },
+            {
+              "english": "cart",
+              "chinese": "购物车",
+              "phonetic": "kɑːt",
+              "category": "object"
+            },
+            {
+              "english": "basket",
+              "chinese": "购物篮",
+              "phonetic": "ˈbɑːskɪt",
+              "category": "object"
+            },
+            {
+              "english": "checkout",
+              "chinese": "收银台",
+              "phonetic": "ˈtʃekaʊt",
+              "category": "environment"
+            },
+            {
+              "english": "aisle",
+              "chinese": "通道",
+              "phonetic": "aɪl",
+              "category": "environment"
+            },
+            {
+              "english": "shelf",
+              "chinese": "货架",
+              "phonetic": "ʃelf",
+              "category": "object"
+            },
+            {
+              "english": "product",
+              "chinese": "商品",
+              "phonetic": "ˈprɒdʌkt",
+              "category": "object"
+            },
+            {
+              "english": "price",
+              "chinese": "价格",
+              "phonetic": "praɪs",
+              "category": "object"
+            },
+            {
+              "english": "label",
+              "chinese": "标签",
+              "phonetic": "ˈleɪbl",
+              "category": "object"
+            },
+            {
+              "english": "receipt",
+              "chinese": "收据",
+              "phonetic": "rɪˈsiːt",
+              "category": "object"
+            },
+            {
+              "english": "apple",
+              "chinese": "苹果",
+              "phonetic": "ˈæpl",
+              "category": "object"
+            },
+            {
+              "english": "banana",
+              "chinese": "香蕉",
+              "phonetic": "bəˈnɑːnə",
+              "category": "object"
+            },
+            {
+              "english": "milk",
+              "chinese": "牛奶",
+              "phonetic": "mɪlk",
+              "category": "object"
+            },
+            {
+              "english": "bread",
+              "chinese": "面包",
+              "phonetic": "bred",
+              "category": "object"
+            },
+            {
+              "english": "juice",
+              "chinese": "果汁",
+              "phonetic": "dʒuːs",
+              "category": "object"
+            },
+            {
+              "english": "water",
+              "chinese": "水",
+              "phonetic": "ˈwɔːtə(r)",
+              "category": "object"
+            },
+            {
+              "english": "snack",
+              "chinese": "零食",
+              "phonetic": "snæk",
+              "category": "object"
+            },
+            {
+              "english": "ice cream",
+              "chinese": "冰淇淋",
+              "phonetic": "ˌaɪs ˈkriːm",
+              "category": "object"
+            },
+            {
+              "english": "toy",
+              "chinese": "玩具",
+              "phonetic": "tɔɪ",
+              "category": "object"
+            },
+            {
+              "english": "clothing",
+              "chinese": "服装",
+              "phonetic": "ˈkləʊðɪŋ",
+              "category": "object"
+            }
+          ]
+        },
+        {
+          "id": "market",
+          "name": "市场",
+          "vocabulary": [
+            {
+              "english": "vendor",
+              "chinese": "小贩",
+              "phonetic": "ˈvendə(r)",
+              "category": "character"
+            },
+            {
+              "english": "stall",
+              "chinese": "摊位",
+              "phonetic": "stɔːl",
+              "category": "environment"
+            },
+            {
+              "english": "customer",
+              "chinese": "顾客",
+              "phonetic": "ˈkʌstəmə(r)",
+              "category": "character"
+            },
+            {
+              "english": "price tag",
+              "chinese": "价格标签",
+              "phonetic": "praɪs tæɡ",
+              "category": "object"
+            },
+            {
+              "english": "bargain",
+              "chinese": "讨价还价",
+              "phonetic": "ˈbɑːɡən",
+              "category": "action"
+            },
+            {
+              "english": "fresh",
+              "chinese": "新鲜的",
+              "phonetic": "freʃ",
+              "category": "object"
+            },
+            {
+              "english": "vegetable",
+              "chinese": "蔬菜",
+              "phonetic": "ˈvedʒtəbl",
+              "category": "object"
+            },
+            {
+              "english": "fruit",
+              "chinese": "水果",
+              "phonetic": "fruːt",
+              "category": "object"
+            },
+            {
+              "english": "meat",
+              "chinese": "肉",
+              "phonetic": "miːt",
+              "category": "object"
+            },
+            {
+              "english": "fish",
+              "chinese": "鱼",
+              "phonetic": "fɪʃ",
+              "category": "object"
+            },
+            {
+              "english": "egg",
+              "chinese": "鸡蛋",
+              "phonetic": "eɡ",
+              "category": "object"
+            },
+            {
+              "english": "cheese",
+              "chinese": "奶酪",
+              "phonetic": "tʃiːz",
+              "category": "object"
+            },
+            {
+              "english": "spice",
+              "chinese": "香料",
+              "phonetic": "spaɪs",
+              "category": "object"
+            },
+            {
+              "english": "herb",
+              "chinese": "香草",
+              "phonetic": "hɜːb",
+              "category": "object"
+            },
+            {
+              "english": "scale",
+              "chinese": "秤",
+              "phonetic": "skeɪl",
+              "category": "object"
+            },
+            {
+              "english": "bag",
+              "chinese": "袋子",
+              "phonetic": "bæɡ",
+              "category": "object"
+            },
+            {
+              "english": "money",
+              "chinese": "钱",
+              "phonetic": "ˈmʌni",
+              "category": "object"
+            },
+            {
+              "english": "change",
+              "chinese": "零钱",
+              "phonetic": "tʃeɪndʒ",
+              "category": "object"
+            },
+            {
+              "english": "basket",
+              "chinese": "篮子",
+              "phonetic": "ˈbɑːskɪt",
+              "category": "object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "school",
+      "name": "学校",
+      "icon": "🎓",
+      "description": "教室、图书馆、操场等学校场景",
+      "scenes": [
+        {
+          "id": "classroom",
+          "name": "教室",
+          "vocabulary": [
+            {
+              "english": "teacher",
+              "chinese": "老师",
+              "phonetic": "ˈtiːtʃə(r)",
+              "category": "character"
+            },
+            {
+              "english": "student",
+              "chinese": "学生",
+              "phonetic": "ˈstuːdnt",
+              "category": "character"
+            },
+            {
+              "english": "blackboard",
+              "chinese": "黑板",
+              "phonetic": "ˈblækbɔːd",
+              "category": "object"
+            },
+            {
+              "english": "whiteboard",
+              "chinese": "白板",
+              "phonetic": "ˈwaɪtbɔːd",
+              "category": "object"
+            },
+            {
+              "english": "desk",
+              "chinese": "课桌",
+              "phonetic": "desk",
+              "category": "object"
+            },
+            {
+              "english": "chair",
+              "chinese": "椅子",
+              "phonetic": "tʃeə(r)",
+              "category": "object"
+            },
+            {
+              "english": "book",
+              "chinese": "书",
+              "phonetic": "bʊk",
+              "category": "object"
+            },
+            {
+              "english": "notebook",
+              "chinese": "笔记本",
+              "phonetic": "ˈnəʊtbʊk",
+              "category": "object"
+            },
+            {
+              "english": "pen",
+              "chinese": "钢笔",
+              "phonetic": "pen",
+              "category": "object"
+            },
+            {
+              "english": "pencil",
+              "chinese": "铅笔",
+              "phonetic": "ˈpensl",
+              "category": "object"
+            },
+            {
+              "english": "eraser",
+              "chinese": "橡皮",
+              "phonetic": "ɪˈreɪzə(r)",
+              "category": "object"
+            },
+            {
+              "english": "ruler",
+              "chinese": "尺子",
+              "phonetic": "ˈruːlə(r)",
+              "category": "object"
+            },
+            {
+              "english": "glue",
+              "chinese": "胶水",
+              "phonetic": "ɡluː",
+              "category": "object"
+            },
+            {
+              "english": "scissors",
+              "chinese": "剪刀",
+              "phonetic": "ˈsɪzəz",
+              "category": "object"
+            },
+            {
+              "english": "map",
+              "chinese": "地图",
+              "phonetic": "mæp",
+              "category": "object"
+            },
+            {
+              "english": "globe",
+              "chinese": "地球仪",
+              "phonetic": "ɡləʊb",
+              "category": "object"
+            },
+            {
+              "english": "clock",
+              "chinese": "时钟",
+              "phonetic": "klɒk",
+              "category": "object"
+            },
+            {
+              "english": "calendar",
+              "chinese": "日历",
+              "phonetic": "ˈkælɪndə(r)",
+              "category": "object"
+            },
+            {
+              "english": "computer",
+              "chinese": "电脑",
+              "phonetic": "kəmˈpjuːtə(r)",
+              "category": "object"
+            },
+            {
+              "english": "projector",
+              "chinese": "投影仪",
+              "phonetic": "prəˈdʒektə(r)",
+              "category": "object"
+            }
+          ]
+        },
+        {
+          "id": "library",
+          "name": "图书馆",
+          "vocabulary": [
+            {
+              "english": "librarian",
+              "chinese": "图书管理员",
+              "phonetic": "laɪˈbreəriən",
+              "category": "character"
+            },
+            {
+              "english": "reader",
+              "chinese": "读者",
+              "phonetic": "ˈriːdə(r)",
+              "category": "character"
+            },
+            {
+              "english": "bookshelf",
+              "chinese": "书架",
+              "phonetic": "ˈbʊkʃelf",
+              "category": "object"
+            },
+            {
+              "english": "bookcase",
+              "chinese": "书柜",
+              "phonetic": "ˈbʊkkeɪs",
+              "category": "object"
+            },
+            {
+              "english": "novel",
+              "chinese": "小说",
+              "phonetic": "ˈnɒvl",
+              "category": "object"
+            },
+            {
+              "english": "magazine",
+              "chinese": "杂志",
+              "phonetic": "ˈmæɡəziːn",
+              "category": "object"
+            },
+            {
+              "english": "dictionary",
+              "chinese": "字典",
+              "phonetic": "ˈdɪkʃənri",
+              "category": "object"
+            },
+            {
+              "english": "encyclopedia",
+              "chinese": "百科全书",
+              "phonetic": "ɪnˌsaɪkləˈpiːdiə",
+              "category": "object"
+            },
+            {
+              "english": "newspaper",
+              "chinese": "报纸",
+              "phonetic": "ˈnjuːzpeɪpə(r)",
+              "category": "object"
+            },
+            {
+              "english": "reference book",
+              "chinese": "参考书",
+              "phonetic": "ˈrefrəns bʊk",
+              "category": "object"
+            },
+            {
+              "english": "quiet",
+              "chinese": "安静的",
+              "phonetic": "ˈkwaɪət",
+              "category": "environment"
+            },
+            {
+              "english": "study area",
+              "chinese": "学习区",
+              "phonetic": "ˈstʌdi ˈeəriə",
+              "category": "environment"
+            },
+            {
+              "english": "reading room",
+              "chinese": "阅览室",
+              "phonetic": "ˈriːdɪŋ ruːm",
+              "category": "environment"
+            },
+            {
+              "english": "catalog",
+              "chinese": "目录",
+              "phonetic": "ˈkætəlɒɡ",
+              "category": "object"
+            },
+            {
+              "english": "barcode",
+              "chinese": "条形码",
+              "phonetic": "ˈbɑːkəʊd",
+              "category": "object"
+            },
+            {
+              "english": "membership card",
+              "chinese": "会员卡",
+              "phonetic": "ˈmembəʃɪp kɑːd",
+              "category": "object"
+            },
+            {
+              "english": "due date",
+              "chinese": "到期日",
+              "phonetic": "djuː deɪt",
+              "category": "object"
+            },
+            {
+              "english": "renew",
+              "chinese": "续借",
+              "phonetic": "rɪˈnjuː",
+              "category": "action"
+            },
+            {
+              "english": "reserve",
+              "chinese": "预约",
+              "phonetic": "rɪˈzɜːv",
+              "category": "action"
+            },
+            {
+              "english": "fine",
+              "chinese": "罚款",
+              "phonetic": "faɪn",
+              "category": "object"
+            }
+          ]
+        },
+        {
+          "id": "playground",
+          "name": "操场",
+          "vocabulary": [
+            {
+              "english": "PE teacher",
+              "chinese": "体育老师",
+              "phonetic": "ˌpiː ˈiː ˈtiːtʃə(r)",
+              "category": "character"
+            },
+            {
+              "english": "classmate",
+              "chinese": "同学",
+              "phonetic": "ˈklɑːsmeɪt",
+              "category": "character"
+            },
+            {
+              "english": "track",
+              "chinese": "跑道",
+              "phonetic": "træk",
+              "category": "environment"
+            },
+            {
+              "english": "field",
+              "chinese": "操场",
+              "phonetic": "fiːld",
+              "category": "environment"
+            },
+            {
+              "english": "basketball court",
+              "chinese": "篮球场",
+              "phonetic": "ˈbɑːskɪtbɔːl kɔːt",
+              "category": "environment"
+            },
+            {
+              "english": "soccer field",
+              "chinese": "足球场",
+              "phonetic": "ˈsɒkə fiːld",
+              "category": "environment"
+            },
+            {
+              "english": "volleyball net",
+              "chinese": "排球网",
+              "phonetic": "ˈvɒlibɔːl net",
+              "category": "object"
+            },
+            {
+              "english": "jump rope",
+              "chinese": "跳绳",
+              "phonetic": "dʒʌmp rəʊp",
+              "category": "object"
+            },
+            {
+              "english": "hula hoop",
+              "chinese": "呼啦圈",
+              "phonetic": "ˈhuːlə huːp",
+              "category": "object"
+            },
+            {
+              "english": "dumbbell",
+              "chinese": "哑铃",
+              "phonetic": "ˈdʌmbel",
+              "category": "object"
+            },
+            {
+              "english": "whistle",
+              "chinese": "哨子",
+              "phonetic": "ˈwɪsl",
+              "category": "object"
+            },
+            {
+              "english": "timer",
+              "chinese": "计时器",
+              "phonetic": "ˈtaɪmə(r)",
+              "category": "object"
+            },
+            {
+              "english": "scoreboard",
+              "chinese": "记分牌",
+              "phonetic": "ˈskɔːbɔːd",
+              "category": "object"
+            },
+            {
+              "english": "goal",
+              "chinese": "球门",
+              "phonetic": "ɡəʊl",
+              "category": "object"
+            },
+            {
+              "english": "bench",
+              "chinese": "长椅",
+              "phonetic": "bentʃ",
+              "category": "object"
+            },
+            {
+              "english": "water fountain",
+              "chinese": "饮水处",
+              "phonetic": "ˈwɔːtə ˈfaʊntən",
+              "category": "object"
+            },
+            {
+              "english": "first aid kit",
+              "chinese": "急救箱",
+              "phonetic": "fɜːst eɪd kɪt",
+              "category": "object"
+            },
+            {
+              "english": "sports bag",
+              "chinese": "运动包",
+              "phonetic": "spɔːts bæɡ",
+              "category": "object"
+            },
+            {
+              "english": "sneakers",
+              "chinese": "运动鞋",
+              "phonetic": "ˈsniːkəz",
+              "category": "object"
+            },
+            {
+              "english": "jersey",
+              "chinese": "运动服",
+              "phonetic": "ˈdʒɜːzi",
+              "category": "object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "entertainment",
+      "name": "娱乐",
+      "icon": "🎮",
+      "description": "游戏、电影、音乐等娱乐场景",
+      "scenes": [
+        {
+          "id": "game-center",
+          "name": "游戏厅",
+          "vocabulary": [
+            {
+              "english": "game master",
+              "chinese": "游戏管理员",
+              "phonetic": "ɡeɪm ˈmɑːstə(r)",
+              "category": "character"
+            },
+            {
+              "english": "player",
+              "chinese": "玩家",
+              "phonetic": "ˈpleɪə(r)",
+              "category": "character"
+            },
+            {
+              "english": "arcade machine",
+              "chinese": "街机",
+              "phonetic": "ɑːˈkeɪd məʃiːn",
+              "category": "object"
+            },
+            {
+              "english": "joystick",
+              "chinese": "操纵杆",
+              "phonetic": "ˈdʒɔɪstɪk",
+              "category": "object"
+            },
+            {
+              "english": "button",
+              "chinese": "按钮",
+              "phonetic": "ˈbʌtn",
+              "category": "object"
+            },
+            {
+              "english": "coin",
+              "chinese": "硬币",
+              "phonetic": "kɔɪn",
+              "category": "object"
+            },
+            {
+              "english": "ticket",
+              "chinese": "游戏币",
+              "phonetic": "ˈtɪkɪt",
+              "category": "object"
+            },
+            {
+              "english": "screen",
+              "chinese": "屏幕",
+              "phonetic": "skriːn",
+              "category": "object"
+            },
+            {
+              "english": "sound",
+              "chinese": "声音",
+              "phonetic": "saʊnd",
+              "category": "object"
+            },
+            {
+              "english": "light",
+              "chinese": "灯光",
+              "phonetic": "laɪt",
+              "category": "object"
+            },
+            {
+              "english": "prize",
+              "chinese": "奖品",
+              "phonetic": "praɪz",
+              "category": "object"
+            },
+            {
+              "english": "claw machine",
+              "chinese": "抓娃娃机",
+              "phonetic": "klɔː məʃiːn",
+              "category": "object"
+            },
+            {
+              "english": "racing game",
+              "chinese": "赛车游戏",
+              "phonetic": "ˈreɪsɪŋ ɡeɪm",
+              "category": "object"
+            },
+            {
+              "english": "shooting game",
+              "chinese": "射击游戏",
+              "phonetic": "ˈʃuːtɪŋ ɡeɪm",
+              "category": "object"
+            },
+            {
+              "english": "dance game",
+              "chinese": "跳舞游戏",
+              "phonetic": "dɑːns ɡeɪm",
+              "category": "object"
+            },
+            {
+              "english": "music game",
+              "chinese": "音乐游戏",
+              "phonetic": "ˈmjuːzɪk ɡeɪm",
+              "category": "object"
+            },
+            {
+              "english": "VR headset",
+              "chinese": "VR眼镜",
+              "phonetic": "ˌviː ˈɑːr ˈhedset",
+              "category": "object"
+            },
+            {
+              "english": "console",
+              "chinese": "游戏主机",
+              "phonetic": "kənˈsəʊl",
+              "category": "object"
+            },
+            {
+              "english": "controller",
+              "chinese": "游戏手柄",
+              "phonetic": "kənˈtrəʊlə(r)",
+              "category": "object"
+            },
+            {
+              "english": "headphones",
+              "chinese": "耳机",
+              "phonetic": "ˈhedfəʊnz",
+              "category": "object"
+            }
+          ]
+        },
+        {
+          "id": "cinema",
+          "name": "电影院",
+          "vocabulary": [
+            {
+              "english": "cashier",
+              "chinese": "售票员",
+              "phonetic": "kæˈʃɪə(r)",
+              "category": "character"
+            },
+            {
+              "english": "usher",
+              "chinese": "引座员",
+              "phonetic": "ˈʌʃə(r)",
+              "category": "character"
+            },
+            {
+              "english": "audience",
+              "chinese": "观众",
+              "phonetic": "ˈɔːdiəns",
+              "category": "character"
+            },
+            {
+              "english": "screen",
+              "chinese": "银幕",
+              "phonetic": "skriːn",
+              "category": "object"
+            },
+            {
+              "english": "projector",
+              "chinese": "放映机",
+              "phonetic": "prəˈdʒektə(r)",
+              "category": "object"
+            },
+            {
+              "english": "seat",
+              "chinese": "座位",
+              "phonetic": "siːt",
+              "category": "object"
+            },
+            {
+              "english": "ticket",
+              "chinese": "门票",
+              "phonetic": "ˈtɪkɪt",
+              "category": "object"
+            },
+            {
+              "english": "popcorn",
+              "chinese": "爆米花",
+              "phonetic": "ˈpɒpkɔːn",
+              "category": "object"
+            },
+            {
+              "english": "drink",
+              "chinese": "饮料",
+              "phonetic": "drɪŋk",
+              "category": "object"
+            },
+            {
+              "english": "trailer",
+              "chinese": "预告片",
+              "phonetic": "ˈtreɪlə(r)",
+              "category": "object"
+            },
+            {
+              "english": "movie",
+              "chinese": "电影",
+              "phonetic": "ˈmuːvi",
+              "category": "object"
+            },
+            {
+              "english": "genre",
+              "chinese": "类型",
+              "phonetic": "ˈʒɑːnrə",
+              "category": "object"
+            },
+            {
+              "english": "drama",
+              "chinese": "剧情片",
+              "phonetic": "ˈdrɑːmə",
+              "category": "object"
+            },
+            {
+              "english": "comedy",
+              "chinese": "喜剧",
+              "phonetic": "ˈkɒmədi",
+              "category": "object"
+            },
+            {
+              "english": "action",
+              "chinese": "动作片",
+              "phonetic": "ˈækʃn",
+              "category": "object"
+            },
+            {
+              "english": "horror",
+              "chinese": "恐怖片",
+              "phonetic": "ˈhɒrə(r)",
+              "category": "object"
+            },
+            {
+              "english": "animation",
+              "chinese": "动画片",
+              "phonetic": "ˌænɪˈmeɪʃn",
+              "category": "object"
+            },
+            {
+              "english": "3D glasses",
+              "chinese": "3D眼镜",
+              "phonetic": "ˌθriː ˈdiː ɡlɑːsɪz",
+              "category": "object"
+            },
+            {
+              "english": "sound system",
+              "chinese": "音响系统",
+              "phonetic": "saʊnd ˈsɪstəm",
+              "category": "object"
+            },
+            {
+              "english": "exit",
+              "chinese": "出口",
+              "phonetic": "ˈeksɪt",
+              "category": "object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "health",
+      "name": "健康",
+      "icon": "🏥",
+      "description": "医院、健身房、健康饮食等场景",
+      "scenes": [
+        {
+          "id": "hospital",
+          "name": "医院",
+          "vocabulary": [
+            {
+              "english": "doctor",
+              "chinese": "医生",
+              "phonetic": "ˈdɒktə(r)",
+              "category": "character"
+            },
+            {
+              "english": "nurse",
+              "chinese": "护士",
+              "phonetic": "nɜːs",
+              "category": "character"
+            },
+            {
+              "english": "patient",
+              "chinese": "病人",
+              "phonetic": "ˈpeɪʃnt",
+              "category": "character"
+            },
+            {
+              "english": "hospital",
+              "chinese": "医院",
+              "phonetic": "ˈhɒspɪtl",
+              "category": "environment"
+            },
+            {
+              "english": "clinic",
+              "chinese": "诊所",
+              "phonetic": "ˈklɪnɪk",
+              "category": "environment"
+            },
+            {
+              "english": "waiting room",
+              "chinese": "候诊室",
+              "phonetic": "ˈweɪtɪŋ ruːm",
+              "category": "environment"
+            },
+            {
+              "english": "examination room",
+              "chinese": "诊室",
+              "phonetic": "ɪɡˌzæmɪˈneɪʃn ruːm",
+              "category": "environment"
+            },
+            {
+              "english": "stethoscope",
+              "chinese": "听诊器",
+              "phonetic": "ˈsteθəskəʊp",
+              "category": "object"
+            },
+            {
+              "english": "syringe",
+              "chinese": "注射器",
+              "phonetic": "səˈrɪndʒ",
+              "category": "object"
+            },
+            {
+              "english": "medicine",
+              "chinese": "药物",
+              "phonetic": "ˈmedsn",
+              "category": "object"
+            },
+            {
+              "english": "pill",
+              "chinese": "药丸",
+              "phonetic": "pɪl",
+              "category": "object"
+            },
+            {
+              "english": "prescription",
+              "chinese": "处方",
+              "phonetic": "prɪˈskrɪpʃn",
+              "category": "object"
+            },
+            {
+              "english": "x-ray",
+              "chinese": "X光片",
+              "phonetic": "ˈeks reɪ",
+              "category": "object"
+            },
+            {
+              "english": "bandage",
+              "chinese": "绷带",
+              "phonetic": "ˈbændɪdʒ",
+              "category": "object"
+            },
+            {
+              "english": "cotton",
+              "chinese": "棉签",
+              "phonetic": "ˈkɒtn",
+              "category": "object"
+            },
+            {
+              "english": "thermometer",
+              "chinese": "体温计",
+              "phonetic": "θəˈmɒmɪtə(r)",
+              "category": "object"
+            },
+            {
+              "english": "blood pressure monitor",
+              "chinese": "血压计",
+              "phonetic": "blʌd ˈpreʃə ˈmɒnɪtə(r)",
+              "category": "object"
+            },
+            {
+              "english": "emergency room",
+              "chinese": "急诊室",
+              "phonetic": "ɪˈmɜːdʒənsi ruːm",
+              "category": "environment"
+            },
+            {
+              "english": "surgery",
+              "chinese": "手术室",
+              "phonetic": "ˈsɜːdʒəri",
+              "category": "environment"
+            },
+            {
+              "english": "reception",
+              "chinese": "接待处",
+              "phonetic": "rɪˈsepʃn",
+              "category": "environment"
+            }
+          ]
+        },
+        {
+          "id": "gym",
+          "name": "健身房",
+          "vocabulary": [
+            {
+              "english": "trainer",
+              "chinese": "教练",
+              "phonetic": "ˈtreɪnə(r)",
+              "category": "character"
+            },
+            {
+              "english": "member",
+              "chinese": "会员",
+              "phonetic": "ˈmembə(r)",
+              "category": "character"
+            },
+            {
+              "english": "gym",
+              "chinese": "健身房",
+              "phonetic": "dʒɪm",
+              "category": "environment"
+            },
+            {
+              "english": "fitness center",
+              "chinese": "健身中心",
+              "phonetic": "ˈfɪtnəs ˈsentə(r)",
+              "category": "environment"
+            },
+            {
+              "english": "treadmill",
+              "chinese": "跑步机",
+              "phonetic": "ˈtredmɪl",
+              "category": "object"
+            },
+            {
+              "english": "dumbbell",
+              "chinese": "哑铃",
+              "phonetic": "ˈdʌmbel",
+              "category": "object"
+            },
+            {
+              "english": "barbell",
+              "chinese": "杠铃",
+              "phonetic": "ˈbɑːbel",
+              "category": "object"
+            },
+            {
+              "english": "bench press",
+              "chinese": "卧推",
+              "phonetic": "bentʃ pres",
+              "category": "object"
+            },
+            {
+              "english": "yoga mat",
+              "chinese": "瑜伽垫",
+              "phonetic": "ˈjəʊɡə mæt",
+              "category": "object"
+            },
+            {
+              "english": "mirror",
+              "chinese": "镜子",
+              "phonetic": "ˈmɪrə(r)",
+              "category": "object"
+            },
+            {
+              "english": "water bottle",
+              "chinese": "水瓶",
+              "phonetic": "ˈwɔːtə ˈbɒtl",
+              "category": "object"
+            },
+            {
+              "english": "towel",
+              "chinese": "毛巾",
+              "phonetic": "taʊəl",
+              "category": "object"
+            },
+            {
+              "english": "locker",
+              "chinese": "储物柜",
+              "phonetic": "ˈlɒkə(r)",
+              "category": "object"
+            },
+            {
+              "english": "shower",
+              "chinese": "淋浴",
+              "phonetic": "ˈʃaʊə(r)",
+              "category": "object"
+            },
+            {
+              "english": "cardio",
+              "chinese": "有氧运动",
+              "phonetic": "ˈkɑːdiəʊ",
+              "category": "action"
+            },
+            {
+              "english": "strength training",
+              "chinese": "力量训练",
+              "phonetic": "streŋθ ˈtreɪnɪŋ",
+              "category": "action"
+            },
+            {
+              "english": "stretching",
+              "chinese": "拉伸",
+              "phonetic": "ˈstretʃɪŋ",
+              "category": "action"
+            },
+            {
+              "english": "jump rope",
+              "chinese": "跳绳",
+              "phonetic": "dʒʌmp rəʊp",
+              "category": "action"
+            },
+            {
+              "english": "squats",
+              "chinese": "深蹲",
+              "phonetic": "skwɒts",
+              "category": "action"
+            },
+            {
+              "english": "push-ups",
+              "chinese": "俯卧撑",
+              "phonetic": "pʊʃ ʌps",
+              "category": "action"
+            }
+          ]
+        },
+        {
+          "id": "healthy-food",
+          "name": "健康饮食",
+          "vocabulary": [
+            {
+              "english": "nutritionist",
+              "chinese": "营养师",
+              "phonetic": "njuːˈtrɪʃənɪst",
+              "category": "character"
+            },
+            {
+              "english": "chef",
+              "chinese": "厨师",
+              "phonetic": "ʃef",
+              "category": "character"
+            },
+            {
+              "english": "salad",
+              "chinese": "沙拉",
+              "phonetic": "ˈsæləd",
+              "category": "object"
+            },
+            {
+              "english": "vegetable",
+              "chinese": "蔬菜",
+              "phonetic": "ˈvedʒtəbl",
+              "category": "object"
+            },
+            {
+              "english": "fruit",
+              "chinese": "水果",
+              "phonetic": "fruːt",
+              "category": "object"
+            },
+            {
+              "english": "protein",
+              "chinese": "蛋白质",
+              "phonetic": "ˈprəʊtiːn",
+              "category": "object"
+            },
+            {
+              "english": "fiber",
+              "chinese": "纤维",
+              "phonetic": "ˈfaɪbə(r)",
+              "category": "object"
+            },
+            {
+              "english": "vitamin",
+              "chinese": "维生素",
+              "phonetic": "ˈvɪtəmɪn",
+              "category": "object"
+            },
+            {
+              "english": "mineral",
+              "chinese": "矿物质",
+              "phonetic": "ˈmɪnərəl",
+              "category": "object"
+            },
+            {
+              "english": "whole grain",
+              "chinese": "全谷物",
+              "phonetic": "həʊl ɡreɪn",
+              "category": "object"
+            },
+            {
+              "english": "lean meat",
+              "chinese": "瘦肉",
+              "phonetic": "liːn miːt",
+              "category": "object"
+            },
+            {
+              "english": "fish",
+              "chinese": "鱼",
+              "phonetic": "fɪʃ",
+              "category": "object"
+            },
+            {
+              "english": "nuts",
+              "chinese": "坚果",
+              "phonetic": "nʌts",
+              "category": "object"
+            },
+            {
+              "english": "seeds",
+              "chinese": "种子",
+              "phonetic": "siːdz",
+              "category": "object"
+            },
+            {
+              "english": "dairy",
+              "chinese": "乳制品",
+              "phonetic": "ˈdeəri",
+              "category": "object"
+            },
+            {
+              "english": "organic",
+              "chinese": "有机的",
+              "phonetic": "ɔːˈɡænɪk",
+              "category": "object"
+            },
+            {
+              "english": "natural",
+              "chinese": "天然的",
+              "phonetic": "ˈnætʃrəl",
+              "category": "object"
+            },
+            {
+              "english": "balanced diet",
+              "chinese": "均衡饮食",
+              "phonetic": "ˈbælənst daɪət",
+              "category": "object"
+            },
+            {
+              "english": "calories",
+              "chinese": "卡路里",
+              "phonetic": "ˈkæləriz",
+              "category": "object"
+            },
+            {
+              "english": "hydration",
+              "chinese": "水分",
+              "phonetic": "haɪˈdreɪʃn",
+              "category": "object"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "travel",
+      "name": "旅行",
+      "icon": "✈️",
+      "description": "机场、酒店、景点等旅行场景",
+      "scenes": [
+        {
+          "id": "airport",
+          "name": "机场",
+          "vocabulary": [
+            {
+              "english": "pilot",
+              "chinese": "飞行员",
+              "phonetic": "ˈpaɪlət",
+              "category": "character"
+            },
+            {
+              "english": "flight attendant",
+              "chinese": "空乘",
+              "phonetic": "flaɪt əˈtendənt",
+              "category": "character"
+            },
+            {
+              "english": "passenger",
+              "chinese": "乘客",
+              "phonetic": "ˈpæsɪndʒə(r)",
+              "category": "character"
+            },
+            {
+              "english": "airport",
+              "chinese": "机场",
+              "phonetic": "ˈeəpɔːt",
+              "category": "environment"
+            },
+            {
+              "english": "terminal",
+              "chinese": "航站楼",
+              "phonetic": "ˈtɜːmɪnl",
+              "category": "environment"
+            },
+            {
+              "english": "check-in counter",
+              "chinese": "值机柜台",
+              "phonetic": "tʃek ɪn ˈkaʊntə(r)",
+              "category": "environment"
+            },
+            {
+              "english": "security checkpoint",
+              "chinese": "安检口",
+              "phonetic": "sɪˈkjʊəri ti ʃekpɔɪnt",
+              "category": "environment"
+            },
+            {
+              "english": "gate",
+              "chinese": "登机口",
+              "phonetic": "ɡeɪt",
+              "category": "object"
+            },
+            {
+              "english": "passport",
+              "chinese": "护照",
+              "phonetic": "ˈpɑːspɔːt",
+              "category": "object"
+            },
+            {
+              "english": "ticket",
+              "chinese": "机票",
+              "phonetic": "ˈtɪkɪt",
+              "category": "object"
+            },
+            {
+              "english": "boarding pass",
+              "chinese": "登机牌",
+              "phonetic": "ˈbɔːdɪŋ pɑːs",
+              "category": "object"
+            },
+            {
+              "english": "luggage",
+              "chinese": "行李",
+              "phonetic": "ˈlʌɡɪdʒ",
+              "category": "object"
+            },
+            {
+              "english": "suitcase",
+              "chinese": "手提箱",
+              "phonetic": "ˈsuːtkeɪs",
+              "category": "object"
+            },
+            {
+              "english": "carry-on bag",
+              "chinese": "随身行李",
+              "phonetic": "ˈkæri ɒn bæɡ",
+              "category": "object"
+            },
+            {
+              "english": "departure board",
+              "chinese": "航班信息屏",
+              "phonetic": "dɪˈpɑːtʃə bɔːd",
+              "category": "object"
+            },
+            {
+              "english": "schedule",
+              "chinese": "时刻表",
+              "phonetic": "ˈʃedjuːl",
+              "category": "object"
+            },
+            {
+              "english": "delay",
+              "chinese": "延误",
+              "phonetic": "dɪˈleɪ",
+              "category": "object"
+            },
+            {
+              "english": "announcement",
+              "chinese": "广播",
+              "phonetic": "əˈnaʊnsmənt",
+              "category": "object"
+            },
+            {
+              "english": "waiting area",
+              "chinese": "候机区",
+              "phonetic": "ˈweɪtɪŋ ˈeəriə",
+              "category": "environment"
+            },
+            {
+              "english": "duty-free shop",
+              "chinese": "免税店",
+              "phonetic": "ˈdjuːti friː ʃɒp",
+              "category": "object"
+            }
+          ]
+        },
+        {
+          "id": "hotel",
+          "name": "酒店",
+          "vocabulary": [
+            {
+              "english": "receptionist",
+              "chinese": "前台接待",
+              "phonetic": "rɪˈsepʃənɪst",
+              "category": "character"
+            },
+            {
+              "english": "guest",
+              "chinese": "客人",
+              "phonetic": "ɡest",
+              "category": "character"
+            },
+            {
+              "english": "manager",
+              "chinese": "经理",
+              "phonetic": "ˈmænɪdʒə(r)",
+              "category": "character"
+            },
+            {
+              "english": "hotel",
+              "chinese": "酒店",
+              "phonetic": "həʊˈtel",
+              "category": "environment"
+            },
+            {
+              "english": "lobby",
+              "chinese": "大堂",
+              "phonetic": "lɒbi",
+              "category": "environment"
+            },
+            {
+              "english": "reception",
+              "chinese": "前台",
+              "phonetic": "rɪˈsepʃn",
+              "category": "environment"
+            },
+            {
+              "english": "elevator",
+              "chinese": "电梯",
+              "phonetic": "ˈelɪveɪtə(r)",
+              "category": "object"
+            },
+            {
+              "english": "key card",
+              "chinese": "房卡",
+              "phonetic": "kiː kɑːd",
+              "category": "object"
+            },
+            {
+              "english": "room number",
+              "chinese": "房号",
+              "phonetic": "ruːm ˈnʌmbə(r)",
+              "category": "object"
+            },
+            {
+              "english": "reservation",
+              "chinese": "预订",
+              "phonetic": "ˌrezəˈveɪʃn",
+              "category": "object"
+            },
+            {
+              "english": "check-in",
+              "chinese": "入住",
+              "phonetic": "tʃek ɪn",
+              "category": "action"
+            },
+            {
+              "english": "check-out",
+              "chinese": "退房",
+              "phonetic": "tʃek aʊt",
+              "category": "action"
+            },
+            {
+              "english": "breakfast",
+              "chinese": "早餐",
+              "phonetic": "ˈbrekfəst",
+              "category": "object"
+            },
+            {
+              "english": "restaurant",
+              "chinese": "餐厅",
+              "phonetic": "ˈrestrɒnt",
+              "category": "environment"
+            },
+            {
+              "english": "swimming pool",
+              "chinese": "游泳池",
+              "phonetic": "ˈswɪmɪŋ puːl",
+              "category": "object"
+            },
+            {
+              "english": "gym",
+              "chinese": "健身房",
+              "phonetic": "dʒɪm",
+              "category": "object"
+            },
+            {
+              "english": "spa",
+              "chinese": "水疗中心",
+              "phonetic": "spɑː",
+              "category": "object"
+            },
+            {
+              "english": "concierge",
+              "chinese": "礼宾部",
+              "phonetic": "ˌkɒnsiˈeəʒ",
+              "category": "character"
+            },
+            {
+              "english": "room service",
+              "chinese": "客房服务",
+              "phonetic": "ruːm ˈsɜːvɪs",
+              "category": "object"
+            },
+            {
+              "english": "minibar",
+              "chinese": "迷你吧",
+              "phonetic": "ˈmɪnibɑː(r)",
+              "category": "object"
+            }
+          ]
+        },
+        {
+          "id": "attraction",
+          "name": "景点",
+          "vocabulary": [
+            {
+              "english": "tour guide",
+              "chinese": "导游",
+              "phonetic": "tʊə ɡaɪd",
+              "category": "character"
+            },
+            {
+              "english": "tourist",
+              "chinese": "游客",
+              "phonetic": "ˈtʊərɪst",
+              "category": "character"
+            },
+            {
+              "english": "attraction",
+              "chinese": "景点",
+              "phonetic": "əˈtrækʃn",
+              "category": "environment"
+            },
+            {
+              "english": "landmark",
+              "chinese": "地标",
+              "phonetic": "ˈlændmɑːk",
+              "category": "object"
+            },
+            {
+              "english": "monument",
+              "chinese": "纪念碑",
+              "phonetic": "ˈmɒnjumənt",
+              "category": "object"
+            },
+            {
+              "english": "museum",
+              "chinese": "博物馆",
+              "phonetic": "mjuːˈziːəm",
+              "category": "environment"
+            },
+            {
+              "english": "gallery",
+              "chinese": "美术馆",
+              "phonetic": "ˈɡæləri",
+              "category": "environment"
+            },
+            {
+              "english": "exhibit",
+              "chinese": "展品",
+              "phonetic": "ɪɡˈzɪbɪt",
+              "category": "object"
+            },
+            {
+              "english": "entrance fee",
+              "chinese": "门票",
+              "phonetic": "ˈentrəns fiː",
+              "category": "object"
+            },
+            {
+              "english": "ticket",
+              "chinese": "票",
+              "phonetic": "ˈtɪkɪt",
+              "category": "object"
+            },
+            {
+              "english": "map",
+              "chinese": "地图",
+              "phonetic": "mæp",
+              "category": "object"
+            },
+            {
+              "english": "information center",
+              "chinese": "游客中心",
+              "phonetic": "ˌɪnfəˈmeɪʃn ˈsentə(r)",
+              "category": "environment"
+            },
+            {
+              "english": "audio guide",
+              "chinese": "语音导览",
+              "phonetic": "ˈɔːdiəʊ ɡaɪd",
+              "category": "object"
+            },
+            {
+              "english": "souvenir shop",
+              "chinese": "纪念品商店",
+              "phonetic": "ˌsuːvəˈnɪə ʃɒp",
+              "category": "environment"
+            },
+            {
+              "english": "photography",
+              "chinese": "摄影",
+              "phonetic": "fəˈtɒɡrəfi",
+              "category": "action"
+            },
+            {
+              "english": "viewpoint",
+              "chinese": "观景台",
+              "phonetic": "ˈvjuːpɔɪnt",
+              "category": "environment"
+            },
+            {
+              "english": "scenic spot",
+              "chinese": "景点",
+              "phonetic": "ˈsiːnɪk spɒt",
+              "category": "environment"
+            },
+            {
+              "english": "garden",
+              "chinese": "花园",
+              "phonetic": "ˈɡɑːdn",
+              "category": "environment"
+            },
+            {
+              "english": "fountain",
+              "chinese": "喷泉",
+              "phonetic": "ˈfaʊntən",
+              "category": "object"
+            },
+            {
+              "english": "statue",
+              "chinese": "雕像",
+              "phonetic": "ˈstætʃuː",
+              "category": "object"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

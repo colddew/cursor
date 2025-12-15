@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(pm2 logs:*)",
+      "Bash(npm run dev)",
+      "Bash(find:*)",
+      "Bash(tree:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(head:*)",
+      "Bash(wc:*)"
+    ]
+  }
+}

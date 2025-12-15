@@ -1,0 +1,325 @@
+/*
+ * 组件样式补充
+ */
+
+/* 主题选择器额外样式 */
+.theme-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+.theme-card:hover::after {
+    opacity: 1;
+}
+
+.theme-card.recommended {
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 20px rgba(255, 230, 109, 0.3);
+}
+
+.theme-card.recommended::before {
+    background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+}
+
+/* 场景标签动画 */
+.scene-tag {
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.scene-tag::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: var(--primary-color);
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    z-index: -1;
+}
+
+.scene-tag:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+.scene-tag.selected-scene {
+    background: var(--primary-color);
+    color: white;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+/* 词汇编辑器样式增强 */
+.word-item {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.word-item:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-md);
+}
+
+.word-item.selected {
+    background: linear-gradient(135deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+    border-color: var(--primary-color);
+}
+
+.word-item.selected::before {
+    background: var(--primary-color);
+}
+
+.word-content {
+    position: relative;
+    z-index: 1;
+}
+
+.toggle-btn {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.word-item:hover .toggle-btn {
+    opacity: 1;
+}
+
+.word-item.selected .toggle-btn {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* 词汇分类样式 */
+.vocabulary-category {
+    animation: slideIn 0.5s ease forwards;
+    opacity: 0;
+}
+
+.vocabulary-category:nth-child(1) { animation-delay: 0.1s; }
+.vocabulary-category:nth-child(2) { animation-delay: 0.2s; }
+.vocabulary-category:nth-child(3) { animation-delay: 0.3s; }
+.vocabulary-category:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.vocabulary-category h4 {
+    position: relative;
+    padding-left: 20px;
+}
+
+.vocabulary-category h4::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 20px;
+    background: var(--accent-color);
+    border-radius: 2px;
+}
+
+/* 进度步骤动画 */
+.step {
+    transition: all 0.3s ease;
+}
+
+.step.active {
+    animation: pulse 1s ease infinite;
+}
+
+.step-number {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.step-number::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number::after {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.3;
+    animation: ripple 1.5s ease infinite;
+}
+
+@keyframes ripple {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.3;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(2);
+        opacity: 0;
+    }
+}
+
+/* 结果展示样式 */
+.result-image {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+}
+
+.result-image img {
+    transition: transform 0.3s ease;
+}
+
+.result-image:hover img {
+    transform: scale(1.05);
+}
+
+.image-actions {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.result-image:hover .image-actions {
+    opacity: 1;
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+}
+
+/* 作品库样式 */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.gallery-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover::before {
+    opacity: 1;
+}
+
+.gallery-item img {
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+
+.gallery-item-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-md);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    color: white;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover .gallery-item-info {
+    transform: translateY(0);
+}
+
+/* 设置弹窗样式 */
+.preference-item {
+    transition: background 0.3s ease;
+}
+
+.preference-item:hover {
+    background: var(--bg-color);
+}
+
+.preference-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--primary-color);
+}
+
+/* Toast动画 */
+.toast {
+    animation: toastSlideIn 0.3s ease forwards;
+}
+
+@keyframes toastSlideIn {
+    from {
+        transform: translateX(-50%) translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(-50%) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* 加载动画 */
+.loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--primary-color);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* 响应式调整 */
+@media (max-width: 640px) {
+    .theme-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .word-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
