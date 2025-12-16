@@ -350,7 +350,7 @@ class AppState {
             generationStatus: 'idle',
             customTitle: '',
             aspectRatio: '4:5',
-            resolution: '4K',
+            resolution: '2K',
             apiKey: localStorage.getItem('apiKey') || '',
 
             settings: {
@@ -723,18 +723,15 @@ class UIController {
             });
         }
 
-        // 生成按钮
-        const generateBtn = document.getElementById('generateBtn');
-        if (generateBtn) {
-            generateBtn.addEventListener('click', (e) => {
-                console.log('Generate button clicked!');
+        // 生成按钮 - 使用事件委托
+        document.addEventListener('click', (e) => {
+            if (e.target && e.target.id === 'generateBtn') {
+                console.log('Generate button clicked via delegation!');
                 e.preventDefault();
                 e.stopPropagation();
                 this.handleGeneration();
-            });
-        } else {
-            console.error('Generate button not found!');
-        }
+            }
+        });
     }
 
     setupModalListeners() {

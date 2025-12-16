@@ -27,7 +27,7 @@ class AppStore {
                     defaultTheme: null,
                     defaultScene: null,
                     aspectRatio: '3:4',
-                    resolution: '4K',
+                    resolution: '2K',
                     outputFormat: 'png',
                     autoSave: true,      // 自动保存
                     showTutorial: true,  // 显示教程

@@ -239,7 +239,7 @@ class NanoBananaAPI {
     async generate(prompt, options = {}) {
         const defaultOptions = {
             aspectRatio: '3:4',
-            resolution: '4K',
+            resolution: '2K',
             outputFormat: 'png',
             timeout: this.defaultTimeout,
             pollInterval: this.pollInterval
