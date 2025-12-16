@@ -171,33 +171,37 @@
   
         <!-- 结果展示区 -->
         <section id="resultDisplay" class="content-section hidden">
-            <div class="result-container">
-                <div class="result-header">
-                    <h2>生成完成！</h2>
-                    <p class="result-subtitle">你的英语小报已经创建成功</p>
-                </div>
+            <div class="result-layout">
+                <!-- 左侧：图片区域 -->
+                <div class="result-main">
+                    <div class="result-header">
+                        <h2>生成完成！</h2>
+                        <p class="result-subtitle">你的英语小报已经创建成功</p>
+                    </div>
 
-                <div class="image-preview-wrapper">
-                    <div class="image-preview">
-                        <img id="generatedImage" src="" alt="生成的小报" class="generated-image">
-                        <div id="imageStatusBadge" class="image-status-badge hidden">
-                            <span id="statusIcon" class="status-icon"></span>
-                            <span id="statusText" class="status-text"></span>
+                    <div class="image-preview-wrapper">
+                        <div class="image-preview">
+                            <img id="generatedImage" src="" alt="生成的小报" class="generated-image">
+                            <div id="imageStatusBadge" class="image-status-badge hidden">
+                                <span id="statusIcon" class="status-icon"></span>
+                                <span id="statusText" class="status-text"></span>
+                            </div>
                         </div>
+                    </div>
+
+                    <div class="result-actions">
+                        <button id="createNewBtn" class="modern-btn btn-secondary">创建新的小报</button>
+                        <button id="regenerateBtn" class="modern-btn btn-secondary">重新生成</button>
                     </div>
                 </div>
 
-                <div class="result-actions">
-
-                    <button id="createNewBtn" class="modern-btn btn-secondary">创建新的小报</button>
-                    <button id="regenerateBtn" class="modern-btn btn-secondary">重新生成</button>
-                </div>
-
-                <!-- 词汇展示区 -->
-                <div class="vocabulary-display" id="vocabularyDisplay">
-                    <h3>📚 词汇表</h3>
-                    <div class="vocabulary-grid" id="resultVocabularyGrid">
-                        <!-- 结果词汇将动态生成 -->
+                <!-- 右侧：词汇表 -->
+                <div class="vocabulary-sidebar">
+                    <div class="vocabulary-display" id="vocabularyDisplay">
+                        <h3>📚 词汇表</h3>
+                        <div class="vocabulary-grid" id="resultVocabularyGrid">
+                            <!-- 结果词汇将动态生成 -->
+                        </div>
                     </div>
                 </div>
             </div>

@@ -1509,10 +1509,13 @@ body {
 /* 结果页面的图片可以超出视窗高度 */
 #resultDisplay .generated-image {
   max-width: 100%;
+  max-height: 62vh;
   height: auto !important;
   display: block;
   border-radius: var(--radius-xl);
   min-height: auto !important;
+  object-fit: contain;
+  width: auto;
 }
 
 /* 结果页面时，移除主内容区域的高度限制 */
@@ -1526,6 +1529,153 @@ body.result-visible .modern-main {
 body.result-visible .app-wrapper {
   max-height: none !important;
   min-height: 100vh;
+}
+
+/* 结果页面左右两栏布局 */
+.result-layout {
+  display: flex;
+  gap: 60px;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+/* 左侧区域 - 包含标题、错误信息、图片和按钮 */
+.result-main {
+  flex: 1;
+  min-width: 0; /* 防止flex子项溢出 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--space-6) var(--space-4);
+  max-height: none;
+  overflow: visible;
+}
+
+/* 结果页面的标题样式 */
+.result-main .result-header {
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.result-main .result-header h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.result-main .result-header .result-subtitle {
+  font-size: var(--text-base);
+  color: var(--gray-600);
+  margin: 0;
+}
+
+/* 右侧区域 - 词汇表 */
+.vocabulary-sidebar {
+  width: 700px;
+  flex-shrink: 0;
+  padding: 0;
+  position: sticky;
+  top: -20px;
+  max-height: calc(100vh + 20px);
+  overflow-y: auto;
+}
+
+/* 词汇侧边栏样式 */
+.vocabulary-sidebar .vocabulary-display {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  margin: 0;
+}
+
+.vocabulary-sidebar .vocabulary-display h3 {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  color: var(--primary);
+  margin: 0 0 var(--space-2) 0;
+  padding: 0 0;
+  text-align: center;
+}
+
+.vocabulary-sidebar .vocabulary-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--space-3);
+  padding: 0;
+}
+
+.vocabulary-sidebar .result-word {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
+  text-align: center;
+  transition: all var(--transition-normal);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.vocabulary-sidebar .result-word:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.vocabulary-sidebar .result-word-english {
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--gray-900);
+  margin-bottom: var(--space-1);
+}
+
+.vocabulary-sidebar .result-word-phonetic {
+  font-size: 11px;
+  color: var(--gray-600);
+  margin-bottom: var(--space-2);
+  font-family: 'Courier New', monospace;
+  opacity: 0.9;
+}
+
+.vocabulary-sidebar .result-word-chinese {
+  font-size: var(--text-sm);
+  color: var(--gray-700);
+  border-top: 1px solid var(--gray-100);
+  padding-top: var(--space-2);
+}
+
+/* 操作按钮样式 */
+.result-main .result-actions {
+  margin-top: var(--space-4);
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-shrink: 0;
+  padding-bottom: var(--space-4);
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .result-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .result-main {
+    width: 100%;
+    max-width: 800px;
+  }
+
+  .vocabulary-sidebar {
+    width: 100%;
+    max-width: 800px;
+    position: static;
+    margin-top: var(--space-6);
+    max-height: none;
+    top: 0;
+  }
+
+  .vocabulary-sidebar .vocabulary-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 }
 
 .gradient-preview {
