@@ -1252,7 +1252,8 @@ class UIController {
             }
         } catch (error) {
             // 异常处理
-            clearInterval(progressInterval);  // 清除模拟进度
+            // 清除慢速进度模拟
+            this.stopSlowProgress();
 
             this.store.setState({ generationStatus: 'error' });
 
