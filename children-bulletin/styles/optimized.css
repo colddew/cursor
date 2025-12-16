@@ -355,6 +355,11 @@ body {
   box-shadow: none !important;
 }
 
+/* 为vocabulary-display添加上边距 */
+#resultDisplay .vocabulary-display {
+  margin-top: 40px !important;
+}
+
 /* 保留词汇卡片本身的样式（如果需要的话） */
 #resultDisplay .result-word {
   background: white !important;

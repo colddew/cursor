@@ -990,6 +990,7 @@ body {
   border-radius: var(--radius-xl);
   padding: var(--spacing-xl);
   box-shadow: var(--shadow-md);
+  margin-top: 40px; /* 添加上边距，与上面的按钮分开 */
 }
 
 .vocabulary-display h3 {
