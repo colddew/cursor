@@ -983,6 +983,9 @@ class UIController {
         // 显示结果页面
         await this.showSection('resultDisplay');
 
+        // 显示结果时，移除高度限制
+        document.body.classList.add('result-visible');
+
         // 更新结果状态
         const imageStatusBadge = document.getElementById('imageStatusBadge');
         const statusText = document.getElementById('statusText');
@@ -1008,8 +1011,8 @@ class UIController {
                 generatedImage.src = result.imageUrl;
                 generatedImage.onerror = function () {
                     console.error('图片加载失败:', result.imageUrl);
-                    // 图片加载失败时显示默认图片
-                    this.src = 'images/default-bulletin.svg';
+                    // 图片加载失败时显示错误提示图片
+                    this.src = 'images/error-placeholder.svg';
                     // 更新状态为图片加载失败
                     if (statusText) {
                         statusText.textContent = '图片加载失败';
@@ -1026,18 +1029,15 @@ class UIController {
                 if (resultSubtitle) resultSubtitle.textContent = '你的英语小报已经创建成功';
             } else {
                 // 失败状态
-                // 清理错误信息，移除可能的HTML标签或不完整文本
-                let errorMsg = result.error || '小报生成失败，请稍后重试';
-                // 根据错误类型提供更友好的错误信息
-                if (errorMsg.includes('You do')) {
-                    errorMsg = 'API密钥错误或无效，请检查设置中的API密钥';
-                } else if (errorMsg.includes('网络错误') || errorMsg.includes('Network')) {
-                    errorMsg = '网络连接失败，请检查网络设置后重试';
-                } else if (errorMsg.includes('超时') || errorMsg.includes('timeout')) {
-                    errorMsg = '生成超时，请稍后重试';
+                // 如果错误信息已经处理过（包含中文），则直接使用；否则进行友好化处理
+                let errorMsg = result.error;
+                // 检查是否已经是友好化的错误信息
+                if (!errorMsg || (errorMsg.includes('access permissions') || errorMsg.includes('Network') || errorMsg.includes('timeout') || errorMsg.includes('API') === false)) {
+                    errorMsg = this.getFriendlyErrorMessage(errorMsg);
                 }
-                statusText.textContent = errorMsg;
-                generatedImage.src = 'images/default-bulletin.svg';
+                // 隐藏图片下方的状态徽章，避免重复显示错误
+                imageStatusBadge.classList.add('hidden');
+                generatedImage.src = 'images/error-placeholder.svg';
 
                 // 更新标题为错误信息
                 if (resultHeader) resultHeader.textContent = '生成失败！';
@@ -1067,6 +1067,8 @@ class UIController {
             createNewBtn.addEventListener('click', async () => {
                 // 重置状态
                 this.resetForNewCreation();
+                // 移除结果页面的高度限制
+                document.body.classList.remove('result-visible');
                 // 直接跳转到主题选择，和第一次进入时的逻辑完全一样
                 await this.showSection('welcomeSection');
             });
@@ -1320,9 +1322,12 @@ class UIController {
                 }
 
                 // 跳转到结果页面
+                // 直接使用友好化的错误信息
+                const errorMsg = this.getFriendlyErrorMessage(error.message);
+
                 await this.showResult({
                     success: false,
-                    error: error.message,
+                    error: errorMsg,
                     vocabulary: this.store.state.selectedVocabulary
                 });
 
@@ -1330,6 +1335,18 @@ class UIController {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }, 1000);
         }
+    }
+
+    // 获取友好错误信息
+    getFriendlyErrorMessage(errorMsg) {
+        if (errorMsg.includes('access permissions') || errorMsg.includes('AUTHENTICATION_FAILED')) {
+            return 'API密钥错误或无效，请检查设置中的API密钥';
+        } else if (errorMsg.includes('网络错误') || errorMsg.includes('Network')) {
+            return '网络连接失败，请检查网络设置后重试';
+        } else if (errorMsg.includes('超时') || errorMsg.includes('timeout')) {
+            return '生成超时，请稍后重试';
+        }
+        return errorMsg || '小报生成失败，请稍后重试';
     }
 
     // 重置为新创建

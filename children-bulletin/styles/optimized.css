@@ -1480,13 +1480,52 @@ body {
   color: white;
 }
 
-.image-preview, .style-preview {
+.style-preview {
   width: 80px;
   height: 80px;
   margin: 0 auto var(--space-2);
   border-radius: var(--radius-lg);
   position: relative;
   overflow: hidden;
+}
+
+/* 结果页面的图片预览应该保持原始大小 */
+#resultDisplay .image-preview {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  margin: 0 auto var(--space-2);
+  border-radius: var(--radius-lg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* 结果页面不受内容高度限制 */
+#resultDisplay.content-section {
+  max-height: none !important;
+  overflow: visible !important;
+}
+
+/* 结果页面的图片可以超出视窗高度 */
+#resultDisplay .generated-image {
+  max-width: 100%;
+  height: auto !important;
+  display: block;
+  border-radius: var(--radius-xl);
+  min-height: auto !important;
+}
+
+/* 结果页面时，移除主内容区域的高度限制 */
+body.result-visible .modern-main {
+  overflow: visible !important;
+  height: auto !important;
+  max-height: none !important;
+}
+
+/* 结果页面时，移除应用包装器的高度限制 */
+body.result-visible .app-wrapper {
+  max-height: none !important;
+  min-height: 100vh;
 }
 
 .gradient-preview {
