@@ -1382,6 +1382,26 @@ body {
   border-radius: var(--radius-md);
 }
 
+/* 禁用按钮样式 */
+.modern-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  background: var(--gray-300) !important;
+  color: var(--gray-500) !important;
+  border-color: var(--gray-300) !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.modern-btn:disabled:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.modern-btn:disabled::before {
+  display: none;
+}
+
 /* 图片选择动画覆盖层 */
 .image-picker-overlay {
   position: fixed !important;
