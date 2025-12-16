@@ -6,6 +6,7 @@ class EnhancedFeatures {
         this.maxTutorialSteps = 4;
         this.showTutorial = false;
         this.store = window.app?.store;
+        this.lastSection = null; // 跟踪上一次的section
         this.init();
     }
 
@@ -19,8 +20,13 @@ class EnhancedFeatures {
         if (this.store) {
             this.store.subscribe((state) => {
                 // Header visibility is now controlled by main.js
-                console.log('Section changed:', state.currentSection);
+                // 只在section真正改变时打印日志
+                if (this.lastSection !== state.currentSection) {
+                    console.log('Section changed:', state.currentSection);
+                    this.lastSection = state.currentSection;
+                }
             });
+            this.lastSection = this.store.state.currentSection;
         }
     }
 

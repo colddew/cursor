@@ -645,6 +645,8 @@ class UIController {
     constructor(store) {
         this.store = store;
         this.vocabularyEditor = null;
+        this.progressInterval = null; // 用于存储进度模拟的定时器
+        this.lastProgress = 0; // 跟踪上一次的进度，确保不会后退
         this.init();
     }
 
@@ -727,6 +729,7 @@ class UIController {
         document.addEventListener('click', (e) => {
             if (e.target && e.target.id === 'generateBtn') {
                 console.log('Generate button clicked via delegation!');
+                console.log('Current section before generation:', this.store.state.currentSection);
                 e.preventDefault();
                 e.stopPropagation();
                 this.handleGeneration();
@@ -1080,86 +1083,94 @@ class UIController {
             
             // 显示生成模态框
             console.log('Showing generation modal');
+            console.log('Current section:', this.store.state.currentSection);
+            console.log('Modal element exists:', !!document.getElementById('generationModal'));
+            console.log('Modal classes before show:', document.getElementById('generationModal')?.className);
+
             this.showModal('generationModal');
 
-            // 模拟进度 - 5秒内完成，显示特定进度点
-            const progressMilestones = [
-                { progress: 10, message: '准备提示词...', delay: 0 },
-                { progress: 30, message: '提交生成任务...', delay: 1500 },
-                { progress: 50, message: 'AI绘画中...', delay: 3000 },
-                { progress: 70, message: '渲染图像...', delay: 3700 },
-                { progress: 90, message: '优化细节...', delay: 4400 },
-                { progress: 100, message: '生成完成！', delay: 5000 }
-            ];
+            // 检查模态框是否真的显示了
+            setTimeout(() => {
+                const modal = document.getElementById('generationModal');
+                console.log('Modal classes after show:', modal?.className);
+                console.log('Body has modal-open class:', document.body.classList.contains('modal-open'));
+                console.log('Modal computed display after:', window.getComputedStyle(modal || {}).display);
+                console.log('Modal offsetParent (null means hidden):', modal?.offsetParent);
+            }, 100);
 
-            let currentMilestone = 0;
-            const startTime = Date.now();
+            // 阶段1：快速完成前两个步骤（准备提示词和提交生成任务）
+            console.log('开始生成流程 - 阶段1：准备和提交');
 
-            const progressInterval = setInterval(() => {
-                const elapsed = Date.now() - startTime;
+            // 重置进度跟踪
+            this.lastProgress = 0;
 
-                // 找到应该显示的进度点
-                for (let i = progressMilestones.length - 1; i >= 0; i--) {
-                    if (elapsed >= progressMilestones[i].delay) {
-                        currentMilestone = i;
-                        break;
-                    }
-                }
+            // 快速显示10%进度
+            this.updateProgress(10, '准备提示词...');
+            await this.delay(500);
 
-                const { progress, message } = progressMilestones[currentMilestone];
+            // 快速显示30%进度
+            this.updateProgress(30, '提交生成任务...');
+            await this.delay(500);
 
-                this.store.setState({ generationProgress: progress });
+            // 阶段2：AI绘画中（这个阶段会根据API调用时间动态调整进度）
+            console.log('进入AI绘画阶段');
+            let result;
+            let apiCallProgress = 30; // 从30%开始
 
-                // 更新模态框中的进度条和消息
-                const modalProgressFill = document.getElementById('modalProgressFill');
-                const modalProgressDesc = document.getElementById('modalProgressDesc');
-                const modalProgressPercent = document.getElementById('modalProgressPercent');
-
-                if (modalProgressFill) {
-                    modalProgressFill.style.width = `${progress}%`;
-                }
-
-                if (modalProgressDesc) {
-                    modalProgressDesc.textContent = message;
-                }
-
-                if (modalProgressPercent) {
-                    modalProgressPercent.textContent = `${progress}%`;
-                }
-
-                // 更新进度步骤
-                const steps = document.querySelectorAll('#modalProgressSteps .step');
-                const activeStep = Math.floor(progress / 20);
-                steps.forEach((step, index) => {
-                    if (index <= activeStep) {
-                        step.classList.add('active');
-                    } else {
-                        step.classList.remove('active');
+            try {
+                // 调用API，同时慢速增长进度
+                const apiPromise = api.generate(prompt, {
+                    timeout: 120000, // 2分钟超时
+                    onProgress: (progress, message) => {
+                        // 更新进度
+                        console.log(`[API] Progress callback: ${progress}% - ${message || 'AI绘画中...'}`);
+                        this.updateProgress(progress, message || 'AI绘画中...');
+                        apiCallProgress = progress;
                     }
                 });
 
-                // 5秒后停止模拟进度
-                if (elapsed >= 5000) {
-                    clearInterval(progressInterval);
+                // 同时启动慢速进度增长
+                this.simulateSlowProgress(30, 90, 60000); // 最多60秒
+
+                // 等待API调用完成
+                result = await apiPromise;
+                console.log('API调用成功:', result);
+
+                // 停止进度模拟
+                this.stopSlowProgress();
+
+                // 确保进度至少达到90%
+                if (apiCallProgress < 90) {
+                    this.updateProgress(90, '优化细节...');
+                    await this.delay(200);
                 }
-            }, 100); // 每100ms检查一次以确保流畅更新
 
-            // 等待5秒模拟完成
-            await new Promise(resolve => {
-                setTimeout(resolve, 5000);
-            });
+            } catch (error) {
+                console.error('API调用失败:', error);
 
-            // 模拟进度应该已经在5秒时自动停止
-            // clearInterval(progressInterval); // 不需要再次清除
+                // 停止进度模拟
+                this.stopSlowProgress();
 
-            // 模拟API响应（演示用，总是返回错误）
-            const result = {
-                success: false,
-                error: 'API调用失败：请检查网络连接或稍后重试'
-            };
+                // API失败，快速跳转到错误状态
+                result = {
+                    success: false,
+                    error: error.message || 'API调用失败'
+                };
 
-            // 调试：打印模拟结果
-            console.log('模拟API结果:', result);
+                // 如果进度还在30-90之间，快速跳到90%
+                if (apiCallProgress < 90) {
+                    this.updateProgress(90, '生成失败，准备返回结果...');
+                    await this.delay(300);
+                }
+            }
+
+            // 阶段3：快速完成最后步骤
+            console.log('进入收尾阶段');
+            this.updateProgress(95, '渲染图像...');
+            await this.delay(300);
+
+            this.updateProgress(100, '生成完成！');
+            await this.delay(500);
 
             if (result.success) {
                 // 生成成功
@@ -1202,18 +1213,14 @@ class UIController {
             } else {
                 // 生成失败
                 this.store.setState({ generationStatus: 'error' });
-                
-                // 更新模态框
+
+                // 更新模态框 - 保持进度，只更新消息
                 const modalProgressDesc = document.getElementById('modalProgressDesc');
-                const modalProgressPercent = document.getElementById('modalProgressPercent');
-                
+
                 if (modalProgressDesc) {
                     modalProgressDesc.textContent = '生成失败';
                 }
-                
-                if (modalProgressPercent) {
-                    modalProgressPercent.textContent = '0%';
-                }
+                // 移除设置百分比，保持当前进度不变
 
                 // 延迟关闭模态框并跳转到结果页面
                 setTimeout(async () => {
@@ -1236,22 +1243,13 @@ class UIController {
 
             this.store.setState({ generationStatus: 'error' });
 
-            // 更新模态框
-            const modalProgressFill = document.getElementById('modalProgressFill');
+            // 更新模态框 - 保持进度，只更新消息
             const modalProgressDesc = document.getElementById('modalProgressDesc');
-            const modalProgressPercent = document.getElementById('modalProgressPercent');
-
-            if (modalProgressFill) {
-                modalProgressFill.style.width = '0%';
-            }
 
             if (modalProgressDesc) {
                 modalProgressDesc.textContent = '生成失败';
             }
-
-            if (modalProgressPercent) {
-                modalProgressPercent.textContent = '0%';
-            }
+            // 不修改进度条和百分比，保持当前进度
 
             // 延迟关闭模态框并跳转到结果页面
             setTimeout(async () => {
@@ -1293,6 +1291,96 @@ class UIController {
         if (customTitleInput) {
             customTitleInput.value = '';
             this.store.setState({ customTitle: '' });
+        }
+    }
+
+    // 更新进度的辅助方法
+    updateProgress(progress, message) {
+        // 确保进度不会后退
+        if (progress < this.lastProgress) {
+            console.log(`[PROGRESS] Ignoring backward progress: ${progress}% < ${this.lastProgress}%`);
+            return;
+        }
+
+        this.lastProgress = progress;
+        console.log(`[PROGRESS] ${progress}% - ${message} - 来源: ${new Error().stack.split('\n')[2]?.trim() || 'unknown'}`);
+
+        this.store.setState({ generationProgress: progress });
+
+        // 更新模态框中的进度条和消息
+        const modalProgressFill = document.getElementById('modalProgressFill');
+        const modalProgressDesc = document.getElementById('modalProgressDesc');
+        const modalProgressPercent = document.getElementById('modalProgressPercent');
+
+        if (modalProgressFill) {
+            modalProgressFill.style.width = `${progress}%`;
+        }
+
+        if (modalProgressDesc) {
+            modalProgressDesc.textContent = message;
+        }
+
+        if (modalProgressPercent) {
+            modalProgressPercent.textContent = `${progress}%`;
+        }
+
+        // 更新进度步骤
+        const steps = document.querySelectorAll('#modalProgressSteps .step');
+        const activeStep = Math.floor(progress / 20);
+        steps.forEach((step, index) => {
+            if (index <= activeStep) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+    }
+
+    // 延迟辅助方法
+    delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // 模拟慢速进度增长（在API调用期间）
+    simulateSlowProgress(startProgress, endProgress, maxDuration) {
+        const startTime = Date.now();
+        const progressRange = endProgress - startProgress;
+        let lastProgress = startProgress;
+
+        // 清除之前的定时器（如果存在）
+        if (this.progressInterval) {
+            clearInterval(this.progressInterval);
+        }
+
+        this.progressInterval = setInterval(() => {
+            const elapsed = Date.now() - startTime;
+
+            // 计算当前应该的进度（慢速增长）
+            const expectedProgress = Math.min(
+                startProgress + (progressRange * elapsed / maxDuration),
+                endProgress
+            );
+
+            // 只在进度增长时更新，避免后退
+            if (expectedProgress > lastProgress) {
+                lastProgress = expectedProgress;
+                console.log(`[SIMULATE] Updating progress from simulateSlowProgress: ${expectedProgress}%`);
+                this.updateProgress(expectedProgress, 'AI绘画中...');
+            }
+
+            // 检查是否应该结束
+            if (expectedProgress >= endProgress || elapsed >= maxDuration) {
+                clearInterval(this.progressInterval);
+                this.progressInterval = null;
+            }
+        }, 1000); // 每1000ms更新一次，模拟慢速增长
+    }
+
+    // 停止进度模拟
+    stopSlowProgress() {
+        if (this.progressInterval) {
+            clearInterval(this.progressInterval);
+            this.progressInterval = null;
         }
     }
 }
