@@ -208,14 +208,44 @@ class NanoBananaAPI {
             // 解析结果
             let imageUrl = null;
             try {
-                const resultData = JSON.parse(result.data.resultJson);
-                imageUrl = resultData.resultUrls && resultData.resultUrls[0];
-
-                if (!imageUrl) {
-                    throw new Error('未找到图片URL');
+                // 验证响应数据结构
+                if (!result.data || !result.data.resultJson) {
+                    throw new Error('API返回数据格式错误：缺少resultJson');
                 }
+
+                const resultData = JSON.parse(result.data.resultJson);
+
+                // 验证resultUrls数组
+                if (!resultData.resultUrls || !Array.isArray(resultData.resultUrls)) {
+                    throw new Error('API返回数据格式错误：缺少resultUrls数组');
+                }
+
+                // 验证数组不为空
+                if (resultData.resultUrls.length === 0) {
+                    throw new Error('API返回的图片列表为空');
+                }
+
+                // 获取第一个图片URL
+                imageUrl = resultData.resultUrls[0];
+
+                // 验证URL格式
+                if (typeof imageUrl !== 'string' || imageUrl.trim() === '') {
+                    throw new Error('图片URL格式无效');
+                }
+
+                // 验证URL是否为有效格式
+                try {
+                    new URL(imageUrl);
+                } catch (urlError) {
+                    throw new Error('图片URL格式不正确');
+                }
+
             } catch (error) {
-                throw new NanoBananaAPIError('解析结果失败', 0, 'PARSE_ERROR');
+                if (error instanceof SyntaxError) {
+                    throw new NanoBananaAPIError('解析JSON失败：' + error.message, 0, 'PARSE_ERROR');
+                } else {
+                    throw new NanoBananaAPIError(error.message, 0, 'IMAGE_URL_ERROR');
+                }
             }
 
             return {

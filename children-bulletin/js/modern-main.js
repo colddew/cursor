@@ -973,7 +973,7 @@ class UIController {
         const resultHeader = document.querySelector('.result-header h2');
         const resultSubtitle = document.querySelector('.result-subtitle');
 
-        if (imageStatusBadge && statusText && statusIcon && generatedImage && resultVocabularyGrid) {
+        if (statusText && generatedImage && resultVocabularyGrid) {
             imageStatusBadge.classList.remove('hidden');
 
             // 检查是否真正成功 - 即使result.success为true，如果存在任何error信息，也视为失败
@@ -981,22 +981,32 @@ class UIController {
 
             if (isActuallySuccess) {
                 // 成功状态
-                imageStatusBadge.className = 'image-status-badge success';
-                statusIcon.textContent = '✓';
                 statusText.textContent = '小报生成成功！';
+
+                // 设置图片并添加加载错误处理
                 generatedImage.src = result.imageUrl;
+                generatedImage.onerror = function() {
+                    console.error('图片加载失败:', result.imageUrl);
+                    // 图片加载失败时显示默认图片
+                    this.src = 'images/default-bulletin.svg';
+                    // 更新状态为图片加载失败
+                    if (statusText) {
+                        statusText.textContent = '图片加载失败';
+                    }
+                }.bind(generatedImage);
+
+                // 图片加载成功的处理
+                generatedImage.onload = function() {
+                    console.log('图片加载成功:', result.imageUrl);
+                }.bind(generatedImage);
 
                 // 更新标题为成功信息
                 if (resultHeader) resultHeader.textContent = '生成完成！';
                 if (resultSubtitle) resultSubtitle.textContent = '你的英语小报已经创建成功';
             } else {
                 // 失败状态
-                imageStatusBadge.className = 'image-status-badge error';
-                statusIcon.textContent = '✗';
                 // 清理错误信息，移除可能的HTML标签或不完整文本
                 let errorMsg = result.error || '小报生成失败，请稍后重试';
-                // 检查是否包含"✗"并移除
-                errorMsg = errorMsg.replace(/✗/g, '');
                 // 根据错误类型提供更友好的错误信息
                 if (errorMsg.includes('You do')) {
                     errorMsg = 'API密钥错误或无效，请检查设置中的API密钥';
