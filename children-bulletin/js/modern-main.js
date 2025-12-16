@@ -857,11 +857,12 @@ class UIController {
             document.body.setAttribute('data-scroll-x', scrollX);
             document.body.setAttribute('data-scroll-y', scrollY);
 
-            // 将页面滚动到顶部，确保模态框显示在视口中央
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
             // 立即显示弹窗
             modal.classList.remove('hidden');
+
+            // 添加transform来抵消body的位移影响
+            modal.style.transform = `translate(0, ${scrollY}px)`;
+            modal.style.transition = 'transform 0s'; // 禁用过渡动画
 
             // 给body添加modal-open类，禁用页面滚动
             document.body.classList.add('modal-open');
@@ -873,7 +874,9 @@ class UIController {
             document.body.style.width = '100vw';
             document.body.style.overflow = 'hidden';
 
-
+            console.log(`Modal ${modalId} displayed successfully`);
+        } else {
+            console.error(`Modal with id ${modalId} not found`);
         }
     }
 
@@ -881,6 +884,9 @@ class UIController {
         const modal = document.getElementById(modalId);
         if (modal) {
             modal.classList.add('hidden');
+            // 清除transform
+            modal.style.transform = '';
+            modal.style.transition = '';
         }
 
         // 先从data属性中获取保存的滚动位置
@@ -1084,18 +1090,25 @@ class UIController {
             // 显示生成模态框
             console.log('Showing generation modal');
             console.log('Current section:', this.store.state.currentSection);
-            console.log('Modal element exists:', !!document.getElementById('generationModal'));
-            console.log('Modal classes before show:', document.getElementById('generationModal')?.className);
+            console.log('Scroll position before modal:', window.scrollY);
+
+            const modal = document.getElementById('generationModal');
+            console.log('Modal element exists:', !!modal);
+            console.log('Modal classes before show:', modal?.className);
+            console.log('Modal computed style before:', modal ? window.getComputedStyle(modal).position : 'N/A');
 
             this.showModal('generationModal');
 
             // 检查模态框是否真的显示了
             setTimeout(() => {
-                const modal = document.getElementById('generationModal');
+                console.log('Scroll position after modal:', window.scrollY);
                 console.log('Modal classes after show:', modal?.className);
                 console.log('Body has modal-open class:', document.body.classList.contains('modal-open'));
-                console.log('Modal computed display after:', window.getComputedStyle(modal || {}).display);
+                console.log('Body position style:', document.body.style.position);
+                console.log('Modal computed display after:', modal ? window.getComputedStyle(modal).display : 'N/A');
+                console.log('Modal computed position after:', modal ? window.getComputedStyle(modal).position : 'N/A');
                 console.log('Modal offsetParent (null means hidden):', modal?.offsetParent);
+                console.log('Modal rect (position and size):', modal ? modal.getBoundingClientRect() : 'N/A');
             }, 100);
 
             // 阶段1：快速完成前两个步骤（准备提示词和提交生成任务）
