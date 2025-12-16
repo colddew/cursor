@@ -382,6 +382,42 @@ For each object above, attach educational labels with:
 // 全局状态管理
 class AppState {
     constructor() {
+        // 尝试从多个位置加载 API key
+        let apiKey = localStorage.getItem('apiKey') || '';
+
+        // 如果没有找到，尝试从 bulletin-store 加载
+        if (!apiKey) {
+            try {
+                const bulletinStore = localStorage.getItem('bulletin-store');
+                if (bulletinStore) {
+                    const data = JSON.parse(bulletinStore);
+                    if (data.settings && data.settings.apiKey) {
+                        apiKey = data.settings.apiKey;
+                        // 同步到旧的位置以保持兼容性
+                        localStorage.setItem('apiKey', apiKey);
+                    }
+                }
+            } catch (error) {
+                console.error('从 bulletin-store 加载 API key 失败:', error);
+            }
+        }
+
+        // 加载设置
+        let settings = {
+            autoSave: true,
+            showTutorial: true,
+            autoDownload: false
+        };
+
+        try {
+            const savedSettings = localStorage.getItem('settings');
+            if (savedSettings) {
+                settings = { ...settings, ...JSON.parse(savedSettings) };
+            }
+        } catch (error) {
+            console.error('加载设置失败:', error);
+        }
+
         this.state = {
             currentSection: 'welcome',
             currentTheme: null,
@@ -392,13 +428,8 @@ class AppState {
             customTitle: '',
             aspectRatio: '4:5',
             resolution: '2K',
-            apiKey: localStorage.getItem('apiKey') || '',
-
-            settings: {
-                autoSave: true,
-                showTutorial: true,
-                autoDownload: false
-            }
+            apiKey: apiKey,
+            settings: settings
         };
         this.listeners = [];
     }
@@ -424,9 +455,26 @@ class AppState {
     }
 
     saveToStorage() {
-        localStorage.setItem('settings', JSON.stringify(this.state.settings));
+        // 保存 API key
         if (this.state.apiKey) {
             localStorage.setItem('apiKey', this.state.apiKey);
+        }
+
+        // 保存设置
+        localStorage.setItem('settings', JSON.stringify(this.state.settings));
+
+        // 同时保存到 bulletin-store 以保持一致性
+        try {
+            const saveData = {
+                gallery: this.state.gallery || [],
+                settings: {
+                    ...this.state.settings,
+                    apiKey: this.state.apiKey  // 将 API key 也保存到 bulletin-store
+                }
+            };
+            localStorage.setItem('bulletin-store', JSON.stringify(saveData));
+        } catch (error) {
+            console.error('保存到 bulletin-store 失败:', error);
         }
     }
 
