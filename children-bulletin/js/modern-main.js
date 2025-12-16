@@ -875,6 +875,23 @@ class UIController {
             document.body.style.overflow = 'hidden';
 
             console.log(`Modal ${modalId} displayed successfully`);
+
+            // 异常检测：只在模态框完全在视口外时才修复
+            setTimeout(() => {
+                const modal = document.getElementById(modalId);
+                if (modal && !modal.classList.contains('hidden')) {
+                    const rect = modal.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
+                    const viewportWidth = window.innerWidth;
+
+                    // 只有当模态框完全在视口外时才修复
+                    if (rect.bottom < 0 || rect.top > viewportHeight || rect.right < 0 || rect.left > viewportWidth) {
+                        console.warn('模态框在视口外，应用修复措施');
+                        // 添加修复类，不修改现有 inline style
+                        modal.classList.add('modal-force-viewport-fix');
+                    }
+                }
+            }, 50);
         } else {
             console.error(`Modal with id ${modalId} not found`);
         }
@@ -887,6 +904,8 @@ class UIController {
             // 清除transform
             modal.style.transform = '';
             modal.style.transition = '';
+            // 清理视口修复类
+            modal.classList.remove('modal-force-viewport-fix');
         }
 
         // 先从data属性中获取保存的滚动位置

@@ -1383,3 +1383,15 @@ body {
 .pulse {
   animation: pulse 2s infinite;
 }
+
+/* 模态框视口修复类 - 仅用于异常情况，确保在视口中心显示 */
+.modal-force-viewport-fix {
+  position: fixed !important;
+  top: 50vh !important;
+  left: 50vw !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 2000 !important;
+  margin: 0 !important;
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
