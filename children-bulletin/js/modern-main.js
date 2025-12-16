@@ -65,6 +65,16 @@ class NanoBananaAPI {
             throw new Error('提示词长度不能超过10000字符');
         }
 
+        // 记录请求参数
+        console.log('=== API Request Details (modern-main.js) ===');
+        console.log('URL: POST https://api.kie.ai/api/v1/jobs/createTask');
+        console.log('Headers:');
+        console.log('  Authorization: Bearer [API_KEY]');
+        console.log('  Content-Type: application/json');
+        console.log('Body:', JSON.stringify(params, null, 2));
+        console.log('Prompt language check:', params.input.prompt.match(/[\u4e00-\u9fff]/) ? 'Contains Chinese characters!' : 'All English characters');
+        console.log('=== End of Request Details ===');
+
         const response = await this.request('/jobs/createTask', {
             method: 'POST',
             body: JSON.stringify(params)
@@ -208,93 +218,81 @@ class NanoBananaAPI {
 class PromptGenerator {
     constructor() {
         this.template = this.loadTemplate();
-        this.defaultTitles = this.getDefaultTitles();
+        this.titleTemplates = null;
+        this.loadTitleTemplates();
+    }
+
+    async loadTitleTemplates() {
+        try {
+            const response = await fetch('./titles.json');
+            const data = await response.json();
+            this.titleTemplates = data.titleTemplates;
+        } catch (error) {
+            console.error('Failed to load title templates:', error);
+            // 使用内置的后备标题
+            this.titleTemplates = {
+                'defaultTitle': '英语学习小报'
+            };
+        }
     }
 
     loadTemplate() {
-        return `请生成一张青少年学英语小报《{{title}}》，竖版 A4，学习小报版式，适合 10-16 岁青少年 看图学英语
+        return `Comic poster: Generate an English learning poster for teenagers titled "{{themeScene}}/{{title}}", vertical A4 layout, educational newspaper style, suitable for 10-16 year olds learning English through pictures.
 
-# 一、小报标题区（顶部）
+# I. Title Section (Top)
 
-**顶部居中大标题**：《{{title}}》
-* **风格**：学习小报 / 英语学习报
-* **文本要求**：大字、醒目、卡通手写体、彩色描边
-* **装饰**：周围添加与 {{theme}} 相关的贴纸风装饰，颜色鲜艳
+**Large centered title**: "{{title}}"
+* **Style**: Educational newspaper / English learning poster
+* **Text requirements**: Large, bold, cartoon handwritten font, colorful gradient outlines (using rainbow colors: red, orange, yellow, green, blue, purple)
+* **Decorations**: Add {{themeScene}}/{{title}}-related colorful sticker-style decorations around the title, bright and eye-catching
 
-# 二、小报主体（中间主画面）
+# II. Main Scene (Center)
 
-画面中心是一幅 **卡通插画风的「{{theme}}」场景**：
-* **整体气氛**：明亮、温暖、积极
-* **构图**：物体边界清晰，方便对应文字，不要过于拥挤
+The center features a **cartoon illustration of a "{{themeScene}}/{{title}}" scene**:
+* **Overall atmosphere**: Bright, warm, positive, engaging
+* **Composition**: Clear object boundaries for easy text association, not overcrowded
 
-**场景分区与核心内容**
-1.  **核心区域 A（主要对象）**：表现 {{theme}} 的核心活动
-2.  **核心区域 B（配套设施）**：展示相关的工具或物品
-3.  **核心区域 C（环境背景）**：体现环境特征（如墙面、指示牌等）
+**Scene zones and core content**:
+1. **Core Zone A (Main activities)**: Show key {{themeScene}}/{{title}} activities
+2. **Core Zone B (Tools & items)**: Display related equipment and objects
+3. **Core Zone C (Environment)**: Show environmental features (walls, signs, etc.)
 
-**主题人物**
-* **角色**：1 位可爱卡通人物（职业/身份：与 {{theme}} 匹配）
-* **动作**：正在进行与场景相关的自然互动
+**Main character**:
+* **Character**: 1 cute cartoon character (profession/identity matching {{themeScene}}/{{title}})
+* **Action**: Naturally interacting with the scene
 
-# 三、必画物体与单词清单（Generated Content）
+# III. Required Objects & Vocabulary List
 
-**请务必在画面中清晰绘制以下物体，并为其预留贴标签的位置：**
+**Must clearly draw the following objects and leave space for labels**:
 
-**1. 核心角色与设施：**
+**1. Core characters & facilities**:
 {{coreObjects}}
 
-**2. 常见物品/工具：**
+**2. Common items/tools**:
 {{commonItems}}
 
-**3. 环境与装饰：**
+**3. Environment & decorations**:
 {{environmentItems}}
 
-# 四、识字标注规则
+*(Note: The number of objects in the image is not limited to this, but the above list must be the main focus)*
 
-对上述清单中的物体，贴上中文识字标签：
-* **格式**：三行制（第一行英文，第二行简体汉字，第三行英语音标）
-* **样式**：彩色小贴纸风格，白底黑字或深色字，清晰可读
-* **排版**：标签靠近对应的物体，不遮挡主体
+# IV. Labeling Rules
 
-# 五、画风参数
-* **风格**：青少年绘本 + 英语小报
-* **色彩**：高饱和、明快、温暖 (High Saturation, Warm Tone)
-* **质量**：8k resolution, high detail, vector illustration style, clean lines`;
+For each object above, attach educational labels with:
+* **Format**: Three-line style (Line 1: English word, Line 2: Chinese characters, Line 3: phonetic symbols)
+* **Style**: Colorful sticker style, each label with different vibrant background colors (pink, light blue, light green, yellow, orange), dark text for high contrast
+* **Typography**: Fun, playful fonts suitable for children, rounded letters
+* **Layout**: Labels positioned near corresponding objects without obscuring the main illustration
+
+# V. Art Style Parameters
+* **Style**: Children's picture book + educational poster
+* **Color palette**: High saturation, bright, warm tones with rainbow accents (High Saturation, Warm Tone)
+* **Text treatment**: All text elements should be colorful with gradient effects, shadows, or outlines to make them pop
+* **Quality**: 8k resolution, high detail, vector illustration style, clean lines, professional printing quality`;
     }
 
-    getDefaultTitles() {
-        return {
-            'daily-life': {
-                home: '温馨家庭',
-                neighborhood: '快乐社区'
-            },
-            'shopping': {
-                supermarket: '超市购物',
-                market: '市场淘宝'
-            },
-            'school': {
-                classroom: '智慧课堂',
-                library: '书香图书馆',
-                playground: '活力操场'
-            },
-            'entertainment': {
-                'game-center': '游戏天堂',
-                cinema: '电影院奇遇'
-            },
-            'health': {
-                hospital: '健康守护',
-                gym: '健身时光',
-                'healthy-food': '营养美食'
-            },
-            'travel': {
-                airport: '机场旅程',
-                hotel: '温馨酒店',
-                attraction: '景点探秘'
-            }
-        };
-    }
 
-    generatePrompt(options = {}) {
+    async generatePrompt(options = {}) {
         if (!options.theme || !options.theme.name) {
             throw new Error('主题信息不能为空');
         }
@@ -308,34 +306,77 @@ class PromptGenerator {
         const vocabulary = options.vocabulary;
         const customTitle = options.customTitle || '';
 
-        const title = customTitle || this.getDefaultTitle(theme.id, scene.id);
+        // 确保标题模板已加载
+        if (!this.titleTemplates) {
+            await this.loadTitleTemplates();
+        }
 
-        const coreObjects = vocabulary.filter(word => word.category === 'character').map(word => word.english).join(', ');
-        const commonItems = vocabulary.filter(word => word.category === 'object').map(word => word.english).join(', ');
-        const environmentItems = vocabulary.filter(word => word.category === 'environment').map(word => word.english).join(', ');
+        // 获取标题
+        let title;
+        if (customTitle && customTitle.trim()) {
+            // 使用自定义标题
+            title = customTitle.trim();
+        } else {
+            // 使用预设标题
+            title = this.getTitle(theme, scene);
+        }
+
+        // Format vocabulary with English, phonetic, and Chinese
+        const formatVocabularyWord = (word) => {
+            // Ensure phonetic has slashes on both sides
+            let phonetic = word.phonetic || '';
+            if (phonetic && !phonetic.startsWith('/')) {
+                phonetic = `/${phonetic}`;
+            }
+            if (phonetic && !phonetic.endsWith('/')) {
+                phonetic = `${phonetic}/`;
+            }
+            return `${word.english} ${phonetic} ${word.chinese}`;
+        };
+
+        const coreObjects = vocabulary.filter(word => word.category === 'character').slice(0, 5).map(formatVocabularyWord).join(', ');
+        const commonItems = vocabulary.filter(word => word.category === 'object').slice(0, 8).map(formatVocabularyWord).join(', ');
+        const environmentItems = vocabulary.filter(word => word.category === 'environment').slice(0, 5).map(formatVocabularyWord).join(', ');
+
+        // 根据prompt.md要求，使用"主题/场景"格式
+        const themeSceneFormat = `${scene.name}`;
 
         const prompt = this.template
             .replace(/{{title}}/g, title)
-            .replace(/{{theme}}/g, scene.name)
+            .replace(/{{themeScene}}/g, themeSceneFormat)
             .replace(/{{coreObjects}}/g, coreObjects)
             .replace(/{{commonItems}}/g, commonItems)
             .replace(/{{environmentItems}}/g, environmentItems);
 
+        // 检查提示词语言（仅用于调试）
+        const hasChinese = prompt.match(/[\u4e00-\u9fff]/);
+        if (hasChinese) {
+            console.log('Warning: Generated prompt contains Chinese characters (except in vocabulary):', hasChinese);
+        }
+
         return prompt;
     }
 
-    getDefaultTitle(themeId, sceneId) {
-        if (this.defaultTitles[themeId] && this.defaultTitles[themeId][sceneId]) {
-            return this.defaultTitles[themeId][sceneId];
+    // 获取标题
+    getTitle(theme, scene) {
+        // 如果标题模板还没加载完成，使用默认格式
+        if (!this.titleTemplates) {
+            return scene ? `${theme.name}-${scene.name}` : theme.name;
         }
 
-        const themeTitles = [
-            '探索世界', '快乐学习', '成长记录', '知识之旅', '趣味英语',
-            '学习乐园', '智慧之门', '成长足迹', '英语天地', '学习时光'
-        ];
+        const themeId = theme.id;
+        const sceneId = scene?.id;
 
-        return themeTitles[Math.floor(Math.random() * themeTitles.length)];
+        // 尝试获取主题特定的标题
+        if (this.titleTemplates[themeId] && this.titleTemplates[themeId][sceneId]) {
+            const titles = this.titleTemplates[themeId][sceneId];
+            return titles[Math.floor(Math.random() * titles.length)];
+        }
+
+        // 如果没有找到特定标题，使用默认标题
+        return this.titleTemplates.defaultTitle || '英语学习小报';
     }
+
 }
 
 // 全局状态管理
@@ -437,58 +478,6 @@ class AppState {
 
 }
 
-// 增强的标题生成系统
-function generateTitle(theme, scene) {
-    const titleTemplates = {
-        'daily-life': {
-            'home': ['温馨家园', '我的小屋', '家的港湾', '幸福之家'],
-            'family': ['和睦家庭', '亲情时光', '家人的爱', '家庭欢乐'],
-            'community': ['和谐社区', '邻里之间', '社区生活', '我们的社区']
-        },
-        'shopping': {
-            'market': ['热闹市场', '市集风情', '购物街', '市场百态'],
-            'mall': ['时尚购物', '购物中心', '商场漫游', '购物天堂'],
-            'online': ['便捷网购', '线上购物', '网购时代', '鼠标生活']
-        },
-        'school': {
-            'classroom': ['智慧课堂', '学习时光', '课堂点滴', '知识海洋'],
-            'library': ['书香学堂', '图书馆奇遇', '读书之乐', '知识宝库'],
-            'playground': ['快乐校园', '课间时光', '校园生活', '青春足迹']
-        },
-        'entertainment': {
-            'movies': ['精彩影院', '电影世界', '银幕故事', '光影时光'],
-            'music': ['悦动音符', '音乐之声', '旋律之美', '节拍青春'],
-            'games': ['欢乐游戏', '游戏王国', '娱乐时光', '玩乐天地']
-        },
-        'health': {
-            'exercise': ['活力健身', '运动人生', '健康生活', '活力四射'],
-            'nutrition': ['健康饮食', '营养美食', '均衡膳食', '饮食之道'],
-            'medical': ['关爱健康', '健康守护', '医疗知识', '身心健康']
-        },
-        'travel': {
-            'beach': ['阳光海滩', '海边度假', '沙滩时光', '海洋之旅'],
-            'mountain': ['壮丽山峰', '登山之旅', '山川秀美', '高峰体验'],
-            'city': ['都市风情', '城市漫步', '都市印象', '城市之光']
-        }
-    };
-
-    const themeId = theme.id;
-    const sceneId = scene?.id;
-
-    // 根据主题和场景选择标题
-    if (titleTemplates[themeId] && titleTemplates[themeId][sceneId]) {
-        const titles = titleTemplates[themeId][sceneId];
-        return titles[Math.floor(Math.random() * titles.length)];
-    }
-
-    // 主题后备标题
-    const themeTitles = [
-        '探索世界', '快乐学习', '成长记录', '知识之旅', '趣味英语',
-        '学习乐园', '智慧之门', '成长足迹', '英语天地', '学习时光'
-    ];
-
-    return themeTitles[Math.floor(Math.random() * themeTitles.length)];
-}
 
 // 词汇编辑器类
 class VocabularyEditor {
@@ -831,8 +820,21 @@ class UIController {
 
         // 更新默认标题
         if (defaultTitleDisplay) {
-            const title = generateTitle(currentTheme, currentScene);
-            defaultTitleDisplay.innerHTML = title;
+            // 创建临时的提示词生成器来获取标题
+            const tempPromptGenerator = new PromptGenerator();
+
+            // 如果标题模板还未加载，先设置一个默认显示
+            if (!tempPromptGenerator.titleTemplates) {
+                defaultTitleDisplay.innerHTML = '加载中...';
+                // 异步加载后再更新
+                tempPromptGenerator.loadTitleTemplates().then(() => {
+                    const title = tempPromptGenerator.getTitle(currentTheme, currentScene);
+                    defaultTitleDisplay.innerHTML = title;
+                });
+            } else {
+                const title = tempPromptGenerator.getTitle(currentTheme, currentScene);
+                defaultTitleDisplay.innerHTML = title;
+            }
         }
     }
 
@@ -1004,7 +1006,7 @@ class UIController {
 
                 // 设置图片并添加加载错误处理
                 generatedImage.src = result.imageUrl;
-                generatedImage.onerror = function() {
+                generatedImage.onerror = function () {
                     console.error('图片加载失败:', result.imageUrl);
                     // 图片加载失败时显示默认图片
                     this.src = 'images/default-bulletin.svg';
@@ -1015,7 +1017,7 @@ class UIController {
                 }.bind(generatedImage);
 
                 // 图片加载成功的处理
-                generatedImage.onload = function() {
+                generatedImage.onload = function () {
                     console.log('图片加载成功:', result.imageUrl);
                 }.bind(generatedImage);
 
@@ -1041,7 +1043,7 @@ class UIController {
                 if (resultHeader) resultHeader.textContent = '生成失败！';
                 if (resultSubtitle) resultSubtitle.textContent = errorMsg;
             }
-            
+
             // 渲染词汇表
             const vocabularyHtml = result.vocabulary.map(word => `
                 <div class="result-word">
@@ -1050,10 +1052,10 @@ class UIController {
                     <div class="result-word-chinese">${word.chinese}</div>
                 </div>
             `).join('');
-            
+
             resultVocabularyGrid.innerHTML = vocabularyHtml;
         }
-        
+
         // 绑定结果页面按钮事件
         this.bindResultPageButtons(result);
     }
@@ -1069,7 +1071,7 @@ class UIController {
                 await this.showSection('welcomeSection');
             });
         }
-        
+
         // 重新生成按钮
         const regenerateBtn = document.getElementById('regenerateBtn');
         if (regenerateBtn) {
@@ -1080,7 +1082,7 @@ class UIController {
         }
     }
 
-    
+
     async handleGeneration() {
         console.log('handleGeneration called');
         console.log('API Key:', this.store.state.apiKey ? 'exists' : 'missing');
@@ -1103,19 +1105,31 @@ class UIController {
             const promptGenerator = new PromptGenerator();
 
             // 生成提示词
-            const prompt = promptGenerator.generatePrompt({
+            const prompt = await promptGenerator.generatePrompt({
                 theme: this.store.state.currentTheme,
                 scene: this.store.state.currentScene,
                 vocabulary: this.store.state.selectedVocabulary,
                 customTitle: this.store.state.customTitle
             });
 
+            // 详细日志：记录生成的提示词
+            console.log('=== Generated Prompt (modern-main.js) ===');
+            console.log('Custom Title:', this.store.state.customTitle || 'None');
+            console.log('Theme:', this.store.state.currentTheme);
+            console.log('Scene:', this.store.state.currentScene);
+            console.log('Vocabulary count:', this.store.state.selectedVocabulary.length);
+            console.log('Full prompt length:', prompt.length);
+            console.log('Full prompt content:');
+            console.log(prompt);
+            console.log('Prompt language check:', prompt.match(/[\u4e00-\u9fff]/) ? 'Contains Chinese characters!' : 'All English characters');
+            console.log('=== End of Prompt ===');
+
             // 开始生成并显示模态框
-            this.store.setState({ 
-                generationStatus: 'generating', 
-                generationProgress: 0 
+            this.store.setState({
+                generationStatus: 'generating',
+                generationProgress: 0
             });
-            
+
             // 显示生成模态框
             console.log('Showing generation modal');
             console.log('Current section:', this.store.state.currentSection);
@@ -1162,6 +1176,9 @@ class UIController {
             try {
                 // 调用API，同时慢速增长进度
                 const apiPromise = api.generate(prompt, {
+                    aspectRatio: document.getElementById('aspectRatio')?.value || '3:4',
+                    resolution: document.getElementById('resolution')?.value || '2K',
+                    outputFormat: document.getElementById('outputFormat')?.value || 'png',
                     timeout: 120000, // 2分钟超时
                     onProgress: (progress, message) => {
                         // 更新进度
@@ -1216,24 +1233,24 @@ class UIController {
 
             if (result.success) {
                 // 生成成功
-                this.store.setState({ 
+                this.store.setState({
                     generationStatus: 'success',
                     generationProgress: 100
                 });
-                
+
                 // 更新模态框
                 const modalProgressFill = document.getElementById('modalProgressFill');
                 const modalProgressDesc = document.getElementById('modalProgressDesc');
                 const modalProgressPercent = document.getElementById('modalProgressPercent');
-                
+
                 if (modalProgressFill) {
                     modalProgressFill.style.width = '100%';
                 }
-                
+
                 if (modalProgressDesc) {
                     modalProgressDesc.textContent = '生成完成！';
                 }
-                
+
                 if (modalProgressPercent) {
                     modalProgressPercent.textContent = '100%';
                 }
@@ -1339,6 +1356,9 @@ class UIController {
 
     // 更新进度的辅助方法
     updateProgress(progress, message) {
+        // 确保进度是整数
+        progress = Math.round(progress);
+
         // 确保进度不会后退
         if (progress < this.lastProgress) {
             console.log(`[PROGRESS] Ignoring backward progress: ${progress}% < ${this.lastProgress}%`);
@@ -1407,8 +1427,10 @@ class UIController {
             // 只在进度增长时更新，避免后退
             if (expectedProgress > lastProgress) {
                 lastProgress = expectedProgress;
-                console.log(`[SIMULATE] Updating progress from simulateSlowProgress: ${expectedProgress}%`);
-                this.updateProgress(expectedProgress, 'AI绘画中...');
+                // 确保进度是整数
+                const integerProgress = Math.floor(expectedProgress);
+                console.log(`[SIMULATE] Updating progress from simulateSlowProgress: ${integerProgress}% (raw: ${expectedProgress}%)`);
+                this.updateProgress(integerProgress, 'AI绘画中...');
             }
 
             // 检查是否应该结束
@@ -1538,14 +1560,14 @@ class App {
 }
 
 // 全局函数（为了兼容原有的onclick等事件）
-window.selectAllVocabulary = function() {
+window.selectAllVocabulary = function () {
     if (window.app && window.app.store) {
         window.app.store.selectAllVocabulary();
         window.app.uiController.showToast(`已选择 ${window.app.store.state.selectedVocabulary.length} 个词汇`);
     }
 };
 
-window.clearAllVocabulary = function() {
+window.clearAllVocabulary = function () {
     if (window.app && window.app.store) {
         window.app.store.clearAllVocabulary();
         window.app.uiController.showToast('已清空所有选择');

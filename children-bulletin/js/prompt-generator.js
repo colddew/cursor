@@ -8,54 +8,56 @@ class PromptGenerator {
 
     // 加载提示词模板
     loadTemplate() {
-        return `请生成一张青少年学英语小报《{{title}}》，竖版 A4，学习小报版式，适合 10-16 岁青少年 看图学英语
+        return `Generate a vibrant English learning poster for teenagers titled "{{title}}", vertical A4 layout, educational newspaper style, suitable for 10-16 year olds learning English through pictures.
 
-# 一、小报标题区（顶部）
+# I. Title Section (Top)
 
-**顶部居中大标题**：《{{title}}》
-* **风格**：学习小报 / 英语学习报
-* **文本要求**：大字、醒目、卡通手写体、彩色描边
-* **装饰**：周围添加与 {{theme}} 相关的贴纸风装饰，颜色鲜艳
+**Large centered title**: "{{title}}"
+* **Style**: Educational newspaper / English learning poster
+* **Text requirements**: Large, bold, cartoon handwritten font, colorful gradient outlines (using rainbow colors: red, orange, yellow, green, blue, purple)
+* **Decorations**: Add {{theme}}-related colorful sticker-style decorations around the title, bright and eye-catching
 
-# 二、小报主体（中间主画面）
+# II. Main Scene (Center)
 
-画面中心是一幅 **卡通插画风的「{{theme}}」场景**：
-* **整体气氛**：明亮、温暖、积极
-* **构图**：物体边界清晰，方便对应文字，不要过于拥挤
+The center features a **cartoon illustration of a "{{theme}}" scene**:
+* **Overall atmosphere**: Bright, warm, positive, engaging
+* **Composition**: Clear object boundaries for easy text association, not overcrowded
 
-**场景分区与核心内容**
-1.  **核心区域 A（主要对象）**：表现 {{theme}} 的核心活动
-2.  **核心区域 B（配套设施）**：展示相关的工具或物品
-3.  **核心区域 C（环境背景）**：体现环境特征（如墙面、指示牌等）
+**Scene zones and core content**:
+1. **Core Zone A (Main activities)**: Show key {{theme}} activities
+2. **Core Zone B (Tools & items)**: Display related equipment and objects
+3. **Core Zone C (Environment)**: Show environmental features (walls, signs, etc.)
 
-**主题人物**
-* **角色**：1 位可爱卡通人物（职业/身份：与 {{theme}} 匹配）
-* **动作**：正在进行与场景相关的自然互动
+**Main character**:
+* **Character**: 1 cute cartoon character (profession/identity matching {{theme}})
+* **Action**: Naturally interacting with the scene
 
-# 三、必画物体与单词清单（Generated Content）
+# III. Required Objects & Vocabulary List
 
-**请务必在画面中清晰绘制以下物体，并为其预留贴标签的位置：**
+**Must clearly draw the following objects and leave space for labels**:
 
-**1. 核心角色与设施：**
+**1. Core characters & facilities**:
 {{coreObjects}}
 
-**2. 常见物品/工具：**
+**2. Common items/tools**:
 {{commonItems}}
 
-**3. 环境与装饰：**
+**3. Environment & decorations**:
 {{environmentItems}}
 
-# 四、识字标注规则
+# IV. Labeling Rules
 
-对上述清单中的物体，贴上中文识字标签：
-* **格式**：三行制（第一行英文，第二行简体汉字，第三行英语音标）
-* **样式**：彩色小贴纸风格，白底黑字或深色字，清晰可读
-* **排版**：标签靠近对应的物体，不遮挡主体
+For each object above, attach educational labels with:
+* **Format**: Three-line style (Line 1: English word, Line 2: Chinese characters, Line 3: phonetic symbols)
+* **Style**: Colorful sticker style, each label with different vibrant background colors (pink, light blue, light green, yellow, orange), dark text for high contrast
+* **Typography**: Fun, playful fonts suitable for children, rounded letters
+* **Layout**: Labels positioned near corresponding objects without obscuring the main illustration
 
-# 五、画风参数
-* **风格**：青少年绘本 + 英语小报
-* **色彩**：高饱和、明快、温暖 (High Saturation, Warm Tone)
-* **质量**：8k resolution, high detail, vector illustration style, clean lines`;
+# V. Art Style Parameters
+* **Style**: Children's picture book + educational poster
+* **Color palette**: High saturation, bright, warm tones with rainbow accents (High Saturation, Warm Tone)
+* **Text treatment**: All text elements should be colorful with gradient effects, shadows, or outlines to make them pop
+* **Quality**: 8k resolution, high detail, vector illustration style, clean lines, professional printing quality`;
     }
 
     // 获取默认标题
@@ -177,7 +179,7 @@ class PromptGenerator {
     // 生成词汇列表字符串
     generateVocabularyList(words, maxCount) {
         if (!words || words.length === 0) {
-            return '无';
+            return 'None';
         }
 
         // 限制数量并随机打乱
@@ -185,8 +187,14 @@ class PromptGenerator {
         const selected = shuffled.slice(0, maxCount);
 
         return selected.map(word => {
-            // 确保音标格式正确
-            const phonetic = word.phonetic.startsWith('/') ? word.phonetic : `/${word.phonetic}/`;
+            // 确保音标格式正确 - 确保两侧都有斜线
+            let phonetic = word.phonetic || '';
+            if (!phonetic.startsWith('/')) {
+                phonetic = `/${phonetic}`;
+            }
+            if (!phonetic.endsWith('/')) {
+                phonetic = `${phonetic}/`;
+            }
             return `${word.english} ${phonetic} ${word.chinese}`;
         }).join(', ');
     }

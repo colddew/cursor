@@ -360,21 +360,50 @@ class BulletinApp {
             customTitle: customTitle
         });
 
+        // 详细日志：记录生成的提示词
+        console.log('=== Generated Prompt ===');
+        console.log('Title:', title);
+        console.log('Theme:', store.state.currentTheme);
+        console.log('Scene:', store.state.currentScene);
+        console.log('Vocabulary count:', store.state.selectedVocabulary.length);
+        console.log('Full prompt length:', prompt.length);
+        console.log('Full prompt content:');
+        console.log(prompt);
+        console.log('=== End of Prompt ===');
+
+        // API参数日志
+        const apiOptions = {
+            aspectRatio: document.getElementById('aspectRatio')?.value || '3:4',
+            resolution: document.getElementById('resolution')?.value || '4K',
+            outputFormat: 'png',
+            timeout: 30000,
+            pollInterval: 1000
+        };
+
+        console.log('=== API Parameters ===');
+        console.log('API Options:', JSON.stringify(apiOptions, null, 2));
+        console.log('API Key length:', store.state.settings.apiKey ? store.state.settings.apiKey.length : 0);
+        console.log('=== End of API Parameters ===');
+
         // 开始生成
         store.startGeneration();
 
         try {
             // 调用API生成图片
-            const result = await this.api.generate(prompt, {
-                aspectRatio: document.getElementById('aspectRatio')?.value || '3:4',
-                resolution: document.getElementById('resolution')?.value || '4K',
-                outputFormat: 'png',
-                timeout: 30000,
-                pollInterval: 1000,
-                onProgress: (progress, message) => {
-                    store.updateGenerationProgress(progress);
-                }
-            });
+            console.log(' Calling API...');
+            const result = await this.api.generate(prompt, apiOptions);
+
+            // API响应日志
+            console.log('=== API Response ===');
+            console.log('Success:', result.success);
+            if (result.success) {
+                console.log('Task ID:', result.taskId);
+                console.log('Image URL length:', result.imageUrl ? result.imageUrl.length : 0);
+            } else {
+                console.log('Error:', result.error);
+                console.log('Error Code:', result.code);
+            }
+            console.log('=== End of API Response ===');
 
             if (result.success) {
                 // 创建作品对象

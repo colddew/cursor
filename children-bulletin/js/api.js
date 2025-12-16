@@ -80,6 +80,16 @@ class NanoBananaAPI {
             throw new NanoBananaAPIError('提示词长度不能超过10000字符', 0, 'PROMPT_TOO_LONG');
         }
 
+        // 记录请求参数
+        console.log('=== API Request Details ===');
+        console.log('URL: POST https://api.kie.ai/api/v1/jobs/createTask');
+        console.log('Headers:');
+        console.log('  Authorization: Bearer [API_KEY]');
+        console.log('  Content-Type: application/json');
+        console.log('Body:', JSON.stringify(params, null, 2));
+        console.log('Prompt language check:', params.input.prompt.match(/[\u4e00-\u9fff]/) ? 'Contains Chinese characters!' : 'All English characters');
+        console.log('=== End of Request Details ===');
+
         const response = await this.request('/jobs/createTask', {
             method: 'POST',
             body: JSON.stringify(params)
