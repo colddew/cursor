@@ -397,11 +397,7 @@ class AppState {
         }
 
         // 加载设置
-        let settings = {
-            autoSave: true,
-            showTutorial: true,
-            autoDownload: false
-        };
+        let settings = {};
 
         try {
             const savedSettings = localStorage.getItem('settings');
@@ -986,37 +982,45 @@ class UIController {
         }
     }
 
-    saveSettings() {
+    saveSettings(skipCloseModal = false) {
         const apiKey = document.getElementById('apiKey').value;
-        const autoSave = document.getElementById('autoSave').checked;
-        const showTutorial = document.getElementById('showTutorial').checked;
-        const autoDownload = document.getElementById('autoDownload').checked;
 
+        // 直接更新 localStorage 以确保保存
+        if (apiKey) {
+            localStorage.setItem('apiKey', apiKey);
+        } else {
+            localStorage.removeItem('apiKey');
+        }
+
+        // 同时保存到 bulletin-store
+        try {
+            const bulletinStore = localStorage.getItem('bulletin-store');
+            const data = bulletinStore ? JSON.parse(bulletinStore) : { settings: {} };
+            data.settings.apiKey = apiKey;
+            localStorage.setItem('bulletin-store', JSON.stringify(data));
+        } catch (error) {
+            console.error('保存 API key 到 bulletin-store 失败:', error);
+        }
+
+        // 更新状态
         this.store.setState({
-            apiKey: apiKey,
-            settings: {
-                autoSave: autoSave,
-                showTutorial: showTutorial,
-                autoDownload: autoDownload
-            }
+            apiKey: apiKey
         });
 
-        this.hideModal('settingsModal');
-        this.showToast('设置已保存');
+        if (!skipCloseModal) {
+            this.hideModal('settingsModal');
+            this.showToast('设置已保存');
+        }
     }
 
     loadSettings() {
-        const { apiKey, settings } = this.store.state;
+        // 优先从 localStorage 获取最新的 API key
+        const apiKey = localStorage.getItem('apiKey') || this.store.state.apiKey;
 
         const apiKeyInput = document.getElementById('apiKey');
-        const autoSaveCheck = document.getElementById('autoSave');
-        const showTutorialCheck = document.getElementById('showTutorial');
-        const autoDownloadCheck = document.getElementById('autoDownload');
-
-        if (apiKeyInput) apiKeyInput.value = apiKey;
-        if (autoSaveCheck) autoSaveCheck.checked = settings.autoSave;
-        if (showTutorialCheck) showTutorialCheck.checked = settings.showTutorial;
-        if (autoDownloadCheck) autoDownloadCheck.checked = settings.autoDownload;
+        if (apiKeyInput) {
+            apiKeyInput.value = apiKey || '';
+        }
     }
 
 

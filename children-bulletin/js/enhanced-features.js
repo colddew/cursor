@@ -32,22 +32,11 @@ class EnhancedFeatures {
 
     // 检查是否首次访问
     checkFirstVisit() {
-        const hasVisited = localStorage.getItem('hasVisited');
-        const showTutorialSetting = localStorage.getItem('showTutorial') !== 'false';
-
         // 恢复保存的风格
         const savedStyle = localStorage.getItem('selectedThemeStyle');
         if (savedStyle) {
             this.applyThemeStyle(savedStyle);
         }
-
-        // 禁用自动弹窗教程，让用户正常使用系统
-        // if (!hasVisited && showTutorialSetting === null || showTutorialSetting === 'true') {
-        //     // 延迟显示教程，让用户先看到界面
-        //     setTimeout(() => {
-        //         this.showTutorialModal();
-        //     }, 2000);
-        // }
     }
 
     setupTutorialModal() {
@@ -521,7 +510,7 @@ class EnhancedFeatures {
     }
 
     saveSettings() {
-        // 调用modern-main.js中的saveSettings函数来保存API密钥和其他设置
+        // 调用modern-main.js中的saveSettings函数来保存API密钥
         if (window.modernUI && window.modernUI.saveSettings) {
             // 传递skipCloseModal=true，让modern-main.js处理所有保存
             window.modernUI.saveSettings(true);
@@ -534,15 +523,33 @@ class EnhancedFeatures {
                 const apiKey = apiKeyInput.value.trim();
                 if (apiKey) {
                     localStorage.setItem('apiKey', apiKey);
+
+                    // 同时保存到 bulletin-store
+                    try {
+                        const bulletinStore = localStorage.getItem('bulletin-store');
+                        const data = bulletinStore ? JSON.parse(bulletinStore) : { settings: {} };
+                        data.settings.apiKey = apiKey;
+                        localStorage.setItem('bulletin-store', JSON.stringify(data));
+                    } catch (error) {
+                        console.error('保存 API key 到 bulletin-store 失败:', error);
+                    }
                 } else {
                     localStorage.removeItem('apiKey');
-                }
-            }
 
-            // 保存显示教程设置
-            const showTutorialCheck = document.getElementById('showTutorial');
-            if (showTutorialCheck) {
-                localStorage.setItem('showTutorial', showTutorialCheck.checked);
+                    // 从 bulletin-store 移除
+                    try {
+                        const bulletinStore = localStorage.getItem('bulletin-store');
+                        if (bulletinStore) {
+                            const data = JSON.parse(bulletinStore);
+                            if (data.settings) {
+                                delete data.settings.apiKey;
+                                localStorage.setItem('bulletin-store', JSON.stringify(data));
+                            }
+                        }
+                    } catch (error) {
+                        console.error('从 bulletin-store 删除 API key 失败:', error);
+                    }
+                }
             }
 
             // 关闭模态框
