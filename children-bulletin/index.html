@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>青少年英语小报生成器</title>
-    <link rel="stylesheet" href="styles/optimized.css?v=20241215-38">
+    <!-- CSS 将通过 Vite 自动导入 -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -362,12 +362,8 @@
         </div>
     </div>
 
-      <!-- 核心脚本 -->
-    <script src="js/modern-main.js"></script>
-    <!-- 词汇选择功能 -->
-    <script src="js/vocabulary.js"></script>
-    <!-- 增强功能 -->
-    <script src="js/enhanced-features.js"></script>
+      <!-- 主入口脚本 -->
+    <script type="module" src="/main.js"></script>
         </div> <!-- 关闭 app-container -->
 </body>
 </html>

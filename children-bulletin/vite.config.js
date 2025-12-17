@@ -4,6 +4,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   root: '.',
+  base: '/children-bulletin/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',
