@@ -9,9 +9,7 @@
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0"
   },
-  "dependencies": {
-    "lucide-react": "^0.560.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "vite": "^5.1.0",
     "terser": "^5.19.0",

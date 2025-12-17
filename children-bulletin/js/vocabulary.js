@@ -1,9 +1,9 @@
-// 词汇选择功能修复文件
-// 专门解决词汇单选/多选功能问题
+// 词汇选择功能文件
+// 实现词汇的选择、计数、全选/清空等功能
 
-// 立即执行的修复函数
+// 立即执行的初始化函数
 (function() {
-    console.log('正在应用词汇选择修复...');
+    // console.log('正在初始化词汇选择功能...'); // 静默初始化
 
     // 等待DOM加载完成
     function waitForDOM() {
@@ -18,12 +18,12 @@
 
     function initializeVocabularyFix() {
         if (isInitializing) {
-            console.log('词汇修复正在初始化中，跳过重复调用');
+            console.log('词汇功能正在初始化中，跳过重复调用');
             return;
         }
 
         isInitializing = true;
-        console.log('DOM已加载，开始初始化词汇修复');
+        console.log('DOM已加载，开始初始化词汇功能');
 
         // 查找词汇容器或父容器
         let vocabularyContainer = document.querySelector('.vocabulary-categories');
@@ -408,7 +408,7 @@
     }
 
     // 开始执行
-    console.log('词汇选择修复系统启动');
+    // console.log('词汇选择功能初始化完成');
     waitForDOM();
     rebindButtonEvents();
 

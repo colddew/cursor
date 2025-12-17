@@ -13,14 +13,8 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
       },
       output: {
-        manualChunks: {
-          // 将第三方库分离到单独的chunk
-          vendor: ['lucide-react'],
-          // 将工具类分离
-          utils: ['js/store', 'js/api', 'js/prompt-generator'],
-          // 将组件分离
-          components: ['js/components/theme-selector', 'js/components/vocabulary-editor']
-        },
+        // 删除了不存在的模块引用
+        // 由于所有功能都已整合到 modern-main.js，不再需要代码分割
         chunkFileNames: 'js/[name]-[hash].js',
         entryFileNames: 'js/[name]-[hash].js',
         assetFileNames: (assetInfo) => {

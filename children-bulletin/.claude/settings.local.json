@@ -11,7 +11,8 @@
       "Bash(mkdir:*)",
       "Bash(rm:*)",
       "Bash(head:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(sort:*)"
     ]
   }
 }

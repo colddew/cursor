@@ -65,15 +65,14 @@ class NanoBananaAPI {
             throw new Error('提示词长度不能超过10000字符');
         }
 
-        // 记录请求参数
-        console.log('=== API Request Details (modern-main.js) ===');
-        console.log('URL: POST https://api.kie.ai/api/v1/jobs/createTask');
-        console.log('Headers:');
-        console.log('  Authorization: Bearer [API_KEY]');
-        console.log('  Content-Type: application/json');
-        console.log('Body:', JSON.stringify(params, null, 2));
-        console.log('Prompt language check:', params.input.prompt.match(/[\u4e00-\u9fff]/) ? 'Contains Chinese characters!' : 'All English characters');
-        console.log('=== End of Request Details ===');
+        // API 请求参数日志
+        console.log('API Request Parameters:');
+        console.log('  Model:', params.model);
+        console.log('  Aspect Ratio:', params.input.aspect_ratio);
+        console.log('  Resolution:', params.input.resolution);
+        console.log('  Output Format:', params.input.output_format);
+        console.log('  Prompt Length:', params.input.prompt.length);
+        console.log('  Full Prompt:', params.input.prompt);
 
         const response = await this.request('/jobs/createTask', {
             method: 'POST',
@@ -348,12 +347,7 @@ For each object above, attach educational labels with:
             .replace(/{{commonItems}}/g, commonItems)
             .replace(/{{environmentItems}}/g, environmentItems);
 
-        // 检查提示词语言（仅用于调试）
-        const hasChinese = prompt.match(/[\u4e00-\u9fff]/);
-        if (hasChinese) {
-            console.log('Warning: Generated prompt contains Chinese characters (except in vocabulary):', hasChinese);
-        }
-
+  
         return prompt;
     }
 
@@ -1162,18 +1156,6 @@ class UIController {
                 customTitle: this.store.state.customTitle
             });
 
-            // 详细日志：记录生成的提示词
-            console.log('=== Generated Prompt (modern-main.js) ===');
-            console.log('Custom Title:', this.store.state.customTitle || 'None');
-            console.log('Theme:', this.store.state.currentTheme);
-            console.log('Scene:', this.store.state.currentScene);
-            console.log('Vocabulary count:', this.store.state.selectedVocabulary.length);
-            console.log('Full prompt length:', prompt.length);
-            console.log('Full prompt content:');
-            console.log(prompt);
-            console.log('Prompt language check:', prompt.match(/[\u4e00-\u9fff]/) ? 'Contains Chinese characters!' : 'All English characters');
-            console.log('=== End of Prompt ===');
-
             // 开始生成并显示模态框
             this.store.setState({
                 generationStatus: 'generating',
@@ -1181,28 +1163,7 @@ class UIController {
             });
 
             // 显示生成模态框
-            console.log('Showing generation modal');
-            console.log('Current section:', this.store.state.currentSection);
-            console.log('Scroll position before modal:', window.scrollY);
-
-            const modal = document.getElementById('generationModal');
-            console.log('Modal element exists:', !!modal);
-            console.log('Modal classes before show:', modal?.className);
-            console.log('Modal computed style before:', modal ? window.getComputedStyle(modal).position : 'N/A');
-
             this.showModal('generationModal');
-
-            // 检查模态框是否真的显示了
-            setTimeout(() => {
-                console.log('Scroll position after modal:', window.scrollY);
-                console.log('Modal classes after show:', modal?.className);
-                console.log('Body has modal-open class:', document.body.classList.contains('modal-open'));
-                console.log('Body position style:', document.body.style.position);
-                console.log('Modal computed display after:', modal ? window.getComputedStyle(modal).display : 'N/A');
-                console.log('Modal computed position after:', modal ? window.getComputedStyle(modal).position : 'N/A');
-                console.log('Modal offsetParent (null means hidden):', modal?.offsetParent);
-                console.log('Modal rect (position and size):', modal ? modal.getBoundingClientRect() : 'N/A');
-            }, 100);
 
             // 阶段1：快速完成前两个步骤（准备提示词和提交生成任务）
             console.log('开始生成流程 - 阶段1：准备和提交');
@@ -1348,6 +1309,8 @@ class UIController {
             }
         } catch (error) {
             // 异常处理
+            console.error('生成过程中发生异常:', error); // 添加错误日志
+            console.error('错误堆栈:', error.stack); // 添加堆栈信息
             // 清除慢速进度模拟
             this.stopSlowProgress();
 
