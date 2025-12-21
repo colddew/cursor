@@ -30,9 +30,17 @@ export function parseCitiesExcel(buffer: ArrayBuffer): Omit<City, 'id'>[] {
 
   console.log('Cities Excel 原始数据:', data.slice(0, 3)) // 调试日志
 
-  const cities: Omit<City, 'id'>[] = data.map((row, index) => {
+  const cities: Omit<City, 'id'>[] = data.map((row) => {
     // 跳过空的行
     if (!row || Object.keys(row).length === 0) return null
+
+    // 获取所有字符串类型的键
+    const stringKeys = Object.keys(row).filter(k => typeof k === 'string') as string[]
+
+    // 辅助函数：安全地获取值
+    const getSafeValue = (key: string | undefined) => {
+      return key ? row[key] : undefined
+    }
 
     // 尝试多种可能的列名
     const city_name = String(
@@ -41,15 +49,15 @@ export function parseCitiesExcel(buffer: ArrayBuffer): Omit<City, 'id'>[] {
       row['城市'] ||
       row['cityName'] ||
       row['city_namte'] || // 修正拼写错误
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('city'))] ||
-      row[Object.keys(row)[0]] || ''
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('city'))) ||
+      (stringKeys[0] ? row[stringKeys[0]] : '') || ''
     ).trim()
 
     const year = String(
       row.year ||
       row['年份'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('year'))] ||
-      row[Object.keys(row)[1]] || ''
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('year'))) ||
+      (stringKeys[1] ? row[stringKeys[1]] : '') || ''
     ).trim()
 
     const base_min = Number(
@@ -57,8 +65,8 @@ export function parseCitiesExcel(buffer: ArrayBuffer): Omit<City, 'id'>[] {
       row['基数下限'] ||
       row['社保基数下限'] ||
       row['baseMin'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('min'))] ||
-      row[Object.keys(row)[2]] || 0
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('min'))) ||
+      (stringKeys[2] ? row[stringKeys[2]] : 0) || 0
     )
 
     const base_max = Number(
@@ -66,8 +74,8 @@ export function parseCitiesExcel(buffer: ArrayBuffer): Omit<City, 'id'>[] {
       row['基数上限'] ||
       row['社保基数上限'] ||
       row['baseMax'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('max'))] ||
-      row[Object.keys(row)[3]] || 0
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('max'))) ||
+      (stringKeys[3] ? row[stringKeys[3]] : 0) || 0
     )
 
     const rate = Number(
@@ -75,8 +83,8 @@ export function parseCitiesExcel(buffer: ArrayBuffer): Omit<City, 'id'>[] {
       row['比例'] ||
       row['缴纳比例'] ||
       row['缴费比例'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('rate'))] ||
-      row[Object.keys(row)[4]] || 0
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('rate'))) ||
+      (stringKeys[4] ? row[stringKeys[4]] : 0) || 0
     )
 
     return {
@@ -131,9 +139,17 @@ export function parseSalariesExcel(buffer: ArrayBuffer): Omit<Salary, 'id'>[] {
 
   console.log('Salaries Excel 原始数据:', data.slice(0, 3)) // 调试日志
 
-  const salaries: Omit<Salary, 'id'>[] = data.map((row, index) => {
+  const salaries: Omit<Salary, 'id'>[] = data.map((row) => {
     // 跳过空的行
     if (!row || Object.keys(row).length === 0) return null
+
+    // 获取所有字符串类型的键
+    const stringKeys = Object.keys(row).filter(k => typeof k === 'string') as string[]
+
+    // 辅助函数：安全地获取值
+    const getSafeValue = (key: string | undefined) => {
+      return key ? row[key] : undefined
+    }
 
     // 尝试多种可能的列名
     const employee_id = String(
@@ -141,8 +157,8 @@ export function parseSalariesExcel(buffer: ArrayBuffer): Omit<Salary, 'id'>[] {
       row['员工工号'] ||
       row['工号'] ||
       row['employeeId'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('id'))] ||
-      row[Object.keys(row)[0]] || ''
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('id'))) ||
+      (stringKeys[0] ? row[stringKeys[0]] : '') || ''
     ).trim()
 
     const employee_name = String(
@@ -150,16 +166,16 @@ export function parseSalariesExcel(buffer: ArrayBuffer): Omit<Salary, 'id'>[] {
       row['员工姓名'] ||
       row['姓名'] ||
       row['employeeName'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('name'))] ||
-      row[Object.keys(row)[1]] || ''
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('name'))) ||
+      (stringKeys[1] ? row[stringKeys[1]] : '') || ''
     ).trim()
 
     const month = String(
       row.month ||
       row['月份'] ||
       row['年月'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('month'))] ||
-      row[Object.keys(row)[2]] || ''
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('month'))) ||
+      (stringKeys[2] ? row[stringKeys[2]] : '') || ''
     ).trim()
 
     const salary_amount = Number(
@@ -167,8 +183,8 @@ export function parseSalariesExcel(buffer: ArrayBuffer): Omit<Salary, 'id'>[] {
       row['工资金额'] ||
       row['工资'] ||
       row['salaryAmount'] ||
-      row[Object.keys(row).find(k => k.toString().toLowerCase().includes('salary'))] ||
-      row[Object.keys(row)[3]] || 0
+      getSafeValue(stringKeys.find(k => k.toLowerCase().includes('salary'))) ||
+      (stringKeys[3] ? row[stringKeys[3]] : 0) || 0
     )
 
     return {
