@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扑腾小鸟 - 马里奥清爽版</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            background-color: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: white;
+            overflow: hidden;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            background: #2a2a2a;
+            padding: 24px;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            max-width: 98vw;
+        }
+
+        canvas {
+            border: 5px solid #000;
+            background-color: #5C94FC;
+            cursor: pointer;
+            border-radius: 12px;
+            image-rendering: auto;
+        }
+
+        .rules-panel {
+            width: 280px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 24px;
+            border-radius: 15px;
+            border: 1px solid #444;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #score-text {
+            text-shadow: 4px 4px #000;
+            color: #fff;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        @media (max-width: 850px) {
+            .game-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .rules-panel {
+                width: 100%;
+                max-width: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="game-container">
+        <div class="relative">
+            <canvas id="gameCanvas"></canvas>
+            <div id="game-ui"
+                class="absolute inset-0 pointer-events-none flex flex-col items-center justify-center text-center">
+                <div id="score-text" class="absolute top-8 text-6xl font-black">0</div>
+                <div id="status-message" class="bg-black/60 p-6 rounded-2xl border-2 border-white/20 backdrop-blur-md">
+                    <p class="text-3xl font-bold mb-3">扑腾小鸟</p>
+                    <p class="text-yellow-400 animate-bounce">点击屏幕或按 [空格] 开始</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="rules-panel">
+            <h2 class="text-2xl font-black mb-6 border-b-2 border-red-500 pb-2 text-red-500 uppercase tracking-wider">
+                玩法规则</h2>
+            <ul class="space-y-5 text-gray-200 text-sm leading-relaxed">
+                <li>
+                    <strong class="text-white flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 bg-red-500 rounded-full"></span> 飞行控制
+                    </strong>
+                    点击屏幕或使用 [空格] 键让小鸟向上飞。
+                </li>
+                <li>
+                    <strong class="text-white flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 bg-blue-500 rounded-full"></span> 动态背景
+                    </strong>
+                    NPC 怪物现在会在全屏幕随机高度出现（半透明装饰，无碰撞）。
+                </li>
+                <li>
+                    <strong class="text-white flex items-center gap-2 mb-1">
+                        <span class="w-2 h-2 bg-white rounded-full"></span> 难度梯度
+                    </strong>
+                    分数越高，水管移动越快。挑战你的反应极限！
+                </li>
+            </ul>
+            <div class="mt-auto pt-8 border-t border-gray-700">
+                <p class="text-xs text-gray-500 text-center italic font-mono tracking-tighter">Art Style: Random Sky
+                    NPCs</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreText = document.getElementById('score-text');
+        const statusMessage = document.getElementById('status-message');
+
+        const config = {
+            gravity: 0.23,
+            jump: -4.8,
+            pipeSpeed: 2.8,
+            pipeSpawnRate: 95,
+            pipeGap: 160,
+            groundHeight: 70
+        };
+
+        let bird, pipes, frameCount, score, gameState, npcs, clouds;
+
+        function init() {
+            canvas.width = 400;
+            canvas.height = 600;
+
+            bird = {
+                x: 80,
+                y: canvas.height / 2,
+                velocity: 0,
+                width: 38,
+                height: 28,
+                wingTimer: 0
+            };
+
+            pipes = [];
+            npcs = [];
+            clouds = [
+                { x: 30, y: 80, scale: 0.7, speed: 0.15 },
+                { x: 180, y: 150, scale: 1.1, speed: 0.25 },
+                { x: 350, y: 50, scale: 0.9, speed: 0.2 }
+            ];
+            frameCount = 0;
+            score = 0;
+            gameState = 'START';
+
+            scoreText.innerText = "0";
+            statusMessage.style.opacity = "1";
+            statusMessage.innerHTML = `<p class="text-3xl font-bold mb-3">扑腾小鸟</p><p class="text-yellow-400 animate-bounce">点击屏幕或按 [空格] 开始</p>`;
+        }
+
+        function drawClouds() {
+            clouds.forEach((cloud) => {
+                ctx.save();
+                ctx.translate(cloud.x, cloud.y);
+                ctx.scale(cloud.scale, cloud.scale);
+                ctx.fillStyle = "rgba(255, 255, 255, 0.45)";
+
+                ctx.beginPath();
+                ctx.arc(0, 0, 15, 0, Math.PI * 2);
+                ctx.arc(15, -5, 18, 0, Math.PI * 2);
+                ctx.arc(35, 0, 15, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+
+                cloud.x -= cloud.speed;
+                if (cloud.x < -100) {
+                    cloud.x = canvas.width + 100;
+                    cloud.y = Math.random() * 250 + 40;
+                }
+            });
+        }
+
+        function drawNPCs() {
+            npcs.forEach((npc, index) => {
+                ctx.save();
+                ctx.translate(npc.x, npc.y);
+                ctx.globalAlpha = 0.5;
+
+                // 板栗怪主体
+                ctx.fillStyle = "#A85000";
+                ctx.fillRect(-10, -10, 20, 18);
+                ctx.fillStyle = "white";
+                ctx.fillRect(-6, -6, 4, 4);
+                ctx.fillRect(2, -6, 4, 4);
+                ctx.fillStyle = "black";
+                ctx.fillRect(-4, -4, 2, 2);
+                ctx.fillRect(4, -4, 2, 2);
+
+                // 动态翅膀
+                ctx.fillStyle = "rgba(255,255,255,0.7)";
+                const wingSway = Math.sin(Date.now() / 150) * 8;
+                ctx.fillRect(-18, -5 + wingSway, 10, 5);
+                ctx.fillRect(8, -5 + wingSway, 10, 5);
+
+                ctx.restore();
+
+                npc.x -= 1.4;
+                if (npc.x < -60) npcs.splice(index, 1);
+            });
+
+            // 频率优化：每 800 帧生成一个 NPC
+            if (frameCount > 0 && frameCount % 800 === 0) {
+                npcs.push({
+                    x: canvas.width + 60,
+                    // 随机分布在全屏高度（避开底部地面）
+                    y: Math.random() * (canvas.height - config.groundHeight - 100) + 50
+                });
+            }
+        }
+
+        function drawBackground() {
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+            skyGrad.addColorStop(0, '#5C94FC');
+            skyGrad.addColorStop(1, '#A0C4FF');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            drawClouds();
+            drawNPCs();
+
+            // 地面
+            ctx.fillStyle = '#71BC2C';
+            ctx.fillRect(0, canvas.height - config.groundHeight, canvas.width, 20);
+            ctx.fillStyle = '#8C4B00';
+            ctx.fillRect(0, canvas.height - config.groundHeight + 20, canvas.width, config.groundHeight - 20);
+        }
+
+        function drawBird() {
+            ctx.save();
+            ctx.translate(bird.x, bird.y);
+            let rotation = Math.min(Math.PI / 4, Math.max(-Math.PI / 6, bird.velocity * 0.1));
+            ctx.rotate(rotation);
+
+            ctx.strokeStyle = "#000";
+            ctx.lineWidth = 2.5;
+            ctx.fillStyle = "#E4000F";
+            ctx.beginPath();
+            ctx.ellipse(0, 0, 18, 14, 0, 0, Math.PI * 2);
+            ctx.fill(); ctx.stroke();
+
+            ctx.fillStyle = "#FFFFFF";
+            ctx.beginPath(); ctx.ellipse(0, 5, 13, 7, 0, 0, Math.PI); ctx.fill();
+
+            const wingAngle = Math.sin(Date.now() / (bird.velocity < 0 ? 60 : 180)) * 0.7;
+            ctx.save();
+            ctx.translate(-8, 0);
+            ctx.rotate(wingAngle);
+            ctx.fillStyle = "#FFFFFF";
+            ctx.beginPath(); ctx.ellipse(-4, 0, 12, 8, 0, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.restore();
+
+            ctx.fillStyle = "white";
+            ctx.beginPath(); ctx.arc(9, -6, 7.5, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.fillStyle = "black";
+            ctx.beginPath(); ctx.arc(12, -6, 2.5, 0, Math.PI * 2); ctx.fill();
+
+            ctx.fillStyle = "#FBA400";
+            ctx.beginPath(); ctx.moveTo(14, 2); ctx.quadraticCurveTo(28, 0, 26, 6); ctx.lineTo(14, 6); ctx.fill(); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(14, 6); ctx.lineTo(24, 6); ctx.quadraticCurveTo(24, 11, 14, 10); ctx.fill(); ctx.stroke();
+
+            ctx.restore();
+        }
+
+        function drawPipes() {
+            pipes.forEach(pipe => {
+                const grad = ctx.createLinearGradient(pipe.x, 0, pipe.x + pipe.width, 0);
+                grad.addColorStop(0, '#73BF00');
+                grad.addColorStop(0.3, '#BFFF3F');
+                grad.addColorStop(0.7, '#558000');
+                grad.addColorStop(1, '#2D4D00');
+
+                ctx.fillStyle = grad;
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 3;
+
+                ctx.fillRect(pipe.x, 0, pipe.width, pipe.top);
+                ctx.strokeRect(pipe.x, -5, pipe.width, pipe.top + 5);
+                ctx.fillRect(pipe.x - 5, pipe.top - 28, pipe.width + 10, 28);
+                ctx.strokeRect(pipe.x - 5, pipe.top - 28, pipe.width + 10, 28);
+
+                const bY = pipe.top + config.pipeGap;
+                const bH = canvas.height - bY - config.groundHeight;
+                ctx.fillRect(pipe.x, bY, pipe.width, bH);
+                ctx.strokeRect(pipe.x, bY, pipe.width, bH + 5);
+                ctx.fillRect(pipe.x - 5, bY, pipe.width + 10, 28);
+                ctx.strokeRect(pipe.x - 5, bY, pipe.width + 10, 28);
+            });
+        }
+
+        function update() {
+            if (gameState !== 'PLAYING') return;
+            bird.velocity += config.gravity;
+            bird.y += bird.velocity;
+            if (bird.y + 14 > canvas.height - config.groundHeight || bird.y - 14 < 0) gameOver();
+
+            if (frameCount % config.pipeSpawnRate === 0) {
+                const top = Math.random() * (canvas.height - config.pipeGap - config.groundHeight - 160) + 80;
+                pipes.push({ x: canvas.width, top: top, width: 60, passed: false });
+            }
+
+            for (let i = pipes.length - 1; i >= 0; i--) {
+                const p = pipes[i];
+                p.x -= config.pipeSpeed;
+                if (bird.x + 14 > p.x && bird.x - 14 < p.x + p.width) {
+                    if (bird.y - 12 < p.top || bird.y + 12 > p.top + config.pipeGap) gameOver();
+                }
+                if (!p.passed && p.x + p.width < bird.x) {
+                    score++; p.passed = true; scoreText.innerText = score;
+                    if (score % 5 === 0 && config.pipeSpeed < 5.5) config.pipeSpeed += 0.15;
+                }
+                if (p.x + p.width < -20) pipes.splice(i, 1);
+            }
+            frameCount++;
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawBackground();
+            drawPipes();
+            drawBird();
+            if (gameState === 'START') bird.y = canvas.height / 2 + Math.sin(Date.now() / 250) * 12;
+            requestAnimationFrame(draw);
+        }
+
+        setInterval(update, 1000 / 60);
+
+        function handleAction() {
+            if (gameState === 'START') {
+                gameState = 'PLAYING';
+                statusMessage.style.opacity = "0";
+            } else if (gameState === 'PLAYING') {
+                bird.velocity = config.jump;
+            } else if (gameState === 'GAME_OVER') {
+                init();
+            }
+        }
+
+        function gameOver() {
+            gameState = 'GAME_OVER';
+            statusMessage.style.opacity = "1";
+            statusMessage.innerHTML = `<p class="text-3xl font-bold text-red-500 mb-2">GAME OVER</p><p class="text-xl mb-4 text-white">得分: ${score}</p><p class="text-sm bg-red-600 text-white py-2 px-6 rounded-full font-bold cursor-pointer hover:bg-red-700">重试</p>`;
+        }
+
+        window.addEventListener('keydown', e => { if (e.code === 'Space') { handleAction(); e.preventDefault(); } });
+        canvas.addEventListener('mousedown', e => { handleAction(); e.preventDefault(); });
+        canvas.addEventListener('touchstart', e => { handleAction(); e.preventDefault(); }, { passive: false });
+
+        init();
+        draw();
+    </script>
+</body>
+
+</html>
