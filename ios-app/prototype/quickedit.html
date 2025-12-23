@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音记账 - 快速编辑</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.025em;
+        }
+
+        :root {
+            --primary: oklch(0.5393 0.2713 286.7462);
+            --secondary: oklch(0.9540 0.0063 255.4755);
+            --muted: oklch(0.9702 0 0);
+            --muted-foreground: oklch(0.4386 0 0);
+            --accent: oklch(0.9393 0.0288 266.3680);
+            --border: oklch(0.9300 0.0094 286.2156);
+            --radius: 1.4rem;
+        }
+
+        .phone-frame {
+            width: 393px;
+            height: 852px;
+            background: oklch(0.9940 0 0);
+            border-radius: 55px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.16),
+                        0 30px 60px -30px rgba(0,0,0,0.16),
+                        0 8px 10px -1px rgba(0,0,0,0.16),
+                        inset 0 0 0 12px #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            width: 126px;
+            height: 37px;
+            background: #000;
+            border-radius: 20px;
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .status-bar {
+            height: 54px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+        }
+
+        .bottom-sheet {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: oklch(0.9940 0 0);
+            border-radius: 1.75rem 1.75rem 0 0;
+            box-shadow: 0 8px 10px -1px rgba(0,0,0,0.16);
+            transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 300;
+            max-height: 80%;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bottom-sheet-handle {
+            width: 36px;
+            height: 5px;
+            background: oklch(0.9300 0.0094 286.2156);
+            border-radius: 3px;
+            margin: 10px auto 15px;
+        }
+
+        .sheet-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+            padding: 0 10px;
+        }
+
+        .sheet-tab {
+            flex: 1;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 500;
+            color: oklch(0.4386 0 0);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .sheet-tab.active {
+            color: var(--primary);
+        }
+
+        .sheet-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 24px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .sheet-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .keyboard {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .key {
+            background: oklch(0.9702 0 0);
+            border-radius: 1rem;
+            padding: 18px;
+            text-align: center;
+            font-size: 22px;
+            font-weight: 600;
+            color: oklch(0.1344 0 0);
+            cursor: pointer;
+            transition: all 0.1s;
+            user-select: none;
+            border: 1px solid var(--border);
+        }
+
+        .key:active {
+            background: oklch(0.9393 0.0288 266.3680);
+            transform: scale(0.95);
+        }
+
+        .key.primary {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .key.primary:active {
+            background: oklch(0.48 0.25 286);
+        }
+
+        .amount-display {
+            background: oklch(0.9393 0.0288 266.3680);
+            border-radius: 1.25rem;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .category-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            border-radius: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-item:hover {
+            background: oklch(0.9702 0 0);
+        }
+
+        .category-item.selected {
+            background: oklch(0.9393 0.0288 266.3680);
+        }
+
+        .category-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .time-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            border-radius: 1rem;
+            background: oklch(0.9702 0 0);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+        }
+
+        .time-option:hover {
+            background: oklch(0.9540 0.0063 255.4755);
+        }
+
+        .time-option.selected {
+            background: oklch(0.9393 0.0288 266.3680);
+            border-color: var(--primary);
+        }
+
+        .save-button {
+            background: var(--primary);
+            color: white;
+            border-radius: 1.25rem;
+            padding: 18px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 600;
+            margin: 0 20px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .save-button:hover {
+            background: oklch(0.48 0.25 286);
+        }
+
+        .save-button:active {
+            transform: scale(0.98);
+        }
+
+        .record-preview {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            right: 20px;
+            background: oklch(0.9940 0 0);
+            border-radius: 1.25rem;
+            padding: 16px;
+            box-shadow: 0 2px 3px 0px rgba(0,0,0,0.08);
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-violet-100 to-purple-100 flex items-center justify-center p-8">
+
+    <div class="phone-frame">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar text-black text-sm font-medium">
+            <span id="currentTime">9:41</span>
+            <div class="flex items-center gap-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-full text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Record Preview (Dimmed) -->
+        <div class="record-preview opacity-50">
+            <div class="flex items-center gap-4">
+                <div class="category-icon" style="background: oklch(0.9740 0.0298 60.2142);">
+                    <i class="fas fa-mug-hot" style="color: oklch(0.6290 0.1902 23.0704);"></i>
+                </div>
+                <div class="flex-1">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h3 class="font-semibold text-neutral-900">餐饮 - 咖啡</h3>
+                            <p class="text-neutral-400 text-sm mt-1">星巴克</p>
+                        </div>
+                        <p class="text-xl font-bold text-neutral-900">¥35.00</p>
+                    </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <span class="text-xs text-neutral-400">今天 12:05</span>
+                        <span class="text-xs text-neutral-300">|</span>
+                        <span class="text-xs text-neutral-400">招商银行</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Sheet -->
+        <div class="bottom-sheet">
+            <div class="bottom-sheet-handle"></div>
+
+            <!-- Tabs -->
+            <div class="sheet-tabs">
+                <div class="sheet-tab active" onclick="switchTab('amount')">金额</div>
+                <div class="sheet-tab" onclick="switchTab('category')">分类</div>
+                <div class="sheet-tab" onclick="switchTab('time')">时间</div>
+            </div>
+
+            <!-- Amount Tab Content -->
+            <div class="sheet-content" id="amountTab">
+                <div class="amount-display">
+                    <span style="font-size: 16px; color: oklch(0.4386 0 0);">¥</span>
+                    <span class="amount" id="amountValue" style="font-size: 42px; font-weight: 700; color: oklch(0.1344 0 0);">35.00</span>
+                </div>
+
+                <div class="keyboard">
+                    <div class="key" onclick="pressKey('1')">1</div>
+                    <div class="key" onclick="pressKey('2')">2</div>
+                    <div class="key" onclick="pressKey('3')">3</div>
+                    <div class="key" onclick="pressKey('4')">4</div>
+                    <div class="key" onclick="pressKey('5')">5</div>
+                    <div class="key" onclick="pressKey('6')">6</div>
+                    <div class="key" onclick="pressKey('7')">7</div>
+                    <div class="key" onclick="pressKey('8')">8</div>
+                    <div class="key" onclick="pressKey('9')">9</div>
+                    <div class="key" onclick="pressKey('.')">.</div>
+                    <div class="key" onclick="pressKey('0')">0</div>
+                    <div class="key" onclick="pressKey('back')"><i class="fas fa-backspace"></i></div>
+                </div>
+            </div>
+
+            <!-- Category Tab Content -->
+            <div class="sheet-content hidden" id="categoryTab">
+                <div class="search-bar rounded-xl px-4 py-3 flex items-center gap-3 mb-4" style="background: oklch(0.9702 0 0); border: 1px solid var(--border);">
+                    <i class="fas fa-search text-neutral-400"></i>
+                    <input type="text" placeholder="搜索分类..." class="bg-transparent flex-1 outline-none text-sm" style="color: oklch(0.1344 0 0);">
+                </div>
+
+                <p class="text-neutral-400 text-xs font-medium mb-3 px-1">常用分类</p>
+
+                <div class="category-item selected">
+                    <div class="category-icon" style="background: oklch(0.9740 0.0298 60.2142);">
+                        <i class="fas fa-mug-hot" style="color: oklch(0.6290 0.1902 23.0704);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">餐饮</p>
+                        <p class="text-neutral-400 text-sm">咖啡</p>
+                    </div>
+                    <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                </div>
+
+                <div class="category-item">
+                    <div class="category-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-car" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">交通</p>
+                        <p class="text-neutral-400 text-sm">打车</p>
+                    </div>
+                </div>
+
+                <div class="category-item">
+                    <div class="category-icon" style="background: oklch(0.7459 0.1483 156.4499);">
+                        <i class="fas fa-shopping-cart" style="color: oklch(0.6290 0.1902 50.5517);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">购物</p>
+                        <p class="text-neutral-400 text-sm">日用品</p>
+                    </div>
+                </div>
+
+                <p class="text-neutral-400 text-xs font-medium mb-3 mt-5 px-1">全部分类</p>
+
+                <div class="category-item">
+                    <div class="category-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-shopping-bag" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">购物</p>
+                    </div>
+                </div>
+
+                <div class="category-item">
+                    <div class="category-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-film" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">娱乐</p>
+                    </div>
+                </div>
+
+                <div class="category-item">
+                    <div class="category-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-home" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">居住</p>
+                    </div>
+                </div>
+
+                <div class="category-item">
+                    <div class="category-icon" style="background: oklch(0.7336 0.1758 50.5517);">
+                        <i class="fas fa-bolt" style="color: oklch(0.6290 0.1902 23.0704);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">水电</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Time Tab Content -->
+            <div class="sheet-content hidden" id="timeTab">
+                <p class="text-neutral-400 text-xs font-medium mb-3 px-1">快速选择</p>
+
+                <div class="time-option selected">
+                    <div>
+                        <p class="font-medium text-neutral-900">今天</p>
+                        <p class="text-neutral-400 text-sm">12月23日 周一</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-neutral-600 font-medium">12:05</span>
+                        <i class="fas fa-check-circle" style="color: var(--primary);"></i>
+                    </div>
+                </div>
+
+                <div class="time-option">
+                    <div>
+                        <p class="font-medium text-neutral-900">昨天</p>
+                        <p class="text-neutral-400 text-sm">12月22日 周日</p>
+                    </div>
+                    <span class="text-neutral-400">22:00</span>
+                </div>
+
+                <div class="time-option">
+                    <div>
+                        <p class="font-medium text-neutral-900">前天</p>
+                        <p class="text-neutral-400 text-sm">12月21日 周六</p>
+                    </div>
+                    <span class="text-neutral-400">--:--</span>
+                </div>
+
+                <p class="text-neutral-400 text-xs font-medium mb-3 mt-5 px-1">自定义时间</p>
+
+                <div style="background: oklch(0.9702 0 0); border-radius: 1.25rem; padding: 16px;">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="text-neutral-600">日期</span>
+                        <div class="flex items-center gap-2 text-neutral-900">
+                            <i class="fas fa-calendar text-neutral-400"></i>
+                            <span>2024-12-23</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-neutral-600">时间</span>
+                        <div class="flex items-center gap-2 text-neutral-900">
+                            <i class="fas fa-clock text-neutral-400"></i>
+                            <span>12:05</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 p-4 rounded-2xl" style="background: oklch(0.9393 0.0288 266.3680);">
+                    <div class="flex items-start gap-3">
+                        <i class="fas fa-info-circle" style="color: var(--primary);" class="mt-0.5"></i>
+                        <p class="text-sm text-neutral-600">语音识别会自动记录您说的时间，如"昨天"、"今天中午"等</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Save Button -->
+            <div class="save-button" onclick="saveChanges()">
+                保存修改
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full opacity-30"></div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Tab switching
+        function switchTab(tab) {
+            document.querySelectorAll('.sheet-tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('amountTab').classList.add('hidden');
+            document.getElementById('categoryTab').classList.add('hidden');
+            document.getElementById('timeTab').classList.add('hidden');
+
+            document.getElementById(tab + 'Tab').classList.remove('hidden');
+        }
+
+        // Amount keypad
+        let currentAmount = '35.00';
+
+        function pressKey(key) {
+            if (key === 'back') {
+                currentAmount = currentAmount.slice(0, -1);
+                if (currentAmount === '' || currentAmount === '¥') {
+                    currentAmount = '0';
+                }
+            } else if (key === '.') {
+                if (!currentAmount.includes('.')) {
+                    currentAmount += '.';
+                }
+            } else {
+                if (currentAmount === '0') {
+                    currentAmount = key;
+                } else {
+                    currentAmount += key;
+                }
+            }
+
+            // Format to 2 decimal places
+            let num = parseFloat(currentAmount);
+            if (isNaN(num)) num = 0;
+            document.getElementById('amountValue').textContent = num.toFixed(2);
+        }
+
+        function saveChanges() {
+            alert('修改已保存！');
+        }
+
+        // Category selection
+        document.querySelectorAll('#categoryTab .category-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('#categoryTab .category-item').forEach(i => {
+                    i.classList.remove('selected');
+                    i.querySelector('.fa-check-circle')?.remove();
+                });
+                this.classList.add('selected');
+            });
+        });
+
+        // Time selection
+        document.querySelectorAll('#timeTab .time-option').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('#timeTab .time-option').forEach(i => {
+                    i.classList.remove('selected');
+                    i.querySelector('.fa-check-circle')?.remove();
+                });
+                this.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>

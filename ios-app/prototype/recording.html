@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音记账 - 录音中</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.025em;
+        }
+
+        :root {
+            --primary: oklch(0.5393 0.2713 286.7462);
+        }
+
+        .phone-frame {
+            width: 393px;
+            height: 852px;
+            background: linear-gradient(180deg, oklch(0.2223 0.0060 271.1393) 0%, oklch(0.1800 0.0080 280) 100%);
+            border-radius: 55px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.16),
+                        0 30px 60px -30px rgba(0,0,0,0.16),
+                        0 8px 10px -1px rgba(0,0,0,0.16),
+                        inset 0 0 0 12px #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            width: 126px;
+            height: 37px;
+            background: #000;
+            border-radius: 20px;
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .status-bar {
+            height: 54px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+        }
+
+        .status-bar span, .status-bar i {
+            color: rgba(255,255,255,0.8) !important;
+        }
+
+        /* 背景粒子效果 */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: oklch(0.6132 0.2294 291.7437);
+            border-radius: 50%;
+            animation: float 8s infinite ease-in-out;
+            opacity: 0.6;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) scale(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-100vh) scale(1); opacity: 0; }
+        }
+
+        /* 主波形可视化 */
+        .waveform-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            z-index: 10;
+        }
+
+        .wave-bar {
+            width: 4px;
+            background: linear-gradient(180deg, oklch(0.6132 0.2294 291.7437) 0%, oklch(0.5828 0.1809 259.7276) 50%, oklch(0.6132 0.2294 291.7437) 100%);
+            border-radius: 2px;
+            animation: wave-animation 0.8s ease-in-out infinite;
+        }
+
+        @keyframes wave-animation {
+            0%, 100% { transform: scaleY(0.3); }
+            50% { transform: scaleY(1); }
+        }
+
+        /* 圆形录音按钮 */
+        .record-button-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid rgba(239, 68, 68, 0.4);
+            animation: pulse-ring 2s ease-out infinite;
+        }
+
+        .pulse-ring:nth-child(2) { animation-delay: 0.5s; }
+        .pulse-ring:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 1; }
+            100% { transform: scale(1.5); opacity: 0; }
+        }
+
+        .record-button {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, oklch(0.6290 0.1902 23.0704) 0%, oklch(0.55 0.18 25) 50%, oklch(0.50 0.17 22) 100%);
+            box-shadow: 0 8px 10px -1px rgba(239, 68, 68, 0.16),
+                        0 0 80px rgba(239, 68, 68, 0.3),
+                        inset 0 2px 4px rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            z-index: 10;
+        }
+
+        .record-button:active {
+            transform: scale(0.95);
+        }
+
+        .record-button i {
+            font-size: 40px;
+            color: white;
+        }
+
+        /* 录音状态文本 */
+        .recording-status {
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+
+        .recording-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: oklch(0.6290 0.1902 23.0704);
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* 实时识别文本 */
+        .transcript-box {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 24px;
+            min-height: 120px;
+            margin: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            z-index: 10;
+        }
+
+        .transcript-text {
+            color: rgba(255,255,255,0.9);
+            font-size: 20px;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        .transcript-text .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 24px;
+            background: var(--primary);
+            margin-left: 2px;
+            animation: cursor-blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes cursor-blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* 解析结果卡片 */
+        .parse-result {
+            background: rgba(97, 51, 171, 0.2);
+            backdrop-filter: blur(20px);
+            border-radius: 1.25rem;
+            padding: 20px;
+            margin: 0 20px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            z-index: 10;
+        }
+
+        .parse-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 1rem;
+            margin-bottom: 10px;
+        }
+
+        .parse-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .parse-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        /* 底部操作栏 */
+        .bottom-actions {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            padding-bottom: 40px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 10;
+        }
+
+        .action-btn {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn.cancel {
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.7);
+        }
+
+        .action-btn.cancel:hover {
+            background: rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+        }
+
+        .action-btn.stop {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, oklch(0.6290 0.1902 23.0704) 0%, oklch(0.55 0.18 25) 100%);
+            color: white;
+            box-shadow: 0 8px 10px -1px rgba(239, 68, 68, 0.3);
+        }
+
+        .action-btn.stop:hover {
+            transform: scale(1.05);
+        }
+
+        /* 计时器 */
+        .timer {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            font-variant-numeric: tabular-nums;
+            z-index: 10;
+        }
+
+        .timer-label {
+            font-size: 14px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+            z-index: 10;
+        }
+
+        /* 音量指示器 */
+        .volume-meter {
+            width: 200px;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            margin: 20px auto;
+            z-index: 10;
+        }
+
+        .volume-fill {
+            height: 100%;
+            background: linear-gradient(90deg, oklch(0.6132 0.2294 291.7437) 0%, oklch(0.5828 0.1809 259.7276) 100%);
+            border-radius: 3px;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 flex items-center justify-center p-8">
+
+    <div class="phone-frame">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar text-white text-sm font-medium">
+            <span id="currentTime">9:41</span>
+            <div class="flex items-center gap-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-full text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Particles Background -->
+        <div class="particles">
+            <div class="particle" style="left: 10%; animation-delay: 0s;"></div>
+            <div class="particle" style="left: 20%; animation-delay: 1s;"></div>
+            <div class="particle" style="left: 30%; animation-delay: 2s;"></div>
+            <div class="particle" style="left: 40%; animation-delay: 3s;"></div>
+            <div class="particle" style="left: 50%; animation-delay: 4s;"></div>
+            <div class="particle" style="left: 60%; animation-delay: 5s;"></div>
+            <div class="particle" style="left: 70%; animation-delay: 6s;"></div>
+            <div class="particle" style="left: 80%; animation-delay: 7s;"></div>
+            <div class="particle" style="left: 90%; animation-delay: 0.5s;"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="flex flex-col items-center justify-center h-[calc(100%-54px)] py-8">
+            <!-- 录音状态 -->
+            <div class="recording-status mb-6">
+                <div class="flex items-center justify-center mb-2">
+                    <span class="recording-dot"></span>
+                    <span class="text-lg font-medium">正在录音...</span>
+                </div>
+                <p class="text-white/50 text-sm">松开按钮自动结束</p>
+            </div>
+
+            <!-- 计时器 -->
+            <div class="text-center mb-6">
+                <div class="timer" id="timer">00:03</div>
+                <div class="timer-label">录音时长</div>
+            </div>
+
+            <!-- 波形可视化 -->
+            <div class="waveform-container" id="waveform">
+                <!-- 动态生成波形条 -->
+            </div>
+
+            <!-- 音量指示器 -->
+            <div class="volume-meter">
+                <div class="volume-fill" id="volumeFill" style="width: 65%;"></div>
+            </div>
+
+            <!-- 实时识别文本 -->
+            <div class="transcript-box">
+                <p class="transcript-text" id="transcript">
+                    餐饮三十五今天中午<span class="cursor"></span>
+                </p>
+            </div>
+
+            <!-- 解析结果 -->
+            <div class="parse-result">
+                <div class="flex items-center gap-2 mb-3">
+                    <i class="fas fa-sparkles" style="color: oklch(0.6132 0.2294 291.7437);"></i>
+                    <span class="text-white/70 text-sm">实时解析</span>
+                </div>
+                <div class="parse-item">
+                    <div class="parse-icon" style="background: rgba(74, 222, 128, 0.2);">
+                        <i class="fas fa-yen-sign" style="color: oklch(0.7459 0.1483 156.4499);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-white/50 text-xs">金额</p>
+                        <p class="text-white font-semibold">¥35.00</p>
+                    </div>
+                </div>
+                <div class="parse-item">
+                    <div class="parse-icon" style="background: rgba(251, 146, 60, 0.2);">
+                        <i class="fas fa-utensils" style="color: oklch(0.9740 0.0298 60.2142);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-white/50 text-xs">分类</p>
+                        <p class="text-white font-semibold">餐饮 - 咖啡</p>
+                    </div>
+                </div>
+                <div class="parse-item">
+                    <div class="parse-icon" style="background: rgba(96, 165, 250, 0.2);">
+                        <i class="fas fa-clock" style="color: oklch(0.9393 0.0288 266.3680);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-white/50 text-xs">时间</p>
+                        <p class="text-white font-semibold">今天 12:05</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部操作 -->
+            <div class="bottom-actions">
+                <div class="action-btn cancel" onclick="cancelRecording()">
+                    <i class="fas fa-times"></i>
+                </div>
+                <div class="action-btn stop" onclick="stopRecording()">
+                    <i class="fas fa-check"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white rounded-full opacity-30"></div>
+    </div>
+
+    <script>
+        // 生成波形条
+        const waveform = document.getElementById('waveform');
+        const barCount = 40;
+        for (let i = 0; i < barCount; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'wave-bar';
+            bar.style.height = Math.random() * 100 + 40 + 'px';
+            bar.style.animationDelay = (i * 0.05) + 's';
+            waveform.appendChild(bar);
+        }
+
+        // 更新时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // 计时器
+        let seconds = 3;
+        setInterval(() => {
+            seconds++;
+            const mins = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const secs = (seconds % 60).toString().padStart(2, '0');
+            document.getElementById('timer').textContent = `${mins}:${secs}`;
+        }, 1000);
+
+        // 音量模拟
+        setInterval(() => {
+            const volume = Math.random() * 60 + 30;
+            document.getElementById('volumeFill').style.width = volume + '%';
+        }, 100);
+
+        // 波形动画更新
+        setInterval(() => {
+            document.querySelectorAll('.wave-bar').forEach(bar => {
+                bar.style.height = Math.random() * 100 + 40 + 'px';
+            });
+        }, 200);
+
+        function cancelRecording() {
+            if (confirm('确定要取消录音吗？')) {
+                alert('录音已取消');
+            }
+        }
+
+        function stopRecording() {
+            alert('录音完成，正在处理...');
+        }
+
+        // 模拟实时识别文本更新
+        const texts = [
+            '餐饮三十五今天中午',
+            '餐饮三十五今天中午咖啡',
+            '餐饮三十五今天中午咖啡星',
+            '餐饮三十五今天中午咖啡星巴'
+        ];
+        let textIndex = 0;
+        setInterval(() => {
+            textIndex = (textIndex + 1) % texts.length;
+            document.getElementById('transcript').innerHTML = texts[textIndex] + '<span class="cursor"></span>';
+        }, 3000);
+    </script>
+</body>
+</html>

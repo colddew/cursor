@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音记账 - 设置</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.025em;
+        }
+
+        :root {
+            --primary: oklch(0.5393 0.2713 286.7462);
+            --secondary: oklch(0.9540 0.0063 255.4755);
+            --muted: oklch(0.9702 0 0);
+            --muted-foreground: oklch(0.4386 0 0);
+            --accent: oklch(0.9393 0.0288 266.3680);
+            --border: oklch(0.9300 0.0094 286.2156);
+            --radius: 1.4rem;
+        }
+
+        .phone-frame {
+            width: 393px;
+            height: 852px;
+            background: oklch(0.9940 0 0);
+            border-radius: 55px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.16),
+                        0 30px 60px -30px rgba(0,0,0,0.16),
+                        0 8px 10px -1px rgba(0,0,0,0.16),
+                        inset 0 0 0 12px #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            width: 126px;
+            height: 37px;
+            background: #000;
+            border-radius: 20px;
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .status-bar {
+            height: 54px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+        }
+
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 84px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 10px;
+            padding-bottom: 34px;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-item.active {
+            color: var(--primary);
+        }
+
+        .tab-item:not(.active) {
+            color: oklch(0.4386 0 0);
+        }
+
+        .settings-section {
+            background: oklch(0.9940 0 0);
+            border-radius: 1.25rem;
+            margin-bottom: 16px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .settings-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            gap: 12px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .settings-item:hover {
+            background: oklch(0.9702 0 0);
+        }
+
+        .settings-item:not(:last-child) {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .settings-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .toggle-switch {
+            width: 51px;
+            height: 31px;
+            background: oklch(0.9300 0.0094 286.2156);
+            border-radius: 16px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch.active {
+            background: var(--primary);
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 27px;
+            height: 27px;
+            background: white;
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+        }
+
+        .toggle-switch.active::after {
+            transform: translateX(20px);
+        }
+
+        .user-card {
+            background: var(--primary);
+            border-radius: 1.4rem;
+            padding: 20px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .version-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .chevron {
+            color: oklch(0.9300 0.0094 286.2156);
+        }
+
+        .dropdown-value {
+            color: oklch(0.4386 0 0);
+            font-size: 14px;
+        }
+
+        .right-content {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-violet-100 to-purple-100 flex items-center justify-center p-8">
+
+    <div class="phone-frame">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar text-black text-sm font-medium">
+            <span id="currentTime">9:41</span>
+            <div class="flex items-center gap-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-full text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="px-5 pt-4 pb-32 h-[calc(100%-54px)] overflow-y-auto">
+            <!-- Header -->
+            <h1 class="text-2xl font-bold text-neutral-900 mb-5">设置</h1>
+
+            <!-- User Card -->
+            <div class="user-card">
+                <div class="flex items-center gap-4">
+                    <div class="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center text-2xl font-bold">
+                        U
+                    </div>
+                    <div class="flex-1">
+                        <h2 class="text-lg font-semibold">我的账本</h2>
+                        <p class="text-white/70 text-sm">个人日常记账</p>
+                    </div>
+                    <div class="version-badge">v1.0.0</div>
+                </div>
+                <div class="grid grid-cols-3 gap-4 mt-5 pt-4 border-t border-white/20">
+                    <div class="text-center">
+                        <p class="text-2xl font-bold">28</p>
+                        <p class="text-white/70 text-xs">本月笔数</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold">¥3,280</p>
+                        <p class="text-white/70 text-xs">本月支出</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-2xl font-bold">156</p>
+                        <p class="text-white/70 text-xs">累计天数</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recording Settings -->
+            <p class="text-neutral-400 text-xs font-medium mb-2 px-1">记账设置</p>
+            <div class="settings-section">
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-magic" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">自动保存</p>
+                        <p class="text-neutral-400 text-sm">语音识别后直接记账，无需确认</p>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.7459 0.1483 156.4499);">
+                        <i class="fas fa-wallet" style="color: oklch(0.6290 0.1902 50.5517);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">默认账户</p>
+                    </div>
+                    <div class="right-content">
+                        <span class="dropdown-value">招商银行</span>
+                        <i class="fas fa-chevron-right chevron text-sm"></i>
+                    </div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-book" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">默认账本</p>
+                    </div>
+                    <div class="right-content">
+                        <span class="dropdown-value">我的账本</span>
+                        <i class="fas fa-chevron-right chevron text-sm"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Management -->
+            <p class="text-neutral-400 text-xs font-medium mb-2 px-1">分类管理</p>
+            <div class="settings-section">
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9740 0.0298 60.2142);">
+                        <i class="fas fa-tags" style="color: oklch(0.6290 0.1902 23.0704);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">分类管理</p>
+                        <p class="text-neutral-400 text-sm">新增、编辑或删除分类</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-history" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">常用分类置顶</p>
+                        <p class="text-neutral-400 text-sm">将常用分类优先显示</p>
+                    </div>
+                    <div class="toggle-switch active" onclick="this.classList.toggle('active')"></div>
+                </div>
+            </div>
+
+            <!-- Data & Export -->
+            <p class="text-neutral-400 text-xs font-medium mb-2 px-1">数据管理</p>
+            <div class="settings-section">
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                        <i class="fas fa-file-export" style="color: var(--primary);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">导出 CSV</p>
+                        <p class="text-neutral-400 text-sm">导出账单数据到本地</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.7459 0.1483 156.4499);">
+                        <i class="fas fa-cloud" style="color: oklch(0.6290 0.1902 50.5517);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">iCloud 同步</p>
+                        <p class="text-neutral-400 text-sm">自动同步到云端</p>
+                    </div>
+                    <div class="toggle-switch" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9740 0.0298 60.2142);">
+                        <i class="fas fa-trash-alt" style="color: oklch(0.6290 0.1902 23.0704);"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">清除缓存</p>
+                    </div>
+                    <span class="text-neutral-400 text-sm">23.5 MB</span>
+                </div>
+            </div>
+
+            <!-- Privacy & Help -->
+            <p class="text-neutral-400 text-xs font-medium mb-2 px-1">隐私与帮助</p>
+            <div class="settings-section">
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9702 0 0);">
+                        <i class="fas fa-shield-alt text-neutral-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">隐私政策</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9702 0 0);">
+                        <i class="fas fa-microphone text-neutral-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">麦克风权限</p>
+                    </div>
+                    <span style="color: oklch(0.6290 0.1902 50.5517);" class="text-sm">已授权</span>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9702 0 0);">
+                        <i class="fas fa-question-circle text-neutral-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">帮助与反馈</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-icon" style="background: oklch(0.9702 0 0);">
+                        <i class="fas fa-star text-neutral-500"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="font-medium text-neutral-900">给我们评分</p>
+                    </div>
+                    <i class="fas fa-chevron-right chevron"></i>
+                </div>
+            </div>
+
+            <p class="text-center text-neutral-300 text-xs mt-6 mb-4">语音记账 v1.0.0</p>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab-item">
+                <i class="fas fa-microphone-alt text-xl"></i>
+                <span class="text-xs font-medium">记账</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-list-alt text-xl"></i>
+                <span class="text-xs font-medium">账单</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-chart-pie text-xl"></i>
+                <span class="text-xs font-medium">统计</span>
+            </div>
+            <div class="tab-item active">
+                <i class="fas fa-cog text-xl"></i>
+                <span class="text-xs font-medium">设置</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full opacity-30"></div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>

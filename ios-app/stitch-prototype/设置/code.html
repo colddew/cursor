@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Settings Design</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4a6af7",
+                        "background-light": "#f2f4f7", // Slightly adjusted for better contrast
+                        "background-dark": "#101322",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2235",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom scrollbar hiding for clean UI */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        /* iOS Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #4a6af7;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #4a6af7;
+        }
+        
+        /* Glassmorphism for Nav Bar */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .glass-nav {
+            background: rgba(16, 19, 34, 0.85);
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 dark:bg-gray-900 flex items-center justify-center min-h-screen font-display p-4">
+<!-- Phone Simulator Container -->
+<div class="relative w-full max-w-[393px] h-[852px] bg-background-light dark:bg-background-dark rounded-[3rem] shadow-2xl border-[8px] border-gray-900 overflow-hidden flex flex-col">
+<!-- Status Bar (Simulated) -->
+<div class="absolute top-0 w-full px-6 pt-3 pb-2 z-50 flex justify-between items-end text-black dark:text-white select-none">
+<span class="text-[15px] font-semibold tracking-wide pl-1">9:41</span>
+<!-- Dynamic Island Placeholder -->
+<div class="absolute left-1/2 -translate-x-1/2 top-2 w-[120px] h-[35px] bg-black rounded-full z-50"></div>
+<div class="flex items-center gap-1.5 pr-1">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">wifi</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">battery_full</span>
+</div>
+</div>
+<!-- Scrollable Content -->
+<main class="flex-1 overflow-y-auto no-scrollbar pt-14 pb-24">
+<!-- Header -->
+<header class="px-5 pt-4 pb-2">
+<h1 class="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">设置</h1>
+</header>
+<!-- Group 1: Efficiency (Auto Save) -->
+<div class="mt-6 mx-4">
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm">
+<div class="flex items-center justify-between p-4">
+<div class="flex items-center gap-3.5">
+<div class="flex items-center justify-center size-10 rounded-full bg-blue-50 dark:bg-blue-900/20 text-primary">
+<span class="material-symbols-outlined">bolt</span>
+</div>
+<div class="flex flex-col">
+<span class="text-base font-semibold text-gray-900 dark:text-white">极速模式</span>
+<span class="text-xs text-gray-500 dark:text-gray-400">语音识别后立即自动保存</span>
+</div>
+</div>
+<!-- iOS Toggle Switch -->
+<div class="relative inline-block w-12 mr-2 align-middle select-none transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-7 h-7 rounded-full bg-white border-4 appearance-none cursor-pointer border-transparent shadow-sm z-10 transition-all duration-300 left-0 checked:left-5 top-0.5" id="auto-save" name="toggle" type="checkbox"/>
+<label class="toggle-label block overflow-hidden h-8 rounded-full bg-gray-200 dark:bg-gray-700 cursor-pointer transition-colors duration-300" for="auto-save"></label>
+</div>
+</div>
+</div>
+</div>
+<!-- Group 2: Defaults -->
+<div class="mt-5 mx-4">
+<h3 class="ml-2 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">默认设置</h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Item 1: Default Account -->
+<div class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-gray-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3.5">
+<div class="flex items-center justify-center size-10 rounded-full bg-indigo-50 dark:bg-indigo-900/20 text-indigo-500">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="text-base font-medium text-gray-900 dark:text-white">默认账户</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[15px] text-gray-500 dark:text-gray-400">微信钱包</span>
+<span class="material-symbols-outlined text-gray-400 text-xl">chevron_right</span>
+</div>
+</div>
+<!-- Item 2: Default Ledger -->
+<div class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-gray-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3.5">
+<div class="flex items-center justify-center size-10 rounded-full bg-orange-50 dark:bg-orange-900/20 text-orange-500">
+<span class="material-symbols-outlined">book_2</span>
+</div>
+<span class="text-base font-medium text-gray-900 dark:text-white">默认账本</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-[15px] text-gray-500 dark:text-gray-400">日常开销</span>
+<span class="material-symbols-outlined text-gray-400 text-xl">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Group 3: Management -->
+<div class="mt-5 mx-4">
+<h3 class="ml-2 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">管理</h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Item 1: Category Management -->
+<div class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-gray-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3.5">
+<div class="flex items-center justify-center size-10 rounded-full bg-emerald-50 dark:bg-emerald-900/20 text-emerald-500">
+<span class="material-symbols-outlined">category</span>
+</div>
+<span class="text-base font-medium text-gray-900 dark:text-white">分类管理</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-xl">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Group 4: Data & Privacy -->
+<div class="mt-5 mx-4">
+<h3 class="ml-2 mb-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">数据与隐私</h3>
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-100 dark:divide-gray-800">
+<!-- Item 1: Export CSV -->
+<div class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-gray-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3.5">
+<div class="flex items-center justify-center size-10 rounded-full bg-sky-50 dark:bg-sky-900/20 text-sky-500">
+<span class="material-symbols-outlined">file_upload</span>
+</div>
+<span class="text-base font-medium text-gray-900 dark:text-white">导出 CSV</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-xl">chevron_right</span>
+</div>
+</div>
+<!-- Item 2: Privacy & Permissions -->
+<div class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-gray-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3.5">
+<div class="flex items-center justify-center size-10 rounded-full bg-slate-50 dark:bg-slate-800 text-slate-500">
+<span class="material-symbols-outlined">shield_lock</span>
+</div>
+<span class="text-base font-medium text-gray-900 dark:text-white">隐私与权限</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-gray-400 text-xl">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Version -->
+<div class="mt-8 mb-6 text-center">
+<p class="text-xs text-gray-400 font-medium">语音记账 v1.2.0</p>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="absolute bottom-0 w-full glass-nav z-40 pb-6 pt-3 px-6">
+<div class="flex justify-between items-center">
+<!-- Tab 1: Record -->
+<button class="flex flex-col items-center justify-center w-16 gap-1 group">
+<span class="material-symbols-outlined text-[26px] text-gray-400 group-hover:text-primary transition-colors">mic</span>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-primary transition-colors">记账</span>
+</button>
+<!-- Tab 2: Stats -->
+<button class="flex flex-col items-center justify-center w-16 gap-1 group">
+<span class="material-symbols-outlined text-[26px] text-gray-400 group-hover:text-primary transition-colors">insert_chart</span>
+<span class="text-[10px] font-medium text-gray-500 group-hover:text-primary transition-colors">统计</span>
+</button>
+<!-- Tab 3: Settings (Active) -->
+<button class="flex flex-col items-center justify-center w-16 gap-1">
+<span class="material-symbols-outlined text-[26px] text-primary" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-medium text-primary">设置</span>
+</button>
+</div>
+<!-- Home Indicator (iPhone gesture bar) -->
+<div class="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-[134px] h-[5px] bg-black dark:bg-white rounded-full opacity-30"></div>
+</nav>
+</div>
+</body></html>

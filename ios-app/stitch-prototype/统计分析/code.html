@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>统计分析</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4a6df7",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101322",
+              "surface-light": "#ffffff",
+              "surface-dark": "#1a1f36",
+              "text-primary-light": "#0d101c",
+              "text-primary-dark": "#ffffff",
+              "text-secondary-light": "#64748b",
+              "text-secondary-dark": "#94a3b8",
+            },
+            fontFamily: {
+              "display": ["Manrope", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+            boxShadow: {
+                'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                'card': '0 2px 10px rgba(0, 0, 0, 0.03)',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar hiding for cleaner mobile look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 flex justify-center items-center min-h-screen font-display">
+<!-- Mobile Frame -->
+<div class="relative w-full max-w-[393px] h-[852px] bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl rounded-[40px] border-[8px] border-gray-900 group/design-root flex flex-col">
+<!-- iOS Status Bar Placeholder -->
+<div class="h-[47px] w-full bg-background-light dark:bg-background-dark flex justify-between items-center px-6 shrink-0 z-20">
+<div class="text-text-primary-light dark:text-text-primary-dark font-semibold text-[15px]">9:41</div>
+<div class="flex gap-2 items-center text-text-primary-light dark:text-text-primary-dark">
+<span class="material-symbols-outlined text-[18px]" style="font-size: 18px;">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]" style="font-size: 18px;">wifi</span>
+<span class="material-symbols-outlined text-[18px]" style="font-size: 18px;">battery_full</span>
+</div>
+</div>
+<!-- Main Content Area (Scrollable) -->
+<div class="flex-1 overflow-y-auto no-scrollbar pb-24 relative z-10">
+<!-- Header -->
+<div class="sticky top-0 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm z-10 px-4 py-2 flex items-center justify-between">
+<div class="w-10 h-10 flex items-center justify-center rounded-full active:bg-gray-200 dark:active:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-text-primary-light dark:text-text-primary-dark" style="font-size: 24px;">arrow_back_ios_new</span>
+</div>
+<h1 class="text-lg font-bold text-text-primary-light dark:text-text-primary-dark">统计分析</h1>
+<div class="w-10 h-10 flex items-center justify-center rounded-full active:bg-gray-200 dark:active:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-text-primary-light dark:text-text-primary-dark" style="font-size: 24px;">calendar_month</span>
+</div>
+</div>
+<!-- Time Period Selector -->
+<div class="px-4 py-2">
+<div class="bg-[#e2e8f0] dark:bg-[#1e293b] p-1 rounded-xl flex relative">
+<!-- Animated background pill could be implemented with JS, using static for now -->
+<button class="flex-1 py-1.5 text-sm font-semibold rounded-lg bg-surface-light dark:bg-surface-dark text-primary shadow-sm transition-all duration-200">本月</button>
+<button class="flex-1 py-1.5 text-sm font-medium rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition-all duration-200">本年</button>
+<button class="flex-1 py-1.5 text-sm font-medium rounded-lg text-text-secondary-light dark:text-text-secondary-dark hover:text-text-primary-light dark:hover:text-text-primary-dark transition-all duration-200">自定义</button>
+</div>
+</div>
+<!-- Summary Cards -->
+<div class="px-4 py-4 grid grid-cols-2 gap-3">
+<!-- Expense Card -->
+<div class="bg-primary rounded-2xl p-4 text-white shadow-soft relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-24 h-24 bg-white/10 rounded-full blur-2xl group-hover:bg-white/20 transition-all duration-500"></div>
+<div class="relative z-10">
+<div class="flex items-center gap-1 mb-1 opacity-90">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="text-xs font-medium">总支出</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight mb-2">¥4,285.00</h2>
+<div class="flex items-center gap-1 text-xs bg-white/20 w-fit px-2 py-1 rounded-full backdrop-blur-sm">
+<span class="material-symbols-outlined text-[12px] rotate-180">arrow_drop_down</span>
+<span>12% 较上月</span>
+</div>
+</div>
+</div>
+<!-- Income Card -->
+<div class="bg-surface-light dark:bg-surface-dark rounded-2xl p-4 shadow-card border border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-1 mb-1 text-text-secondary-light dark:text-text-secondary-dark">
+<span class="material-symbols-outlined text-[18px] text-green-500">account_balance_wallet</span>
+<span class="text-xs font-medium">总收入</span>
+</div>
+<h2 class="text-2xl font-bold tracking-tight mb-2 text-text-primary-light dark:text-text-primary-dark">¥8,500.00</h2>
+<div class="flex items-center gap-1 text-xs text-green-600 bg-green-50 dark:bg-green-900/20 w-fit px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[12px]">arrow_drop_up</span>
+<span>5% 较上月</span>
+</div>
+</div>
+</div>
+<!-- Trend Chart Section -->
+<div class="px-4 py-2">
+<div class="bg-surface-light dark:bg-surface-dark rounded-3xl p-5 shadow-card border border-gray-100 dark:border-gray-800">
+<div class="flex justify-between items-center mb-6">
+<div>
+<h3 class="font-bold text-text-primary-light dark:text-text-primary-dark">消费趋势</h3>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark mt-0.5">1日 - 30日</p>
+</div>
+<button class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark text-[20px]">more_horiz</span>
+</button>
+</div>
+<!-- Line Chart SVG -->
+<div class="relative h-40 w-full">
+<!-- Grid lines -->
+<div class="absolute inset-0 flex flex-col justify-between pointer-events-none">
+<div class="border-b border-dashed border-gray-200 dark:border-gray-700 h-0 w-full"></div>
+<div class="border-b border-dashed border-gray-200 dark:border-gray-700 h-0 w-full"></div>
+<div class="border-b border-dashed border-gray-200 dark:border-gray-700 h-0 w-full"></div>
+<div class="border-b border-dashed border-gray-200 dark:border-gray-700 h-0 w-full"></div>
+</div>
+<!-- Chart Path -->
+<svg class="absolute inset-0 w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 320 100">
+<!-- Gradient Area -->
+<defs>
+<lineargradient id="chartGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4a6df7" stop-opacity="0.2"></stop>
+<stop offset="100%" stop-color="#4a6df7" stop-opacity="0"></stop>
+</lineargradient>
+</defs>
+<path d="M0,80 C40,80 40,30 80,30 C120,30 120,60 160,50 C200,40 200,10 240,20 C280,30 280,70 320,60 V100 H0 Z" fill="url(#chartGradient)"></path>
+<!-- Stroke Line -->
+<path d="M0,80 C40,80 40,30 80,30 C120,30 120,60 160,50 C200,40 200,10 240,20 C280,30 280,70 320,60" fill="none" stroke="#4a6df7" stroke-linecap="round" stroke-width="3" vector-effect="non-scaling-stroke"></path>
+<!-- Active Point -->
+<circle cx="240" cy="20" fill="white" r="4" stroke="#4a6df7" stroke-width="3"></circle>
+<!-- Active Tooltip -->
+<g transform="translate(240, -10)">
+<rect fill="#1e293b" height="24" rx="6" width="60" x="-30" y="-28"></rect>
+<text fill="white" font-size="10" font-weight="bold" text-anchor="middle" x="0" y="-12">¥890</text>
+<path d="M-4 -4 L0 0 L4 -4" fill="#1e293b"></path>
+</g>
+</svg>
+</div>
+<!-- X-Axis Labels -->
+<div class="flex justify-between mt-2 text-[10px] text-text-secondary-light dark:text-text-secondary-dark font-medium">
+<span>1日</span>
+<span>5日</span>
+<span>10日</span>
+<span>15日</span>
+<span>20日</span>
+<span>25日</span>
+<span>30日</span>
+</div>
+</div>
+</div>
+<!-- Category Breakdown Section -->
+<div class="px-4 py-2 mb-6">
+<div class="bg-surface-light dark:bg-surface-dark rounded-3xl p-5 shadow-card border border-gray-100 dark:border-gray-800">
+<h3 class="font-bold text-text-primary-light dark:text-text-primary-dark mb-6">分类支出</h3>
+<div class="flex items-center gap-6">
+<!-- Donut Chart -->
+<div class="relative w-32 h-32 shrink-0">
+<svg class="w-full h-full transform -rotate-90" viewbox="0 0 36 36">
+<!-- Background Circle -->
+<path class="text-gray-100 dark:text-gray-800" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-width="3.8"></path>
+<!-- Segment 1 (Blue) -->
+<path class="text-primary" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="50, 100" stroke-width="3.8"></path>
+<!-- Segment 2 (Purple) -->
+<path class="text-purple-400" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="25, 100" stroke-dashoffset="-50" stroke-width="3.8"></path>
+<!-- Segment 3 (Yellow) -->
+<path class="text-yellow-400" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" stroke-dasharray="15, 100" stroke-dashoffset="-75" stroke-width="3.8"></path>
+</svg>
+<!-- Inner Text -->
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-[10px] text-text-secondary-light dark:text-text-secondary-dark">Top 1</span>
+<span class="text-sm font-bold text-text-primary-light dark:text-text-primary-dark">餐饮</span>
+</div>
+</div>
+<!-- Legend List -->
+<div class="flex-1 flex flex-col gap-3 min-w-0">
+<!-- Item 1 -->
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-2 h-2 rounded-full bg-primary shrink-0"></div>
+<span class="text-sm font-medium truncate text-text-primary-light dark:text-text-primary-dark">餐饮美食</span>
+</div>
+<span class="text-sm font-bold text-text-primary-light dark:text-text-primary-dark">50%</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-primary h-1.5 rounded-full" style="width: 50%"></div>
+</div>
+<!-- Item 2 -->
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-2 h-2 rounded-full bg-purple-400 shrink-0"></div>
+<span class="text-sm font-medium truncate text-text-primary-light dark:text-text-primary-dark">交通出行</span>
+</div>
+<span class="text-sm font-bold text-text-primary-light dark:text-text-primary-dark">25%</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-purple-400 h-1.5 rounded-full" style="width: 25%"></div>
+</div>
+<!-- Item 3 -->
+<div class="flex items-center justify-between mt-1">
+<div class="flex items-center gap-2 min-w-0">
+<div class="w-2 h-2 rounded-full bg-yellow-400 shrink-0"></div>
+<span class="text-sm font-medium truncate text-text-primary-light dark:text-text-primary-dark">日用百货</span>
+</div>
+<span class="text-sm font-bold text-text-primary-light dark:text-text-primary-dark">15%</span>
+</div>
+<div class="w-full bg-gray-100 dark:bg-gray-800 rounded-full h-1.5 overflow-hidden">
+<div class="bg-yellow-400 h-1.5 rounded-full" style="width: 15%"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Detailed List Header -->
+<div class="px-6 pb-2 pt-2 flex justify-between items-end">
+<h3 class="font-bold text-text-primary-light dark:text-text-primary-dark text-lg">支出排行</h3>
+<button class="text-primary text-sm font-medium flex items-center">
+                    查看全部 <span class="material-symbols-outlined text-[16px] ml-0.5">chevron_right</span>
+</button>
+</div>
+<!-- List Items -->
+<div class="px-4 flex flex-col gap-3">
+<div class="bg-surface-light dark:bg-surface-dark p-3 rounded-2xl flex items-center justify-between shadow-sm border border-gray-50 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div>
+<p class="font-bold text-sm text-text-primary-light dark:text-text-primary-dark">家庭聚餐</p>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark">10月24日 • 餐饮</p>
+</div>
+</div>
+<span class="font-bold text-text-primary-light dark:text-text-primary-dark">-¥328.00</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-3 rounded-2xl flex items-center justify-between shadow-sm border border-gray-50 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined">directions_car</span>
+</div>
+<div>
+<p class="font-bold text-sm text-text-primary-light dark:text-text-primary-dark">加油费</p>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark">10月22日 • 交通</p>
+</div>
+</div>
+<span class="font-bold text-text-primary-light dark:text-text-primary-dark">-¥450.00</span>
+</div>
+<div class="bg-surface-light dark:bg-surface-dark p-3 rounded-2xl flex items-center justify-between shadow-sm border border-gray-50 dark:border-gray-800">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500">
+<span class="material-symbols-outlined">shopping_bag</span>
+</div>
+<div>
+<p class="font-bold text-sm text-text-primary-light dark:text-text-primary-dark">超市采购</p>
+<p class="text-xs text-text-secondary-light dark:text-text-secondary-dark">10月20日 • 购物</p>
+</div>
+</div>
+<span class="font-bold text-text-primary-light dark:text-text-primary-dark">-¥189.50</span>
+</div>
+</div>
+<!-- Bottom spacing for nav bar -->
+<div class="h-24"></div>
+</div>
+<!-- Floating Action Button (Voice Input) -->
+<div class="absolute bottom-24 right-4 z-30">
+<button class="w-14 h-14 bg-black dark:bg-white rounded-full shadow-lg flex items-center justify-center hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined text-white dark:text-black text-[28px]">mic</span>
+</button>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="h-[84px] bg-surface-light dark:bg-surface-dark w-full absolute bottom-0 border-t border-gray-100 dark:border-gray-800 flex justify-around items-start pt-3 px-2 z-20">
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary transition-colors text-[24px]">list_alt</span>
+<span class="text-[10px] font-medium text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary transition-colors">明细</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16">
+<span class="material-symbols-outlined text-primary text-[24px]">donut_small</span>
+<span class="text-[10px] font-medium text-primary">统计</span>
+</button>
+<!-- Spacer for center visual balance if needed, but keeping standard layout -->
+<button class="flex flex-col items-center gap-1 w-16 group">
+<span class="material-symbols-outlined text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary transition-colors text-[24px]">settings</span>
+<span class="text-[10px] font-medium text-text-secondary-light dark:text-text-secondary-dark group-hover:text-primary transition-colors">设置</span>
+</button>
+<!-- Home Indicator -->
+<div class="absolute bottom-2 w-32 h-1 bg-gray-300 dark:bg-gray-600 rounded-full left-1/2 -translate-x-1/2"></div>
+</div>
+</div>
+</body></html>

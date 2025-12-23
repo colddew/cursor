@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+
+<html class="light" lang="zh-CN"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>录音中 - Voice Recording</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4a6af7",
+              "background-light": "#f5f6f8",
+              "background-dark": "#101322",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen font-display">
+<!-- iPhone 15 Pro Frame Simulation -->
+<div class="relative flex h-[852px] w-[393px] flex-col bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl rounded-[50px] border-[8px] border-gray-900">
+<!-- Status Bar -->
+<div class="w-full h-12 flex justify-between items-center px-6 pt-2 z-10 text-gray-900 dark:text-white">
+<div class="font-semibold text-[15px]">9:41</div>
+<div class="flex gap-2 items-center">
+<span class="material-symbols-outlined text-[18px]">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]">wifi</span>
+<span class="material-symbols-outlined text-[18px] rotate-90">battery_full</span>
+</div>
+</div>
+<!-- Dynamic Island Placeholder (Visual Only) -->
+<div class="absolute top-3 left-1/2 -translate-x-1/2 w-[120px] h-[35px] bg-black rounded-full z-20"></div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col items-center relative z-0 pt-20 pb-10">
+<!-- Title / Hint -->
+<div class="w-full px-4 text-center mb-12">
+<h1 class="text-gray-900 dark:text-white text-2xl font-bold leading-tight tracking-tight">正在聆听...</h1>
+<p class="text-gray-500 dark:text-gray-400 text-sm mt-2 font-medium">请说出您的账单详情</p>
+</div>
+<!-- Visualizer (Waveform) -->
+<div class="flex-1 w-full flex items-center justify-center px-8 mb-8">
+<!-- Simulated Waveform using CSS bars -->
+<div class="flex items-center justify-center gap-[3px] h-40 w-full">
+<div class="w-1.5 bg-primary/20 rounded-full h-4"></div>
+<div class="w-1.5 bg-primary/30 rounded-full h-8"></div>
+<div class="w-1.5 bg-primary/40 rounded-full h-6"></div>
+<div class="w-1.5 bg-primary/60 rounded-full h-12"></div>
+<div class="w-1.5 bg-primary rounded-full h-16"></div>
+<div class="w-1.5 bg-primary rounded-full h-24"></div>
+<div class="w-1.5 bg-primary rounded-full h-10"></div>
+<div class="w-1.5 bg-primary rounded-full h-20"></div>
+<div class="w-1.5 bg-primary rounded-full h-32 shadow-[0_0_15px_rgba(74,106,247,0.5)]"></div>
+<div class="w-1.5 bg-primary rounded-full h-24"></div>
+<div class="w-1.5 bg-primary rounded-full h-14"></div>
+<div class="w-1.5 bg-primary/80 rounded-full h-28"></div>
+<div class="w-1.5 bg-primary/60 rounded-full h-12"></div>
+<div class="w-1.5 bg-primary/50 rounded-full h-16"></div>
+<div class="w-1.5 bg-primary/40 rounded-full h-8"></div>
+<div class="w-1.5 bg-primary/30 rounded-full h-5"></div>
+<div class="w-1.5 bg-primary/20 rounded-full h-3"></div>
+</div>
+</div>
+<!-- Timer Display -->
+<div class="mb-16">
+<div class="flex flex-col items-center justify-center gap-1">
+<!-- Using a very large font for the timer to make it the focal point -->
+<p class="text-gray-900 dark:text-white text-[80px] font-bold leading-none tracking-tighter tabular-nums">00:03</p>
+<div class="flex items-center gap-2 mt-2">
+<div class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+<p class="text-primary font-bold text-sm tracking-widest uppercase">Recording</p>
+</div>
+</div>
+</div>
+<!-- Action Controls -->
+<div class="w-full px-8 mb-8">
+<div class="flex items-center justify-between">
+<!-- Cancel Button -->
+<button class="group flex flex-col items-center justify-center gap-2 w-20 h-20 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-200">
+<div class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 group-hover:bg-gray-300 dark:group-hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[24px]">close</span>
+</div>
+<span class="text-xs font-semibold text-gray-500 dark:text-gray-400">取消</span>
+</button>
+<!-- Stop/Finish Button (Primary Action) -->
+<button class="relative group flex items-center justify-center">
+<!-- Ripple effect outer ring simulation -->
+<div class="absolute w-24 h-24 rounded-full border border-primary/30 dark:border-primary/20 animate-[ping_2s_ease-in-out_infinite]"></div>
+<div class="w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg shadow-primary/40 transform transition-transform active:scale-95 group-hover:bg-blue-600">
+<div class="w-8 h-8 bg-white rounded-md"></div>
+</div>
+</button>
+<!-- Placeholder for symmetry or secondary feature like Pause (Optional, visually balanced) -->
+<button class="group flex flex-col items-center justify-center gap-2 w-20 h-20 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors duration-200 opacity-0 pointer-events-none">
+<div class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-200 dark:bg-gray-800 group-hover:bg-gray-300 dark:group-hover:bg-gray-700 text-gray-600 dark:text-gray-300 transition-colors">
+<span class="material-symbols-outlined text-[24px]">pause</span>
+</div>
+<span class="text-xs font-semibold text-gray-500 dark:text-gray-400">暂停</span>
+</button>
+</div>
+<!-- Bottom text hint -->
+<p class="text-center text-gray-400 dark:text-gray-500 text-xs mt-8">点击方块停止并生成账单</p>
+</div>
+</div>
+<!-- Home Indicator -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[130px] h-[5px] bg-gray-900 dark:bg-white rounded-full opacity-20"></div>
+</div>
+</body></html>

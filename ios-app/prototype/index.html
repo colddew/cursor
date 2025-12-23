@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音记账 - 高保真原型 (Violet Bloom)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: oklch(0.5393 0.2713 286.7462);
+            --secondary: oklch(0.9540 0.0063 255.4755);
+            --muted: oklch(0.9702 0 0);
+            --muted-foreground: oklch(0.4386 0 0);
+            --accent: oklch(0.9393 0.0288 266.3680);
+            --border: oklch(0.9300 0.0094 286.2156);
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.025em;
+            background: linear-gradient(135deg, oklch(0.9393 0.0288 266.3680) 0%, oklch(0.5393 0.2713 286.7462) 50%, oklch(0.5828 0.1809 259.7276) 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .header .badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            margin-top: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .screens-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
+            gap: 40px;
+            max-width: 1800px;
+            margin: 0 auto;
+            justify-items: center;
+        }
+
+        .screen-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .screen-label {
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .screen-label .subtitle {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            font-weight: 400;
+            margin-top: 4px;
+        }
+
+        iframe {
+            width: 393px;
+            height: 852px;
+            border: none;
+            border-radius: 55px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.16),
+                        0 30px 60px -30px rgba(0,0,0,0.16),
+                        0 8px 10px -1px rgba(0,0,0,0.16);
+        }
+
+        .features {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 1.5rem;
+            padding: 30px;
+            max-width: 900px;
+            margin: 40px auto 0;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .features h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.2s;
+        }
+
+        .feature-item:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-item p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+
+        .theme-info {
+            text-align: center;
+            color: white;
+            margin-top: 20px;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>语音记账 App - 高保真原型</h1>
+        <p>极致快的"语音→落账"通道 | 自动保存 · 快速纠错</p>
+        <div class="badge">Violet Bloom Theme by shadcn</div>
+    </div>
+
+    <div class="screens-container">
+        <!-- Home Screen -->
+        <div class="screen-wrapper">
+            <div class="screen-label">
+                首页 - 快速记账
+                <div class="subtitle">语音主入口 · 自动保存 · 撤销/快改</div>
+            </div>
+            <iframe src="home.html" title="首页"></iframe>
+        </div>
+
+        <!-- Bills Screen -->
+        <div class="screen-wrapper">
+            <div class="screen-label">
+                账单列表
+                <div class="subtitle">搜索筛选 · 滑动操作 · 分类统计</div>
+            </div>
+            <iframe src="bills.html" title="账单"></iframe>
+        </div>
+
+        <!-- Quick Edit Screen -->
+        <div class="screen-wrapper">
+            <div class="screen-label">
+                快速编辑面板
+                <div class="subtitle">金额/分类/时间 · 轻量改动</div>
+            </div>
+            <iframe src="quickedit.html" title="快速编辑"></iframe>
+        </div>
+
+        <!-- Settings Screen -->
+        <div class="screen-wrapper">
+            <div class="screen-label">
+                设置
+                <div class="subtitle">自动保存 · 默认账户 · 分类管理 · 导出</div>
+            </div>
+            <iframe src="settings.html" title="设置"></iframe>
+        </div>
+
+        <!-- Recording Screen -->
+        <div class="screen-wrapper">
+            <div class="screen-label">
+                录音中
+                <div class="subtitle">波形可视化 · 实时识别 · 智能解析</div>
+            </div>
+            <iframe src="recording.html" title="录音中"></iframe>
+        </div>
+
+        <!-- Statistics Screen -->
+        <div class="screen-wrapper">
+            <div class="screen-label">
+                统计分析
+                <div class="subtitle">支出趋势 · 分类占比 · 消费洞察</div>
+            </div>
+            <iframe src="stats.html" title="统计分析"></iframe>
+        </div>
+    </div>
+
+    <div class="features">
+        <h2>核心特性</h2>
+        <div class="features-grid">
+            <div class="feature-item">
+                <h3><i class="fas fa-bolt"></i> 极速记账</h3>
+                <p>语音→落账 P50 ≤ 2.5s，一次通过率 ≥ 85%，无需二次确认</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-magic"></i> 智能解析</h3>
+                <p>自动识别金额、分类、时间、账户，支持自然语言输入</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-edit"></i> 快速纠错</h3>
+                <p>底部Snackbar提供撤销/快改入口，轻量级面板快速修改</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-sliders-h"></i> 灵活配置</h3>
+                <p>自定义分类、账户、默认设置，满足个人记账习惯</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-chart-line"></i> 数据统计</h3>
+                <p>月度支出汇总、分类占比分析，一目了然</p>
+            </div>
+            <div class="feature-item">
+                <h3><i class="fas fa-file-export"></i> 数据导出</h3>
+                <p>支持CSV导出，iCloud云同步，数据安全有保障</p>
+            </div>
+        </div>
+        <div class="theme-info">
+            Design System: <a href="https://ui.shadcn.com" style="color: oklch(0.9393 0.0288 266.3680);">shadcn/ui</a> ·
+            Theme: <a href="https://tweakcn.com/r/themes/violet-bloom.json" style="color: oklch(0.9393 0.0288 266.3680);">Violet Bloom</a> ·
+            Font: Plus Jakarta Sans
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</body>
+</html>

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voice Accounting - Transaction List</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Theme Configuration -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4A6CF7", // User requested #4A6CF7
+                        "primary-dark": "#324bc2",
+                        "background-light": "#F2F4F7",
+                        "background-dark": "#101322",
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1A1D2D",
+                        "text-main": "#0d101c",
+                        "text-sub": "#6b7280",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"],
+                        "sans": ["Manrope", "sans-serif"],
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                    boxShadow: {
+                        'soft': '0 4px 20px -2px rgba(0, 0, 0, 0.05)',
+                        'nav': '0 -4px 20px -5px rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-effect {
+            background: rgba(26, 29, 45, 0.85);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 dark:bg-gray-900 flex justify-center items-center min-h-screen font-display antialiased selection:bg-primary/30">
+<!-- Mobile Container (iPhone 15 Pro Simulation) -->
+<div class="relative w-full max-w-[393px] h-[852px] bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl rounded-[40px] flex flex-col group/design-root border-[6px] border-gray-900">
+<!-- Status Bar -->
+<div class="h-[54px] w-full flex justify-between items-end px-6 pb-2 shrink-0 z-50 text-black dark:text-white">
+<div class="font-semibold text-[15px] tracking-tight ml-2">9:41</div>
+<div class="flex items-center gap-1.5 mr-1">
+<span class="material-symbols-outlined text-[18px]" style="font-size: 18px;">signal_cellular_alt</span>
+<span class="material-symbols-outlined text-[18px]" style="font-size: 18px;">wifi</span>
+<span class="material-symbols-outlined text-[18px]" style="font-size: 18px;">battery_full</span>
+</div>
+</div>
+<!-- Sticky Header Area -->
+<div class="flex flex-col bg-background-light dark:bg-background-dark shrink-0 z-40">
+<!-- Search Bar -->
+<div class="px-4 py-2">
+<label class="flex flex-col h-11 w-full relative">
+<div class="flex w-full flex-1 items-center rounded-xl bg-white dark:bg-surface-dark shadow-sm overflow-hidden transition-all duration-200 focus-within:ring-2 focus-within:ring-primary/20">
+<div class="text-text-sub flex items-center justify-center pl-3">
+<span class="material-symbols-outlined text-gray-400">search</span>
+</div>
+<input class="flex w-full min-w-0 flex-1 resize-none border-none bg-transparent text-text-main dark:text-white focus:outline-0 focus:ring-0 h-full placeholder:text-gray-400 px-3 text-[15px] font-normal leading-normal" placeholder="金额/分类/备注/商户" value=""/>
+</div>
+</label>
+</div>
+<!-- Monthly Summary (Optional but helpful context) -->
+<div class="flex justify-between items-center px-5 py-3 text-sm">
+<div class="flex items-end gap-2">
+<span class="text-text-sub font-medium">11月</span>
+<span class="text-xs text-primary bg-primary/10 px-2 py-0.5 rounded-full font-bold cursor-pointer">本月</span>
+</div>
+<div class="flex gap-4">
+<div class="text-right">
+<p class="text-[10px] text-text-sub uppercase tracking-wider">收入</p>
+<p class="text-green-500 font-bold leading-none">2,150.00</p>
+</div>
+<div class="text-right">
+<p class="text-[10px] text-text-sub uppercase tracking-wider">支出</p>
+<p class="text-text-main dark:text-white font-bold leading-none">5,432.80</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Scrollable Transaction List -->
+<div class="flex-1 overflow-y-auto no-scrollbar pb-24 relative">
+<!-- Date Group: Today -->
+<div class="sticky top-0 z-30 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm px-4 py-2 flex justify-between items-center border-b border-gray-200/50 dark:border-gray-800/50">
+<div class="flex items-baseline gap-2">
+<h3 class="text-text-main dark:text-white text-sm font-bold">今天</h3>
+<span class="text-xs text-text-sub">11月14日 · 星期四</span>
+</div>
+<span class="text-xs font-semibold text-text-main dark:text-gray-300">支出 ¥45.00</span>
+</div>
+<!-- List Item 1 -->
+<div class="relative group overflow-hidden bg-surface-light dark:bg-surface-dark mx-3 my-1.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 transition-transform active:scale-[0.99]">
+<!-- Swipe Actions Background (Visual Cue) -->
+<div class="absolute inset-y-0 right-0 w-1/2 bg-red-500 flex items-center justify-end pr-6 -z-10 rounded-r-2xl">
+<span class="material-symbols-outlined text-white">delete</span>
+</div>
+<div class="absolute inset-y-0 left-0 w-1/2 bg-primary flex items-center justify-start pl-6 -z-10 rounded-l-2xl">
+<span class="material-symbols-outlined text-white">edit</span>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-light dark:bg-surface-dark z-10 relative">
+<!-- Category Icon -->
+<div class="flex items-center justify-center rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 shrink-0 w-11 h-11">
+<span class="material-symbols-outlined text-[22px]">restaurant</span>
+</div>
+<!-- Middle Content -->
+<div class="flex flex-col justify-center flex-1 min-w-0">
+<p class="text-text-main dark:text-white text-[15px] font-bold leading-tight truncate">餐饮 - 早餐</p>
+<div class="flex items-center gap-1.5 text-xs text-text-sub mt-0.5">
+<span class="truncate max-w-[120px]">星巴克</span>
+<span class="w-0.5 h-0.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+<span>08:30</span>
+</div>
+</div>
+<!-- Right Content -->
+<div class="flex flex-col items-end shrink-0">
+<p class="text-text-main dark:text-white text-lg font-bold leading-tight">-35.00</p>
+<p class="text-[11px] text-text-sub dark:text-gray-500 mt-0.5">招商银行</p>
+</div>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="relative group bg-surface-light dark:bg-surface-dark mx-3 my-1.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3 p-3">
+<div class="flex items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shrink-0 w-11 h-11">
+<span class="material-symbols-outlined text-[22px]">directions_subway</span>
+</div>
+<div class="flex flex-col justify-center flex-1 min-w-0">
+<p class="text-text-main dark:text-white text-[15px] font-bold leading-tight truncate">交通 - 地铁</p>
+<div class="flex items-center gap-1.5 text-xs text-text-sub mt-0.5">
+<span class="truncate">通勤</span>
+<span class="w-0.5 h-0.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+<span>09:15</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<p class="text-text-main dark:text-white text-lg font-bold leading-tight">-5.00</p>
+<p class="text-[11px] text-text-sub dark:text-gray-500 mt-0.5">微信钱包</p>
+</div>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="relative group bg-surface-light dark:bg-surface-dark mx-3 my-1.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3 p-3">
+<div class="flex items-center justify-center rounded-full bg-yellow-100 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 shrink-0 w-11 h-11">
+<span class="material-symbols-outlined text-[22px]">shopping_bag</span>
+</div>
+<div class="flex flex-col justify-center flex-1 min-w-0">
+<p class="text-text-main dark:text-white text-[15px] font-bold leading-tight truncate">购物 - 日用</p>
+<div class="flex items-center gap-1.5 text-xs text-text-sub mt-0.5">
+<span class="truncate">全家便利店</span>
+<span class="w-0.5 h-0.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+<span>09:20</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<p class="text-text-main dark:text-white text-lg font-bold leading-tight">-5.00</p>
+<p class="text-[11px] text-text-sub dark:text-gray-500 mt-0.5">支付宝</p>
+</div>
+</div>
+</div>
+<!-- Date Group: Yesterday -->
+<div class="sticky top-0 z-30 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-sm px-4 py-2 mt-6 flex justify-between items-center border-b border-gray-200/50 dark:border-gray-800/50">
+<div class="flex items-baseline gap-2">
+<h3 class="text-text-main dark:text-white text-sm font-bold">昨天</h3>
+<span class="text-xs text-text-sub">11月13日 · 星期三</span>
+</div>
+<span class="text-xs font-semibold text-text-main dark:text-gray-300">支出 ¥280.00</span>
+</div>
+<!-- List Item 4 -->
+<div class="relative group bg-surface-light dark:bg-surface-dark mx-3 my-1.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3 p-3">
+<div class="flex items-center justify-center rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 shrink-0 w-11 h-11">
+<span class="material-symbols-outlined text-[22px]">checkroom</span>
+</div>
+<div class="flex flex-col justify-center flex-1 min-w-0">
+<p class="text-text-main dark:text-white text-[15px] font-bold leading-tight truncate">服饰 - 冬装</p>
+<div class="flex items-center gap-1.5 text-xs text-text-sub mt-0.5">
+<span class="truncate">优衣库</span>
+<span class="w-0.5 h-0.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+<span>19:40</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<p class="text-text-main dark:text-white text-lg font-bold leading-tight">-249.00</p>
+<p class="text-[11px] text-text-sub dark:text-gray-500 mt-0.5">信用卡</p>
+</div>
+</div>
+</div>
+<!-- List Item 5 -->
+<div class="relative group bg-surface-light dark:bg-surface-dark mx-3 my-1.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3 p-3">
+<div class="flex items-center justify-center rounded-full bg-teal-100 dark:bg-teal-900/30 text-teal-600 dark:text-teal-400 shrink-0 w-11 h-11">
+<span class="material-symbols-outlined text-[22px]">local_cafe</span>
+</div>
+<div class="flex flex-col justify-center flex-1 min-w-0">
+<p class="text-text-main dark:text-white text-[15px] font-bold leading-tight truncate">下午茶</p>
+<div class="flex items-center gap-1.5 text-xs text-text-sub mt-0.5">
+<span class="truncate">瑞幸咖啡</span>
+<span class="w-0.5 h-0.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+<span>14:15</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<p class="text-text-main dark:text-white text-lg font-bold leading-tight">-19.00</p>
+<p class="text-[11px] text-text-sub dark:text-gray-500 mt-0.5">微信钱包</p>
+</div>
+</div>
+</div>
+<!-- List Item 6 -->
+<div class="relative group bg-surface-light dark:bg-surface-dark mx-3 my-1.5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 active:scale-[0.99] transition-transform">
+<div class="flex items-center gap-3 p-3">
+<div class="flex items-center justify-center rounded-full bg-indigo-100 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 shrink-0 w-11 h-11">
+<span class="material-symbols-outlined text-[22px]">pets</span>
+</div>
+<div class="flex flex-col justify-center flex-1 min-w-0">
+<p class="text-text-main dark:text-white text-[15px] font-bold leading-tight truncate">宠物 - 零食</p>
+<div class="flex items-center gap-1.5 text-xs text-text-sub mt-0.5">
+<span class="truncate">京东到家</span>
+<span class="w-0.5 h-0.5 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+<span>10:30</span>
+</div>
+</div>
+<div class="flex flex-col items-end shrink-0">
+<p class="text-text-main dark:text-white text-lg font-bold leading-tight">-12.00</p>
+<p class="text-[11px] text-text-sub dark:text-gray-500 mt-0.5">京东白条</p>
+</div>
+</div>
+</div>
+<div class="h-8 w-full"></div>
+</div>
+<!-- Bottom Navigation Bar -->
+<div class="absolute bottom-0 w-full glass-effect border-t border-gray-200 dark:border-gray-800 pb-[34px] pt-2 z-50">
+<div class="flex justify-between items-end px-6 relative">
+<!-- Tab 1 -->
+<button class="flex flex-col items-center gap-1 group w-14">
+<span class="material-symbols-outlined text-[26px] text-primary transition-colors">calendar_view_day</span>
+<span class="text-[10px] font-medium text-primary">明细</span>
+</button>
+<!-- Tab 2 -->
+<button class="flex flex-col items-center gap-1 group w-14">
+<span class="material-symbols-outlined text-[26px] text-gray-400 group-hover:text-primary transition-colors">pie_chart</span>
+<span class="text-[10px] font-medium text-gray-400 group-hover:text-primary transition-colors">报表</span>
+</button>
+<!-- Central Action Button (Voice Input) -->
+<!-- Positioned absolute to float slightly above or align perfectly centered -->
+<div class="relative -top-5">
+<button class="flex items-center justify-center w-[64px] h-[64px] bg-primary rounded-full shadow-lg shadow-primary/40 text-white transform transition-transform active:scale-95 border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined text-[32px]">mic</span>
+</button>
+<!-- Pulse effect hint -->
+<div class="absolute -inset-1 bg-primary/20 rounded-full -z-10 animate-pulse"></div>
+</div>
+<!-- Tab 4 -->
+<button class="flex flex-col items-center gap-1 group w-14">
+<span class="material-symbols-outlined text-[26px] text-gray-400 group-hover:text-primary transition-colors">account_balance_wallet</span>
+<span class="text-[10px] font-medium text-gray-400 group-hover:text-primary transition-colors">资产</span>
+</button>
+<!-- Tab 5 -->
+<button class="flex flex-col items-center gap-1 group w-14">
+<span class="material-symbols-outlined text-[26px] text-gray-400 group-hover:text-primary transition-colors">person</span>
+<span class="text-[10px] font-medium text-gray-400 group-hover:text-primary transition-colors">我的</span>
+</button>
+</div>
+</div>
+<!-- Bottom Home Indicator -->
+<div class="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black dark:bg-white rounded-full z-[60]"></div>
+</div>
+</body></html>

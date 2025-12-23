@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>语音记账 - 首页</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            letter-spacing: -0.025em;
+        }
+
+        /* Violet Bloom Theme Colors */
+        :root {
+            --primary: oklch(0.5393 0.2713 286.7462);
+            --primary-foreground: oklch(1.0000 0 0);
+            --secondary: oklch(0.9540 0.0063 255.4755);
+            --secondary-foreground: oklch(0.1344 0 0);
+            --muted: oklch(0.9702 0 0);
+            --muted-foreground: oklch(0.4386 0 0);
+            --accent: oklch(0.9393 0.0288 266.3680);
+            --accent-foreground: oklch(0.5445 0.1903 259.4848);
+            --border: oklch(0.9300 0.0094 286.2156);
+            --radius: 1.4rem;
+        }
+
+        .phone-frame {
+            width: 393px;
+            height: 852px;
+            background: oklch(0.9940 0 0);
+            border-radius: 55px;
+            box-shadow: 0 50px 100px -20px rgba(0,0,0,0.16),
+                        0 30px 60px -30px rgba(0,0,0,0.16),
+                        0 8px 10px -1px rgba(0,0,0,0.16),
+                        inset 0 0 0 12px #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dynamic-island {
+            width: 126px;
+            height: 37px;
+            background: #000;
+            border-radius: 20px;
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+        }
+
+        .status-bar {
+            height: 54px;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 50;
+        }
+
+        .voice-button {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: oklch(0.5393 0.2713 286.7462);
+            box-shadow: 0 4px 6px -1px rgba(139, 92, 246, 0.16),
+                        0 8px 10px -1px rgba(139, 92, 246, 0.16),
+                        0 2px 3px 0px rgba(139, 92, 246, 0.16),
+                        inset 0 2px 4px rgba(255,255,255,0.2);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .voice-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 10px -1px rgba(139, 92, 246, 0.2),
+                        0 2px 3px 0px rgba(139, 92, 246, 0.2);
+        }
+
+        .voice-button:active {
+            transform: scale(0.95);
+        }
+
+        .voice-button.recording {
+            animation: pulse-recording 1.5s ease-in-out infinite;
+            background: oklch(0.6290 0.1902 23.0704);
+            box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.16),
+                        0 8px 10px -1px rgba(239, 68, 68, 0.16);
+        }
+
+        @keyframes pulse-recording {
+            0%, 100% {
+                box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.16),
+                            0 8px 10px -1px rgba(239, 68, 68, 0.16);
+            }
+            50% {
+                box-shadow: 0 8px 10px -1px rgba(239, 68, 68, 0.24),
+                            0 2px 3px 0px rgba(239, 68, 68, 0.24);
+            }
+        }
+
+        .wave-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+        }
+
+        .wave {
+            position: absolute;
+            width: 8px;
+            height: 30px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 4px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            animation: wave 0.8s ease-in-out infinite;
+        }
+
+        .wave:nth-child(1) { animation-delay: 0s; margin-left: -24px; height: 20px; }
+        .wave:nth-child(2) { animation-delay: 0.1s; margin-left: -12px; height: 35px; }
+        .wave:nth-child(3) { animation-delay: 0.2s; height: 45px; }
+        .wave:nth-child(4) { animation-delay: 0.3s; margin-left: 12px; height: 35px; }
+        .wave:nth-child(5) { animation-delay: 0.4s; margin-left: 24px; height: 20px; }
+
+        @keyframes wave {
+            0%, 100% { transform: translate(-50%, -50%) scaleY(1); }
+            50% { transform: translate(-50%, -50%) scaleY(1.8); }
+        }
+
+        .mic-icon {
+            font-size: 42px;
+            color: white;
+            position: relative;
+            z-index: 10;
+        }
+
+        .snackbar {
+            position: absolute;
+            bottom: 100px;
+            left: 16px;
+            right: 16px;
+            background: oklch(0.1344 0 0);
+            backdrop-filter: blur(20px);
+            border-radius: 1.4rem;
+            padding: 16px 20px;
+            box-shadow: 0 8px 10px -1px rgba(0,0,0,0.16);
+            transform: translateY(150%);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 200;
+        }
+
+        .snackbar.show {
+            transform: translateY(0);
+        }
+
+        .record-card {
+            background: oklch(0.9940 0 0);
+            border-radius: 1.4rem;
+            padding: 20px;
+            box-shadow: 0 2px 3px 0px rgba(0,0,0,0.08);
+            border: 1px solid oklch(0.9300 0.0094 286.2156);
+            margin-bottom: 16px;
+        }
+
+        .category-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 84px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(30px);
+            border-top: 1px solid oklch(0.9300 0.0094 286.2156);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 10px;
+            padding-bottom: 34px;
+        }
+
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab-item.active {
+            color: oklch(0.5393 0.2713 286.7462);
+        }
+
+        .tab-item:not(.active) {
+            color: oklch(0.4386 0 0);
+        }
+
+        .stat-card {
+            background: oklch(0.9393 0.0288 266.3680);
+            border-radius: 1.4rem;
+            padding: 16px;
+            text-align: center;
+            border: 1px solid oklch(0.9300 0.0094 286.2156);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-violet-100 to-purple-100 flex items-center justify-center p-8">
+
+    <div class="phone-frame">
+        <!-- Dynamic Island -->
+        <div class="dynamic-island"></div>
+
+        <!-- Status Bar -->
+        <div class="status-bar text-black text-sm font-medium">
+            <span id="currentTime">9:41</span>
+            <div class="flex items-center gap-1">
+                <i class="fas fa-signal text-xs"></i>
+                <i class="fas fa-wifi text-xs"></i>
+                <i class="fas fa-battery-full text-xs"></i>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="px-6 pt-4 pb-32 h-[calc(100%-54px)] overflow-y-auto">
+            <!-- Header -->
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <p class="text-neutral-500 text-sm">2024年12月23日 周一</p>
+                    <h1 class="text-2xl font-bold text-neutral-900">快速记账</h1>
+                </div>
+                <div class="w-10 h-10 rounded-full bg-gradient-to-br from-violet-400 to-violet-600 flex items-center justify-center text-white font-semibold shadow-sm">
+                    U
+                </div>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="stat-card">
+                    <p class="text-neutral-500 text-xs mb-1">今日已记</p>
+                    <p class="text-2xl font-bold text-neutral-900">5<span class="text-base ml-1">笔</span></p>
+                </div>
+                <div class="stat-card">
+                    <p class="text-neutral-500 text-xs mb-1">本月合计</p>
+                    <p class="text-2xl font-bold" style="color: oklch(0.5393 0.2713 286.7462);">¥3,280</p>
+                </div>
+            </div>
+
+            <!-- Voice Button Section -->
+            <div class="flex flex-col items-center justify-center mb-8" style="min-height: 280px;">
+                <p class="text-neutral-400 text-sm mb-6">按住说话，快速记账</p>
+
+                <div class="voice-button flex items-center justify-center" id="voiceButton">
+                    <div class="wave-container hidden" id="waveContainer">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                        <div class="wave"></div>
+                    </div>
+                    <i class="fas fa-microphone mic-icon" id="micIcon"></i>
+                </div>
+
+                <p class="text-neutral-300 text-xs mt-6">例如："餐饮三十五今天中午咖啡"</p>
+            </div>
+
+            <!-- Recent Record -->
+            <div>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold text-neutral-900">最近记录</h2>
+                    <a href="#" class="text-sm font-medium" style="color: oklch(0.5393 0.2713 286.7462);">查看全部</a>
+                </div>
+
+                <div class="record-card">
+                    <div class="flex items-center gap-4">
+                        <div class="category-icon" style="background: oklch(0.9740 0.0298 60.2142);">
+                            <i class="fas fa-mug-hot" style="color: oklch(0.6290 0.1902 23.0704);"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-neutral-900">餐饮 - 咖啡</h3>
+                                    <p class="text-neutral-400 text-sm mt-1">星巴克</p>
+                                </div>
+                                <p class="text-xl font-bold text-neutral-900">-¥35.00</p>
+                            </div>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xs text-neutral-400">今天 12:05</span>
+                                <span class="text-xs text-neutral-300">|</span>
+                                <span class="text-xs text-neutral-400">招商银行</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="record-card">
+                    <div class="flex items-center gap-4">
+                        <div class="category-icon" style="background: oklch(0.9393 0.0288 266.3680);">
+                            <i class="fas fa-car" style="color: oklch(0.5393 0.2713 286.7462);"></i>
+                        </div>
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-semibold text-neutral-900">交通 - 打车</h3>
+                                    <p class="text-neutral-400 text-sm mt-1">滴滴出行</p>
+                                </div>
+                                <p class="text-xl font-bold text-neutral-900">-¥120.00</p>
+                            </div>
+                            <div class="flex items-center gap-2 mt-2">
+                                <span class="text-xs text-neutral-400">昨天 22:00</span>
+                                <span class="text-xs text-neutral-300">|</span>
+                                <span class="text-xs text-neutral-400">微信支付</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Snackbar -->
+        <div class="snackbar" id="snackbar">
+            <div class="flex items-center justify-between">
+                <div class="flex-1">
+                    <div class="flex items-center gap-2 mb-1">
+                        <i class="fas fa-check-circle text-emerald-400"></i>
+                        <span class="text-white text-sm font-medium">已记录</span>
+                    </div>
+                    <p class="text-white text-xs opacity-80">¥35 · 餐饮-咖啡 · 今天 12:05</p>
+                </div>
+                <div class="flex items-center gap-3 ml-4">
+                    <button class="text-violet-400 text-sm font-medium hover:text-violet-300 transition-colors" onclick="hideSnackbar()">
+                        撤销
+                    </button>
+                    <button class="text-white text-sm font-medium hover:text-violet-300 transition-colors" onclick="showQuickEdit()">
+                        快改
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Bar -->
+        <div class="tab-bar">
+            <div class="tab-item active">
+                <i class="fas fa-microphone-alt text-xl"></i>
+                <span class="text-xs font-medium">记账</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-list-alt text-xl"></i>
+                <span class="text-xs font-medium">账单</span>
+            </div>
+            <div class="tab-item">
+                <i class="fas fa-cog text-xl"></i>
+                <span class="text-xs font-medium">设置</span>
+            </div>
+        </div>
+
+        <!-- Home Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-black rounded-full opacity-30"></div>
+    </div>
+
+    <script>
+        // Update time
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Voice button interaction
+        const voiceButton = document.getElementById('voiceButton');
+        const waveContainer = document.getElementById('waveContainer');
+        const micIcon = document.getElementById('micIcon');
+        const snackbar = document.getElementById('snackbar');
+        let isRecording = false;
+
+        voiceButton.addEventListener('mousedown', startRecording);
+        voiceButton.addEventListener('mouseup', stopRecording);
+        voiceButton.addEventListener('mouseleave', stopRecording);
+        voiceButton.addEventListener('touchstart', (e) => { e.preventDefault(); startRecording(); });
+        voiceButton.addEventListener('touchend', stopRecording);
+
+        // Click to toggle
+        let clickTimeout;
+        voiceButton.addEventListener('click', () => {
+            clearTimeout(clickTimeout);
+            clickTimeout = setTimeout(() => {
+                if (!isRecording) {
+                    startRecording();
+                    setTimeout(stopRecording, 3000); // Auto stop after 3s
+                }
+            }, 200);
+        });
+
+        function startRecording() {
+            isRecording = true;
+            voiceButton.classList.add('recording');
+            waveContainer.classList.remove('hidden');
+            micIcon.classList.add('hidden');
+        }
+
+        function stopRecording() {
+            if (isRecording) {
+                isRecording = false;
+                voiceButton.classList.remove('recording');
+                waveContainer.classList.add('hidden');
+                micIcon.classList.remove('hidden');
+
+                // Show snackbar after processing
+                setTimeout(() => {
+                    snackbar.classList.add('show');
+                }, 800);
+            }
+        }
+
+        function hideSnackbar() {
+            snackbar.classList.remove('show');
+        }
+
+        function showQuickEdit() {
+            alert('打开快速编辑面板');
+            hideSnackbar();
+        }
+
+        // Auto show snackbar after 2 seconds
+        setTimeout(() => {
+            snackbar.classList.add('show');
+        }, 2000);
+    </script>
+</body>
+</html>

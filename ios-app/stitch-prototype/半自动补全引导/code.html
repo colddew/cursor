@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Voice Expense Tracker - Completion Guide</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4a6af7",
+                        "primary-dark": "#324bc2",
+                        "background-light": "#f5f6f8",
+                        "background-dark": "#101322",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1e2336",
+                        "keypad-bg": "#eef0f4",
+                        "keypad-bg-dark": "#181b2e",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+                    boxShadow: {
+                        "soft": "0 4px 20px -2px rgba(0, 0, 0, 0.05)",
+                        "key": "0 1px 0px rgba(0,0,0,0.1)",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen font-display p-0 sm:p-4 text-slate-800">
+<!-- Mobile Container (iPhone 15 Pro simulation) -->
+<div class="relative flex flex-col h-[852px] w-full max-w-[393px] bg-background-light dark:bg-background-dark overflow-hidden shadow-2xl sm:rounded-[50px] border-[8px] border-gray-900 sm:border-gray-800">
+<!-- Dynamic Island / Status Bar Area -->
+<div class="absolute top-0 left-0 w-full h-14 z-20 flex justify-center items-end pb-2 pointer-events-none">
+<div class="h-[35px] w-[120px] bg-black rounded-full mb-1"></div>
+</div>
+<!-- Top App Bar -->
+<div class="pt-14 px-4 pb-2 flex items-center justify-between bg-background-light dark:bg-background-dark z-10">
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-white" style="font-size: 24px;">arrow_back</span>
+</button>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-tight">补全信息</h2>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-slate-900 dark:text-white" style="font-size: 24px;">more_horiz</span>
+</button>
+</div>
+<!-- Scrollable Content Area -->
+<div class="flex-1 overflow-y-auto flex flex-col px-4 pb-4">
+<!-- Partial Success Transcript -->
+<div class="mt-4 flex flex-col gap-3">
+<div class="flex items-start gap-3 p-4 bg-white dark:bg-surface-dark rounded-2xl shadow-soft border border-slate-100 dark:border-slate-700/50">
+<div class="relative shrink-0">
+<div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center text-white shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined" style="font-size: 20px;">graphic_eq</span>
+</div>
+<div class="absolute -bottom-1 -right-1 bg-green-500 border-2 border-white dark:border-surface-dark rounded-full w-4 h-4 flex items-center justify-center">
+<span class="material-symbols-outlined text-white" style="font-size: 10px; font-weight: bold;">check</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-primary text-xs font-bold uppercase tracking-wider">系统识别</span>
+<p class="text-slate-700 dark:text-slate-200 text-base font-medium leading-snug">
+                            你说了：<span class="bg-primary/10 text-primary px-1 rounded mx-0.5">买了些菜</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Error Prompt -->
+<div class="mt-6 text-center animate-pulse">
+<div class="inline-flex items-center gap-2 bg-red-50 dark:bg-red-900/20 px-4 py-2 rounded-full">
+<span class="material-symbols-outlined text-red-500 text-lg">error</span>
+<p class="text-red-500 text-sm font-semibold">未识别到金额，请手动输入</p>
+</div>
+</div>
+<!-- Large Amount Input Display -->
+<div class="mt-6 mb-8 text-center relative">
+<div class="inline-flex items-baseline justify-center text-slate-900 dark:text-white">
+<span class="text-3xl font-bold mr-2 text-slate-400 dark:text-slate-500">¥</span>
+<span class="text-6xl font-bold tracking-tight">0.00</span>
+<div class="w-1 h-12 bg-primary ml-1 animate-pulse rounded-full"></div>
+</div>
+</div>
+<!-- Form Fields (Note & Category) -->
+<div class="flex flex-col gap-4">
+<!-- Category Selection -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">restaurant</span>
+</div>
+<div class="flex-1 bg-white dark:bg-surface-dark rounded-xl h-14 flex items-center px-4 border border-transparent focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all shadow-sm">
+<span class="text-slate-500 text-sm font-medium mr-3 shrink-0">分类</span>
+<div class="flex-1 flex items-center justify-between">
+<span class="text-slate-900 dark:text-white font-semibold">餐饮美食</span>
+<span class="material-symbols-outlined text-slate-400">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Note Input -->
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-primary flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined">edit_note</span>
+</div>
+<label class="flex-1 bg-white dark:bg-surface-dark rounded-xl h-14 flex items-center px-4 border border-transparent focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/20 transition-all shadow-sm cursor-text">
+<span class="text-slate-500 text-sm font-medium mr-3 shrink-0">备注</span>
+<input class="flex-1 bg-transparent border-none p-0 text-slate-900 dark:text-white font-medium focus:ring-0 placeholder:text-slate-400" placeholder="添加备注..." type="text" value="买了些菜"/>
+<span class="material-symbols-outlined text-slate-400" style="font-size: 18px;">close</span>
+</label>
+</div>
+</div>
+<!-- Spacer to push keypad down if needed, or fill space -->
+<div class="flex-1 min-h-[20px]"></div>
+</div>
+<!-- Bottom Actions & Keypad Section -->
+<div class="bg-keypad-bg dark:bg-keypad-bg-dark rounded-t-[32px] shadow-[0_-4px_20px_rgba(0,0,0,0.05)] pb-8 z-10">
+<!-- Action Buttons Row -->
+<div class="flex items-center gap-4 px-6 pt-6 pb-2">
+<button class="flex-1 h-12 rounded-xl bg-white dark:bg-surface-dark text-slate-600 dark:text-slate-300 font-bold text-base shadow-sm border border-slate-200 dark:border-slate-700 active:scale-95 transition-transform">
+                    取消
+                </button>
+<button class="flex-[2] h-12 rounded-xl bg-primary hover:bg-primary-dark text-white font-bold text-base shadow-lg shadow-primary/25 active:scale-95 transition-transform flex items-center justify-center gap-2">
+                    确认
+                    <span class="material-symbols-outlined" style="font-size: 20px;">check_circle</span>
+</button>
+</div>
+<!-- Numeric Keypad -->
+<div class="grid grid-cols-3 gap-3 px-6 py-4">
+<!-- Row 1 -->
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">1</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">2</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">3</button>
+<!-- Row 2 -->
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">4</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">5</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">6</button>
+<!-- Row 3 -->
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">7</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">8</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">9</button>
+<!-- Row 4 -->
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">.</button>
+<button class="h-[60px] w-full rounded-2xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white text-2xl font-semibold shadow-key active:bg-slate-100 dark:active:bg-slate-700 transition-colors">0</button>
+<button class="h-[60px] w-full rounded-2xl bg-slate-200 dark:bg-slate-700/50 text-slate-900 dark:text-white text-xl font-semibold shadow-none active:bg-slate-300 dark:active:bg-slate-600 transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">backspace</span>
+</button>
+</div>
+<!-- Home Indicator (Simulated) -->
+<div class="h-1 w-32 bg-slate-300 dark:bg-slate-600 rounded-full mx-auto mt-2"></div>
+</div>
+</div>
+<!-- Background Elements for Presentation Context -->
+<div class="fixed -z-10 top-0 left-0 w-full h-full bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-slate-900 dark:to-slate-800" data-alt="Abstract gradient background"></div>
+</body></html>
