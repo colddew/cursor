@@ -28,12 +28,4 @@ ultrathink（plan mode）
 
 xxx，这个是可以测试语音的url，测试阿里云语音识别的接口，ultrathink
 
-
-
-
-
 @docs/api-accounting.md 根据 /audio/accounting 接口，调整现在的语音界面的交互逻辑，现在是调用上传语音的接口后，显示url，这个是用来调试的。实际使用时应该上传完语音后，就可以调用识别的接口，进行语音的识别动作，这里因为时间比较长，所以请做好用户交互的友好设计，ultrathink
-
-
-
-
