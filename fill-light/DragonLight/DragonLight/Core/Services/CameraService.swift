@@ -67,7 +67,13 @@ class CameraService: NSObject, ObservableObject {
         // 添加照片输出
         if captureSession.canAddOutput(photoOutput) {
             captureSession.addOutput(photoOutput)
-            photoOutput.isHighResolutionCaptureEnabled = true
+            // iOS 16+ 移除弃用的 API，默认使用最大分辨率
+            if #available(iOS 16.0, *) {
+                // maxPhotoQualityPrioritization 在 iOS 16+ 中默认为 balanced
+                photoOutput.maxPhotoQualityPrioritization = .quality
+            } else {
+                photoOutput.isHighResolutionCaptureEnabled = true
+            }
         }
 
         captureSession.commitConfiguration()
@@ -106,6 +112,12 @@ class CameraService: NSObject, ObservableObject {
         sessionQueue.async { [weak self] in
             guard let self = self else { return }
 
+            // 检查会话是否正在运行
+            guard self.captureSession.isRunning else {
+                print("相机会话未运行，无法切换")
+                return
+            }
+
             self.captureSession.beginConfiguration()
 
             // 移除当前输入
@@ -120,6 +132,7 @@ class CameraService: NSObject, ObservableObject {
             guard let videoDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: newPosition),
                   let videoDeviceInput = try? AVCaptureDeviceInput(device: videoDevice) else {
                 self.captureSession.commitConfiguration()
+                print("无法获取相机设备: \(newPosition)")
                 return
             }
 
@@ -146,13 +159,34 @@ class CameraService: NSObject, ObservableObject {
         sessionQueue.async { [weak self] in
             guard let self = self else { return }
 
+            // 检查会话是否正在运行
+            guard self.captureSession.isRunning else {
+                DispatchQueue.main.async {
+                    completion(.failure(CameraError.deviceNotAvailable))
+                }
+                return
+            }
+
+            // 检查是否有视频输入
+            guard self.videoDeviceInput != nil else {
+                DispatchQueue.main.async {
+                    completion(.failure(CameraError.deviceNotAvailable))
+                }
+                return
+            }
+
             let settings = AVCapturePhotoSettings()
 
             if self.videoDeviceInput?.device.isFlashAvailable == true {
                 settings.flashMode = .off
             }
 
-            settings.isHighResolutionPhotoEnabled = true
+            // iOS 16+ 已弃用 isHighResolutionPhotoEnabled，使用 maxPhotoDimensions
+            if #available(iOS 16.0, *) {
+                // maxPhotoDimensions 已在 configureSession 中设置
+            } else {
+                settings.isHighResolutionPhotoEnabled = true
+            }
 
             self.photoOutput.capturePhoto(with: settings, delegate: self)
 

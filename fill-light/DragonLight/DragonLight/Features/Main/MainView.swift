@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MainView: View {
     // MARK: - Properties
@@ -13,9 +14,10 @@ struct MainView: View {
     @EnvironmentObject private var lightViewModel: LightViewModel
     @EnvironmentObject private var cameraViewModel: CameraViewModel
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
+    @StateObject private var settingsState = SettingsState.shared
 
-    @State private var showSettingsMenu = false
     @State private var showFlash = false
+    @State private var showControls = true
 
     // MARK: - Body
 
@@ -26,6 +28,7 @@ struct MainView: View {
 
             // 主内容
             mainContent
+                .environmentObject(settingsState)
 
             // 拍照闪光效果
             if showFlash {
@@ -33,7 +36,9 @@ struct MainView: View {
             }
 
             // 设置菜单
-            settingsMenuOverlay
+            if settingsState.isSettingsMenuVisible {
+                settingsMenuOverlay
+            }
         }
         .onAppear {
             cameraViewModel.startSession()
@@ -61,12 +66,8 @@ struct MainView: View {
             // 顶部区域 - 印章
             topBar
 
-            Spacer()
-
             // 中间区域 - 奶龙
             dragonSection
-
-            Spacer()
 
             // 控制区域
             controlsSection
@@ -80,41 +81,105 @@ struct MainView: View {
 
             SealView()
                 .padding(.trailing, AppDesign.Spacing.md.rawValue)
-                .padding(.top, AppDesign.Spacing.md.rawValue)
+                .padding(.top, 8)
         }
     }
 
     private var dragonSection: some View {
         ZStack {
-            // 相机预览（背景）
-            CameraPreviewView()
-                .frame(height: 300)
-                .cornerRadius(AppDesign.CornerRadius.lg.rawValue)
-                .padding(.horizontal, AppDesign.Spacing.lg.rawValue)
-                .opacity(0.3)
-
             // 奶龙
             DragonView()
-                .frame(height: 300)
+                .frame(maxHeight: 220)
         }
+        .frame(minHeight: 180)
     }
 
     private var controlsSection: some View {
-        VStack(spacing: AppDesign.Spacing.lg.rawValue) {
-            // 亮度滑块
-            BrightnessSlider()
+        VStack(spacing: 0) {
+            if showControls {
+                VStack(spacing: AppDesign.Spacing.md.rawValue) {
+                    // 亮度滑块
+                    BrightnessSlider()
 
-            // 颜色选择器
-            LightColorPicker()
+                    // 对比度滑块
+                    ContrastSlider()
 
-            // 拍照按钮区域
-            cameraControls
+                    // 颜色选择器
+                    LightColorPicker()
 
-            // 底部间距
-            Spacer()
-                .frame(height: AppDesign.Spacing.xl.rawValue)
+                    // 拍照按钮区域
+                    cameraControls
+
+                    // 隐藏/显示按钮
+                    toggleControlsButton
+                }
+                .padding(.horizontal, AppDesign.Spacing.lg.rawValue)
+                .padding(.bottom, 20)
+            } else {
+                // 收起时只显示按钮，紧贴在奶龙下方
+                toggleControlsButton
+                    .padding(.top, 12)
+                    .padding(.bottom, 12)
+            }
         }
-        .padding(.bottom, AppDesign.Spacing.lg.rawValue)
+        .animation(.easeInOut(duration: 0.3), value: showControls)
+    }
+
+    private var toggleControlsButton: some View {
+        Button(action: {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                showControls.toggle()
+            }
+            if SettingsService.shared.hapticFeedback {
+                HapticService.shared.lightImpact()
+            }
+        }) {
+            HStack(spacing: 8) {
+                Image(systemName: showControls ? "chevron.up" : "chevron.down")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(AppDesign.Colors.text.opacity(0.6))
+
+                Text(showControls ? "收起" : "展开")
+                    .font(AppDesign.Typography.caption)
+                    .foregroundColor(AppDesign.Colors.text.opacity(0.6))
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 8)
+            .background(
+                Capsule()
+                    .fill(Color.white.opacity(0.9))
+                    .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3)
+            )
+        }
+        .buttonStyle(PlainButtonStyle())
+        .contentShape(Capsule())
+        .zIndex(100)
+        .simultaneousGesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.height < -30 {
+                        // 向上滑动 - 展开
+                        if !showControls {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showControls = true
+                            }
+                            if SettingsService.shared.hapticFeedback {
+                                HapticService.shared.lightImpact()
+                            }
+                        }
+                    } else if value.translation.height > 30 {
+                        // 向下滑动 - 收起
+                        if showControls {
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showControls = false
+                            }
+                            if SettingsService.shared.hapticFeedback {
+                                HapticService.shared.lightImpact()
+                            }
+                        }
+                    }
+                }
+        )
     }
 
     private var cameraControls: some View {
@@ -136,8 +201,12 @@ struct MainView: View {
     }
 
     private var settingsMenuOverlay: some View {
-        SettingsMenu(isPresented: $showSettingsMenu)
-            .environmentObject(settingsViewModel)
+        ZStack {
+            if settingsState.isSettingsMenuVisible {
+                SettingsMenu()
+                    .environmentObject(settingsViewModel)
+            }
+        }
     }
 
     // MARK: - Methods

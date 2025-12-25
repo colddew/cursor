@@ -13,6 +13,7 @@ struct LanternView: View {
 
     @Binding var showSettings: Bool
     @EnvironmentObject var dragonState: DragonState
+    @EnvironmentObject private var settingsState: SettingsState
 
     @State private var isGlowing = false
     @State private var shakeAngle: Double = 0
@@ -38,6 +39,7 @@ struct LanternView: View {
             // 红绳
             rope
         }
+        .contentShape(Rectangle())
         .onTapGesture {
             tapLantern()
         }
@@ -133,6 +135,8 @@ struct LanternView: View {
     }
 
     private func tapLantern() {
+        print("LanternView: 点击灯笼")
+
         // 发光动画
         withAnimation(.easeOut(duration: 0.2)) {
             isGlowing = true
@@ -152,13 +156,14 @@ struct LanternView: View {
             HapticService.shared.lightImpact()
         }
 
-        // 显示设置菜单
-        NotificationCenter.default.post(name: .showSettings, object: nil)
+        // 直接设置状态显示设置菜单
+        print("LanternView: 显示设置菜单")
+        settingsState.isSettingsMenuVisible = true
     }
 
     // MARK: - Properties
 
-    private var cancellables = Set<AnyCancellable>()
+    @State private var cancellables = Set<AnyCancellable>()
 }
 
 // MARK: - Preview

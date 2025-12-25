@@ -17,6 +17,9 @@ struct AppSettings: Codable {
     /// 亮度值 (0.0 - 1.0)
     var brightness: Double
 
+    /// 对比度值 (0.5 - 1.5)
+    var contrast: Double
+
     /// 音量键拍照
     var volumeKeyShutter: Bool
 
@@ -34,6 +37,7 @@ struct AppSettings: Codable {
     static let `default` = AppSettings(
         selectedColorIndex: 0,
         brightness: 0.75,
+        contrast: 1.0,
         volumeKeyShutter: true,
         saveOriginal: false,
         gestureBrightness: false,

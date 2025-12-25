@@ -20,20 +20,25 @@ struct CameraSwitchButton: View {
         Button(action: {
             viewModel.switchCamera()
             triggerRotationAnimation()
+            if SettingsService.shared.hapticFeedback {
+                HapticService.shared.lightImpact()
+            }
         }) {
-            HStack(spacing: AppDesign.Spacing.sm.rawValue) {
+            HStack(spacing: 8) {
+                // 相机图标
                 Image(systemName: "camera.rotate")
-                    .font(.system(size: 16))
+                    .font(.system(size: 15, weight: .medium))
                     .rotationEffect(.degrees(isRotating ? 180 : 0))
 
-                Text("前后摄像头切换")
-                    .font(AppDesign.Typography.caption)
+                // 文字
+                Text("切换镜头")
+                    .font(.system(size: 13, weight: .medium))
             }
             .foregroundColor(.white)
-            .padding(.horizontal, AppDesign.Spacing.md.rawValue)
-            .padding(.vertical, AppDesign.Spacing.sm.rawValue)
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
             .background(Color.black.opacity(0.6))
-            .cornerRadius(AppDesign.CornerRadius.md.rawValue)
+            .cornerRadius(16)
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -41,7 +46,7 @@ struct CameraSwitchButton: View {
     // MARK: - Private Methods
 
     private func triggerRotationAnimation() {
-        withAnimation(.easeInOut(duration: 0.3)) {
+        withAnimation(.easeInOut(duration: 0.4)) {
             isRotating.toggle()
         }
     }
@@ -54,6 +59,7 @@ struct CameraSwitchButton_Previews: PreviewProvider {
         ZStack {
             Color.gray
             CameraSwitchButton()
+                .environmentObject(CameraViewModel())
         }
     }
 }

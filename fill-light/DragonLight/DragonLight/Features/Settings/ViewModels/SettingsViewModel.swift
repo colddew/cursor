@@ -14,6 +14,7 @@ class SettingsViewModel: ObservableObject {
 
     @Published var selectedColorIndex: Int
     @Published var brightness: Double
+    @Published var contrast: Double
     @Published var volumeKeyShutter: Bool
     @Published var saveOriginal: Bool
     @Published var gestureBrightness: Bool
@@ -30,6 +31,7 @@ class SettingsViewModel: ObservableObject {
         // 从设置服务加载初始值
         self.selectedColorIndex = settingsService.selectedColorIndex
         self.brightness = settingsService.brightness
+        self.contrast = settingsService.contrast
         self.volumeKeyShutter = settingsService.volumeKeyShutter
         self.saveOriginal = settingsService.saveOriginal
         self.gestureBrightness = settingsService.gestureBrightness
@@ -47,6 +49,9 @@ class SettingsViewModel: ObservableObject {
 
         settingsService.$brightness
             .assign(to: &$brightness)
+
+        settingsService.$contrast
+            .assign(to: &$contrast)
 
         settingsService.$volumeKeyShutter
             .assign(to: &$volumeKeyShutter)
@@ -113,6 +118,7 @@ class SettingsViewModel: ObservableObject {
         return AppSettings(
             selectedColorIndex: selectedColorIndex,
             brightness: brightness,
+            contrast: contrast,
             volumeKeyShutter: volumeKeyShutter,
             saveOriginal: saveOriginal,
             gestureBrightness: gestureBrightness,

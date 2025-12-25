@@ -1,0 +1,617 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D3DRAGONLIGHT /* DragonLightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DRAGONLIGHTREF /* DragonLightApp.swift */; };
+		D3MAINVIEW /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3MAINVIEWREF /* MainView.swift */; };
+		D3CONTRASTSLIDER /* ContrastSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CONTRASTSLIDERREF /* ContrastSlider.swift */; };
+		D3ASSETS_BUILD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3ASSETS /* Assets.xcassets */; };
+		D3LAUNCHSCREEN_BUILD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3LAUNCHSCREEN /* LaunchScreen.storyboard */; };
+		D3LIGHTVIEWMODEL /* LightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3LIGHTVIEWMODELREF /* LightViewModel.swift */; };
+		D3CAMERAVIEWMODEL /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAMERAVIEWMODELREF /* CameraViewModel.swift */; };
+		D3SETTINGSVIEWMODEL /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SETTINGSVIEWMODELREF /* SettingsViewModel.swift */; };
+		D3APPDESIGN /* AppDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3APPDESIGNREF /* AppDesign.swift */; };
+		D3CAMERASTATE /* CameraState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAMERASTATEREF /* CameraState.swift */; };
+		D3DRAGONSTATE /* DragonState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DRAGONSTATEREF /* DragonState.swift */; };
+		D3LIGHTCOLOR /* LightColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3LIGHTCOLORREF /* LightColor.swift */; };
+		D3SETTINGS /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SETTINGSREF /* Settings.swift */; };
+		D3CAMERASERVICE /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAMERASERVICEREF /* CameraService.swift */; };
+		D3HAPTICSERVICE /* HapticService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3HAPTICSERVICEREF /* HapticService.swift */; };
+		D3PHOTOSERVICE /* PhotoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3PHOTOSERVICEREF /* PhotoService.swift */; };
+		D3SETTINGSSERVICE /* SettingsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SETTINGSSERVICEREF /* SettingsService.swift */; };
+		D3CAMERAPREVIEWVIEW /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAMERAPREVIEWVIEWREF /* CameraPreviewView.swift */; };
+		D3CAMERASWITCHBUTTON /* CameraSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAMERASWITCHBUTTONREF /* CameraSwitchButton.swift */; };
+		D3CAPTUREBUTTON /* CaptureButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAPTUREBUTTONREF /* CaptureButton.swift */; };
+		D3DRAGONVIEW /* DragonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DRAGONVIEWREF /* DragonView.swift */; };
+		D3LANTERNVIEW /* LanternView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3LANTERNVIEWREF /* LanternView.swift */; };
+		D3SEALVIEW /* SealView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SEALVIEWREF /* SealView.swift */; };
+		D3COLORGRIDCELL /* ColorGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3COLORGRIDCELLREF /* ColorGridCell.swift */; };
+		D3BRIGHTNESSSLIDER /* BrightnessSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3BRIGHTNESSSLIDERREF /* BrightnessSlider.swift */; };
+		D3LIGHTCOLORPICKER /* LightColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3LIGHTCOLORPICKERREF /* LightColorPicker.swift */; };
+		D3SETTINGSMENU /* SettingsMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SETTINGSMENUREF /* SettingsMenu.swift */; };
+		D3SETTINGSTOGGLE /* SettingsToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SETTINGSTOGLEREF /* SettingsToggle.swift */; };
+		D3GLASSCARD /* GlassCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3GLASSCARDREF /* GlassCard.swift */; };
+		D3COLORHEX /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3COLORHEXREF /* Color+Hex.swift */; };
+		D3VIEWEXTENSIONS /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3VIEWEXTENSIONSREF /* View+Extensions.swift */; };
+		D3NOTIFICATIONNAMES /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3NOTIFICATIONNAMESREF /* NotificationNames.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D395494D2EFD08CF00E80AB8 /* DragonLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D3DRAGONLIGHTREF /* DragonLightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragonLightApp.swift; sourceTree = "<group>"; };
+		D3CONTRASTSLIDERREF /* ContrastSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContrastSlider.swift; sourceTree = "<group>"; };
+		D3ASSETS /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D3LAUNCHSCREEN /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D3MAINVIEWREF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		D3LIGHTVIEWMODELREF /* LightViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightViewModel.swift; sourceTree = "<group>"; };
+		D3CAMERAVIEWMODELREF /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		D3SETTINGSVIEWMODELREF /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		D3APPDESIGNREF /* AppDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDesign.swift; sourceTree = "<group>"; };
+		D3CAMERASTATEREF /* CameraState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraState.swift; sourceTree = "<group>"; };
+		D3DRAGONSTATEREF /* DragonState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragonState.swift; sourceTree = "<group>"; };
+		D3LIGHTCOLORREF /* LightColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightColor.swift; sourceTree = "<group>"; };
+		D3SETTINGSREF /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		D3CAMERASERVICEREF /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
+		D3HAPTICSERVICEREF /* HapticService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticService.swift; sourceTree = "<group>"; };
+		D3PHOTOSERVICEREF /* PhotoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoService.swift; sourceTree = "<group>"; };
+		D3SETTINGSSERVICEREF /* SettingsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsService.swift; sourceTree = "<group>"; };
+		D3CAMERAPREVIEWVIEWREF /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		D3CAMERASWITCHBUTTONREF /* CameraSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSwitchButton.swift; sourceTree = "<group>"; };
+		D3CAPTUREBUTTONREF /* CaptureButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureButton.swift; sourceTree = "<group>"; };
+		D3DRAGONVIEWREF /* DragonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragonView.swift; sourceTree = "<group>"; };
+		D3LANTERNVIEWREF /* LanternView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanternView.swift; sourceTree = "<group>"; };
+		D3SEALVIEWREF /* SealView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SealView.swift; sourceTree = "<group>"; };
+		D3COLORGRIDCELLREF /* ColorGridCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGridCell.swift; sourceTree = "<group>"; };
+		D3BRIGHTNESSSLIDERREF /* BrightnessSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrightnessSlider.swift; sourceTree = "<group>"; };
+		D3LIGHTCOLORPICKERREF /* LightColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightColorPicker.swift; sourceTree = "<group>"; };
+		D3SETTINGSMENUREF /* SettingsMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsMenu.swift; sourceTree = "<group>"; };
+		D3SETTINGSTOGLEREF /* SettingsToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsToggle.swift; sourceTree = "<group>"; };
+		D3GLASSCARDREF /* GlassCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassCard.swift; sourceTree = "<group>"; };
+		D3COLORHEXREF /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		D3VIEWEXTENSIONSREF /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		D3NOTIFICATIONNAMESREF /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationNames.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D395494A2EFD08CF00E80AB8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D39549442EFD08CF00E80AB8 = {
+			isa = PBXGroup;
+			children = (
+				D395494F2EFD08CF00E80AB8 /* DragonLight */,
+				D395494E2EFD08CF00E80AB8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D395494E2EFD08CF00E80AB8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D395494D2EFD08CF00E80AB8 /* DragonLight.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D395494F2EFD08CF00E80AB8 /* DragonLight */ = {
+			isa = PBXGroup;
+			children = (
+				D3DRAGONLIGHTREF /* DragonLightApp.swift */,
+				D3ASSETS /* Assets.xcassets */,
+				D3LAUNCHSCREEN /* LaunchScreen.storyboard */,
+				D3CORE /* Core */,
+				D3FEATURES /* Features */,
+				D3SHARED /* Shared */,
+			);
+			path = DragonLight;
+			sourceTree = "<group>";
+		};
+		D3CORE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				D3COREDESIGN /* Design */,
+				D3COREMODELS /* Models */,
+				D3COREVIEWMODELS /* ViewModels */,
+				D3CORESERVICES /* Services */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		D3COREDESIGN /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				D3APPDESIGNREF /* AppDesign.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		D3COREMODELS /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D3CAMERASTATEREF /* CameraState.swift */,
+				D3DRAGONSTATEREF /* DragonState.swift */,
+				D3LIGHTCOLORREF /* LightColor.swift */,
+				D3SETTINGSREF /* Settings.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		D3COREVIEWMODELS /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D3LIGHTVIEWMODELREF /* LightViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D3CORESERVICES /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				D3CAMERASERVICEREF /* CameraService.swift */,
+				D3HAPTICSERVICEREF /* HapticService.swift */,
+				D3PHOTOSERVICEREF /* PhotoService.swift */,
+				D3SETTINGSSERVICEREF /* SettingsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		D3FEATURES /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				D3FEATURESCAMERA /* Camera */,
+				D3FEATURESDRAGON /* Dragon */,
+				D3FEATURESLIGHT /* Light */,
+				D3FEATURESMAIN /* Main */,
+				D3FEATURESSETTINGS /* Settings */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		D3FEATURESCAMERA /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				D3FEATURESCAMERAVIEWMODELS /* ViewModels */,
+				D3FEATURESCAMERAVIEWS /* Views */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		D3FEATURESCAMERAVIEWMODELS /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D3CAMERAVIEWMODELREF /* CameraViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D3FEATURESCAMERAVIEWS /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D3CAMERAPREVIEWVIEWREF /* CameraPreviewView.swift */,
+				D3CAMERASWITCHBUTTONREF /* CameraSwitchButton.swift */,
+				D3CAPTUREBUTTONREF /* CaptureButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D3FEATURESDRAGON /* Dragon */ = {
+			isa = PBXGroup;
+			children = (
+				D3FEATURESDRAGONVIEWS /* Views */,
+			);
+			path = Dragon;
+			sourceTree = "<group>";
+		};
+		D3FEATURESDRAGONVIEWS /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D3DRAGONVIEWREF /* DragonView.swift */,
+				D3LANTERNVIEWREF /* LanternView.swift */,
+				D3SEALVIEWREF /* SealView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D3FEATURESLIGHT /* Light */ = {
+			isa = PBXGroup;
+			children = (
+				D3FEATURESLIGHTCOMPONENTS /* Components */,
+				D3FEATURESLIGHTVIEWS /* Views */,
+			);
+			path = Light;
+			sourceTree = "<group>";
+		};
+		D3FEATURESLIGHTCOMPONENTS /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D3COLORGRIDCELLREF /* ColorGridCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D3FEATURESLIGHTVIEWS /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D3BRIGHTNESSSLIDERREF /* BrightnessSlider.swift */,
+				D3CONTRASTSLIDERREF /* ContrastSlider.swift */,
+				D3LIGHTCOLORPICKERREF /* LightColorPicker.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D3FEATURESMAIN /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D3MAINVIEWREF /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		D3FEATURESSETTINGS /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				D3FEATURESSETTINGSVIEWMODELS /* ViewModels */,
+				D3FEATURESSETTINGSVIEWS /* Views */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		D3FEATURESSETTINGSVIEWMODELS /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				D3SETTINGSVIEWMODELREF /* SettingsViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		D3FEATURESSETTINGSVIEWS /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D3SETTINGSMENUREF /* SettingsMenu.swift */,
+				D3SETTINGSTOGLEREF /* SettingsToggle.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D3SHARED /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				D3SHAREDCOMPONENTS /* Components */,
+				D3SHAREDEXTENSIONS /* Extensions */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		D3SHAREDCOMPONENTS /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				D3GLASSCARDREF /* GlassCard.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		D3SHAREDEXTENSIONS /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D3COLORHEXREF /* Color+Hex.swift */,
+				D3VIEWEXTENSIONSREF /* View+Extensions.swift */,
+				D3NOTIFICATIONNAMESREF /* NotificationNames.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D395494C2EFD08CF00E80AB8 /* DragonLight */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D395495B2EFD08D100E80AB8 /* Build configuration list for PBXNativeTarget "DragonLight" */;
+			buildPhases = (
+				D39549492EFD08CF00E80AB8 /* Sources */,
+				D395494A2EFD08CF00E80AB8 /* Frameworks */,
+				D395494B2EFD08CF00E80AB8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DragonLight;
+			productName = DragonLight;
+			productReference = D395494D2EFD08CF00E80AB8 /* DragonLight.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D39549452EFD08CF00E80AB8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					D395494C2EFD08CF00E80AB8 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = D39549482EFD08CF00E80AB8 /* Build configuration list for PBXProject "DragonLight" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D39549442EFD08CF00E80AB8;
+			productRefGroup = D395494E2EFD08CF00E80AB8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D395494C2EFD08CF00E80AB8 /* DragonLight */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D395494B2EFD08CF00E80AB8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3ASSETS_BUILD /* Assets.xcassets in Resources */,
+				D3LAUNCHSCREEN_BUILD /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D39549492EFD08CF00E80AB8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D3DRAGONLIGHT /* DragonLightApp.swift in Sources */,
+				D3MAINVIEW /* MainView.swift in Sources */,
+				D3CONTRASTSLIDER /* ContrastSlider.swift in Sources */,
+				D3LIGHTVIEWMODEL /* LightViewModel.swift in Sources */,
+				D3CAMERAVIEWMODEL /* CameraViewModel.swift in Sources */,
+				D3SETTINGSVIEWMODEL /* SettingsViewModel.swift in Sources */,
+				D3APPDESIGN /* AppDesign.swift in Sources */,
+				D3CAMERASTATE /* CameraState.swift in Sources */,
+				D3DRAGONSTATE /* DragonState.swift in Sources */,
+				D3LIGHTCOLOR /* LightColor.swift in Sources */,
+				D3SETTINGS /* Settings.swift in Sources */,
+				D3CAMERASERVICE /* CameraService.swift in Sources */,
+				D3HAPTICSERVICE /* HapticService.swift in Sources */,
+				D3PHOTOSERVICE /* PhotoService.swift in Sources */,
+				D3SETTINGSSERVICE /* SettingsService.swift in Sources */,
+				D3CAMERAPREVIEWVIEW /* CameraPreviewView.swift in Sources */,
+				D3CAMERASWITCHBUTTON /* CameraSwitchButton.swift in Sources */,
+				D3CAPTUREBUTTON /* CaptureButton.swift in Sources */,
+				D3DRAGONVIEW /* DragonView.swift in Sources */,
+				D3LANTERNVIEW /* LanternView.swift in Sources */,
+				D3SEALVIEW /* SealView.swift in Sources */,
+				D3COLORGRIDCELL /* ColorGridCell.swift in Sources */,
+				D3BRIGHTNESSSLIDER /* BrightnessSlider.swift in Sources */,
+				D3LIGHTCOLORPICKER /* LightColorPicker.swift in Sources */,
+				D3SETTINGSMENU /* SettingsMenu.swift in Sources */,
+				D3SETTINGSTOGGLE /* SettingsToggle.swift in Sources */,
+				D3GLASSCARD /* GlassCard.swift in Sources */,
+				D3COLORHEX /* Color+Hex.swift in Sources */,
+				D3VIEWEXTENSIONS /* View+Extensions.swift in Sources */,
+				D3NOTIFICATIONNAMES /* NotificationNames.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		D39549592EFD08D100E80AB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		D395495A2EFD08D100E80AB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D395495C2EFD08D100E80AB8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机来拍摄照片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问相册来保存照片";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问相册来保存拍摄的照片";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dragonlight.DragonLight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+			};
+			name = Debug;
+		};
+		D395495D2EFD08D100E80AB8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_NSCameraUsageDescription = "需要访问相机来拍摄照片";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "需要访问相册来保存照片";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "需要访问相册来保存拍摄的照片";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dragonlight.DragonLight;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D39549482EFD08CF00E80AB8 /* Build configuration list for PBXProject "DragonLight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D39549592EFD08D100E80AB8 /* Debug */,
+				D395495A2EFD08D100E80AB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D395495B2EFD08D100E80AB8 /* Build configuration list for PBXNativeTarget "DragonLight" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D395495C2EFD08D100E80AB8 /* Debug */,
+				D395495D2EFD08D100E80AB8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D39549452EFD08CF00E80AB8 /* Project object */;
+}

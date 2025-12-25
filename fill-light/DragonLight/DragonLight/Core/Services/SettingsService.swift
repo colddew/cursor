@@ -19,6 +19,7 @@ class SettingsService: ObservableObject {
     enum Keys: String, CaseIterable {
         case selectedColorIndex = "dragonlight.selectedColorIndex"
         case brightness = "dragonlight.brightness"
+        case contrast = "dragonlight.contrast"
         case volumeKeyShutter = "dragonlight.volumeKeyShutter"
         case saveOriginal = "dragonlight.saveOriginal"
         case gestureBrightness = "dragonlight.gestureBrightness"
@@ -36,6 +37,12 @@ class SettingsService: ObservableObject {
     @Published var brightness: Double {
         didSet {
             set(key: .brightness, value: brightness)
+        }
+    }
+
+    @Published var contrast: Double {
+        didSet {
+            set(key: .contrast, value: contrast)
         }
     }
 
@@ -67,12 +74,13 @@ class SettingsService: ObservableObject {
 
     private init() {
         // 从 UserDefaults 加载值
-        self.selectedColorIndex = get(key: .selectedColorIndex) ?? AppSettings.default.selectedColorIndex
-        self.brightness = get(key: .brightness) ?? AppSettings.default.brightness
-        self.volumeKeyShutter = get(key: .volumeKeyShutter) ?? AppSettings.default.volumeKeyShutter
-        self.saveOriginal = get(key: .saveOriginal) ?? AppSettings.default.saveOriginal
-        self.gestureBrightness = get(key: .gestureBrightness) ?? AppSettings.default.gestureBrightness
-        self.hapticFeedback = get(key: .hapticFeedback) ?? AppSettings.default.hapticFeedback
+        self.selectedColorIndex = Self.get(key: .selectedColorIndex) ?? 0
+        self.brightness = Self.get(key: .brightness) ?? 0.75
+        self.contrast = Self.get(key: .contrast) ?? 1.0
+        self.volumeKeyShutter = Self.get(key: .volumeKeyShutter) ?? true
+        self.saveOriginal = Self.get(key: .saveOriginal) ?? false
+        self.gestureBrightness = Self.get(key: .gestureBrightness) ?? true
+        self.hapticFeedback = Self.get(key: .hapticFeedback) ?? true
     }
 
     // MARK: - Public Methods
@@ -90,7 +98,7 @@ class SettingsService: ObservableObject {
     }
 
     /// 通用获取方法
-    func get<T: Codable>(key: Keys) -> T? {
+    static func get<T: Codable>(key: Keys) -> T? {
         guard let data = UserDefaults.standard.data(forKey: key.rawValue) else {
             return nil
         }
@@ -106,6 +114,7 @@ class SettingsService: ObservableObject {
 
         selectedColorIndex = AppSettings.default.selectedColorIndex
         brightness = AppSettings.default.brightness
+        contrast = AppSettings.default.contrast
         volumeKeyShutter = AppSettings.default.volumeKeyShutter
         saveOriginal = AppSettings.default.saveOriginal
         gestureBrightness = AppSettings.default.gestureBrightness
@@ -117,6 +126,7 @@ class SettingsService: ObservableObject {
         return AppSettings(
             selectedColorIndex: selectedColorIndex,
             brightness: brightness,
+            contrast: contrast,
             volumeKeyShutter: volumeKeyShutter,
             saveOriginal: saveOriginal,
             gestureBrightness: gestureBrightness,

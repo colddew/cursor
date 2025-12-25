@@ -2,7 +2,7 @@
 //  DragonView.swift
 //  DragonLight
 //
-//  奶龙角色容器视图
+//  奶龙角色 - 卡通可爱版
 //
 
 import SwiftUI
@@ -12,6 +12,7 @@ struct DragonView: View {
 
     @StateObject private var dragonState = DragonState()
     @EnvironmentObject private var lightViewModel: LightViewModel
+    @EnvironmentObject private var settingsState: SettingsState
 
     @State private var showSettings = false
     @State private var isFirstAppear = true
@@ -20,22 +21,45 @@ struct DragonView: View {
 
     var body: some View {
         ZStack {
-            // 奶龙主体
-            dragonBody
-                .offset(y: dragonState.isJumping ? -30 : 0)
+            // 发光效果
+            if let glowColor = dragonState.glowColor {
+                Circle()
+                    .fill(glowColor.opacity(0.4))
+                    .frame(width: 280, height: 280)
+                    .blur(radius: 70)
+            }
+
+            // 阴影
+            Ellipse()
+                .fill(Color.black.opacity(0.06))
+                .frame(width: 160, height: 25)
+                .blur(radius: 12)
+                .offset(y: 75)
+
+            // 身体
+            bodyView
+
+            // 肚子
+            bellyView
+
+            // 脸部
+            faceView
+
+            // 手脚
+            limbsView
+
+            // 龙角
+            hornsView
+
+            // 尾巴
+            tailView
 
             // 灯笼
             lanternView
-                .offset(x: 80, y: -20)
-                .zIndex(1)
-
-            // 发光效果
-            if let glowColor = dragonState.glowColor {
-                glowEffect(color: glowColor)
-            }
+                .offset(x: 70, y: -45)
+                .zIndex(100)
         }
         .onAppear {
-            // 首次出现时触发灯笼闪烁
             if isFirstAppear {
                 triggerFirstAppearanceAnimation()
                 isFirstAppear = false
@@ -46,129 +70,254 @@ struct DragonView: View {
         }
     }
 
-    // MARK: - Subviews
+    // MARK: - Views
 
-    private var dragonBody: some View {
+    // 身体 - 圆润饱满
+    private var bodyView: some View {
         ZStack {
-            // 身体
-            RoundedRectangle(cornerRadius: 60)
-                .fill(AppDesign.Colors.dragonBody)
-                .frame(width: 180, height: 160)
-                .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+            // 主体 - 圆形
+            Circle()
+                .fill(
+                    RadialGradient(
+                        colors: [
+                            Color(hex: "FFFAF0"),
+                            AppDesign.Colors.dragonBody,
+                            Color(hex: "FFE8D0")
+                        ],
+                        center: UnitPoint(x: 0.3, y: 0.3),
+                        startRadius: 20,
+                        endRadius: 80
+                    )
+                )
+                .frame(width: 160, height: 160)
+                .shadow(color: Color.black.opacity(0.08), radius: 15, x: 0, y: 8)
 
-            // 脸部
-            dragonFace
-
-            // 龙角
-            dragonHorns
+            // 高光
+            Circle()
+                .fill(Color.white.opacity(0.6))
+                .frame(width: 60, height: 60)
+                .offset(x: -35, y: -35)
+                .blur(radius: 20)
         }
-        .scaleEffect(dragonState.isThumbsUp ? 1.1 : 1.0)
-        .onTapGesture {
-            dragonState.triggerTap()
-            if SettingsService.shared.hapticFeedback {
-                HapticService.shared.lightImpact()
-            }
-        }
+        .scaleEffect(dragonState.isThumbsUp ? 1.05 : 1.0)
+        .offset(y: dragonState.isJumping ? -30 : 0)
+        .animation(.spring(response: 0.3, dampingFraction: 0.7), value: dragonState.isThumbsUp)
+        .animation(.spring(response: 0.4), value: dragonState.isJumping)
     }
 
-    private var dragonFace: some View {
-        VStack(spacing: 20) {
+    // 肚子 - 心形
+    private var bellyView: some View {
+        VStack {
+            Spacer().frame(height: 70)
+
+            // 心形肚子
+            Image(systemName: "heart.fill")
+                .font(.system(size: 50))
+                .foregroundColor(Color(hex: "FFFAEB").opacity(0.6))
+                .offset(y: 10)
+        }
+        .offset(y: dragonState.isJumping ? -30 : 0)
+    }
+
+    // 脸部
+    private var faceView: some View {
+        VStack(spacing: 6) {
+            Spacer().frame(height: 30)
+
             // 眼睛
-            HStack(spacing: 40) {
-                dragonEye
-                dragonEye
+            HStack(spacing: 45) {
+                eyeView
+                eyeView
             }
 
             // 腮红
-            HStack(spacing: 60) {
-                Circle()
-                    .fill(AppDesign.Colors.dragonBlush.opacity(0.6))
-                    .frame(width: 30, height: 20)
-
-                Circle()
-                    .fill(AppDesign.Colors.dragonBlush.opacity(0.6))
-                    .frame(width: 30, height: 20)
+            HStack(spacing: 70) {
+                Ellipse()
+                    .fill(AppDesign.Colors.dragonBlush.opacity(0.35))
+                    .frame(width: 30, height: 22)
+                Ellipse()
+                    .fill(AppDesign.Colors.dragonBlush.opacity(0.35))
+                    .frame(width: 30, height: 22)
             }
 
-            // 嘴巴
-            smile
+            // 鼻子和嘴巴
+            noseAndMouthView
         }
+        .offset(y: dragonState.isJumping ? -30 : 0)
     }
 
-    private var dragonEye: some View {
+    // 眼睛 - 超大卡通眼
+    private var eyeView: some View {
         ZStack {
-            // 眼白
-            RoundedRectangle(cornerRadius: 15)
+            // 眼白 - 大大的圆形
+            Circle()
                 .fill(Color.white)
-                .frame(width: 35, height: dragonState.isBlinking ? 4 : 40)
+                .frame(width: 42, height: dragonState.isBlinking ? 4 : 46)
+                .shadow(color: Color.black.opacity(0.05), radius: 3, x: 0, y: 2)
 
             if !dragonState.isBlinking {
-                // 眼珠
+                // 眼珠 - 大大的深色圆
                 Circle()
                     .fill(AppDesign.Colors.dragonEye)
-                    .frame(width: 22, height: 22)
+                    .frame(width: 26, height: 26)
+                    .offset(x: 2, y: 2)
 
-                // 高光
+                // 主高光
                 Circle()
                     .fill(Color.white)
-                    .frame(width: 8, height: 8)
-                    .offset(x: 5, y: -5)
+                    .frame(width: 12, height: 12)
+                    .offset(x: 6, y: -6)
+
+                // 副高光
+                Circle()
+                    .fill(Color.white.opacity(0.7))
+                    .frame(width: 6, height: 6)
+                    .offset(x: -5, y: 5)
             }
         }
-        .animation(.linear(duration: 0.1), value: dragonState.isBlinking)
+        .animation(.easeOut(duration: 0.05), value: dragonState.isBlinking)
     }
 
-    private var dragonHorns: some View {
-        HStack(spacing: 100) {
-            // 左角
-            horn
-                .rotationEffect(.degrees(-20))
-                .offset(x: -20, y: -70)
+    // 鼻子和嘴巴
+    private var noseAndMouthView: some View {
+        VStack(spacing: 4) {
+            // 鼻子 - 小小的
+            HStack(spacing: 10) {
+                Circle()
+                    .fill(AppDesign.Colors.dragonBlush.opacity(0.5))
+                    .frame(width: 9, height: 9)
+                Circle()
+                    .fill(AppDesign.Colors.dragonBlush.opacity(0.5))
+                    .frame(width: 9, height: 9)
+            }
 
-            // 右角
-            horn
-                .rotationEffect(.degrees(20))
-                .offset(x: 20, y: -70)
+            // 嘴巴 - 微笑
+            Ellipse()
+                .fill(AppDesign.Colors.dragonBlush.opacity(0.3))
+                .frame(width: 28, height: 14)
+                .offset(y: dragonState.isThumbsUp ? 4 : 0)
         }
     }
 
-    private var horn: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(AppDesign.Colors.gold)
-            .frame(width: 20, height: 40)
-            .rotationEffect(.degrees(-15))
+    // 手脚 - 小短手小短脚
+    private var limbsView: some View {
+        ZStack {
+            // 左手 - 小圆手
+            Ellipse()
+                .fill(
+                    RadialGradient(
+                        colors: [Color(hex: "FFF9E7"), AppDesign.Colors.dragonBody],
+                        center: UnitPoint(x: 0.3, y: 0.3),
+                        startRadius: 5,
+                        endRadius: 15
+                    )
+                )
+                .frame(width: 28, height: 32)
+                .shadow(color: Color.black.opacity(0.06), radius: 4, x: 0, y: 2)
+                .offset(x: -70, y: 15)
+                .rotationEffect(.degrees(-25))
+
+            // 右手 - 提灯笼
+            Ellipse()
+                .fill(
+                    RadialGradient(
+                        colors: [Color(hex: "FFFAF0"), AppDesign.Colors.dragonBody],
+                        center: UnitPoint(x: 0.3, y: 0.3),
+                        startRadius: 5,
+                        endRadius: 15
+                    )
+                )
+                .frame(width: 30, height: 34)
+                .shadow(color: Color.black.opacity(0.08), radius: 5, x: 1, y: 2)
+                .offset(x: 70, y: 5)
+                .rotationEffect(.degrees(20))
+
+            // 左脚 - 小圆脚
+            Ellipse()
+                .fill(AppDesign.Colors.dragonBody)
+                .frame(width: 35, height: 25)
+                .shadow(color: Color.black.opacity(0.06), radius: 4, x: 0, y: 2)
+                .offset(x: -35, y: 75)
+
+            // 右脚 - 小圆脚
+            Ellipse()
+                .fill(
+                    RadialGradient(
+                        colors: [Color(hex: "FFF9E7"), AppDesign.Colors.dragonBody],
+                        center: UnitPoint(x: 0.4, y: 0.2),
+                        startRadius: 5,
+                        endRadius: 15
+                    )
+                )
+                .frame(width: 35, height: 25)
+                .shadow(color: Color.black.opacity(0.06), radius: 4, x: 0, y: 2)
+                .offset(x: 35, y: 75)
+        }
+        .offset(y: dragonState.isJumping ? -30 : 0)
     }
 
-    private var smile: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(AppDesign.Colors.dragonBlush.opacity(0.8))
-            .frame(width: 40, height: 20)
-            .offset(y: dragonState.isThumbsUp ? 10 : 0)
+    // 龙角 - 可爱的小角
+    private var hornsView: some View {
+        HStack(spacing: 95) {
+            cuteHorn.rotationEffect(.degrees(-20)).offset(x: -20, y: -95)
+            cuteHorn.rotationEffect(.degrees(20)).offset(x: 20, y: -95)
+        }
+        .offset(y: dragonState.isJumping ? -30 : 0)
+    }
+
+    private var cuteHorn: some View {
+        ZStack {
+            // 小角 - 更圆润
+            Ellipse()
+                .fill(
+                    LinearGradient(
+                        colors: [Color(hex: "FFE066"), AppDesign.Colors.gold],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                )
+                .frame(width: 16, height: 30)
+
+            // 高光
+            Ellipse()
+                .fill(Color.white.opacity(0.6))
+                .frame(width: 6, height: 15)
+                .offset(y: -5)
+        }
+        .shadow(color: Color.black.opacity(0.08), radius: 3, x: 0, y: 1)
+    }
+
+    // 尾巴 - 小小的圆尾巴
+    private var tailView: some View {
+        ZStack {
+            Circle()
+                .fill(AppDesign.Colors.dragonBody)
+                .frame(width: 35, height: 35)
+                .shadow(color: Color.black.opacity(0.05), radius: 3, x: 0, y: 1)
+                .offset(x: -75, y: 60)
+
+            // 尾巴尖端高光
+            Circle()
+                .fill(Color.white.opacity(0.4))
+                .frame(width: 15, height: 15)
+                .offset(x: -80, y: 55)
+        }
     }
 
     private var lanternView: some View {
         LanternView(showSettings: $showSettings)
             .environmentObject(dragonState)
-    }
-
-    private func glowEffect(color: Color) -> some View {
-        Circle()
-            .fill(color.opacity(dragonState.glowIntensity))
-            .frame(width: 300, height: 300)
-            .blur(radius: 60)
-            .allowsHitTesting(false)
+            .environmentObject(settingsState)
     }
 
     // MARK: - Methods
 
     private func triggerFirstAppearanceAnimation() {
-        // 首次出现时灯笼闪烁3次
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             NotificationCenter.default.post(name: .lanternFirstAppear, object: nil)
         }
     }
 
-    /// 触发拍照完成动画
     func triggerCaptureAnimation() {
         dragonState.triggerCapture()
     }
@@ -184,11 +333,4 @@ struct DragonView_Previews: PreviewProvider {
                 .environmentObject(LightViewModel())
         }
     }
-}
-
-// MARK: - Notification Names
-
-extension Notification.Name {
-    static let lanternFirstAppear = Notification.Name("lanternFirstAppear")
-    static let showSettings = Notification.Name("showSettings")
 }

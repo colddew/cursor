@@ -11,7 +11,6 @@ struct SettingsMenu: View {
     // MARK: - Properties
 
     @EnvironmentObject private var settingsViewModel: SettingsViewModel
-    @Binding var isPresented: Bool
 
     @State private var opacity: Double = 0
     @State private var scale: CGFloat = 0.8
@@ -21,37 +20,28 @@ struct SettingsMenu: View {
     var body: some View {
         ZStack {
             // 背景遮罩
-            if isPresented {
-                Color.black.opacity(0.4)
-                    .ignoresSafeArea()
-                    .onTapGesture {
-                        dismissMenu()
-                    }
-                    .opacity(opacity)
-            }
+            Color.black.opacity(0.4)
+                .ignoresSafeArea()
+                .onTapGesture {
+                    dismissMenu()
+                }
+                .opacity(opacity)
 
             // 菜单内容
             VStack {
                 Spacer()
 
-                if isPresented {
-                    menuContent
-                        .scaleEffect(scale)
-                        .opacity(opacity)
-                }
+                menuContent
+                    .scaleEffect(scale)
+                    .opacity(opacity)
 
                 Spacer()
                     .frame(height: 200)
             }
             .ignoresSafeArea()
         }
-        .onChange(of: isPresented) { newValue in
-            if newValue {
-                presentMenu()
-            }
-        }
-        .onReceive(NotificationCenter.default.publisher(for: .showSettings)) { _ in
-            isPresented = true
+        .onAppear {
+            presentMenu()
         }
     }
 
@@ -101,17 +91,44 @@ struct SettingsMenu: View {
                 Divider()
                     .padding(.leading, AppDesign.Spacing.lg.rawValue)
 
-                // 关于我们
-                MenuRow(title: "关于我们", showArrow: true) {
-                    // TODO: 导航到关于页面
-                }
+                // 关于我们和评分反馈
+                ForEach(0..<2) { index in
+                    if index == 0 {
+                        Button(action: { }) {
+                            HStack {
+                                Text("关于我们")
+                                    .font(AppDesign.Typography.body)
+                                    .foregroundColor(AppDesign.Colors.text)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(AppDesign.Colors.text.opacity(0.5))
+                            }
+                            .padding(.horizontal, AppDesign.Spacing.md.rawValue)
+                            .padding(.vertical, AppDesign.Spacing.md.rawValue)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    } else {
+                        Button(action: { }) {
+                            HStack {
+                                Text("评分反馈")
+                                    .font(AppDesign.Typography.body)
+                                    .foregroundColor(AppDesign.Colors.text)
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                                    .foregroundColor(AppDesign.Colors.text.opacity(0.5))
+                            }
+                            .padding(.horizontal, AppDesign.Spacing.md.rawValue)
+                            .padding(.vertical, AppDesign.Spacing.md.rawValue)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
 
-                Divider()
-                    .padding(.leading, AppDesign.Spacing.lg.rawValue)
-
-                // 评分反馈
-                MenuRow(title: "评分反馈", showArrow: true) {
-                    // TODO: 打开 App Store 评分
+                    if index < 1 {
+                        Divider()
+                            .padding(.leading, AppDesign.Spacing.lg.rawValue)
+                    }
                 }
             }
             .background(
@@ -142,11 +159,12 @@ struct SettingsMenu: View {
             scale = 0.8
         }
 
+        // 直接设置状态隐藏设置菜单
+        SettingsState.shared.isSettingsMenuVisible = false
+
+        // 延迟后让 MainView 移除这个视图
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            isPresented = false
-            // 重置动画状态
-            opacity = 0
-            scale = 0.8
+            // 这里什么都不做，MainView 会根据 settingsState.isSettingsMenuVisible 自动移除视图
         }
     }
 }
@@ -155,8 +173,14 @@ struct SettingsMenu: View {
 
 struct MenuRow: View {
     let title: String
+    private let action: () -> Void
     let showArrow: Bool
-    let action: () -> Void
+
+    init(showArrow: Bool = false, title: String, action: @escaping () -> Void) {
+        self.title = title
+        self.action = action
+        self.showArrow = showArrow
+    }
 
     var body: some View {
         Button(action: action) {
@@ -187,8 +211,11 @@ struct SettingsMenu_Previews: PreviewProvider {
         ZStack {
             AppDesign.Colors.background
 
-            SettingsMenu(isPresented: .constant(true))
+            SettingsMenu()
                 .environmentObject(SettingsViewModel())
+        }
+        .onAppear {
+            SettingsState.shared.isSettingsMenuVisible = true
         }
     }
 }

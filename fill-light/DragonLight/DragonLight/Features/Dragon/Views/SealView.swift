@@ -11,6 +11,7 @@ struct SealView: View {
     // MARK: - Properties
 
     @State private var isPressed = false
+    @EnvironmentObject private var settingsState: SettingsState
 
     // MARK: - Body
 
@@ -37,11 +38,14 @@ struct SealView: View {
             .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
         }
         .buttonStyle(PlainButtonStyle())
+        .contentShape(Circle())
     }
 
     // MARK: - Methods
 
     private func tapSeal() {
+        print("SealView: 点击印章")
+
         // 缩放动画
         withAnimation(.spring(response: 0.15)) {
             isPressed = true
@@ -55,11 +59,12 @@ struct SealView: View {
 
         // 触觉反馈
         if SettingsService.shared.hapticFeedback {
-            HapticService.shared.lightImpact()
+            HapticService.shared.mediumImpact()
         }
 
-        // 显示设置菜单
-        NotificationCenter.default.post(name: .showSettings, object: nil)
+        // 直接设置状态显示设置菜单
+        print("SealView: 显示设置菜单")
+        settingsState.isSettingsMenuVisible = true
     }
 }
 
@@ -68,7 +73,7 @@ struct SealView: View {
 struct SealView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            AppDesign.Colors.background
+            Color.white
             SealView()
         }
         .padding()
