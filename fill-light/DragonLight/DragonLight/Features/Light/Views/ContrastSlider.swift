@@ -18,7 +18,7 @@ struct ContrastSlider: View {
     // MARK: - Body
 
     var body: some View {
-        VStack(alignment: .leading, spacing: AppDesign.Spacing.sm.rawValue) {
+        VStack(alignment: .leading, spacing: 2) {
             // 标题和数值
             HStack {
                 Text("对比度")
@@ -71,8 +71,6 @@ struct ContrastSlider: View {
                             DragGesture(minimumDistance: 0)
                                 .onChanged { value in
                                     isDragging = true
-                                    // 将 0.5-1.5 的范围映射到 0-1
-                                    let normalizedValue = (viewModel.contrast - 0.5) / 1.0
                                     let newValue = min(1, max(0, (value.location.x / geometry.size.width)))
                                     let newContrast = newValue * 1.0 + 0.5
                                     viewModel.setContrast(newContrast)
@@ -87,7 +85,6 @@ struct ContrastSlider: View {
             }
             .frame(height: 40)
         }
-        .padding(.horizontal, AppDesign.Spacing.md.rawValue)
     }
 
     // MARK: - Helper Methods

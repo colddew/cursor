@@ -89,15 +89,15 @@ struct MainView: View {
         ZStack {
             // 奶龙
             DragonView()
-                .frame(maxHeight: 220)
         }
-        .frame(minHeight: 180)
+        .frame(height: 240)
+        .padding(.bottom, 12)
     }
 
     private var controlsSection: some View {
         VStack(spacing: 0) {
             if showControls {
-                VStack(spacing: AppDesign.Spacing.md.rawValue) {
+                VStack(spacing: 4) {
                     // 亮度滑块
                     BrightnessSlider()
 
@@ -113,13 +113,13 @@ struct MainView: View {
                     // 隐藏/显示按钮
                     toggleControlsButton
                 }
-                .padding(.horizontal, AppDesign.Spacing.lg.rawValue)
-                .padding(.bottom, 20)
+                .padding(.horizontal, 12)
+                .padding(.bottom, 8)
             } else {
-                // 收起时只显示按钮，紧贴在奶龙下方
+                // 收起时只显示按钮
                 toggleControlsButton
-                    .padding(.top, 12)
-                    .padding(.bottom, 12)
+                    .padding(.top, 6)
+                    .padding(.bottom, 6)
             }
         }
         .animation(.easeInOut(duration: 0.3), value: showControls)
@@ -183,7 +183,7 @@ struct MainView: View {
     }
 
     private var cameraControls: some View {
-        VStack(spacing: AppDesign.Spacing.md.rawValue) {
+        VStack(spacing: 6) {
             // 拍照按钮
             CaptureButton {
                 takePhoto()

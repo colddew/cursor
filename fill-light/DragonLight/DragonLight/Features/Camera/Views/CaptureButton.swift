@@ -25,13 +25,13 @@ struct CaptureButton: View {
             ZStack {
                 // 外圈
                 Circle()
-                    .stroke(Color.white, lineWidth: 4)
-                    .frame(width: 80, height: 80)
+                    .stroke(Color.white, lineWidth: 3)
+                    .frame(width: 70, height: 70)
 
                 // 内圈
                 Circle()
                     .fill(viewModel.isProcessingPhoto ? Color.gray : Color.white)
-                    .frame(width: isPressed ? 58 : 64, height: isPressed ? 58 : 64)
+                    .frame(width: isPressed ? 50 : 56, height: isPressed ? 50 : 56)
             }
         }
         .buttonStyle(PlainButtonStyle())

@@ -22,14 +22,14 @@ struct LightColorPicker: View {
     // MARK: - Body
 
     var body: some View {
-        VStack(alignment: .leading, spacing: AppDesign.Spacing.sm.rawValue) {
+        VStack(alignment: .leading, spacing: 2) {
             // 标题
             Text("补光色")
                 .font(AppDesign.Typography.headline)
                 .foregroundColor(AppDesign.Colors.text)
 
             // 颜色网格
-            LazyVGrid(columns: columns, spacing: AppDesign.Spacing.md.rawValue) {
+            LazyVGrid(columns: columns, spacing: 6) {
                 ForEach(viewModel.allColors) { color in
                     ColorGridCell(
                         color: color,
@@ -40,7 +40,7 @@ struct LightColorPicker: View {
                 }
             }
         }
-        .padding(.horizontal, AppDesign.Spacing.md.rawValue)
+        .padding(.horizontal, 12)
     }
 }
 

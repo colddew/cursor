@@ -18,7 +18,7 @@ struct BrightnessSlider: View {
     // MARK: - Body
 
     var body: some View {
-        VStack(alignment: .leading, spacing: AppDesign.Spacing.sm.rawValue) {
+        VStack(alignment: .leading, spacing: 2) {
             // 标题和数值
             HStack {
                 Text("亮度")
@@ -68,7 +68,6 @@ struct BrightnessSlider: View {
             }
             .frame(height: 40)
         }
-        .padding(.horizontal, AppDesign.Spacing.md.rawValue)
     }
 }
 

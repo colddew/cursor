@@ -33,7 +33,7 @@ struct SealView: View {
                     .font(AppDesign.Typography.seal)
                     .foregroundColor(.white)
             }
-            .frame(width: 44, height: 44)
+            .frame(width: 40, height: 40)
             .scaleEffect(isPressed ? 0.95 : 1.0)
             .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
         }

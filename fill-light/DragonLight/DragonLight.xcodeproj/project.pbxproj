@@ -10,8 +10,10 @@
 		D3DRAGONLIGHT /* DragonLightApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DRAGONLIGHTREF /* DragonLightApp.swift */; };
 		D3MAINVIEW /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3MAINVIEWREF /* MainView.swift */; };
 		D3CONTRASTSLIDER /* ContrastSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CONTRASTSLIDERREF /* ContrastSlider.swift */; };
+		D3GIFPLAYERVIEW /* GIFPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3GIFPLAYERVIEWREF /* GIFPlayerView.swift */; };
 		D3ASSETS_BUILD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D3ASSETS /* Assets.xcassets */; };
 		D3LAUNCHSCREEN_BUILD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D3LAUNCHSCREEN /* LaunchScreen.storyboard */; };
+		D3DRAGONGIF_BUILD /* dragon.gif in Resources */ = {isa = PBXBuildFile; fileRef = D3DRAGONGIF /* dragon.gif */; };
 		D3LIGHTVIEWMODEL /* LightViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3LIGHTVIEWMODELREF /* LightViewModel.swift */; };
 		D3CAMERAVIEWMODEL /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3CAMERAVIEWMODELREF /* CameraViewModel.swift */; };
 		D3SETTINGSVIEWMODEL /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3SETTINGSVIEWMODELREF /* SettingsViewModel.swift */; };
@@ -45,6 +47,8 @@
 		D395494D2EFD08CF00E80AB8 /* DragonLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DragonLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D3DRAGONLIGHTREF /* DragonLightApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DragonLightApp.swift; sourceTree = "<group>"; };
 		D3CONTRASTSLIDERREF /* ContrastSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContrastSlider.swift; sourceTree = "<group>"; };
+		D3GIFPLAYERVIEWREF /* GIFPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GIFPlayerView.swift; sourceTree = "<group>"; };
+		D3DRAGONGIF /* dragon.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = dragon.gif; sourceTree = "<group>"; };
 		D3ASSETS /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D3LAUNCHSCREEN /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D3MAINVIEWREF /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -108,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				D3DRAGONLIGHTREF /* DragonLightApp.swift */,
+				D3DRAGONGIF /* dragon.gif */,
 				D3ASSETS /* Assets.xcassets */,
 				D3LAUNCHSCREEN /* LaunchScreen.storyboard */,
 				D3CORE /* Core */,
@@ -219,6 +224,7 @@
 				D3DRAGONVIEWREF /* DragonView.swift */,
 				D3LANTERNVIEWREF /* LanternView.swift */,
 				D3SEALVIEWREF /* SealView.swift */,
+				D3GIFPLAYERVIEWREF /* GIFPlayerView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -371,6 +377,7 @@
 			files = (
 				D3ASSETS_BUILD /* Assets.xcassets in Resources */,
 				D3LAUNCHSCREEN_BUILD /* LaunchScreen.storyboard in Resources */,
+				D3DRAGONGIF_BUILD /* dragon.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -384,6 +391,7 @@
 				D3DRAGONLIGHT /* DragonLightApp.swift in Sources */,
 				D3MAINVIEW /* MainView.swift in Sources */,
 				D3CONTRASTSLIDER /* ContrastSlider.swift in Sources */,
+				D3GIFPLAYERVIEW /* GIFPlayerView.swift in Sources */,
 				D3LIGHTVIEWMODEL /* LightViewModel.swift in Sources */,
 				D3CAMERAVIEWMODEL /* CameraViewModel.swift in Sources */,
 				D3SETTINGSVIEWMODEL /* SettingsViewModel.swift in Sources */,
