@@ -625,69 +625,66 @@
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         let bgmSource, analyser, dataArray, gainNode;
+        let bgmElement; // Streaming element
         const BGM_URL = 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/sheep.MP3';
-        const SFX_URLS = {
-            match: 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/match.MP3',
-            fail: 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/fail.MP3'
-        };
 
         let isMutedManually = false;
-        let soundBuffers = {}; // SFX 缓存
 
         async function initAudio() {
             try {
-                if (isMutedManually) return;
                 if (audioCtx.state === 'suspended') await audioCtx.resume();
+                if (isMutedManually) return;
 
-                // 异步预热：不再阻塞首页初始化
-                if (!bgmSource) {
-                    loadAsset(BGM_URL).then(buffer => {
-                        if (isMutedManually || bgmSource) return;
-                        bgmSource = audioCtx.createBufferSource();
-                        bgmSource.buffer = buffer;
-                        bgmSource.loop = true;
+                if (!bgmElement) {
+                    // 彻底优化：使用 HTML5 Audio Streaming 接入 Web Audio API
+                    // 优势：边下边放，瞬间响起，完全不卡主线程
+                    bgmElement = new Audio();
+                    bgmElement.src = BGM_URL;
+                    bgmElement.crossOrigin = "anonymous";
+                    bgmElement.loop = true;
 
-                        analyser = audioCtx.createAnalyser();
-                        analyser.fftSize = 256;
-                        dataArray = new Uint8Array(analyser.frequencyBinCount);
+                    bgmSource = audioCtx.createMediaElementSource(bgmElement);
+                    analyser = audioCtx.createAnalyser();
+                    analyser.fftSize = 256;
+                    dataArray = new Uint8Array(analyser.frequencyBinCount);
 
-                        gainNode = audioCtx.createGain();
-                        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+                    gainNode = audioCtx.createGain();
+                    gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
 
-                        bgmSource.connect(analyser);
-                        analyser.connect(gainNode);
-                        gainNode.connect(audioCtx.destination);
-                        bgmSource.start(0);
+                    bgmSource.connect(analyser);
+                    analyser.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+
+                    bgmElement.play().then(() => {
                         document.getElementById('music-btn').classList.add('playing');
-                    }).catch(err => console.error("BGM load failed", err));
+                    }).catch(e => console.warn("Auto-play blocked, waiting for interaction"));
+                } else if (bgmElement.paused) {
+                    bgmElement.play();
+                    document.getElementById('music-btn').classList.add('playing');
                 }
             } catch (e) {
-                console.warn('Audio contextual init failed:', e);
+                console.warn('Audio streaming init failed:', e);
             }
         }
 
-        async function loadAsset(url) {
-            const response = await fetch(url);
-            const arrayBuffer = await response.arrayBuffer();
-            return await audioCtx.decodeAudioData(arrayBuffer);
-        }
 
         function toggleMusic() {
             const panel = document.getElementById('audio-panel');
-            if (!bgmSource) {
+            if (!bgmElement) {
                 isMutedManually = false;
                 initAudio();
                 panel.classList.remove('muted');
                 return;
             }
-            if (audioCtx.state === 'running') {
-                audioCtx.suspend();
-                isMutedManually = true; // 锁定静音状态
+            if (!bgmElement.paused) {
+                bgmElement.pause();
+                isMutedManually = true;
                 document.getElementById('music-btn').classList.remove('playing');
                 panel.classList.add('muted');
             } else {
                 audioCtx.resume();
-                isMutedManually = false; // 解除静音状态
+                bgmElement.play();
+                isMutedManually = false;
                 document.getElementById('music-btn').classList.add('playing');
                 panel.classList.remove('muted');
             }
@@ -708,47 +705,62 @@
             const now = audioCtx.currentTime;
 
             if (type === 'match') {
-                // 晶莹风铃 (Crystalline Wind Chime): FM 合成金属叮叮声
+                // 飘渺风铃 (Ethereal Wind Chime Flutter): 模拟风拂过金属/玻璃风铃的精灵感
                 const masterGain = audioCtx.createGain();
                 masterGain.connect(audioCtx.destination);
-                masterGain.gain.setValueAtTime(0.8, now);
-                masterGain.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+                masterGain.gain.setValueAtTime(0, now);
+                masterGain.gain.linearRampToValueAtTime(0.8, now + 0.01);
+                masterGain.gain.exponentialRampToValueAtTime(0.001, now + 2.5);
 
                 const filter = audioCtx.createBiquadFilter();
                 filter.type = 'highpass';
-                filter.frequency.setValueAtTime(1500, now);
-                filter.Q.setValueAtTime(3, now);
+                filter.frequency.setValueAtTime(1000, now);
                 filter.connect(masterGain);
 
-                for (let i = 0; i < 6; i++) {
-                    const delay = i * 0.12;
-                    const baseFreq = 2600 + i * 750;
+                const scale = [1318.51, 1567.98, 1760.00, 1975.53, 2349.32, 2637.02];
+                for (let i = 0; i < 10; i++) {
+                    const d = Math.random() * 0.4;
+                    const f = scale[Math.floor(Math.random() * scale.length)];
 
-                    const carrier = audioCtx.createOscillator();
-                    carrier.type = 'triangle';
-                    carrier.frequency.setValueAtTime(baseFreq, now + delay);
+                    // 1. 冲击层 (The Strike)
+                    const oscS = audioCtx.createOscillator();
+                    const modS = audioCtx.createOscillator();
+                    const mgS = audioCtx.createGain();
+                    const envS = audioCtx.createGain();
+                    oscS.frequency.setValueAtTime(f, now + d);
+                    modS.frequency.setValueAtTime(f * 1.5, now + d);
+                    mgS.gain.setValueAtTime(f * 0.4, now + d);
+                    mgS.gain.exponentialRampToValueAtTime(0.01, now + d + 0.1);
+                    envS.gain.setValueAtTime(0, now + d);
+                    envS.gain.linearRampToValueAtTime(0.3, now + d + 0.005);
+                    envS.gain.exponentialRampToValueAtTime(0.001, now + d + 0.12);
+                    modS.connect(mgS); mgS.connect(oscS.frequency);
+                    oscS.connect(envS); envS.connect(filter);
 
-                    const modulator = audioCtx.createOscillator();
-                    modulator.frequency.setValueAtTime(baseFreq * 1.618, now + delay);
+                    // 2. 共振层 (The Resonance)
+                    const oscR = audioCtx.createOscillator();
+                    const envR = audioCtx.createGain();
+                    oscR.frequency.setValueAtTime(f, now + d);
+                    envR.gain.setValueAtTime(0, now + d);
+                    envR.gain.linearRampToValueAtTime(0.15, now + d + 0.05);
+                    envR.gain.exponentialRampToValueAtTime(0.001, now + d + 2.0);
+                    oscR.connect(envR); envR.connect(filter);
 
-                    const modGain = audioCtx.createGain();
-                    modGain.gain.setValueAtTime(baseFreq * 1.2, now + delay);
-                    modGain.gain.exponentialRampToValueAtTime(0.01, now + delay + 0.3);
-
-                    const env = audioCtx.createGain();
-                    env.gain.setValueAtTime(0, now + delay);
-                    env.gain.linearRampToValueAtTime(0.5, now + delay + 0.005);
-                    env.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.6);
-
-                    modulator.connect(modGain);
-                    modGain.connect(carrier.frequency);
-                    carrier.connect(env);
-                    env.connect(filter);
-
-                    carrier.start(now + delay);
-                    modulator.start(now + delay);
-                    carrier.stop(now + delay + 0.8);
-                    modulator.stop(now + delay + 0.8);
+                    oscS.start(now + d); modS.start(now + d); oscR.start(now + d);
+                    oscS.stop(now + d + 0.2); modS.stop(now + d + 0.2); oscR.stop(now + d + 2.2);
+                }
+                // 微光闪烁 (Elven Shimmer)
+                for (let j = 0; j < 6; j++) {
+                    const d = Math.random() * 0.8;
+                    const f = 8000 + Math.random() * 4000;
+                    const o = audioCtx.createOscillator();
+                    const g = audioCtx.createGain();
+                    o.frequency.setValueAtTime(f, now + d);
+                    g.gain.setValueAtTime(0, now + d);
+                    g.gain.linearRampToValueAtTime(0.04, now + d + 0.01);
+                    g.gain.exponentialRampToValueAtTime(0.001, now + d + 0.15);
+                    o.connect(g); g.connect(masterGain);
+                    o.start(now + d); o.stop(now + d + 0.2);
                 }
             } else if (type === 'fail') {
                 // 荡和丧的失落长音 (Swinging Sinking Fail): Vibrato Sawtooth
