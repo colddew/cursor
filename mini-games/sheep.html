@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>羊了个羊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-color: #c0f473;
+            --card-w: 66px;
+            /* 继续增大 */
+            --card-h: 80px;
+            --card-radius: 14px;
+            --footer-bg: #4c6828;
+            --slot-bg: rgba(43, 61, 20, 0.9);
+            --accent-color: #ffd700;
+            --text-color: #2b3d14;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            overflow: hidden;
+            font-family: system-ui, -apple-system, sans-serif;
+            user-select: none;
+            touch-action: manipulation;
+        }
+
+        /* 背景草丛样式 */
+        .grass-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .grass {
+            position: absolute;
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: #2b3d14;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.3;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* 黑胶唱片音控 */
+        #audio-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            /* 回归右侧 */
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 20000;
+            /* 极致层级，确保首页遮罩下依然可点 */
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 12px;
+            border-radius: 40px;
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .vinyl-record {
+            width: 70px;
+            height: 70px;
+            background: #1a1a1a;
+            border-radius: 50%;
+            border: 4px solid #333;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            animation: rotate-vinyl 10s linear infinite paused;
+            transition: filter 0.3s ease;
+            overflow: hidden;
+            /* 关键：确保斜线不超出黑胶盘 */
+        }
+
+        .vinyl-record.playing {
+            animation: rotate 3s linear infinite;
+        }
+
+        .vinyl-center {
+            width: 20px;
+            height: 20px;
+            background: #ffd700;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-note {
+            font-size: 10px;
+            animation: note-bounce 1.5s ease-in-out infinite;
+        }
+
+        @keyframes note-bounce {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #volume-slider {
+            width: 0;
+            overflow: hidden;
+            transition: width 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.2);
+            height: 6px;
+            border-radius: 3px;
+        }
+
+        #audio-panel:hover #volume-slider {
+            width: 100px;
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            background: #ffd700;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        #game-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-color);
+        }
+
+        #game-stage {
+            flex: 1;
+            position: relative;
+            width: 100%;
+        }
+
+        /* 拟真卡片样式 */
+        .card {
+            position: absolute;
+            width: var(--card-w);
+            height: var(--card-h);
+            background: #fff;
+            border: 2px solid #333;
+            border-radius: var(--card-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-sizing: border-box;
+            box-shadow: 0 4px 0 #888, 0 5px 10px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                left 0.3s ease-in-out,
+                top 0.3s ease-in-out,
+                filter 0.2s;
+            z-index: 10;
+        }
+
+        /* 侧边厚度感 */
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: -2px;
+            right: -2px;
+            height: 6px;
+            background: #bbb;
+            border: 2px solid #333;
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            z-index: -1;
+        }
+
+        #audio-panel.muted .vinyl-record {
+            filter: grayscale(1) contrast(0.5);
+        }
+
+        /* 优雅内圆静音线：10:30 -> 4:30 (反斜杠 \) */
+        #audio-panel.muted .vinyl-record::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 140%;
+            height: 3px;
+            background: rgba(230, 230, 230, 0.9);
+            transform: translate(-50%, -50%) rotate(45deg);
+            /* 修正方向至反斜杠 */
+            z-index: 20002;
+            box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+        }
+
+        .card.covered {
+            filter: brightness(0.5) contrast(0.9);
+            pointer-events: none;
+        }
+
+        .card.in-slot {
+            box-shadow: none;
+            pointer-events: none;
+            transform: scale(0.9);
+        }
+
+        .card.in-slot::after {
+            display: none;
+        }
+
+        /* 消除爆裂特效 */
+        .card.matching {
+            animation: card-match-burst 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+            z-index: 1000 !important;
+        }
+
+        @keyframes card-match-burst {
+            0% {
+                transform: scale(1);
+                filter: brightness(1) drop-shadow(0 0 0px gold);
+            }
+
+            50% {
+                transform: scale(1.3);
+                filter: brightness(2) drop-shadow(0 0 15px gold);
+            }
+
+            100% {
+                transform: scale(0.5);
+                opacity: 0;
+                filter: brightness(3) drop-shadow(0 0 30px gold);
+            }
+        }
+
+        /* 极致归位：星尘流沙粒子 (带光晕，慢降) */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2000;
+            box-shadow: 0 0 8px currentColor;
+            /* 发光星尘感 */
+            mix-blend-mode: screen;
+        }
+
+        @keyframes stardust-drift {
+            0% {
+                transform: translate(0, 0) scale(1.5);
+                opacity: 1;
+                filter: brightness(2);
+            }
+
+            15% {
+                transform: translate(calc(var(--tx) * 0.8), calc(var(--ty) * 0.8)) scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                /* 2.5s 的漫长轨迹，加入重力下坠趋势 (++ty) */
+                transform: translate(var(--tx), calc(var(--ty) + 150px)) scale(0);
+                opacity: 0;
+            }
+        }
+
+        #footer {
+            height: 140px;
+            background: linear-gradient(180deg, var(--footer-bg) 0%, #2a3b14 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-top: 4px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 100;
+        }
+
+        #slot-container {
+            width: 450px;
+            /* 增加宽度以容纳 7 张大卡片 */
+            height: 94px;
+            background: var(--slot-bg);
+            backdrop-filter: blur(10px);
+            border: 3px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            gap: 2px;
+            position: relative;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: transparent;
+            /* 移除阴影蒙版 */
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        #start-panel.overlay {
+            background: transparent;
+            z-index: 10001;
+            /* 盖过所有 */
+        }
+
+        /* 首页隐藏底部 footer 和阴影 */
+        body:has(#start-panel:not([style*="display: none"])) #footer {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        #win-panel.overlay,
+        #fail-panel.overlay {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        /* 扫光动效 */
+        .shimmer {
+            background: linear-gradient(90deg,
+                    rgba(255, 215, 0, 0) 0%,
+                    rgba(255, 215, 0, 0.8) 50%,
+                    rgba(255, 215, 0, 0) 100%);
+            background-size: 200% 100%;
+            animation: shimmer 2.5s infinite linear;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            /* 重要：让扫光透出来 */
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -100% 0;
+            }
+
+            100% {
+                background-position: 100% 0;
+            }
+        }
+
+        .btn {
+            background: #ffcf44;
+            color: #333;
+            padding: 16px 60px;
+            border-radius: 50px;
+            font-weight: 1000;
+            font-size: 1.4rem;
+            margin-top: 20px;
+            cursor: pointer;
+            box-shadow: 0 6px 0 #d4a017;
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 10;
+            /* 律动交由 JS 引擎驱动，移除 CSS 异步动画 */
+        }
+
+        .btn:hover {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15), 0 6px 0 #d4a017;
+        }
+
+        .btn:active {
+            transform: scale(0.92);
+            box-shadow: 0 2px 0 #d4a017;
+        }
+
+        @keyframes ear-flutter {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            50% {
+                transform: rotate(-8deg);
+            }
+        }
+
+        .ear-group {
+            transform-origin: 30% 20%;
+            animation: ear-flutter 2s infinite ease-in-out;
+        }
+
+        .ear-group-right {
+            transform-origin: 70% 20%;
+            animation: ear-flutter 2.2s infinite ease-in-out reverse;
+        }
+
+        /* 运行中的小羊 */
+        .sheep-circle {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+
+        .running-sheep {
+            display: none;
+        }
+
+        .sheep-svg {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            /* 顺时针路径 */
+            offset-path: path('M 150, 150 m -100, 0 a 100,100 0 1,1 200,0 a 100,100 0 1,1 -200,0');
+            offset-rotate: auto 180deg;
+            animation: move-around 10s linear infinite;
+            /* 加快一丢丢 */
+        }
+
+        /* 羊群呼吸与缩放微动 */
+        .sheep-pulse {
+            animation: pulse-mini 0.8s ease-in-out infinite alternate;
+            transform-origin: center bottom;
+        }
+
+        @keyframes pulse-mini {
+            from {
+                transform: scale(0.98);
+            }
+
+            to {
+                transform: scale(1.02);
+            }
+        }
+
+        .sheep-shadow {
+            position: absolute;
+            width: 80px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 50%;
+            bottom: 12px;
+            /* 贴合蹄部 */
+            left: 20px;
+            filter: blur(3px);
+            z-index: -1;
+            animation: pulse-mini 2s infinite ease-in-out;
+        }
+
+        .leg {
+            transform-origin: top;
+            transform-box: fill-box;
+            animation: leg-swing 0.3s ease-in-out infinite alternate;
+        }
+
+        .leg-back {
+            animation-delay: -0.2s;
+        }
+
+        @keyframes leg-swing {
+            0% {
+                transform: rotate(-15deg);
+            }
+
+            100% {
+                transform: rotate(15deg);
+            }
+        }
+
+        @keyframes move-around {
+            0% {
+                offset-distance: 0%;
+            }
+
+            100% {
+                offset-distance: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <svg style="display: none;">
+        <symbol id="sheep-def" viewBox="-10 -10 150 130">
+            <g class="sheep-body-group sheep-pulse">
+                <!-- 显化长腿：起点更高 (y=28)，长度延伸至 38px -->
+                <rect class="leg" x="48" y="28" width="13" height="38" rx="5" fill="#1a1a1a" />
+                <rect class="leg leg-back" x="65" y="30" width="13" height="38" rx="5" fill="#1a1a1a" />
+                <rect class="leg" x="80" y="30" width="13" height="38" rx="5" fill="#1a1a1a" />
+                <rect class="leg leg-back" x="93" y="28" width="13" height="38" rx="5" fill="#1a1a1a" />
+
+                <!-- “纸片级”剪影身体 (y=35)，极致提拉收腹 -->
+                <path
+                    d="M50 25 A18 18 0 0 1 75 12 A22 22 0 0 1 110 28 A18 18 0 0 1 123 35 A20 20 0 0 1 100 35 A25 25 0 0 1 45 35 A18 18 0 0 1 12 32 A20 20 0 0 1 50 25"
+                    fill="#fff" stroke="#1a1a1a" stroke-width="3.2" />
+
+                <!-- 头部：锥形灵动瘦耳（根部细、尖端圆） -->
+                <g transform="translate(10, 15)">
+                    <ellipse cx="25" cy="22" rx="22" ry="19" fill="#333" stroke="#1a1a1a" stroke-width="3" />
+                    <g class="ear-group">
+                        <path d="M5 8 Q-5 0 -12 10 Q-15 18 -6 18 L2 14" fill="#222" stroke="#1a1a1a"
+                            stroke-width="2.2" />
+                    </g>
+                    <g class="ear-group-right">
+                        <path d="M45 8 Q55 0 62 10 Q65 18 56 18 L48 14" fill="#222" stroke="#1a1a1a"
+                            stroke-width="2.2" />
+                    </g>
+                    <!-- 面部 -->
+                    <circle cx="16" cy="15" r="9.5" fill="white" stroke="#1a1a1a" stroke-width="2" />
+                    <circle cx="34" cy="15" r="9.5" fill="white" stroke="#1a1a1a" stroke-width="2" />
+                    <circle cx="18" cy="12" r="3.5" fill="#1a1a1a" />
+                    <circle cx="36" cy="12" r="3.5" fill="#1a1a1a" />
+                    <path d="M21 32 Q25 35 29 32" stroke="#1a1a1a" fill="none" stroke-width="2.5"
+                        stroke-linecap="round" />
+                </g>
+            </g>
+        </symbol>
+    </svg>
+
+    <div id="audio-panel">
+        <input type="range" id="volume-slider" min="0" max="1" step="0.1" value="0.7" oninput="setVolume(this.value)">
+        <div id="music-btn" class="vinyl-record" onclick="toggleMusic()">
+            <div class="vinyl-center">
+                <span class="music-note" style="color: #1a260d;">♫</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <div class="grass-bg" id="grass-bg"></div>
+        <div id="game-stage"></div>
+        <div id="footer">
+            <div id="slot-container"></div>
+        </div>
+    </div>
+
+    <div id="start-panel" class="overlay">
+        <div class="sheep-circle">
+            <!-- 影分身跑动：紧凑排列，实现追随感 -->
+            <!-- 精密呼吸队形：步长 -0.95s，实现“再靠近一丢丢”的高级感 -->
+            <div class="sheep-svg" style="animation-delay: 0s; z-index: 40;">
+                <div class="sheep-shadow"></div><svg viewBox="-10 -10 150 130">
+                    <use href="#sheep-def" />
+                </svg>
+            </div>
+            <div class="sheep-svg" style="animation-delay: -0.95s; z-index: 30;">
+                <div class="sheep-shadow"></div><svg viewBox="-10 -10 150 130">
+                    <use href="#sheep-def" />
+                </svg>
+            </div>
+            <div class="sheep-svg" style="animation-delay: -1.9s; z-index: 20;">
+                <div class="sheep-shadow"></div><svg viewBox="-10 -10 150 130">
+                    <use href="#sheep-def" />
+                </svg>
+            </div>
+            <div class="sheep-svg" style="animation-delay: -2.85s; z-index: 10;">
+                <div class="sheep-shadow"></div><svg viewBox="-10 -10 150 130">
+                    <use href="#sheep-def" />
+                </svg>
+            </div>
+        </div>
+        <div id="title-wrapper" style="transition: transform 0.05s ease-out;">
+            <h1 class="text-8xl font-black mb-6 italic"
+                style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4));">
+                羊了个羊</h1>
+        </div>
+        <div id="slogan-wrapper" class="relative mb-10 pb-4" style="transition: transform 0.05s ease-out;">
+            <p class="text-2xl font-bold tracking-widest"
+                style="color: rgba(76, 104, 40, 0.7); text-shadow: 1px 1px 0 rgba(255,255,255,0.3);">每天一次动次打次</p>
+            <p class="text-2xl font-bold tracking-widest absolute inset-0 shimmer"
+                style="color: transparent; -webkit-background-clip: text; background-clip: text;">每天一次动次打次</p>
+        </div>
+        <div id="btn-wrapper" style="transition: transform 0.05s ease-out;">
+            <div class="btn transform transition hover:scale-110 shadow-2xl" id="start-btn" onclick="startGame()"
+                style="background: linear-gradient(180deg, #ffcf44 0%, #f7d047 100%); color: #2b3d14;">不 服 来 战</div>
+        </div>
+    </div>
+
+    <div id="win-panel" class="overlay" style="display:none">
+        <div class="text-6xl mb-4">👑</div>
+        <h1 class="text-3xl font-bold">通关第一关！</h1>
+        <p class="mt-2 text-yellow-400">第二关才是噩梦的开始...</p>
+        <div class="btn" onclick="startLevel2()">挑战第二关</div>
+    </div>
+
+    <div id="fail-panel" class="overlay" style="display:none">
+        <div class="text-6xl mb-4">🍖</div>
+        <h1 class="text-3xl font-bold">槽位满了！</h1>
+        <p class="mt-2">你成了隔壁老王的盘中餐</p>
+        <div class="btn" onclick="resetGameToLevel1()">不服再战</div>
+    </div>
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let bgmSource, analyser, dataArray, gainNode;
+        const BGM_URL = 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/sheep.MP3';
+        const SFX_URLS = {
+            match: 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/match.MP3',
+            fail: 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/fail.MP3'
+        };
+
+        let isMutedManually = false;
+        let soundBuffers = {}; // SFX 缓存
+
+        async function initAudio() {
+            try {
+                if (isMutedManually) return;
+                if (audioCtx.state === 'suspended') await audioCtx.resume();
+
+                // 异步预热：不再阻塞首页初始化
+                if (!bgmSource) {
+                    loadAsset(BGM_URL).then(buffer => {
+                        if (isMutedManually || bgmSource) return;
+                        bgmSource = audioCtx.createBufferSource();
+                        bgmSource.buffer = buffer;
+                        bgmSource.loop = true;
+
+                        analyser = audioCtx.createAnalyser();
+                        analyser.fftSize = 256;
+                        dataArray = new Uint8Array(analyser.frequencyBinCount);
+
+                        gainNode = audioCtx.createGain();
+                        gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
+
+                        bgmSource.connect(analyser);
+                        analyser.connect(gainNode);
+                        gainNode.connect(audioCtx.destination);
+                        bgmSource.start(0);
+                        document.getElementById('music-btn').classList.add('playing');
+                    }).catch(err => console.error("BGM load failed", err));
+                }
+            } catch (e) {
+                console.warn('Audio contextual init failed:', e);
+            }
+        }
+
+        async function loadAsset(url) {
+            const response = await fetch(url);
+            const arrayBuffer = await response.arrayBuffer();
+            return await audioCtx.decodeAudioData(arrayBuffer);
+        }
+
+        function toggleMusic() {
+            const panel = document.getElementById('audio-panel');
+            if (!bgmSource) {
+                isMutedManually = false;
+                initAudio();
+                panel.classList.remove('muted');
+                return;
+            }
+            if (audioCtx.state === 'running') {
+                audioCtx.suspend();
+                isMutedManually = true; // 锁定静音状态
+                document.getElementById('music-btn').classList.remove('playing');
+                panel.classList.add('muted');
+            } else {
+                audioCtx.resume();
+                isMutedManually = false; // 解除静音状态
+                document.getElementById('music-btn').classList.add('playing');
+                panel.classList.remove('muted');
+            }
+        }
+        // 默认尝试恢复环境
+        window.addEventListener('mousedown', () => { if (audioCtx.state === 'suspended') initAudio(); }, { once: true });
+        window.addEventListener('touchstart', () => { if (audioCtx.state === 'suspended') initAudio(); }, { once: true });
+
+        function setVolume(val) {
+            if (gainNode) {
+                gainNode.gain.setTargetAtTime(val, audioCtx.currentTime, 0.1);
+            }
+        }
+
+        function playSound(type) {
+            if (isMutedManually) return;
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            const now = audioCtx.currentTime;
+
+            if (type === 'match') {
+                // 晶莹风铃 (Crystalline Wind Chime): FM 合成金属叮叮声
+                const masterGain = audioCtx.createGain();
+                masterGain.connect(audioCtx.destination);
+                masterGain.gain.setValueAtTime(0.8, now);
+                masterGain.gain.exponentialRampToValueAtTime(0.001, now + 2.0);
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'highpass';
+                filter.frequency.setValueAtTime(1500, now);
+                filter.Q.setValueAtTime(3, now);
+                filter.connect(masterGain);
+
+                for (let i = 0; i < 6; i++) {
+                    const delay = i * 0.12;
+                    const baseFreq = 2600 + i * 750;
+
+                    const carrier = audioCtx.createOscillator();
+                    carrier.type = 'triangle';
+                    carrier.frequency.setValueAtTime(baseFreq, now + delay);
+
+                    const modulator = audioCtx.createOscillator();
+                    modulator.frequency.setValueAtTime(baseFreq * 1.618, now + delay);
+
+                    const modGain = audioCtx.createGain();
+                    modGain.gain.setValueAtTime(baseFreq * 1.2, now + delay);
+                    modGain.gain.exponentialRampToValueAtTime(0.01, now + delay + 0.3);
+
+                    const env = audioCtx.createGain();
+                    env.gain.setValueAtTime(0, now + delay);
+                    env.gain.linearRampToValueAtTime(0.5, now + delay + 0.005);
+                    env.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.6);
+
+                    modulator.connect(modGain);
+                    modGain.connect(carrier.frequency);
+                    carrier.connect(env);
+                    env.connect(filter);
+
+                    carrier.start(now + delay);
+                    modulator.start(now + delay);
+                    carrier.stop(now + delay + 0.8);
+                    modulator.stop(now + delay + 0.8);
+                }
+            } else if (type === 'fail') {
+                // 荡和丧的失落长音 (Swinging Sinking Fail): Vibrato Sawtooth
+                const dur = 1.6;
+                const mg = audioCtx.createGain();
+                mg.connect(audioCtx.destination);
+                mg.gain.setValueAtTime(0.5, now);
+                mg.gain.exponentialRampToValueAtTime(0.001, now + dur);
+
+                const osc = audioCtx.createOscillator();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(380, now);
+                osc.frequency.exponentialRampToValueAtTime(45, now + dur);
+
+                // LFO 产生的“荡”感 (Vibrato)
+                const lfo = audioCtx.createOscillator();
+                const lg = audioCtx.createGain();
+                lfo.frequency.setValueAtTime(6, now); // 6Hz 颤抖
+                lg.gain.setValueAtTime(20, now); // 20Hz 的频偏变化
+                lfo.connect(lg);
+                lg.connect(osc.frequency);
+
+                osc.connect(mg);
+                lfo.start(now); osc.start(now);
+                lfo.stop(now + dur); osc.stop(now + dur);
+            } else if (type === 'click') {
+                const osc = audioCtx.createOscillator();
+                const g = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(600, now);
+                osc.frequency.exponentialRampToValueAtTime(100, now + 0.1);
+                g.gain.setValueAtTime(0.3, now);
+                g.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+                osc.connect(g);
+                g.connect(audioCtx.destination);
+                osc.start(); osc.stop(now + 0.1);
+            }
+        }
+
+        function initGrass() {
+            const container = document.getElementById('grass-bg');
+            container.innerHTML = '';
+            const types = [
+                `<path d="M5 25 Q10 10 15 25 Q20 10 25 25" />`, // m
+                `<path d="M2 25 Q7 5 12 25 Q17 5 22 25 Q27 5 32 25" />`, // triple m
+                `<path d="M10 25 L15 15 L20 25" stroke-opacity="0.5" />` // rare v/^
+            ];
+            for (let i = 0; i < 35; i++) {
+                const grass = document.createElement('div');
+                grass.className = 'grass';
+                grass.style.left = Math.random() * 95 + '%';
+                grass.style.top = Math.random() * 95 + '%';
+                grass.innerHTML = `<svg viewBox="0 0 35 30">${types[Math.floor(Math.random() * types.length)]}</svg>`;
+                container.appendChild(grass);
+            }
+        }
+
+        function animateGrass() {
+            requestAnimationFrame(animateGrass);
+
+            let ratio = 0;
+            if (analyser) {
+                analyser.getByteFrequencyData(dataArray);
+                let sum = 0;
+                const bassRange = 8;
+                for (let i = 0; i < bassRange; i++) sum += dataArray[i];
+                const avg = sum / bassRange;
+                ratio = avg / 255;
+            } else {
+                // 静默活力算法：当音乐未加载或静音时，提供基础的慢节奏呼吸
+                ratio = (Math.sin(Date.now() / 1500) + 1) * 0.05;
+            }
+
+            const bounce = ratio * 45;
+            const scale = 1 + ratio * 0.18;
+            const btnScale = 1 + ratio * 0.35;
+
+            // UI 实时律动
+            const title = document.getElementById('title-wrapper');
+            const slogan = document.getElementById('slogan-wrapper');
+            const btn = document.getElementById('btn-wrapper');
+            if (title) title.style.transform = `scale(${scale})`;
+            if (slogan) slogan.style.transform = `scale(${1 + ratio * 0.15})`;
+            if (btn) btn.style.transform = `scale(${btnScale})`;
+
+            document.querySelectorAll('.grass').forEach((g, idx) => {
+                const shift = Math.sin(Date.now() / 250 + idx) * 6;
+                g.style.transform = `translateY(${-bounce}px) rotate(${shift}deg)`;
+                // 即使静默也有基础透明度
+                g.style.opacity = 0.3 + ratio * 0.7;
+            });
+        }
+
+        const ICONS = ['🍎', '🍓', '🥕', '🌽', '🍇', '🍄', '🌳', '🧶', '🔔', '🥛', '🔥', '🧱', '🥦', '🍉', '🥨', '🍰'];
+        let allCards = [];
+        let slotCards = [];
+        let currentLevel = 1;
+        let gameState = 'playing'; // 'playing', 'won', 'lost'
+
+        const stage = document.getElementById('game-stage');
+        const slotContainer = document.getElementById('slot-container');
+
+        window.onload = () => {
+            initGrass();
+            animateGrass(); // 启动视觉循环
+        };
+
+        function startGame() {
+            document.getElementById('start-panel').style.display = 'none';
+            setTimeout(initAudio, 50); // 微延后，确保面板切换流畅
+            initLevel(1);
+        }
+
+        function initLevel(level) {
+            currentLevel = level;
+            stage.innerHTML = '';
+            allCards = [];
+            slotCards = [];
+            gameState = 'playing';
+            updateSlotUI();
+
+            const stageW = stage.clientWidth;
+            const stageH = stage.clientHeight;
+            const cx = stageW / 2;
+            const cy = stageH / 2;
+
+            if (level === 1) {
+                // 第一关：卡片更大，间距拉宽，视觉更舒适
+                const pool = [ICONS[0], ICONS[1], ICONS[2]];
+                let deck = [];
+                pool.forEach(icon => deck.push(icon, icon, icon));
+                deck.sort(() => Math.random() - 0.5);
+
+                deck.forEach((icon, i) => {
+                    // 间距拉大：原 55->95, 原 70->100
+                    const x = cx - 120 + (i % 3) * 95;
+                    const y = cy - 130 + Math.floor(i / 3) * 100;
+                    createCard(icon, x, y, i);
+                });
+            } else {
+                // 第二关算法重构：主要集中在中间 1/3，密度减小，严格控制侧翼
+                const poolSize = ICONS.length;
+                const totalGroups = 28; // 减少总数至 84 张，追求精美感
+                let deck = [];
+                for (let i = 0; i < totalGroups; i++) {
+                    const icon = ICONS[i % poolSize];
+                    deck.push(icon, icon, icon);
+                }
+                deck.sort(() => Math.random() - 0.5);
+
+                deck.forEach((icon, i) => {
+                    // 75% 概率集中在中间 1/3 (35%-65%)
+                    let x;
+                    if (Math.random() < 0.75) {
+                        x = stageW * 0.35 + Math.random() * (stageW * 0.3) - 33;
+                    } else {
+                        // 25% 概率稍微向两侧偏移，但严格避开边缘
+                        x = stageW * 0.22 + Math.random() * (stageW * 0.56) - 33;
+                    }
+
+                    const y = 80 + Math.random() * (stageH - 260);
+                    createCard(icon, x, y, i);
+                });
+            }
+            checkCover();
+        }
+
+        function createCard(icon, x, y, z) {
+            const div = document.createElement('div');
+            div.className = 'card';
+            div.innerHTML = icon;
+            div.style.left = `${x}px`;
+            div.style.top = `${y}px`;
+            div.style.zIndex = z;
+
+            const cardObj = { el: div, icon, x, y, z, state: 'stage' };
+            div.onclick = () => onCardClick(cardObj);
+            stage.appendChild(div);
+            allCards.push(cardObj);
+        }
+
+        function onCardClick(card) {
+            if (gameState !== 'playing') return;
+            if (card.state !== 'stage' || card.el.classList.contains('covered')) return;
+            if (slotCards.length >= 7) return;
+
+            playSound('click');
+            card.state = 'slot';
+            card.el.classList.add('in-slot');
+
+            // 查找相同图标的位置 (手动查找以保证兼容性)
+            let lastIdx = -1;
+            for (let i = slotCards.length - 1; i >= 0; i--) {
+                if (slotCards[i].icon === card.icon) {
+                    lastIdx = i;
+                    break;
+                }
+            }
+            const targetIdx = lastIdx === -1 ? slotCards.length : lastIdx + 1;
+            slotCards.splice(targetIdx, 0, card);
+
+            updateSlotUI();
+            checkCover();
+
+            // 检查消除
+            const sameIcons = slotCards.filter(c => c.icon === card.icon);
+            if (sameIcons.length === 3) {
+                playSound('match');
+                const matchTriple = sameIcons;
+                matchTriple.forEach(c => {
+                    const rect = c.el.getBoundingClientRect();
+                    createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                    c.el.classList.add('matching');
+                });
+
+                setTimeout(() => {
+                    matchTriple.forEach(c => {
+                        if (c.el.parentNode) c.el.parentNode.removeChild(c.el);
+                        const idx = slotCards.indexOf(c);
+                        if (idx > -1) slotCards.splice(idx, 1);
+                        // 确保从 allCards 中也彻底移除，防止逻辑残留
+                        const aIdx = allCards.indexOf(c);
+                        if (aIdx > -1) allCards.splice(aIdx, 1);
+                    });
+                    slotCards = slotCards.filter(c => !matchTriple.includes(c));
+                    allCards = allCards.filter(c => !matchTriple.includes(c));
+                    updateSlotUI();
+                    checkWin();
+                }, 350);
+                return;
+            } else if (slotCards.length >= 7) {
+                gameState = 'lost';
+                playSound('fail');
+                setTimeout(() => {
+                    document.getElementById('fail-panel').style.display = 'flex';
+                }, 400);
+            }
+        }
+
+        function checkWin() {
+            if (allCards.length === 0) {
+                gameState = 'won';
+                if (currentLevel === 1) {
+                    document.getElementById('win-panel').style.display = 'flex';
+                } else {
+                    alert("🎉 奇迹！你通过了第二关！");
+                }
+            }
+        }
+
+        function updateSlotUI() {
+            slotCards.forEach((card, i) => {
+                if (card.el.parentNode !== slotContainer) {
+                    slotContainer.appendChild(card.el);
+                }
+
+                card.el.style.zIndex = 1000 + i;
+                const targetX = 14 + i * 61;
+                const targetY = 8;
+
+                card.el.style.left = `${targetX}px`;
+                card.el.style.top = `${targetY}px`;
+            });
+        }
+
+        function checkCover() {
+            allCards.forEach(c1 => {
+                if (c1.state !== 'stage') return;
+                let isCovered = false;
+                for (let c2 of allCards) {
+                    if (c2.state === 'stage' && c2.z > c1.z) {
+                        // 判定调整以适应大卡片：增大重叠判定阈值
+                        const overlapX = Math.abs(c1.x - c2.x) < 58;
+                        const overlapY = Math.abs(c1.y - c2.y) < 70;
+                        if (overlapX && overlapY) {
+                            isCovered = true;
+                            break;
+                        }
+                    }
+                }
+                c1.el.classList.toggle('covered', isCovered);
+            });
+        }
+
+        function startLevel2() {
+            document.getElementById('win-panel').style.display = 'none';
+            initLevel(2);
+        }
+
+        function createFirework(x, y) {
+            const colors = ['#FFD700', '#FF4500', '#00FA9A', '#1E90FF', '#FF1493', '#FFFFFF', '#ADFF2F'];
+            const container = document.body;
+
+            for (let i = 0; i < 24; i++) { // 增加粒子量，更显震撼
+                const p = document.createElement('div');
+                p.className = 'particle';
+                const size = 5 + Math.random() * 5;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                p.style.backgroundColor = color;
+                p.style.color = color; // box-shadow 使用 currentColor
+                p.style.left = x + 'px';
+                p.style.top = y + 'px';
+
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 10 + Math.random() * 20;
+                // 显著拉大扩散半径
+                const tx = Math.cos(angle) * velocity * 25;
+                const ty = Math.sin(angle) * velocity * 25;
+
+                p.style.setProperty('--tx', `${tx}px`);
+                p.style.setProperty('--ty', `${ty}px`);
+                // 动画时长拉长至 2.5s，呈现优雅慢坠
+                p.style.animation = `stardust-drift 2.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards`;
+
+                container.appendChild(p);
+                setTimeout(() => p.remove(), 2500);
+            }
+        }
+
+        function resetGameToLevel1() {
+            gameState = 'playing';
+            document.getElementById('fail-panel').style.display = 'none';
+            document.getElementById('win-panel').style.display = 'none';
+            slotCards = [];
+            slotContainer.innerHTML = ''; // 修复：重置时清空槽位 UI
+            initLevel(1);
+        }
+    </script>
+</body>
+
+</html>
