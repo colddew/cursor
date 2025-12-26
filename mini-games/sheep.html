@@ -503,6 +503,7 @@
             border-radius: 18px;
             display: flex;
             align-items: center;
+            justify-content: flex-start; /* 卡片从左边开始排列 */
             padding: 0 12px;
             gap: 2px;
             position: relative;
@@ -1225,6 +1226,42 @@
             initLevel(1);
         }
 
+        // 验证：确保卡片总数和每种类型都是3的倍数
+        function validateCardCounts(context) {
+            // allCards 已经包含所有未消除的卡片（stage、side-stack、shifted、slot 状态）
+            // slotCards 和 shiftCards 只是引用，不需要重复计数
+            const total = allCards.length;
+            if (total % 3 !== 0) {
+                console.error(`[验证失败] ${context}: 总数 ${total} 不是3的倍数`);
+            } else {
+                console.log(`[验证通过] ${context}: 总数 ${total} 是3的倍数`);
+            }
+
+            // 统计每种图标数量
+            const iconCounts = {};
+            allCards.forEach(c => {
+                iconCounts[c.icon] = (iconCounts[c.icon] || 0) + 1;
+            });
+
+            let allValid = true;
+            for (const icon in iconCounts) {
+                if (iconCounts[icon] % 3 !== 0) {
+                    console.error(`[验证失败] ${context}: 图标 ${icon} 数量 ${iconCounts[icon]} 不是3的倍数`);
+                    allValid = false;
+                }
+            }
+            if (allValid) {
+                console.log(`[验证通过] ${context}: 所有图标数量都是3的倍数`);
+            }
+
+            // 详细日志：显示各区域卡片分布
+            const stageCount = allCards.filter(c => c.state === 'stage').length;
+            const stackCount = allCards.filter(c => c.state === 'side-stack').length;
+            const slotCount = allCards.filter(c => c.state === 'slot').length;
+            const shiftedCount = allCards.filter(c => c.state === 'shifted').length;
+            console.log(`[${context}] 区域分布: 卡片区${stageCount} + 堆叠区${stackCount} + 卡槽区${slotCount} + 移出区${shiftedCount} = 总数${total}`);
+        }
+
         function initLevel(level) {
             currentLevel = level;
             stage.innerHTML = '';
@@ -1359,6 +1396,9 @@
             // 每关重置按钮状态
             updateButtonStates();
             checkCover();
+
+            // 验证卡牌数量
+            validateCardCounts(`第${level}关初始化后`);
         }
 
         function createCard(icon, x, y, z, container = null, stackIndex = -1) {
@@ -1416,27 +1456,31 @@
             playSound('click');
 
             // 记录操作用于撤回
-            moveHistory.push({
+            const historyEntry = {
                 card: card,
                 fromX: card.x,
                 fromY: card.y,
                 fromZ: card.z,
-                state: 'stage'
-            });
+                fromState: card.state
+            };
+
+            // 对于堆叠区卡片，记录额外信息
+            if (card.state === 'side-stack') {
+                const container = card.el.parentElement;
+                if (container) {
+                    historyEntry.fromContainer = container.id; // 'side-stack-left' 或 'side-stack-right'
+                    // 从 z-index 反推 stackIndex: z = 200 + stackIndex
+                    historyEntry.fromStackIndex = card.z - 200;
+                }
+            }
+
+            moveHistory.push(historyEntry);
 
             card.state = 'slot';
             card.el.classList.add('in-slot');
 
-            // 查找相同图标的位置 (手动查找以保证兼容性)
-            let lastIdx = -1;
-            for (let i = slotCards.length - 1; i >= 0; i--) {
-                if (slotCards[i].icon === card.icon) {
-                    lastIdx = i;
-                    break;
-                }
-            }
-            const targetIdx = lastIdx === -1 ? slotCards.length : lastIdx + 1;
-            slotCards.splice(targetIdx, 0, card);
+            // 新卡片插入到最右边（第一张选中的在最左，后选中的依次往右排）
+            slotCards.push(card);
 
             updateSlotUI();
             checkCover();
@@ -1669,23 +1713,49 @@
             // 只有当卡片还在槽位中时才能撤回（若已消除则无法撤回，逻辑上已处理）
             if (card.state !== 'slot') return;
 
-            // 1. 从槽位移除
+            // 从槽位移除
             const idx = slotCards.indexOf(card);
             if (idx > -1) slotCards.splice(idx, 1);
 
-            // 2. 恢复视觉状态
-            card.state = 'stage';
+            // 恢复视觉状态
             card.el.classList.remove('in-slot');
 
-            // 关键修复：必须要把 DOM 移回 game-stage，否则坐标系不对
-            stage.appendChild(card.el);
+            if (lastMove.fromState === 'side-stack' && lastMove.fromContainer) {
+                // 堆叠区卡片：放回原堆叠容器
+                const container = document.getElementById(lastMove.fromContainer);
+                if (container) {
+                    card.state = 'side-stack';
+                    container.appendChild(card.el);
 
-            // 强制重绘以确保 transition 生效（可选，但通常直接设置 left/top 即可）
-            card.el.style.position = 'absolute';
-            card.el.style.left = lastMove.fromX + 'px';
-            card.el.style.top = lastMove.fromY + 'px';
-            card.el.style.zIndex = lastMove.fromZ;
-            card.el.style.transform = ''; // 清除缩放
+                    // 计算当前堆叠区卡片数量来确定偏移
+                    const sideStackCount = 18; // 原始堆叠区大小
+                    const stackIndex = lastMove.fromStackIndex;
+
+                    // 根据左右堆叠计算偏移
+                    let offsetX;
+                    if (lastMove.fromContainer === 'side-stack-left') {
+                        offsetX = -(sideStackCount - 1 - stackIndex) * 6;
+                    } else {
+                        offsetX = (sideStackCount - 1 - stackIndex) * 6;
+                    }
+
+                    card.el.style.position = 'absolute';
+                    card.el.style.top = '0';
+                    card.el.style.left = offsetX + 'px';
+                    card.el.style.zIndex = lastMove.fromZ;
+                    card.el.style.transform = '';
+                }
+            } else {
+                // 卡片区卡片：放回 stage
+                card.state = 'stage';
+                stage.appendChild(card.el);
+
+                card.el.style.position = 'absolute';
+                card.el.style.left = lastMove.fromX + 'px';
+                card.el.style.top = lastMove.fromY + 'px';
+                card.el.style.zIndex = lastMove.fromZ;
+                card.el.style.transform = '';
+            }
 
             updateSlotUI();
             checkCover();
@@ -1702,6 +1772,9 @@
             }
 
             playSound('click');
+
+            // 验证洗牌前卡牌数量
+            validateCardCounts('洗牌前');
 
             // 洗牌：重排场上卡片区和堆叠区的卡片（不包括临时区和卡槽区）
             // 警告：洗牌会改变卡片位置，导致如果不立即撤回，之前的撤回历史可能通过坐标还原到错误位置（因为位置被别人占了）
@@ -1798,6 +1871,9 @@
 
             // 记录操作类型
             lastActionType = 'shuffle';
+
+            // 验证洗牌后卡牌数量
+            validateCardCounts('洗牌后');
 
             // 标记为已使用
             propUsage.shuffle++;
