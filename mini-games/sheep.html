@@ -235,6 +235,142 @@
             transform: scale(0.9);
         }
 
+        /* 木质托盘：拟真木纹 + 凹槽感 */
+        .wooden-tray {
+            width: 530px;
+            /* 精确适配 7 张卡的宽度 (66+6)*7 + padding */
+            height: 96px;
+            background:
+                repeating-linear-gradient(90deg,
+                    #8b5a2b 0,
+                    #8b5a2b 10px,
+                    #6e4220 10px,
+                    #6e4220 12px),
+                linear-gradient(to bottom, #8b5a2b, #5c3a17);
+            background-blend-mode: overlay;
+            border: 4px solid #5c3a17;
+            border-radius: 12px;
+            box-shadow:
+                inset 0 4px 10px rgba(0, 0, 0, 0.5),
+                0 10px 20px rgba(0, 0, 0, 0.4);
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            /* Flexbox 居中 */
+            align-items: center;
+            gap: 4px;
+            /* 卡片间距 */
+            position: relative;
+        }
+
+        /* 战术区域 (Tactical Zone) - 包含侧边盲堆和临时移出区 */
+        #tactical-zone {
+            position: absolute;
+            bottom: 220px;
+            /* 与 shift-holder 的 bottom 保持一致 */
+            left: 0;
+            right: 0;
+            height: var(--card-h);
+            /* 与卡片高度一致 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            pointer-events: none;
+            z-index: 6000;
+        }
+
+        /* 侧边盲堆容器 */
+        .side-stack {
+            position: relative;
+            display: flex;
+            align-items: center;
+            /* 卡片垂直居中 */
+            height: var(--card-h);
+            min-width: 80px;
+            pointer-events: none;
+        }
+
+        /* 堆叠区卡片样式：水平堆叠，下层只露出边 */
+        .side-stack .card {
+            position: absolute;
+            top: 0;
+            margin: 0 !important;
+            pointer-events: auto; /* 允许卡片被点击 */
+        }
+
+        /* 移出缓冲区 (Shift Holder) - 战术中间层 */
+        #shift-holder {
+            position: relative;
+            /* 改为 relative，因为在 tactical-zone 内 */
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            pointer-events: none;
+            height: var(--card-h);
+            /* 与卡片实际高度一致 (80px) */
+            min-width: 240px;
+            max-width: 80vw;
+            /* 允许扩展以容纳更多卡片 */
+            align-items: center;
+            flex-wrap: nowrap;
+            /* 不换行，让卡片水平排列 */
+            overflow: visible;
+        }
+
+        /* 战术道具栏 */
+        .props-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            pointer-events: auto;
+        }
+
+        .prop-label {
+            font-size: 14px;
+            font-weight: 800;
+            color: #5c3a17;
+            /* 深褐色文字匹配木纹 */
+            margin-top: 4px;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.4);
+        }
+
+        /* 道具按钮重绘：卡通木纹风 */
+        .prop-btn {
+            width: 64px;
+            height: 64px;
+            background: #f4d29c;
+            border: 3px solid #5c3a17;
+            border-bottom-width: 6px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            transition: all 0.1s;
+        }
+
+        .prop-btn:active {
+            transform: translateY(4px);
+            border-bottom-width: 3px;
+            background: #eebb77;
+        }
+
+        .prop-btn svg {
+            width: 28px;
+            height: 28px;
+            fill: #5c3a17;
+            filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5));
+        }
+
+        .card.covered {
+            filter: brightness(0.6) grayscale(0.4);
+            /* 更明显的置灰 */
+            pointer-events: none;
+        }
+
         .card.in-slot::after {
             display: none;
         }
@@ -296,15 +432,17 @@
         }
 
         #footer {
-            height: 140px;
+            height: 200px;
             background: linear-gradient(180deg, var(--footer-bg) 0%, #2a3b14 100%);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            border-top: 4px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
+            justify-content: flex-start;
+            /* 顶对齐 */
+            padding-top: 10px;
             position: relative;
-            z-index: 100;
+            z-index: 5000;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.3);
         }
 
         #slot-container {
@@ -561,8 +699,46 @@
     <div id="game-container">
         <div class="grass-bg" id="grass-bg"></div>
         <div id="game-stage"></div>
+
+        <!-- 战术区域：包含侧边盲堆和临时移出区 -->
+        <div id="tactical-zone">
+            <div id="side-stack-left" class="side-stack"></div>
+            <div id="shift-holder"></div>
+            <div id="side-stack-right" class="side-stack"></div>
+        </div>
+
         <div id="footer">
-            <div id="slot-container"></div>
+            <div id="slot-container" class="wooden-tray"></div>
+
+            <div class="props-container">
+                <!-- 移出 (Shift) -->
+                <div class="prop-btn" onclick="onPropShift()">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M5 11h14v2H5z" display="none" />
+                        <!-- 向上箭头 -->
+                        <path d="M12 4l-7 7h5v9h4v-9h5z" stroke-width="0" />
+                    </svg>
+                    <span class="prop-label">移出</span>
+                </div>
+
+                <!-- 撤回 (Undo) -->
+                <div class="prop-btn" onclick="onPropUndo()">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z" />
+                    </svg>
+                    <span class="prop-label">撤回</span>
+                </div>
+
+                <!-- 洗牌 (Shuffle) -->
+                <div class="prop-btn" onclick="onPropShuffle()">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
+                    </svg>
+                    <span class="prop-label">洗牌</span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -685,7 +861,7 @@
                 audioCtx.resume();
                 bgmElement.play();
                 isMutedManually = false;
-                document.getElementById('music-btn').classList.add('playing');
+                document.getElementById('music-btn').classList.remove('playing');
                 panel.classList.remove('muted');
             }
         }
@@ -857,6 +1033,8 @@
         const ICONS = ['🍎', '🍓', '🥕', '🌽', '🍇', '🍄', '🌳', '🧶', '🔔', '🥛', '🔥', '🧱', '🥦', '🍉', '🥨', '🍰'];
         let allCards = [];
         let slotCards = [];
+        let shiftCards = []; // 移出区卡片及其逻辑
+        let moveHistory = []; // 撤回战术栈
         let currentLevel = 1;
         let gameState = 'playing'; // 'playing', 'won', 'lost'
 
@@ -885,25 +1063,56 @@
             const stageW = stage.clientWidth;
             const stageH = stage.clientHeight;
             const cx = stageW / 2;
-            const cy = stageH / 2;
+
+            // 底部遮罩层高度约 200px（木质托盘 + 按钮 + 边距）
+            const maskSafeBottom = 200;
+
+            // 从 CSS 变量读取卡片尺寸，确保与 CSS 定义一致
+            const cardWidth = parseInt(getComputedStyle(document.documentElement)
+                .getPropertyValue('--card-w'));
+            const cardHeight = parseInt(getComputedStyle(document.documentElement)
+                .getPropertyValue('--card-h'));
 
             if (level === 1) {
-                // 第一关：卡片更大，间距拉宽，视觉更舒适
+                // 第一关：3×3 九宫格平铺，不叠加，每种图标3张，共9张卡片
                 const pool = [ICONS[0], ICONS[1], ICONS[2]];
                 let deck = [];
-                pool.forEach(icon => deck.push(icon, icon, icon));
+                // 每种图标3张，确保可以完成消除
+                pool.forEach(icon => {
+                    for (let i = 0; i < 3; i++) {
+                        deck.push(icon);
+                    }
+                });
                 deck.sort(() => Math.random() - 0.5);
 
+                const rows = 3;
+                const cols = 3;
+                const gapX = 15; // 卡片水平间距
+                const gapY = 12; // 卡片垂直间距
+
+                // 计算整个方阵的尺寸
+                const gridWidth = cols * cardWidth + (cols - 1) * gapX;
+                const gridHeight = rows * cardHeight + (rows - 1) * gapY;
+
+                // 设置合理的顶部边距，让九宫格居中显示
+                const topMargin = 80; // 固定顶部边距，留出足够空间
+
+                const startX = cx - gridWidth / 2;
+                const startY = topMargin;
+
                 deck.forEach((icon, i) => {
-                    // 间距拉大：原 55->95, 原 70->100
-                    const x = cx - 120 + (i % 3) * 95;
-                    const y = cy - 130 + Math.floor(i / 3) * 100;
+                    const col = i % cols;
+                    const row = Math.floor(i / cols);
+                    const x = startX + col * (cardWidth + gapX);
+                    const y = startY + row * (cardHeight + gapY);
                     createCard(icon, x, y, i);
                 });
+
             } else {
-                // 第二关算法重构：主要集中在中间 1/3，密度减小，严格控制侧翼
+                // 第二关：侧边盲堆 + 核心金字塔
                 const poolSize = ICONS.length;
-                const totalGroups = 28; // 减少总数至 84 张，追求精美感
+                const totalCards = 180;
+                const totalGroups = totalCards / 3;
                 let deck = [];
                 for (let i = 0; i < totalGroups; i++) {
                     const icon = ICONS[i % poolSize];
@@ -911,43 +1120,115 @@
                 }
                 deck.sort(() => Math.random() - 0.5);
 
-                deck.forEach((icon, i) => {
-                    // 75% 概率集中在中间 1/3 (35%-65%)
-                    let x;
-                    if (Math.random() < 0.75) {
-                        x = stageW * 0.35 + Math.random() * (stageW * 0.3) - 33;
-                    } else {
-                        // 25% 概率稍微向两侧偏移，但严格避开边缘
-                        x = stageW * 0.22 + Math.random() * (stageW * 0.56) - 33;
-                    }
+                const centerX = stageW / 2;
+                const shiftZoneHalfWidth = 120; // 中间留给移出区的宽度/2
 
-                    const y = 80 + Math.random() * (stageH - 260);
-                    createCard(icon, x, y, i);
+                const sideStackCount = 18;
+                const leftStack = deck.splice(0, sideStackCount);
+                const rightStack = deck.splice(0, sideStackCount);
+
+                // 获取侧边盲堆容器
+                const leftStackContainer = document.getElementById('side-stack-left');
+                const rightStackContainer = document.getElementById('side-stack-right');
+
+                // 左侧盲堆：从右向左水平堆叠，只显示最右边（靠近中间）的卡片
+                leftStack.forEach((icon, i) => {
+                    // 越后面的卡片向左偏移，形成堆叠效果
+                    const offsetX = -(sideStackCount - 1 - i) * 6;
+                    createCard(icon, offsetX, 0, 600 + i, leftStackContainer, i);
+                });
+
+                // 右侧盲堆：向右伸展，左边压右边，显示最左边的卡牌
+                rightStack.forEach((icon, i) => {
+                    // 正偏移，向右伸展
+                    // offset 从 102（远离中间）到 0（靠近中间）
+                    const offsetX = (sideStackCount - 1 - i) * 6;
+                    // z-index 正常：i 越大越靠近中间，zIndex 越高，显示最左边的卡牌
+                    createCard(icon, offsetX, 0, 600 + i, rightStackContainer, i);
+                });
+
+                // 金字塔区域（主卡片区）
+                const pyWidth = stageW * 0.5; // 左右占1/2页面
+                const pyMinX = (stageW - pyWidth) / 2;
+
+                // 金字塔顶部从 40px 开始，留出顶部空间
+                const pyTopY = 40;
+                // 金字塔底部到 tactical-zone 顶部保持 20px 间距
+                // tactical-zone: bottom 220px, height var(--card-h), 所以顶部是 stageH - 220 - var(--card-h)
+                const tacticalZoneTop = stageH - 220 - cardHeight;
+                const gap = 20;
+                const pyMaxY = tacticalZoneTop - gap;
+
+                deck.forEach((icon, i) => {
+                    const x = pyMinX + Math.random() * pyWidth;
+                    // 确保卡牌在更大范围内分布（至少五六行高度）
+                    let safeMaxY = pyMaxY > pyTopY ? pyMaxY : pyTopY + cardHeight * 6;
+                    const y = pyTopY + Math.random() * (safeMaxY - pyTopY);
+                    createCard(icon, x, y, 100 + i);
                 });
             }
             checkCover();
         }
 
-        function createCard(icon, x, y, z) {
+        function createCard(icon, x, y, z, container = null, stackIndex = -1) {
             const div = document.createElement('div');
             div.className = 'card';
             div.innerHTML = icon;
-            div.style.left = `${x}px`;
-            div.style.top = `${y}px`;
-            div.style.zIndex = z;
+
+            // 判断是否为堆叠区容器
+            const isSideStack = container && container.classList.contains('side-stack');
+
+            if (isSideStack && stackIndex >= 0) {
+                // 堆叠区：水平堆叠，使用 x 参数作为水平偏移
+                div.style.position = 'absolute';
+                div.style.top = '0';
+                div.style.left = `${x}px`; // 水平偏移，下层只露出边
+                div.style.zIndex = z;
+            } else if (container) {
+                // 其他容器：相对定位
+                div.style.position = 'relative';
+                div.style.left = `${x}px`;
+                div.style.top = '0';
+                div.style.zIndex = z;
+            } else {
+                // 在 game-stage 中使用绝对定位
+                div.style.position = 'absolute';
+                div.style.left = `${x}px`;
+                div.style.top = `${y}px`;
+                div.style.zIndex = z;
+            }
 
             const cardObj = { el: div, icon, x, y, z, state: 'stage' };
             div.onclick = () => onCardClick(cardObj);
-            stage.appendChild(div);
+
+            if (container) {
+                container.appendChild(div);
+            } else {
+                stage.appendChild(div);
+            }
             allCards.push(cardObj);
         }
 
         function onCardClick(card) {
             if (gameState !== 'playing') return;
+            // 移出区的卡片点击时暂不处理（或者是移回槽位？原版不支持移回，只能等着消）
+            // 这里我们假设移出区的卡片已经是 shifted 状态，不响应 click (除非实现点击移回功能)
+            if (card.state === 'shifted') return;
+
             if (card.state !== 'stage' || card.el.classList.contains('covered')) return;
             if (slotCards.length >= 7) return;
 
             playSound('click');
+
+            // 记录操作用于撤回
+            moveHistory.push({
+                card: card,
+                fromX: card.x,
+                fromY: card.y,
+                fromZ: card.z,
+                state: 'stage'
+            });
+
             card.state = 'slot';
             card.el.classList.add('in-slot');
 
@@ -965,33 +1246,66 @@
             updateSlotUI();
             checkCover();
 
-            // 检查消除
-            const sameIcons = slotCards.filter(c => c.icon === card.icon);
-            if (sameIcons.length === 3) {
-                playSound('match');
-                const matchTriple = sameIcons;
-                matchTriple.forEach(c => {
-                    const rect = c.el.getBoundingClientRect();
-                    createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
-                    c.el.classList.add('matching');
-                });
+            // 检查消除 (包含移出区的卡片)
+            checkMatch();
+        }
 
-                setTimeout(() => {
+        function checkMatch() {
+            // 合并槽位和移出区的所有卡片
+            const allActiveCards = [...slotCards, ...shiftCards];
+
+            // 统计每种图标的数量
+            const iconCounts = {};
+            allActiveCards.forEach(c => {
+                iconCounts[c.icon] = iconCounts[c.icon] || [];
+                iconCounts[c.icon].push(c);
+            });
+
+            // 查找第一个达到3张的图标
+            for (let icon in iconCounts) {
+                const sameIcons = iconCounts[icon];
+                if (sameIcons.length >= 3) {
+                    // 优先消除最早进入的卡片（符合直觉）
+                    const matchTriple = sameIcons.slice(0, 3);
+
+                    playSound('match');
                     matchTriple.forEach(c => {
-                        if (c.el.parentNode) c.el.parentNode.removeChild(c.el);
-                        const idx = slotCards.indexOf(c);
-                        if (idx > -1) slotCards.splice(idx, 1);
-                        // 确保从 allCards 中也彻底移除，防止逻辑残留
-                        const aIdx = allCards.indexOf(c);
-                        if (aIdx > -1) allCards.splice(aIdx, 1);
+                        const rect = c.el.getBoundingClientRect();
+                        createFirework(rect.left + rect.width / 2, rect.top + rect.height / 2);
+                        c.el.classList.add('matching');
                     });
-                    slotCards = slotCards.filter(c => !matchTriple.includes(c));
-                    allCards = allCards.filter(c => !matchTriple.includes(c));
-                    updateSlotUI();
-                    checkWin();
-                }, 350);
-                return;
-            } else if (slotCards.length >= 7) {
+
+                    setTimeout(() => {
+                        matchTriple.forEach(c => {
+                            if (c.el.parentNode) c.el.parentNode.removeChild(c.el);
+                            // 从各个数组中移除
+                            let idx = slotCards.indexOf(c);
+                            if (idx > -1) slotCards.splice(idx, 1);
+
+                            idx = shiftCards.indexOf(c);
+                            if (idx > -1) shiftCards.splice(idx, 1);
+
+                            idx = allCards.indexOf(c);
+                            if (idx > -1) allCards.splice(idx, 1);
+
+                            // 清除历史
+                            moveHistory = moveHistory.filter(h => h.card !== c);
+                        });
+
+                        updateSlotUI();
+                        // 移出区也要整理 UI (虽然通常只是静态位置，但如果涉及消除需要移除 DOM)
+                        // 上面 removeChild 已经处理了 visual, 数组也清理了
+
+                        checkWin();
+                        // 继续检查是否还有其他可以消除的
+                        checkMatch();
+                    }, 350);
+                    return;
+                }
+            }
+
+            // 检查失败条件
+            if (slotCards.length >= 7) {
                 gameState = 'lost';
                 playSound('fail');
                 setTimeout(() => {
@@ -1012,17 +1326,21 @@
         }
 
         function updateSlotUI() {
+            // 使用 Flexbox 自动布局，不再进行 absolute 计算
+            // 先按顺序从 DOM 中移除并重新添加以保证顺序
+            slotContainer.innerHTML = '';
             slotCards.forEach((card, i) => {
-                if (card.el.parentNode !== slotContainer) {
-                    slotContainer.appendChild(card.el);
-                }
+                slotContainer.appendChild(card.el);
 
-                card.el.style.zIndex = 1000 + i;
-                const targetX = 14 + i * 61;
-                const targetY = 8;
+                // 清除 absolute 和旧定位
+                card.el.style.position = 'static';
+                card.el.style.left = '';
+                card.el.style.top = '';
+                card.el.style.zIndex = 'auto'; // Flex item z-index
+                card.el.style.transform = 'scale(0.9)'; // 保持 slot 缩放
 
-                card.el.style.left = `${targetX}px`;
-                card.el.style.top = `${targetY}px`;
+                // 移除飞入动画可能残留的 style
+                // 实际上 CSS .in-slot 已经处理了 scale
             });
         }
 
@@ -1082,12 +1400,122 @@
             }
         }
 
+        function onPropShift() {
+            if (slotCards.length === 0) return;
+            // 限制移出区最多3张卡片
+            if (shiftCards.length >= 3) return;
+
+            // 移出前 3 张 (或少于 3 张)，但不能超过剩余容量
+            const remainingCapacity = 3 - shiftCards.length;
+            const count = Math.min(3, slotCards.length, remainingCapacity);
+            if (count <= 0) return;
+
+            const cardsToShift = slotCards.splice(0, count);
+
+            const holder = document.getElementById('shift-holder');
+
+            cardsToShift.forEach(c => {
+                shiftCards.push(c);
+                c.state = 'shifted';
+                c.el.classList.remove('in-slot'); // 移除槽位样式
+
+                holder.appendChild(c.el);
+
+                // 关键修正：重置卡片样式以适应移出区 Flex 布局
+                c.el.style.position = 'static';
+                c.el.style.left = '';
+                c.el.style.top = '';
+                c.el.style.zIndex = 'auto';
+                c.el.style.transform = 'scale(1)'; // 与游戏区卡片大小一致
+                c.el.style.margin = '0 2px';
+            });
+
+            playSound('click');
+            updateSlotUI();
+
+            // 移出后立即检查是否可以消除
+            checkMatch();
+        }
+
+        function onPropUndo() {
+            if (moveHistory.length === 0) return;
+            const lastMove = moveHistory.pop();
+            const card = lastMove.card;
+
+            // 只有当卡片还在槽位中时才能撤回（若已消除则无法撤回，逻辑上已处理）
+            if (card.state !== 'slot') return;
+
+            // 1. 从槽位移除
+            const idx = slotCards.indexOf(card);
+            if (idx > -1) slotCards.splice(idx, 1);
+
+            // 2. 恢复视觉状态
+            card.state = 'stage';
+            card.el.classList.remove('in-slot');
+
+            // 关键修复：必须要把 DOM 移回 game-stage，否则坐标系不对
+            stage.appendChild(card.el);
+
+            // 强制重绘以确保 transition 生效（可选，但通常直接设置 left/top 即可）
+            card.el.style.position = 'absolute';
+            card.el.style.left = lastMove.fromX + 'px';
+            card.el.style.top = lastMove.fromY + 'px';
+            card.el.style.zIndex = lastMove.fromZ;
+            card.el.style.transform = ''; // 清除缩放
+
+            playSound('click'); // 播放音效
+
+            updateSlotUI();
+            checkCover();
+        }
+
+        function onPropShuffle() {
+            // 洗牌：仅重排场上 (state='stage') 的卡片
+            // 警告：洗牌会改变卡片位置，导致如果不立即撤回，之前的撤回历史可能通过坐标还原到错误位置（因为位置被别人占了）
+            // 为了逻辑严谨，洗牌后应该清空撤回历史，或者接受“撤回到原坐标但视觉重叠”的结果
+            // 这里选择清空历史，避免混淆
+            moveHistory = [];
+
+            // 收集场上卡片
+            const stageCards = allCards.filter(c => c.state === 'stage');
+            if (stageCards.length === 0) return;
+
+            // 1. 提取所有位置信息
+            const positions = stageCards.map(c => ({ x: c.x, y: c.y, z: c.z }));
+            // 2. 打乱位置
+            positions.sort(() => Math.random() - 0.5);
+
+            // 3. 重新分配
+            stageCards.forEach((c, i) => {
+                const pos = positions[i];
+                c.x = pos.x;
+                c.y = pos.y;
+                c.z = pos.z;
+                c.el.style.left = pos.x + 'px';
+                c.el.style.top = pos.y + 'px';
+                c.el.style.zIndex = pos.z;
+            });
+
+            playSound('click');
+            checkCover();
+
+            // 视觉反馈：简单的旋转动画
+            stageCards.forEach(c => {
+                c.el.style.transition = 'transform 0.5s';
+                c.el.style.transform = 'scale(1.1)';
+                setTimeout(() => c.el.style.transform = '', 500);
+            });
+        }
+
         function resetGameToLevel1() {
             gameState = 'playing';
             document.getElementById('fail-panel').style.display = 'none';
             document.getElementById('win-panel').style.display = 'none';
             slotCards = [];
-            slotContainer.innerHTML = ''; // 修复：重置时清空槽位 UI
+            shiftCards = []; // 重置移出栈
+            slotContainer.innerHTML = '';
+            // 清空移出区
+            document.getElementById('shift-holder').innerHTML = '';
             initLevel(1);
         }
     </script>
