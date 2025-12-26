@@ -898,6 +898,7 @@
         const BGM_URL = 'https://cdn.jsdelivr.net/gh/colddew/cursor@main/mini-games/sheep.MP3';
 
         let isMutedManually = false;
+        let noteInterval = null; // 音符生成定时器
 
         async function initAudio() {
             try {
@@ -926,10 +927,12 @@
 
                     bgmElement.play().then(() => {
                         document.getElementById('music-btn').classList.add('playing');
+                        startNoteGenerator(); // 启动音符生成
                     }).catch(e => console.warn("Auto-play blocked, waiting for interaction"));
                 } else if (bgmElement.paused) {
                     bgmElement.play();
                     document.getElementById('music-btn').classList.add('playing');
+                    startNoteGenerator(); // 启动音符生成
                 }
             } catch (e) {
                 console.warn('Audio streaming init failed:', e);
@@ -951,12 +954,28 @@
                 isMutedManually = true;
                 document.getElementById('music-btn').classList.remove('playing');
                 panel.classList.add('muted');
+                stopNoteGenerator(); // 停止音符生成
             } else {
                 audioCtx.resume();
                 bgmElement.play();
                 isMutedManually = false;
                 document.getElementById('music-btn').classList.add('playing');
                 panel.classList.remove('muted');
+                startNoteGenerator(); // 启动音符生成
+            }
+        }
+
+        // 启动音符生成定时器
+        function startNoteGenerator() {
+            if (noteInterval) return; // 已经在运行
+            noteInterval = setInterval(spawnMusicNote, 200);
+        }
+
+        // 停止音符生成定时器
+        function stopNoteGenerator() {
+            if (noteInterval) {
+                clearInterval(noteInterval);
+                noteInterval = null;
             }
         }
         // 默认尝试恢复环境
@@ -1017,9 +1036,6 @@
             audioPanel.appendChild(note);
             setTimeout(() => note.remove(), 5000);
         }
-
-        // 每200ms生成一个音符，更频繁
-        setInterval(spawnMusicNote, 200);
 
         function playSound(type) {
             if (isMutedManually) return;
@@ -1200,6 +1216,7 @@
         window.onload = () => {
             initGrass();
             animateGrass(); // 启动视觉循环
+            initAudio(); // 首页自动播放音乐
         };
 
         function startGame() {
