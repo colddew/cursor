@@ -365,6 +365,28 @@
             filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5));
         }
 
+        /* 按钮禁用状态 */
+        .prop-btn.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+            filter: grayscale(0.8);
+        }
+
+        .prop-btn.disabled svg {
+            fill: #888;
+        }
+
+        /* 第一关隐藏道具容器 */
+        .props-container.hidden-in-level1 {
+            display: none;
+        }
+
+        /* 第一关隐藏战术区域 */
+        #tactical-zone.hidden-in-level1 {
+            display: none;
+        }
+
         .card.covered {
             filter: brightness(0.6) grayscale(0.4);
             /* 更明显的置灰 */
@@ -710,9 +732,9 @@
         <div id="footer">
             <div id="slot-container" class="wooden-tray"></div>
 
-            <div class="props-container">
+            <div class="props-container" id="props-container">
                 <!-- 移出 (Shift) -->
-                <div class="prop-btn" onclick="onPropShift()">
+                <div id="prop-shift" class="prop-btn" onclick="onPropShift()">
                     <svg viewBox="0 0 24 24">
                         <path d="M5 11h14v2H5z" display="none" />
                         <!-- 向上箭头 -->
@@ -722,7 +744,7 @@
                 </div>
 
                 <!-- 撤回 (Undo) -->
-                <div class="prop-btn" onclick="onPropUndo()">
+                <div id="prop-undo" class="prop-btn" onclick="onPropUndo()">
                     <svg viewBox="0 0 24 24">
                         <path
                             d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z" />
@@ -731,7 +753,7 @@
                 </div>
 
                 <!-- 洗牌 (Shuffle) -->
-                <div class="prop-btn" onclick="onPropShuffle()">
+                <div id="prop-shuffle" class="prop-btn" onclick="onPropShuffle()">
                     <svg viewBox="0 0 24 24">
                         <path
                             d="M10.59 9.17L5.41 4 4 5.41l5.17 5.17 1.42-1.41zM14.5 4l2.04 2.04L4 18.59 5.41 20 17.96 7.46 20 9.5V4h-5.5zm.33 9.41l-1.41 1.41 3.13 3.13L14.5 20H20v-5.5l-2.04 2.04-3.13-3.13z" />
@@ -1038,6 +1060,16 @@
         let currentLevel = 1;
         let gameState = 'playing'; // 'playing', 'won', 'lost'
 
+        // 每关按钮使用次数追踪
+        let propUsage = {
+            shift: 0,
+            undo: 0,
+            shuffle: 0
+        };
+
+        // 追踪上次操作类型：'click'（卡牌点击）, 'shift'（移出）, 'shuffle'（洗牌）, null（无操作）
+        let lastActionType = null;
+
         const stage = document.getElementById('game-stage');
         const slotContainer = document.getElementById('slot-container');
 
@@ -1058,7 +1090,17 @@
             allCards = [];
             slotCards = [];
             gameState = 'playing';
+            lastActionType = null; // 重置操作类型
             updateSlotUI();
+
+            // 第一关：隐藏道具和临时区
+            if (level === 1) {
+                document.getElementById('props-container').classList.add('hidden-in-level1');
+                document.getElementById('tactical-zone').classList.add('hidden-in-level1');
+            } else {
+                document.getElementById('props-container').classList.remove('hidden-in-level1');
+                document.getElementById('tactical-zone').classList.remove('hidden-in-level1');
+            }
 
             const stageW = stage.clientWidth;
             const stageH = stage.clientHeight;
@@ -1093,8 +1135,8 @@
 
                 const rows = 3;
                 const cols = 3;
-                const gapX = 15; // 卡片水平间距
-                const gapY = 12; // 卡片垂直间距
+                const gapX = 30; // 卡片水平间距（增大）
+                const gapY = 25; // 卡片垂直间距（增大）
 
                 // 计算整个方阵的尺寸
                 const gridWidth = cols * cardWidth + (cols - 1) * gapX;
@@ -1117,7 +1159,7 @@
             } else {
                 // 第二关：侧边盲堆 + 核心金字塔
                 const poolSize = ICONS.length;
-                const totalCards = 180;
+                const totalCards = 144; // 从180改为144
                 const totalGroups = totalCards / 3;
                 let deck = [];
                 for (let i = 0; i < totalGroups; i++) {
@@ -1173,6 +1215,8 @@
                     createCard(icon, x, y, 100 + i);
                 });
             }
+            // 每关重置按钮状态
+            updateButtonStates();
             checkCover();
         }
 
@@ -1258,6 +1302,9 @@
 
             // 检查消除 (包含移出区的卡片)
             checkMatch();
+
+            // 记录操作类型
+            lastActionType = 'click';
         }
 
         function checkMatch() {
@@ -1411,16 +1458,25 @@
         }
 
         function onPropShift() {
+            // 检查按钮是否已使用
+            if (propUsage.shift >= 1) {
+                return;
+            }
+
+            playSound('click');
+
             if (slotCards.length === 0) return;
             // 限制移出区最多3张卡片
             if (shiftCards.length >= 3) return;
 
-            // 移出前 3 张 (或少于 3 张)，但不能超过剩余容量
+            // 移出最后 3 张 (或少于 3 张)，但不能超过剩余容量
             const remainingCapacity = 3 - shiftCards.length;
             const count = Math.min(3, slotCards.length, remainingCapacity);
             if (count <= 0) return;
 
-            const cardsToShift = slotCards.splice(0, count);
+            // 从卡槽末尾移出最后进入的卡片
+            const startIndex = slotCards.length - count;
+            const cardsToShift = slotCards.splice(startIndex, count);
 
             const holder = document.getElementById('shift-holder');
 
@@ -1440,14 +1496,31 @@
                 c.el.style.margin = '0 2px';
             });
 
-            playSound('click');
             updateSlotUI();
 
             // 移出后立即检查是否可以消除
             checkMatch();
+
+            // 记录操作类型
+            lastActionType = 'shift';
+
+            // 标记为已使用
+            propUsage.shift++;
+            updateButtonStates();
         }
 
         function onPropUndo() {
+            // 检查按钮是否已使用
+            if (propUsage.undo >= 1) {
+                return;
+            }
+
+            playSound('click');
+
+            // 只能撤回卡牌点击操作，不能撤回移出或洗牌操作
+            if (lastActionType !== 'click') {
+                return;
+            }
             if (moveHistory.length === 0) return;
             const lastMove = moveHistory.pop();
             const card = lastMove.card;
@@ -1473,13 +1546,22 @@
             card.el.style.zIndex = lastMove.fromZ;
             card.el.style.transform = ''; // 清除缩放
 
-            playSound('click'); // 播放音效
-
             updateSlotUI();
             checkCover();
+
+            // 标记为已使用
+            propUsage.undo++;
+            updateButtonStates();
         }
 
         function onPropShuffle() {
+            // 检查按钮是否已使用
+            if (propUsage.shuffle >= 1) {
+                return;
+            }
+
+            playSound('click');
+
             // 洗牌：重排场上卡片区和堆叠区的卡片（不包括临时区和卡槽区）
             // 警告：洗牌会改变卡片位置，导致如果不立即撤回，之前的撤回历史可能通过坐标还原到错误位置（因为位置被别人占了）
             // 为了逻辑严谨，洗牌后应该清空撤回历史，或者接受"撤回到原坐标但视觉重叠"的结果
@@ -1564,7 +1646,6 @@
                 }
             }
 
-            playSound('click');
             checkCover();
 
             // 视觉反馈：简单的旋转动画
@@ -1573,6 +1654,43 @@
                 c.el.style.transform = 'scale(1.1)';
                 setTimeout(() => c.el.style.transform = '', 500);
             });
+
+            // 记录操作类型
+            lastActionType = 'shuffle';
+
+            // 标记为已使用
+            propUsage.shuffle++;
+            updateButtonStates();
+        }
+
+        function updateButtonStates() {
+            const shiftBtn = document.getElementById('prop-shift');
+            const undoBtn = document.getElementById('prop-undo');
+            const shuffleBtn = document.getElementById('prop-shuffle');
+
+            if (shiftBtn) {
+                if (propUsage.shift >= 1) {
+                    shiftBtn.classList.add('disabled');
+                } else {
+                    shiftBtn.classList.remove('disabled');
+                }
+            }
+
+            if (undoBtn) {
+                if (propUsage.undo >= 1) {
+                    undoBtn.classList.add('disabled');
+                } else {
+                    undoBtn.classList.remove('disabled');
+                }
+            }
+
+            if (shuffleBtn) {
+                if (propUsage.shuffle >= 1) {
+                    shuffleBtn.classList.add('disabled');
+                } else {
+                    shuffleBtn.classList.remove('disabled');
+                }
+            }
         }
 
         function resetGameToLevel1() {
@@ -1584,6 +1702,14 @@
             slotContainer.innerHTML = '';
             // 清空移出区
             document.getElementById('shift-holder').innerHTML = '';
+            // 重置按钮使用次数
+            propUsage = {
+                shift: 0,
+                undo: 0,
+                shuffle: 0
+            };
+            // 重置操作类型
+            lastActionType = null;
             initLevel(1);
         }
     </script>
