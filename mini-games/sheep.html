@@ -240,7 +240,7 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 140%;
+            width: 100%;
             height: 3px;
             background: rgba(230, 230, 230, 0.9);
             transform: translate(-50%, -50%) rotate(45deg);
@@ -477,6 +477,88 @@
                 transform: translate(var(--tx), calc(var(--ty) + 150px)) scale(0);
                 opacity: 0;
             }
+        }
+
+        /* 旋转飞入卡槽动画 - 直接旋飘 */
+        @keyframes spin-fly-in {
+            0% {
+                transform: translate(var(--fly-x), var(--fly-y)) scale(1) rotate(0deg);
+            }
+            100% {
+                transform: translate(0, 0) scale(0.9) rotate(360deg);
+            }
+        }
+
+        .card.flying-to-slot {
+            animation: spin-fly-in 0.2s ease-out;
+            z-index: 1000 !important;
+        }
+
+        /* 旋转飞回原位动画 - 直接旋飘 */
+        @keyframes spin-fly-out {
+            0% {
+                transform: translate(var(--fly-x), var(--fly-y)) scale(0.9) rotate(0deg);
+            }
+            100% {
+                transform: translate(0, 0) scale(1) rotate(-360deg);
+            }
+        }
+
+        .card.flying-back {
+            animation: spin-fly-out 0.2s ease-out;
+            z-index: 1000 !important;
+        }
+
+        /* 移出飘动动画 - 增强版 */
+        @keyframes float-to-shift {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            30% {
+                transform: translateY(-50px) scale(1.1) rotate(-15deg);
+                opacity: 0.9;
+            }
+            60% {
+                transform: translateY(-30px) scale(1.05) rotate(10deg);
+                opacity: 0.95;
+            }
+            100% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .card.floating-to-shift {
+            animation: float-to-shift 0.8s ease-in-out;
+        }
+
+        /* 洗牌动画 */
+        @keyframes shuffle-card {
+            0% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+            25% {
+                transform: scale(0.8) rotate(-180deg);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(0.6) rotate(-360deg);
+                opacity: 0.3;
+            }
+            75% {
+                transform: scale(0.8) rotate(-540deg);
+                opacity: 0.5;
+            }
+            100% {
+                transform: scale(1) rotate(-720deg);
+                opacity: 1;
+            }
+        }
+
+        .card.shuffling {
+            animation: shuffle-card 1s ease-in-out;
         }
 
         #footer {
@@ -1482,14 +1564,52 @@
             // 新卡片插入到最右边（第一张选中的在最左，后选中的依次往右排）
             slotCards.push(card);
 
-            updateSlotUI();
-            checkCover();
+            // 计算飞行轨迹：获取卡片当前位置
+            const startRect = card.el.getBoundingClientRect();
 
-            // 检查消除 (包含移出区的卡片)
-            checkMatch();
+            // 先锁定卡片当前视觉位置，防止 updateSlotUI 导致位置跳变
+            card.el.style.transition = 'none';
+            card.el.style.transform = 'scale(0.9)';
+
+            // 先把卡片添加到卡槽（这会改变它的位置）
+            updateSlotUI();
+
+            // 获取卡槽中的目标位置
+            const endRect = card.el.getBoundingClientRect();
+
+            // 计算位移向量（从起点到终点）
+            const flyX = startRect.left - endRect.left;
+            const flyY = startRect.top - endRect.top;
+
+            // 立即应用偏移，让卡片看起来还在原位置
+            card.el.style.transform = `translate(${flyX}px, ${flyY}px) scale(0.9)`;
+
+            // 强制重绘
+            card.el.offsetHeight;
+
+            // 设置 CSS 变量并播放飞行动画（移除 transform 偏移，飞到卡槽）
+            card.el.style.setProperty('--fly-x', flyX + 'px');
+            card.el.style.setProperty('--fly-y', flyY + 'px');
+            card.el.style.transform = ''; // 清除偏移，开始动画
+            card.el.classList.add('flying-to-slot');
+
+            setTimeout(() => {
+                card.el.classList.remove('flying-to-slot');
+                card.el.style.removeProperty('--fly-x');
+                card.el.style.removeProperty('--fly-y');
+                card.el.style.transition = ''; // 恢复 transition
+            }, 200);
+
+            checkCover();
 
             // 记录操作类型
             lastActionType = 'click';
+
+            // 延迟检查消除，等卡片飞到卡槽后再检查
+            setTimeout(() => {
+                // 检查消除 (包含移出区的卡片)
+                checkMatch();
+            }, 200);
         }
 
         function checkMatch() {
@@ -1537,6 +1657,9 @@
                         updateSlotUI();
                         // 移出区也要整理 UI (虽然通常只是静态位置，但如果涉及消除需要移除 DOM)
                         // 上面 removeChild 已经处理了 visual, 数组也清理了
+
+                        // 合成后重置操作类型，让撤回按钮失效
+                        lastActionType = null;
 
                         checkWin();
                         // 继续检查是否还有其他可以消除的
@@ -1679,6 +1802,12 @@
                 c.el.style.zIndex = 'auto';
                 c.el.style.transform = 'scale(1)'; // 与游戏区卡片大小一致
                 c.el.style.margin = '0 2px';
+
+                // 添加飘动动画
+                c.el.classList.add('floating-to-shift');
+                setTimeout(() => {
+                    c.el.classList.remove('floating-to-shift');
+                }, 800);
             });
 
             updateSlotUI();
@@ -1712,6 +1841,13 @@
 
             // 只有当卡片还在槽位中时才能撤回（若已消除则无法撤回，逻辑上已处理）
             if (card.state !== 'slot') return;
+
+            // 计算飞行轨迹：获取卡片当前在卡槽中的位置
+            const startRect = card.el.getBoundingClientRect();
+
+            // 先锁定卡片当前视觉位置，防止后续 DOM 操作导致位置跳变
+            card.el.style.transition = 'none';
+            card.el.style.transform = 'scale(1)';
 
             // 从槽位移除
             const idx = slotCards.indexOf(card);
@@ -1758,7 +1894,35 @@
             }
 
             updateSlotUI();
+
+            // 获取目标位置
+            const endRect = card.el.getBoundingClientRect();
+
+            // 计算位移向量（从起点到终点）
+            const flyX = startRect.left - endRect.left;
+            const flyY = startRect.top - endRect.top;
+
+            // 立即应用偏移，让卡片看起来还在卡槽位置
+            card.el.style.transform = `translate(${flyX}px, ${flyY}px) scale(1)`;
+
+            // 强制重绘
+            card.el.offsetHeight;
+
+            // 设置 CSS 变量并播放飞回动画（移除 transform 偏移，飞回原位）
+            card.el.style.setProperty('--fly-x', flyX + 'px');
+            card.el.style.setProperty('--fly-y', flyY + 'px');
+            card.el.style.transform = ''; // 清除偏移，开始动画
+            card.el.classList.add('flying-back');
+
             checkCover();
+
+            // 动画结束后移除类
+            setTimeout(() => {
+                card.el.classList.remove('flying-back');
+                card.el.style.removeProperty('--fly-x');
+                card.el.style.removeProperty('--fly-y');
+                card.el.style.transition = ''; // 恢复 transition
+            }, 200);
 
             // 标记为已使用
             propUsage.undo++;
@@ -1786,88 +1950,95 @@
             const stageCards = allCards.filter(c => c.state === 'stage' || c.state === 'side-stack');
             if (stageCards.length === 0) return;
 
-            // 分离卡片区和堆叠区的卡片
-            const areaCards = stageCards.filter(c => c.state === 'stage');
-            const stackCards = stageCards.filter(c => c.state === 'side-stack');
-
-            // 打乱卡片区卡片的位置
-            if (areaCards.length > 0) {
-                const positions = areaCards.map(c => ({ x: c.x, y: c.y, z: c.z }));
-                positions.sort(() => Math.random() - 0.5);
-                areaCards.forEach((c, i) => {
-                    const pos = positions[i];
-                    c.x = pos.x;
-                    c.y = pos.y;
-                    c.z = pos.z;
-                    c.el.style.left = pos.x + 'px';
-                    c.el.style.top = pos.y + 'px';
-                    c.el.style.zIndex = pos.z;
-                });
-            }
-
-            // 打乱堆叠区卡片：清空后重新创建，保持样式一致
-            if (stackCards.length > 0) {
-                // 分离左右堆叠区的卡片
-                const leftStackCards = stackCards.filter(c => {
-                    const container = c.el.parentElement;
-                    return container && container.id === 'side-stack-left';
-                });
-                const rightStackCards = stackCards.filter(c => {
-                    const container = c.el.parentElement;
-                    return container && container.id === 'side-stack-right';
-                });
-
-                // 处理左侧堆叠区
-                if (leftStackCards.length > 0) {
-                    const leftContainer = document.getElementById('side-stack-left');
-                    const icons = leftStackCards.map(c => c.icon);
-                    // 从 allCards 中移除旧的堆叠区卡片
-                    leftStackCards.forEach(c => {
-                        const idx = allCards.indexOf(c);
-                        if (idx > -1) allCards.splice(idx, 1);
-                    });
-                    // 清空容器
-                    leftContainer.innerHTML = '';
-                    // 打乱图标顺序
-                    icons.sort(() => Math.random() - 0.5);
-                    // 重新创建卡片（使用原有的偏移逻辑）
-                    const sideStackCount = icons.length;
-                    icons.forEach((icon, i) => {
-                        const offsetX = -(sideStackCount - 1 - i) * 6;
-                        createCard(icon, offsetX, 0, 600 + i, leftContainer, i);
-                    });
-                }
-
-                // 处理右侧堆叠区
-                if (rightStackCards.length > 0) {
-                    const rightContainer = document.getElementById('side-stack-right');
-                    const icons = rightStackCards.map(c => c.icon);
-                    // 从 allCards 中移除旧的堆叠区卡片
-                    rightStackCards.forEach(c => {
-                        const idx = allCards.indexOf(c);
-                        if (idx > -1) allCards.splice(idx, 1);
-                    });
-                    // 清空容器
-                    rightContainer.innerHTML = '';
-                    // 打乱图标顺序
-                    icons.sort(() => Math.random() - 0.5);
-                    // 重新创建卡片（使用原有的偏移逻辑）
-                    const sideStackCount = icons.length;
-                    icons.forEach((icon, i) => {
-                        const offsetX = (sideStackCount - 1 - i) * 6;
-                        createCard(icon, offsetX, 0, 600 + i, rightContainer, i);
-                    });
-                }
-            }
-
-            checkCover();
-
-            // 视觉反馈：简单的旋转动画
+            // 先播放洗牌动画（持续2秒）
             stageCards.forEach(c => {
-                c.el.style.transition = 'transform 0.5s';
-                c.el.style.transform = 'scale(1.1)';
-                setTimeout(() => c.el.style.transform = '', 500);
+                c.el.classList.add('shuffling');
             });
+
+            // 2秒后更新实际位置并移除动画类
+            setTimeout(() => {
+                // 分离卡片区和堆叠区的卡片
+                const areaCards = stageCards.filter(c => c.state === 'stage');
+                const stackCards = stageCards.filter(c => c.state === 'side-stack');
+
+                // 打乱卡片区卡片的位置
+                if (areaCards.length > 0) {
+                    const positions = areaCards.map(c => ({ x: c.x, y: c.y, z: c.z }));
+                    positions.sort(() => Math.random() - 0.5);
+                    areaCards.forEach((c, i) => {
+                        const pos = positions[i];
+                        c.x = pos.x;
+                        c.y = pos.y;
+                        c.z = pos.z;
+                        c.el.style.left = pos.x + 'px';
+                        c.el.style.top = pos.y + 'px';
+                        c.el.style.zIndex = pos.z;
+                    });
+                }
+
+                // 打乱堆叠区卡片：清空后重新创建，保持样式一致
+                if (stackCards.length > 0) {
+                    // 分离左右堆叠区的卡片
+                    const leftStackCards = stackCards.filter(c => {
+                        const container = c.el.parentElement;
+                        return container && container.id === 'side-stack-left';
+                    });
+                    const rightStackCards = stackCards.filter(c => {
+                        const container = c.el.parentElement;
+                        return container && container.id === 'side-stack-right';
+                    });
+
+                    // 处理左侧堆叠区
+                    if (leftStackCards.length > 0) {
+                        const leftContainer = document.getElementById('side-stack-left');
+                        const icons = leftStackCards.map(c => c.icon);
+                        // 从 allCards 中移除旧的堆叠区卡片
+                        leftStackCards.forEach(c => {
+                            const idx = allCards.indexOf(c);
+                            if (idx > -1) allCards.splice(idx, 1);
+                        });
+                        // 清空容器
+                        leftContainer.innerHTML = '';
+                        // 打乱图标顺序
+                        icons.sort(() => Math.random() - 0.5);
+                        // 重新创建卡片（使用原有的偏移逻辑）
+                        const sideStackCount = icons.length;
+                        icons.forEach((icon, i) => {
+                            const offsetX = -(sideStackCount - 1 - i) * 6;
+                            createCard(icon, offsetX, 0, 600 + i, leftContainer, i);
+                        });
+                    }
+
+                    // 处理右侧堆叠区
+                    if (rightStackCards.length > 0) {
+                        const rightContainer = document.getElementById('side-stack-right');
+                        const icons = rightStackCards.map(c => c.icon);
+                        // 从 allCards 中移除旧的堆叠区卡片
+                        rightStackCards.forEach(c => {
+                            const idx = allCards.indexOf(c);
+                            if (idx > -1) allCards.splice(idx, 1);
+                        });
+                        // 清空容器
+                        rightContainer.innerHTML = '';
+                        // 打乱图标顺序
+                        icons.sort(() => Math.random() - 0.5);
+                        // 重新创建卡片（使用原有的偏移逻辑）
+                        const sideStackCount = icons.length;
+                        icons.forEach((icon, i) => {
+                            const offsetX = (sideStackCount - 1 - i) * 6;
+                            createCard(icon, offsetX, 0, 600 + i, rightContainer, i);
+                        });
+                    }
+                }
+
+                checkCover();
+
+                // 移除洗牌动画类
+                allCards.filter(c => c.el.classList.contains('shuffling')).forEach(c => {
+                    c.el.classList.remove('shuffling');
+                });
+
+            }, 1000);
 
             // 记录操作类型
             lastActionType = 'shuffle';
