@@ -1601,8 +1601,8 @@
                 const container = card.el.parentElement;
                 if (container) {
                     historyEntry.fromContainer = container.id; // 'side-stack-left' 或 'side-stack-right'
-                    // 从 z-index 反推 stackIndex: z = 200 + stackIndex
-                    historyEntry.fromStackIndex = card.z - 200;
+                    // 直接保存当前的实际偏移值，避免重新计算
+                    historyEntry.fromOffsetX = parseFloat(card.el.style.left);
                 }
             }
 
@@ -1939,21 +1939,10 @@
                     card.state = 'side-stack';
                     container.appendChild(card.el);
 
-                    // 计算当前堆叠区卡片数量来确定偏移
-                    const sideStackCount = 18; // 原始堆叠区大小
-                    const stackIndex = lastMove.fromStackIndex;
-
-                    // 根据左右堆叠计算偏移
-                    let offsetX;
-                    if (lastMove.fromContainer === 'side-stack-left') {
-                        offsetX = -(sideStackCount - 1 - stackIndex) * 6;
-                    } else {
-                        offsetX = (sideStackCount - 1 - stackIndex) * 6;
-                    }
-
+                    // 直接使用保存的偏移值，不重新计算
                     card.el.style.position = 'absolute';
                     card.el.style.top = '0';
-                    card.el.style.left = offsetX + 'px';
+                    card.el.style.left = lastMove.fromOffsetX + 'px';
                     card.el.style.zIndex = lastMove.fromZ;
                     card.el.style.transform = '';
                 }
