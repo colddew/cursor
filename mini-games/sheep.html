@@ -967,6 +967,16 @@
         <div class="btn" onclick="startLevel2()">挑战第二关</div>
     </div>
 
+    <div id="win-level2-panel" class="overlay" style="display:none">
+        <div class="text-6xl mb-4">🎉</div>
+        <h1 class="text-3xl font-bold">恭喜通关第二关！</h1>
+        <p class="mt-2 text-yellow-400">你太厉害了！简直是天才！</p>
+        <div class="flex gap-4 mt-6">
+            <div class="btn" onclick="resetGameToLevel1()">返回首页</div>
+            <div class="btn" onclick="playLevel2Again()">再玩一次</div>
+        </div>
+    </div>
+
     <div id="fail-panel" class="overlay" style="display:none">
         <div class="text-6xl mb-4">🍖</div>
         <h1 class="text-3xl font-bold">槽位满了！</h1>
@@ -1685,7 +1695,28 @@
                 if (currentLevel === 1) {
                     document.getElementById('win-panel').style.display = 'flex';
                 } else {
-                    alert("🎉 奇迹！你通过了第二关！");
+                    // 第二关通关：显示面板 + 烟花效果
+                    document.getElementById('win-level2-panel').style.display = 'flex';
+                    playSound('win');
+
+                    // 播放烟花效果
+                    const viewportWidth = window.innerWidth;
+                    const viewportHeight = window.innerHeight;
+
+                    // 在屏幕多个位置同时放烟花
+                    const fireworkPositions = [
+                        { x: viewportWidth * 0.3, y: viewportHeight * 0.4 },
+                        { x: viewportWidth * 0.7, y: viewportHeight * 0.4 },
+                        { x: viewportWidth * 0.5, y: viewportHeight * 0.3 },
+                        { x: viewportWidth * 0.2, y: viewportHeight * 0.6 },
+                        { x: viewportWidth * 0.8, y: viewportHeight * 0.6 }
+                    ];
+
+                    fireworkPositions.forEach((pos, i) => {
+                        setTimeout(() => {
+                            createFirework(pos.x, pos.y);
+                        }, i * 300);
+                    });
                 }
             }
         }
@@ -1730,6 +1761,11 @@
 
         function startLevel2() {
             document.getElementById('win-panel').style.display = 'none';
+            initLevel(2);
+        }
+
+        function playLevel2Again() {
+            document.getElementById('win-level2-panel').style.display = 'none';
             initLevel(2);
         }
 
@@ -2085,6 +2121,7 @@
             gameState = 'playing';
             document.getElementById('fail-panel').style.display = 'none';
             document.getElementById('win-panel').style.display = 'none';
+            document.getElementById('win-level2-panel').style.display = 'none';
             slotCards = [];
             shiftCards = []; // 重置移出栈
             slotContainer.innerHTML = '';
