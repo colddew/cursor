@@ -127,6 +127,7 @@
                 transform: scale(1);
                 opacity: 1;
             }
+
             100% {
                 transform: translate(var(--tx), var(--ty)) scale(0.2) rotate(var(--rot));
                 opacity: 0;
@@ -322,7 +323,8 @@
             position: absolute;
             top: 0;
             margin: 0 !important;
-            pointer-events: auto; /* 允许卡片被点击 */
+            pointer-events: auto;
+            /* 允许卡片被点击 */
         }
 
         /* 移出缓冲区 (Shift Holder) - 战术中间层 */
@@ -484,6 +486,7 @@
             0% {
                 transform: translate(var(--fly-x), var(--fly-y)) scale(1) rotate(0deg);
             }
+
             100% {
                 transform: translate(0, 0) scale(0.9) rotate(360deg);
             }
@@ -499,6 +502,7 @@
             0% {
                 transform: translate(var(--fly-x), var(--fly-y)) scale(0.9) rotate(0deg);
             }
+
             100% {
                 transform: translate(0, 0) scale(1) rotate(-360deg);
             }
@@ -515,14 +519,17 @@
                 transform: translateY(0) scale(1) rotate(0deg);
                 opacity: 1;
             }
+
             30% {
                 transform: translateY(-50px) scale(1.1) rotate(-15deg);
                 opacity: 0.9;
             }
+
             60% {
                 transform: translateY(-30px) scale(1.05) rotate(10deg);
                 opacity: 0.95;
             }
+
             100% {
                 transform: translateY(0) scale(1) rotate(0deg);
                 opacity: 1;
@@ -539,18 +546,22 @@
                 transform: scale(1) rotate(0deg);
                 opacity: 1;
             }
+
             25% {
                 transform: scale(0.8) rotate(-180deg);
                 opacity: 0.5;
             }
+
             50% {
                 transform: scale(0.6) rotate(-360deg);
                 opacity: 0.3;
             }
+
             75% {
                 transform: scale(0.8) rotate(-540deg);
                 opacity: 0.5;
             }
+
             100% {
                 transform: scale(1) rotate(-720deg);
                 opacity: 1;
@@ -585,7 +596,8 @@
             border-radius: 18px;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* 卡片从左边开始排列 */
+            justify-content: flex-start;
+            /* 卡片从左边开始排列 */
             padding: 0 12px;
             gap: 2px;
             position: relative;
@@ -652,9 +664,12 @@
 
         /* 皇冠跳动动画 */
         @keyframes crown-bounce {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: translateY(0) scale(1);
             }
+
             50% {
                 transform: translateY(-20px) scale(1.1);
             }
@@ -701,7 +716,8 @@
             pointer-events: none;
         }
 
-        #title-wrapper, #slogan-wrapper {
+        #title-wrapper,
+        #slogan-wrapper {
             pointer-events: auto;
         }
 
@@ -956,15 +972,18 @@
         </div>
 
         <!-- 居中容器 -->
-        <div id="title-slogan-container" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -55%);">
+        <div id="title-slogan-container"
+            style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -55%);">
             <div id="title-wrapper" style="transition: transform 0.05s ease-out; padding-bottom: 25px;">
                 <h1 class="text-9xl font-black text-center"
                     style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); transform: scale(0.718); font-style: italic;">
                     羊了个羊</h1>
             </div>
-            <div id="slogan-wrapper" class="relative" style="transition: transform 0.05s ease-out; padding-bottom: 70px;">
+            <div id="slogan-wrapper" class="relative"
+                style="transition: transform 0.05s ease-out; padding-bottom: 70px;">
                 <p class="text-4xl font-bold tracking-widest shimmer"
-                    style="color: transparent; -webkit-background-clip: text; background-clip: text; transform: scale(0.628);">每天一次动次打次</p>
+                    style="color: transparent; -webkit-background-clip: text; background-clip: text; transform: scale(0.628);">
+                    每天一次动次打次</p>
             </div>
             <!-- 按钮放在标题slogan下面 -->
             <div id="btn-wrapper">
@@ -987,16 +1006,15 @@
     </div>
 
     <div id="win-level2-panel" class="overlay" style="display:none">
-        <div class="text-6xl mb-4 crown-animate" style="transform: scale(3);">👑</div>
+        <div class="text-6xl mb-12 crown-animate">👑</div>
         <h1 class="text-3xl font-black mb-4"
-            style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transform: scale(3);">
-            恭喜通关第二关！
+            style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
+            通关第二关！
         </h1>
         <p class="mt-2 text-xl font-black shimmer">
-            你真是消消乐天选之子...
+            你真是羊了个羊天选之子...
         </p>
-        <div class="btn" onclick="resetGameToLevel1()">返回首页</div>
-        <div class="btn" onclick="playLevel2Again()">再玩一次</div>
+        <div class="btn" onclick="resetGameToLevel1()">再来一次</div>
     </div>
 
     <div id="fail-panel" class="overlay" style="display:none">
