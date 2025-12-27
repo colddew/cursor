@@ -1377,6 +1377,10 @@
         let currentLevel = 1;
         let gameState = 'playing'; // 'playing', 'won', 'lost'
 
+        // 预计算的第二关可解布局（异步计算）
+        let precomputedLevel2Layout = null;
+        let isComputingLevel2 = false;
+
         // 每关按钮使用次数追踪
         let propUsage = {
             shift: 0,
@@ -1436,6 +1440,325 @@
             const slotCount = allCards.filter(c => c.state === 'slot').length;
             const shiftedCount = allCards.filter(c => c.state === 'shifted').length;
             console.log(`[${context}] 区域分布: 卡片区${stageCount} + 堆叠区${stackCount} + 卡槽区${slotCount} + 移出区${shiftedCount} = 总数${total}`);
+        }
+
+        // ==================== 第二关可解性支持 ====================
+
+        // 生成第二关布局（返回纯数据，不操作 DOM）
+        function generateLevel2Layout() {
+            const poolSize = ICONS.length;
+            const totalCards = 144;
+            const totalGroups = totalCards / 3;
+
+            // 生成卡牌 - 使用轮询方式打散图标分布
+            let deck = [];
+            for (let round = 0; round < 3; round++) {
+                for (let i = 0; i < totalGroups; i++) {
+                    const icon = ICONS[i % poolSize];
+                    deck.push(icon);
+                }
+            }
+            deck.sort(() => Math.random() - 0.5);
+
+            // 分配到盲堆和金字塔区
+            const sideStackCount = 18;
+            const leftStack = deck.splice(0, sideStackCount);
+            const rightStack = deck.splice(0, sideStackCount);
+            const pyramidCards = deck;
+
+            // 生成布局数据（不创建 DOM）
+            const stageW = window.innerWidth;
+            const cardWidth = 52, cardHeight = 62;
+
+            // 左盲堆
+            const leftCards = leftStack.map((icon, i) => ({
+                icon,
+                x: -(sideStackCount - 1 - i) * 6,
+                y: 0,
+                z: 200 + i,
+                state: 'side-stack',
+                stackIndex: i,
+                container: 'left'
+            }));
+
+            // 右盲堆
+            const rightCards = rightStack.map((icon, i) => ({
+                icon,
+                x: (sideStackCount - 1 - i) * 6,
+                y: 0,
+                z: 200 + i,
+                state: 'side-stack',
+                stackIndex: i,
+                container: 'right'
+            }));
+
+            // 金字塔区 - 左右铺开到屏幕宽度的 3/5
+            const pyWidth = stageW * 0.6; // 3/5 屏幕宽度
+            const pyMinX = (stageW - pyWidth) / 2;
+            const viewportHeight = window.innerHeight;
+            const tacticalZoneTop = viewportHeight - 220 - cardHeight;
+            const pyTopY = 60;
+            const pyMaxY = tacticalZoneTop - cardHeight - 30;
+
+            // 使用更大的 zIndex 随机性来增加堆叠
+            const shuffledIndices = Array.from({ length: pyramidCards.length }, (_, i) => i);
+            shuffledIndices.sort(() => Math.random() - 0.5);
+
+            const pyramidAreaCards = pyramidCards.map((icon, i) => {
+                const zIndex = 100 + shuffledIndices[i]; // 随机 zIndex 增加堆叠
+                return {
+                    icon,
+                    x: pyMinX + Math.random() * pyWidth,
+                    y: pyTopY + Math.random() * (pyMaxY - pyTopY),
+                    z: zIndex,
+                    state: 'stage'
+                };
+            });
+
+            return {
+                cards: [...leftCards, ...rightCards, ...pyramidAreaCards],
+                leftStack,
+                rightStack
+            };
+        }
+
+        // 带回溯的求解器
+        function isSolvable(cards) {
+            // 深拷贝卡牌状态
+            let simCards = cards.map(c => ({
+                icon: c.icon,
+                x: c.x,
+                y: c.y,
+                z: c.z,
+                state: c.state,
+                covered: false,
+                stackIndex: c.stackIndex,
+                container: c.container,
+                removed: false
+            }));
+
+            // 计算覆盖关系
+            function calculateCovered() {
+                for (let c1 of simCards) {
+                    if (c1.state !== 'stage') continue;
+                    for (let c2 of simCards) {
+                        if (c2.state !== 'stage' || c2.z <= c1.z || c2.removed) continue;
+                        const overlapX = Math.abs(c1.x - c2.x) < 58;
+                        const overlapY = Math.abs(c1.y - c2.y) < 70;
+                        if (overlapX && overlapY) {
+                            c1.covered = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            calculateCovered();
+
+            // 获取可点击卡牌（考虑已移除状态）
+            function getClickable() {
+                const result = [];
+                for (let c of simCards) {
+                    if (c.removed) continue;
+                    if (c.state !== 'stage' && c.state !== 'side-stack') continue;
+                    if (c.covered) continue;
+
+                    // 盲堆只取最上面的（stackIndex 最大）
+                    if (c.state === 'side-stack') {
+                        const maxStackIndex = Math.max(...simCards
+                            .filter(s => s.state === 'side-stack' && s.container === c.container && !s.removed)
+                            .map(s => s.stackIndex ?? 0));
+                        if ((c.stackIndex ?? 0) < maxStackIndex) continue;
+                    }
+                    result.push(c);
+                }
+                return result;
+            }
+
+            // 统计剩余卡片数量
+            function getRemainingCount() {
+                return simCards.filter(c => !c.removed).length;
+            }
+
+            // 带剪枝的回溯搜索 - 增加搜索能力以处理更难的布局
+            let iterations = 0;
+            const MAX_ITERATIONS = 20000; // 增加迭代次数
+
+            function solve(slot = [], depth = 0) {
+                if (++iterations > MAX_ITERATIONS) return false;
+                if (getRemainingCount() === 0) return true;
+                if (depth > 150) return false; // 增加递归深度限制
+
+                const clickable = getClickable();
+                if (clickable.length === 0) return false;
+
+                // 按优先级排序：优先选择卡槽中已有的类型
+                clickable.sort((a, b) => {
+                    const countA = slot.filter(c => c.icon === a.icon).length;
+                    const countB = slot.filter(c => c.icon === b.icon).length;
+                    return countB - countA;
+                });
+
+                // 尝试每个可点击卡牌（增加分支数以探索更多可能）
+                for (let card of clickable.slice(0, 8)) {
+                    // 标记为已移除
+                    card.removed = true;
+                    const newSlot = [...slot, card];
+
+                    const matchCount = newSlot.filter(c => c.icon === card.icon).length;
+
+                    if (matchCount >= 3) {
+                        // 消除：移除所有同类型的卡片（最多3张）
+                        let removedTotal = matchCount;
+                        for (let c of simCards) {
+                            if (c.icon === card.icon && !c.removed) {
+                                c.removed = true;
+                                removedTotal++;
+                                if (removedTotal >= 3) break;
+                            }
+                        }
+                        // 从 slot 中移除已消除的卡片
+                        const finalSlot = newSlot.filter(c => c.icon !== card.icon);
+                        if (solve(finalSlot, depth + 1)) return true;
+                        // 回溯
+                        for (let c of simCards) {
+                            if (c.icon === card.icon) c.removed = false;
+                        }
+                    } else if (newSlot.length < 7) {
+                        if (solve(newSlot, depth + 1)) return true;
+                    }
+                    // 回溯
+                    card.removed = false;
+                }
+                return false;
+            }
+
+            return solve();
+        }
+
+        // 启动异步预计算
+        // 异步预计算已禁用 - 会阻塞主线程导致第一关卡顿
+        // 第二关将在进入时同步生成（最多3次重试），然后降级到预设布局
+        function startPrecomputeLevel2() {
+            // 不再执行预计算，避免性能问题
+            console.log('[预计算] 已禁用，将在进入第二关时按需生成');
+        }
+
+        // 从布局数据创建第二关卡片
+        function createLevel2FromLayout(layout) {
+            const leftContainer = document.getElementById('side-stack-left');
+            const rightContainer = document.getElementById('side-stack-right');
+
+            layout.cards.forEach(cardData => {
+                const container = cardData.container === 'left' ? leftContainer :
+                                 cardData.container === 'right' ? rightContainer : null;
+                createCard(cardData.icon, cardData.x, cardData.y, cardData.z, container, cardData.stackIndex);
+            });
+        }
+
+        // 获取预设可解布局
+        function getPresetLevel2Layout() {
+            const ICONS = ['🍎', '🍓', '🥕', '🌽', '🍇', '🍄', '🌳', '🧶', '🔔', '🥛', '🔥', '🧱', '🥦', '🍉', '🥨', '🍰'];
+            const sideStackCount = 18;
+
+            // 总共 144 张牌 = 48 组（每组 3 张）
+            // 盲堆 36 张 = 12 组
+            // 金字塔区 108 张 = 36 组
+            // 每种图标：48 组 / 16 种 = 3 组 = 9 张
+
+            // 盲堆分配：36 张 = 18 左 + 18 右
+            // 16 种图标，每种左右各 1 张 = 32 张，还差 4 张
+            // 左边加 2 张（ICONS[0], ICONS[1]），右边加 2 张（ICONS[2], ICONS[3]）
+
+            let leftStack = [];
+            let rightStack = [];
+
+            // 每种图标左右各 1 张
+            ICONS.forEach(icon => {
+                leftStack.push(icon);
+                rightStack.push(icon);
+            });
+
+            // 补满到 36 张
+            leftStack.push(ICONS[0], ICONS[1]);
+            rightStack.push(ICONS[2], ICONS[3]);
+
+            // 创建金字塔区：每种图标共 9 张，减去盲堆中的数量
+            // 使用轮询方式生成，避免相同图标聚集
+            let pyramidCards = [];
+
+            // 前 4 种图标：盲堆中各 3 张，金字塔区 6 张
+            // 其余 12 种图标：盲堆中各 2 张，金字塔区 7 张
+            // 轮询生成：每种图标每次添加 1 张，循环直到完成
+            const iconCounts = Array(16).fill(7); // 默认 7 张
+            for (let i = 0; i < 4; i++) iconCounts[i] = 6; // 前 4 种 6 张
+
+            let allDone = false;
+            while (!allDone) {
+                allDone = true;
+                for (let i = 0; i < ICONS.length; i++) {
+                    if (iconCounts[i] > 0) {
+                        pyramidCards.push(ICONS[i]);
+                        iconCounts[i]--;
+                        allDone = false;
+                    }
+                }
+            }
+
+            // 验证总数
+            const total = leftStack.length + rightStack.length + pyramidCards.length;
+            console.assert(total === 144, `预设布局总数错误: ${total}, 应该是 144`);
+
+            const stageW = window.innerWidth;
+            const cardWidth = 52, cardHeight = 62;
+            const pyWidth = stageW * 0.6; // 3/5 屏幕宽度
+            const pyMinX = (stageW - pyWidth) / 2;
+            const viewportHeight = window.innerHeight;
+            const tacticalZoneTop = viewportHeight - 220 - cardHeight;
+            const pyTopY = 60;
+            const pyMaxY = tacticalZoneTop - cardHeight - 30;
+
+            // 左盲堆
+            const leftCards = leftStack.map((icon, i) => ({
+                icon,
+                x: -(sideStackCount - 1 - i) * 6,
+                y: 0,
+                z: 200 + i,
+                state: 'side-stack',
+                stackIndex: i,
+                container: 'left'
+            }));
+
+            // 右盲堆
+            const rightCards = rightStack.map((icon, i) => ({
+                icon,
+                x: (sideStackCount - 1 - i) * 6,
+                y: 0,
+                z: 200 + i,
+                state: 'side-stack',
+                stackIndex: i,
+                container: 'right'
+            }));
+
+            // 金字塔区 - 增加难度：使用随机 zIndex 增加堆叠
+            const shuffledIndices = Array.from({ length: pyramidCards.length }, (_, i) => i);
+            shuffledIndices.sort(() => Math.random() - 0.5);
+
+            const pyramidAreaCards = pyramidCards.map((icon, i) => {
+                // 分层但增加随机混乱度
+                const layer = Math.floor(i / (pyramidCards.length / 3));
+                const layerY = pyTopY + layer * ((pyMaxY - pyTopY) / 3);
+                const y = layerY + Math.random() * 30; // 增加随机范围
+                const x = pyMinX + Math.random() * pyWidth;
+                const z = 100 + shuffledIndices[i]; // 随机 zIndex 增加堆叠
+                return { icon, x, y, z, state: 'stage' };
+            });
+
+            return {
+                cards: [...leftCards, ...rightCards, ...pyramidAreaCards],
+                leftStack,
+                rightStack
+            };
         }
 
         function initLevel(level) {
@@ -1511,64 +1834,46 @@
                     createCard(icon, x, y, i);
                 });
 
+                // 不再预计算第二关，避免第一关卡顿
+
             } else {
-                // 第二关：侧边盲堆 + 核心金字塔
-                const poolSize = ICONS.length;
-                const totalCards = 144; // 从180改为144
-                const totalGroups = totalCards / 3;
-                let deck = [];
-                for (let i = 0; i < totalGroups; i++) {
-                    const icon = ICONS[i % poolSize];
-                    deck.push(icon, icon, icon);
+                // 第二关：使用预计算布局或同步生成
+                let layout;
+
+                try {
+                    // 优先使用预计算的布局
+                    if (precomputedLevel2Layout) {
+                        layout = precomputedLevel2Layout;
+                        console.log('[第二关] 使用预计算布局');
+                    } else {
+                        // 同步生成（最多 3 次）
+                        let attempts = 0;
+                        while (attempts < 3) {
+                            layout = generateLevel2Layout();
+                            if (isSolvable(layout.cards)) {
+                                console.log(`[第二关] 第 ${attempts + 1} 次生成成功`);
+                                break;
+                            }
+                            attempts++;
+                        }
+
+                        if (attempts >= 3) {
+                            layout = getPresetLevel2Layout();
+                            console.log('[第二关] 使用预设布局');
+                        }
+                    }
+
+                    // 使用布局数据创建实际的 DOM 卡片
+                    createLevel2FromLayout(layout);
+
+                } catch (e) {
+                    console.error('[第二关] 初始化出错，使用预设布局:', e);
+                    layout = getPresetLevel2Layout();
+                    createLevel2FromLayout(layout);
                 }
-                deck.sort(() => Math.random() - 0.5);
 
-                const centerX = stageW / 2;
-                const shiftZoneHalfWidth = 120; // 中间留给移出区的宽度/2
-
-                const sideStackCount = 18;
-                const leftStack = deck.splice(0, sideStackCount);
-                const rightStack = deck.splice(0, sideStackCount);
-
-                // 获取侧边盲堆容器
-                const leftStackContainer = document.getElementById('side-stack-left');
-                const rightStackContainer = document.getElementById('side-stack-right');
-
-                // 左侧盲堆：从右向左水平堆叠，只显示最右边（靠近中间）的卡片
-                leftStack.forEach((icon, i) => {
-                    // 越后面的卡片向左偏移，形成堆叠效果
-                    const offsetX = -(sideStackCount - 1 - i) * 6;
-                    createCard(icon, offsetX, 0, 200 + i, leftStackContainer, i);
-                });
-
-                // 右侧盲堆：向右伸展，左边压右边，显示最左边的卡牌
-                rightStack.forEach((icon, i) => {
-                    // 正偏移，向右伸展
-                    // offset 从 102（远离中间）到 0（靠近中间）
-                    const offsetX = (sideStackCount - 1 - i) * 6;
-                    // z-index 正常：i 越大越靠近中间，zIndex 越高，显示最左边的卡牌
-                    createCard(icon, offsetX, 0, 200 + i, rightStackContainer, i);
-                });
-
-                // 金字塔区域（主卡片区）
-                const pyWidth = stageW * 0.5; // 宽度，让卡片水平方向分散
-                const pyMinX = (stageW - pyWidth) / 2;
-
-                // tactical-zone: position: absolute; bottom: 220px; height: cardHeight
-                // tactical-zone 相对于 game-container (视口) 定位
-                // tactical-zone 顶部位置（视口坐标）= 视口高度 - 220 - cardHeight
-                // 卡片坐标是相对于 game-stage 的，game-stage 从视口顶部开始
-                const viewportHeight = window.innerHeight;
-                const tacticalZoneTop = viewportHeight - 220 - cardHeight;
-                const pyTopY = 60; // 从 60px 开始
-                const pyMaxY = tacticalZoneTop - cardHeight - 30; // 卡片顶部最大值，离临时区留30px间距
-
-                deck.forEach((icon, i) => {
-                    const x = pyMinX + Math.random() * pyWidth;
-                    // 卡牌在整个可用高度范围内随机分布
-                    const y = pyTopY + Math.random() * (pyMaxY - pyTopY);
-                    createCard(icon, x, y, 100 + i);
-                });
+                // 重置预计算（为下次准备）
+                precomputedLevel2Layout = null;
             }
             // 每关重置按钮状态
             updateButtonStates();
@@ -1826,6 +2131,7 @@
         }
 
         function checkCover() {
+            // 处理卡片区（stage）的覆盖逻辑
             allCards.forEach(c1 => {
                 if (c1.state !== 'stage') return;
                 let isCovered = false;
@@ -1842,6 +2148,26 @@
                 }
                 c1.el.classList.toggle('covered', isCovered);
             });
+
+            // 处理盲堆（side-stack）的覆盖逻辑：只有最上面的卡牌可点击
+            const leftStack = allCards.filter(c => c.state === 'side-stack' && c.el.closest('#side-stack-left'));
+            const rightStack = allCards.filter(c => c.state === 'side-stack' && c.el.closest('#side-stack-right'));
+
+            // 左侧盲堆：zIndex 最大的可点击
+            if (leftStack.length > 0) {
+                const maxZ = Math.max(...leftStack.map(c => c.z));
+                leftStack.forEach(c => {
+                    c.el.classList.toggle('covered', c.z < maxZ);
+                });
+            }
+
+            // 右侧盲堆：zIndex 最大的可点击
+            if (rightStack.length > 0) {
+                const maxZ = Math.max(...rightStack.map(c => c.z));
+                rightStack.forEach(c => {
+                    c.el.classList.toggle('covered', c.z < maxZ);
+                });
+            }
         }
 
         function startLevel2() {
@@ -2143,6 +2469,9 @@
 
                 checkCover();
 
+                // 验证洗牌后卡牌数量（必须在洗牌逻辑完成后才验证）
+                validateCardCounts('洗牌后');
+
                 // 移除洗牌动画类
                 allCards.filter(c => c.el.classList.contains('shuffling')).forEach(c => {
                     c.el.classList.remove('shuffling');
@@ -2152,9 +2481,6 @@
 
             // 记录操作类型
             lastActionType = 'shuffle';
-
-            // 验证洗牌后卡牌数量
-            validateCardCounts('洗牌后');
 
             // 标记为已使用
             propUsage.shuffle++;
