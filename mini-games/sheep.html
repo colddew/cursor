@@ -1268,6 +1268,50 @@
                 osc.connect(g);
                 g.connect(audioCtx.destination);
                 osc.start(); osc.stop(now + 0.1);
+            } else if (type === 'win') {
+                // 胜利号角：上升琶音 + 华丽共鸣
+                const masterGain = audioCtx.createGain();
+                masterGain.connect(audioCtx.destination);
+                masterGain.gain.setValueAtTime(0, now);
+                masterGain.gain.linearRampToValueAtTime(0.6, now + 0.05);
+                masterGain.gain.exponentialRampToValueAtTime(0.001, now + 3.0);
+
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(3000, now);
+                filter.connect(masterGain);
+
+                // 胜利琶音 (C 大调上升)
+                const arpeggio = [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00];
+                arpeggio.forEach((freq, i) => {
+                    const startTime = now + i * 0.12;
+                    const osc = audioCtx.createOscillator();
+                    const env = audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, startTime);
+                    env.gain.setValueAtTime(0, startTime);
+                    env.gain.linearRampToValueAtTime(0.25, startTime + 0.03);
+                    env.gain.exponentialRampToValueAtTime(0.001, startTime + 0.8);
+                    osc.connect(env); env.connect(filter);
+                    osc.start(startTime); osc.stop(startTime + 0.8);
+                });
+
+                // 胜利共鸣和声
+                for (let j = 0; j < 4; j++) {
+                    const delay = now + 0.3 + j * 0.15;
+                    const chord = [523.25, 659.25, 783.99]; // C 大调和弦
+                    chord.forEach((freq, k) => {
+                        const osc = audioCtx.createOscillator();
+                        const env = audioCtx.createGain();
+                        osc.type = 'triangle';
+                        osc.frequency.setValueAtTime(freq * (k + 1), delay);
+                        env.gain.setValueAtTime(0, delay);
+                        env.gain.linearRampToValueAtTime(0.15, delay + 0.1);
+                        env.gain.exponentialRampToValueAtTime(0.001, delay + 1.5);
+                        osc.connect(env); env.connect(masterGain);
+                        osc.start(delay); osc.stop(delay + 1.5);
+                    });
+                }
             }
         }
 
@@ -1399,6 +1443,7 @@
             stage.innerHTML = '';
             allCards = [];
             slotCards = [];
+            moveHistory = []; // 清空撤回历史，防止引用已删除的 DOM
             gameState = 'playing';
             lastActionType = null; // 重置操作类型
             updateSlotUI();
