@@ -627,11 +627,13 @@
         /* 扫光动效 */
         .shimmer {
             background: linear-gradient(90deg,
-                    rgba(255, 215, 0, 0) 0%,
-                    rgba(255, 215, 0, 1) 50%,
-                    rgba(255, 215, 0, 0) 100%);
+                    #d4a017 0%,
+                    #d4a017 40%,
+                    #fff2ac 50%,
+                    #d4a017 60%,
+                    #d4a017 100%);
             background-size: 200% 100%;
-            animation: shimmer 5s infinite linear;
+            animation: shimmer 3s infinite linear;
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -640,12 +642,26 @@
 
         @keyframes shimmer {
             0% {
-                background-position: -100% 0;
+                background-position: 100% 0;
             }
 
             100% {
-                background-position: 100% 0;
+                background-position: -100% 0;
             }
+        }
+
+        /* 皇冠跳动动画 */
+        @keyframes crown-bounce {
+            0%, 100% {
+                transform: translateY(0) scale(1);
+            }
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        .crown-animate {
+            animation: crown-bounce 1s ease-in-out infinite;
         }
 
         .btn {
@@ -940,15 +956,15 @@
         </div>
 
         <!-- 居中容器 -->
-        <div id="title-slogan-container">
-            <div id="title-wrapper" style="transition: transform 0.05s ease-out;">
-                <h1 class="text-9xl font-black mb-8 text-center"
-                    style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); transform: scale(0.6); font-style: italic;">
+        <div id="title-slogan-container" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -55%);">
+            <div id="title-wrapper" style="transition: transform 0.05s ease-out; padding-bottom: 25px;">
+                <h1 class="text-9xl font-black text-center"
+                    style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 8px 15px rgba(0,0,0,0.4)); transform: scale(0.718); font-style: italic;">
                     羊了个羊</h1>
             </div>
-            <div id="slogan-wrapper" class="relative mb-10 pb-4" style="transition: transform 0.05s ease-out;">
+            <div id="slogan-wrapper" class="relative" style="transition: transform 0.05s ease-out; padding-bottom: 70px;">
                 <p class="text-4xl font-bold tracking-widest shimmer"
-                    style="color: transparent; -webkit-background-clip: text; background-clip: text; transform: scale(0.6);">每天一次动次打次</p>
+                    style="color: transparent; -webkit-background-clip: text; background-clip: text; transform: scale(0.628);">每天一次动次打次</p>
             </div>
             <!-- 按钮放在标题slogan下面 -->
             <div id="btn-wrapper">
@@ -959,20 +975,28 @@
     </div>
 
     <div id="win-panel" class="overlay" style="display:none">
-        <div class="text-6xl mb-4">👑</div>
-        <h1 class="text-3xl font-bold">通关第一关！</h1>
-        <p class="mt-2 text-yellow-400">第二关才是噩梦的开始...</p>
+        <div class="text-6xl mb-12 crown-animate">👑</div>
+        <h1 class="text-3xl font-black mb-4"
+            style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));">
+            通关第一关！
+        </h1>
+        <p class="mt-2 text-xl font-black shimmer">
+            第二关才是噩梦的开始...
+        </p>
         <div class="btn" onclick="startLevel2()">挑战第二关</div>
     </div>
 
     <div id="win-level2-panel" class="overlay" style="display:none">
-        <div class="text-6xl mb-4">🎉</div>
-        <h1 class="text-3xl font-bold">恭喜通关第二关！</h1>
-        <p class="mt-2 text-yellow-400">你太厉害了！简直是天才！</p>
-        <div class="flex gap-4 mt-6">
-            <div class="btn" onclick="resetGameToLevel1()">返回首页</div>
-            <div class="btn" onclick="playLevel2Again()">再玩一次</div>
-        </div>
+        <div class="text-6xl mb-4 crown-animate" style="transform: scale(3);">👑</div>
+        <h1 class="text-3xl font-black mb-4"
+            style="background: linear-gradient(180deg, #fff2ac 0%, #d4a017 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); transform: scale(3);">
+            恭喜通关第二关！
+        </h1>
+        <p class="mt-2 text-xl font-black shimmer">
+            你真是消消乐天选之子...
+        </p>
+        <div class="btn" onclick="resetGameToLevel1()">返回首页</div>
+        <div class="btn" onclick="playLevel2Again()">再玩一次</div>
     </div>
 
     <div id="fail-panel" class="overlay" style="display:none">
