@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>推箱子 - 科技前哨站</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --bg-color: #020617;
+            --wall-color: #0f172a;
+            --tile-color: rgba(15, 23, 42, 0.8);
+            --target-color: #0ea5e9;
+            /* 电磁蓝 */
+            --box-color: #334155;
+            --box-active-color: #0ea5e9;
+            --accent-color: #22d3ee;
+            --cell-size: 50px;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image:
+                linear-gradient(rgba(14, 165, 233, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14, 165, 233, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: #f8fafc;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* 扫描线效果 */
+        body::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.4;
+        }
+
+        #game-container {
+            display: grid;
+            gap: 4px;
+            background: rgba(15, 23, 42, 0.5);
+            border: 2px solid #1e293b;
+            padding: 4px;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+            position: relative;
+        }
+
+        .tile {
+            width: var(--cell-size);
+            height: var(--cell-size);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: var(--tile-color);
+            border-radius: 4px;
+        }
+
+        .wall {
+            background: var(--wall-color);
+            border: 1px solid #1e40af;
+            box-shadow: inset 0 0 10px rgba(59, 130, 246, 0.3);
+            position: relative;
+        }
+
+        .floor {
+            border: 1px solid rgba(30, 41, 59, 0.5);
+        }
+
+        .target::after {
+            content: '';
+            width: 40%;
+            height: 40%;
+            background: transparent;
+            border: 2px solid var(--target-color);
+            border-radius: 2px;
+            transform: rotate(45deg);
+            box-shadow: 0 0 10px var(--target-color);
+            animation: tech-pulse 2s infinite ease-in-out;
+        }
+
+        @keyframes tech-pulse {
+
+            0%,
+            100% {
+                opacity: 0.4;
+                transform: rotate(45deg) scale(0.8);
+            }
+
+            50% {
+                opacity: 1;
+                transform: rotate(45deg) scale(1.1);
+            }
+        }
+
+        .entity {
+            position: absolute;
+            width: 80%;
+            height: 80%;
+            z-index: 10;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        /* 科技感角色：带有发光面罩的机器人 */
+        .player {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .player-visor {
+            width: 70%;
+            height: 30%;
+            background: #000;
+            border-radius: 20px;
+            border: 1px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .player-visor::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+        }
+
+        .player-body {
+            width: 80%;
+            height: 50%;
+            background: #cbd5e1;
+            border-radius: 8px;
+            margin-top: 4px;
+            background: linear-gradient(135deg, #94a3b8, #475569);
+            border: 1px solid #1e293b;
+        }
+
+        /* 能量核心箱子 */
+        .box {
+            background: #1e293b;
+            border: 2px solid #475569;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .box::before {
+            content: '';
+            width: 50%;
+            height: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: rotate(45deg);
+        }
+
+        .box.on-target {
+            background: rgba(14, 165, 233, 0.2);
+            border-color: var(--target-color);
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.4), inset 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+
+        .box.on-target::before {
+            border-color: var(--target-color);
+            background: var(--target-color);
+            box-shadow: 0 0 10px var(--target-color);
+        }
+
+        .side-panel {
+            background: rgba(2, 6, 23, 0.95);
+            border-left: 1px solid #1e293b;
+            backdrop-filter: blur(10px);
+        }
+
+        .key-cap {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            color: var(--accent-color);
+            box-shadow: 0 2px 0 #000;
+            font-family: monospace;
+        }
+
+        .status-glow {
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.8);
+        }
+
+        @keyframes scan {
+            0% {
+                transform: translateY(-100%);
+            }
+
+            100% {
+                transform: translateY(100%);
+            }
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: rgba(34, 211, 238, 0.2);
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+            animation: scan 4s linear infinite;
+            z-index: 5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="flex flex-row w-screen h-screen overflow-hidden">
+
+        <!-- 主游戏视图 -->
+        <div id="game-viewport" class="relative flex-grow flex flex-col items-center justify-center p-8 min-w-0">
+            <div class="scan-line"></div>
+
+            <div class="mb-8 text-center relative z-10">
+                <div class="inline-block px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 rounded-full mb-3">
+                    <span class="text-[10px] text-cyan-400 font-bold tracking-[0.3em] uppercase">Neural Interface
+                        Active</span>
+                </div>
+                <h1 class="text-3xl lg:text-4xl font-black text-white tracking-widest mb-2 status-glow">
+                    前哨站 <span class="text-cyan-500 italic">CORE</span>
+                </h1>
+
+                <div
+                    class="flex gap-8 justify-center items-center bg-slate-900/60 backdrop-blur-md px-6 py-3 rounded-2xl border border-slate-700/50 shadow-xl">
+                    <div class="flex flex-col items-center">
+                        <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Sector</span>
+                        <span id="level-num" class="text-2xl font-mono font-bold text-white leading-none">1</span>
+                    </div>
+                    <div class="w-px h-8 bg-slate-700"></div>
+                    <div class="flex flex-col items-center">
+                        <span class="text-slate-500 text-[10px] uppercase font-bold tracking-widest mb-1">Sync
+                            Steps</span>
+                        <span id="step-count" class="text-2xl font-mono font-bold text-cyan-400 leading-none">0</span>
+                    </div>
+                    <button onclick="resetLevel()"
+                        class="ml-2 p-3 bg-red-500/10 hover:bg-red-500/20 text-red-400 rounded-xl transition-all border border-red-500/30 active:scale-90 group">
+                        <svg class="group-hover:rotate-180 transition-transform duration-500"
+                            xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div id="game-container-wrapper"
+                class="relative p-3 rounded-xl bg-slate-900/80 border border-cyan-500/30 shadow-[0_0_50px_rgba(6,182,212,0.15)] flex items-center justify-center">
+                <div id="game-container"></div>
+            </div>
+        </div>
+
+        <!-- 侧边信息栏 -->
+        <div class="side-panel w-72 flex-shrink-0 flex flex-col p-8 border-l border-slate-800">
+            <div class="mb-10">
+                <h3
+                    class="text-[11px] font-black mb-6 flex items-center gap-3 text-cyan-400 uppercase tracking-[0.2em]">
+                    <div class="w-2 h-2 bg-cyan-500 rounded-full animate-pulse"></div>
+                    指令集 [Input]
+                </h3>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-semibold text-slate-400">导航移动</span>
+                        <div class="flex gap-1">
+                            <span class="key-cap">W</span><span class="key-cap">A</span><span
+                                class="key-cap">S</span><span class="key-cap">D</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-semibold text-slate-400">重置协议</span>
+                        <span class="key-cap">R</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-[11px] font-semibold text-slate-400">确认授权</span>
+                        <span class="key-cap">Enter</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1">
+                <h3
+                    class="text-[11px] font-black mb-6 flex items-center gap-3 text-cyan-400 uppercase tracking-[0.2em]">
+                    <div class="w-2 h-2 bg-cyan-500 rounded-full opacity-50"></div>
+                    环境报告 [Log]
+                </h3>
+                <div class="bg-black/40 p-5 rounded-xl border border-slate-800/50 space-y-4">
+                    <p class="text-[10px] text-slate-500 leading-relaxed">
+                        <span class="text-cyan-600 font-bold mr-1">[!]</span> 能量核心必须部署在指定的电磁节点上。
+                    </p>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">
+                        <span class="text-cyan-600 font-bold mr-1">[!]</span> 核心接触死区后将失去动力，无法位移。
+                    </p>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">
+                        <span class="text-cyan-600 font-bold mr-1">[!]</span> 最终扇区（05）包含 6 个高能核心。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 pt-8 border-t border-slate-800 flex flex-col items-center">
+                <div class="w-full h-1 bg-slate-800 rounded-full overflow-hidden mb-4">
+                    <div class="w-1/3 h-full bg-cyan-500 animate-[loading_2s_infinite]"></div>
+                </div>
+                <span class="text-slate-600 text-[9px] font-mono tracking-widest uppercase">Firmware v5.4.0-Final</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 任务成功 -->
+    <div id="success-modal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md">
+        <div
+            class="bg-slate-900 p-8 rounded-2xl max-w-sm w-full text-center border border-cyan-500/50 shadow-[0_0_50px_rgba(6,182,212,0.3)]">
+            <div class="w-16 h-16 bg-cyan-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="text-cyan-400" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+            </div>
+            <h2 class="text-2xl font-black mb-2 text-white tracking-widest">任务同步成功</h2>
+            <p class="text-slate-400 text-sm mb-8 font-mono">CORE SYNCHRONIZED</p>
+            <button onclick="nextLevel()"
+                class="w-full py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-black transition-all active:scale-95 shadow-[0_0_20px_rgba(6,182,212,0.4)]">
+                进入下个扇区 (Enter)
+            </button>
+        </div>
+    </div>
+
+    <!-- 最终胜利 -->
+    <div id="final-screen" class="hidden fixed inset-0 z-[100] flex flex-col items-center justify-center p-10 bg-black">
+        <div id="confetti-container" class="absolute inset-0 pointer-events-none opacity-50"></div>
+        <div class="text-center relative z-10">
+            <div class="text-cyan-500 font-mono text-sm mb-4 tracking-[0.5em] animate-pulse">SYSTEM FULLY RESTORED</div>
+            <h1 class="text-7xl font-black text-white mb-8 italic tracking-tighter">OUTPOST <span
+                    class="text-cyan-500">OMEGA</span></h1>
+            <p class="text-slate-400 mb-12 text-lg font-light tracking-wide">所有扇区核心已归位。前哨站已全面恢复运作。</p>
+            <button onclick="restartGame()"
+                class="px-12 py-5 border-2 border-cyan-500 text-cyan-400 rounded-full font-black text-xl hover:bg-cyan-500 hover:text-white transition-all hover:scale-105 duration-300 shadow-[0_0_30px_rgba(6,182,212,0.3)]">
+                初始化系统重启
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const levels = [
+            ["  ##### ", "### _ # ", "# . $ # ", "# @ _ # ", "####### "],
+            [" #####  ", " # @ #  ", " # $ #  ", "##$ .## ", "# . _ # ", "####### "],
+            ["  ######  ", "###  . ###", "# . $  _ #", "# #$#$ # #", "# . @  _ #", "##   #####", " #####    "],
+            [
+                "  #####  ",
+                "### _ ###",
+                "# . $ . #",
+                "# $ @ $ #",
+                "# . $ . #",
+                "### _ ###",
+                "  #####  "
+            ],
+            // 第五关：6箱子 6点位
+            [
+                "  ########  ",
+                "  # . .  #  ",
+                "### $ $  ###",
+                "# . $ @ $ . #",
+                "### $ $  ###",
+                "  # . .  #  ",
+                "  ########  "
+            ]
+        ];
+
+        let currentLevelIndex = 0;
+        let map = [];
+        let playerPos = { x: 0, y: 0 };
+        let steps = 0;
+
+        function loadLevel(index) {
+            if (index >= levels.length) {
+                showFinalScreen();
+                return;
+            }
+
+            const raw = levels[index];
+            map = raw.map(row => row.split(''));
+            steps = 0;
+
+            renderMap();
+            updateUI();
+        }
+
+        function calculateCellSize(rows, cols) {
+            const viewport = document.getElementById('game-viewport');
+            const hHeader = 180;
+            const padding = 60;
+
+            const availableW = viewport.clientWidth - padding;
+            const availableH = viewport.clientHeight - hHeader - padding;
+
+            const sizeW = Math.floor(availableW / cols);
+            const sizeH = Math.floor(availableH / rows);
+
+            let bestSize = Math.min(sizeW, sizeH);
+            bestSize = Math.max(30, Math.min(bestSize, 100));
+
+            document.documentElement.style.setProperty('--cell-size', `${bestSize}px`);
+        }
+
+        function renderMap() {
+            const container = document.getElementById('game-container');
+            container.innerHTML = '';
+            const rows = map.length;
+            const cols = map[0].length;
+
+            calculateCellSize(rows, cols);
+            container.style.gridTemplateColumns = `repeat(${cols}, var(--cell-size))`;
+
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    const cell = map[y][x];
+                    const tile = document.createElement('div');
+                    tile.className = 'tile';
+
+                    if (cell === '#') tile.classList.add('wall');
+                    else if (cell === ' ' || cell === '_') {
+                        if (cell === ' ') {
+                            tile.style.visibility = 'hidden';
+                        } else {
+                            tile.classList.add('floor');
+                        }
+                    }
+                    else {
+                        tile.classList.add('floor');
+                        if (cell === '.' || cell === '*' || cell === '+') tile.classList.add('target');
+                    }
+
+                    if (cell === '@' || cell === '+') {
+                        playerPos = { x, y };
+                        tile.appendChild(createPlayerEl());
+                    } else if (cell === '$' || cell === '*') {
+                        tile.appendChild(createBoxEl(cell === '*'));
+                    }
+                    container.appendChild(tile);
+                }
+            }
+        }
+
+        function createPlayerEl() {
+            const el = document.createElement('div');
+            el.className = 'entity player';
+            el.innerHTML = `<div class="player-visor"></div><div class="player-body"></div>`;
+            return el;
+        }
+
+        function createBoxEl(isOnTarget) {
+            const el = document.createElement('div');
+            el.className = 'entity box' + (isOnTarget ? ' on-target' : '');
+            return el;
+        }
+
+        function handleMove(dx, dy) {
+            if (!document.getElementById('success-modal').classList.contains('hidden')) return;
+            if (!document.getElementById('final-screen').classList.contains('hidden')) return;
+
+            const nx = playerPos.x + dx;
+            const ny = playerPos.y + dy;
+            if (ny < 0 || ny >= map.length || nx < 0 || nx >= map[ny].length) return;
+
+            const targetCell = map[ny][nx];
+            if (targetCell === '#') return;
+
+            if (['_', '.', ' ', '@', '+'].includes(targetCell)) {
+                moveEntity(playerPos.x, playerPos.y, nx, ny, '@');
+                playerPos = { x: nx, y: ny };
+                steps++;
+            } else if (targetCell === '$' || targetCell === '*') {
+                const bx = nx + dx;
+                const by = ny + dy;
+                if (map[by] && ['_', '.', ' '].includes(map[by][bx]) && map[by][bx] !== '#') {
+                    moveEntity(nx, ny, bx, by, '$');
+                    moveEntity(playerPos.x, playerPos.y, nx, ny, '@');
+                    playerPos = { x: nx, y: ny };
+                    steps++;
+                }
+            }
+            renderMap(); updateUI(); checkWin();
+        }
+
+        function moveEntity(fx, fy, tx, ty, type) {
+            map[fy][fx] = (map[fy][fx] === '+' || map[fy][fx] === '*' || map[fy][fx] === '.') ? '.' : '_';
+            const isTarget = (map[ty][tx] === '.' || map[ty][tx] === '*' || map[ty][tx] === '+');
+            if (type === '@') map[ty][tx] = isTarget ? '+' : '@';
+            if (type === '$') map[ty][tx] = isTarget ? '*' : '$';
+        }
+
+        function updateUI() {
+            document.getElementById('level-num').innerText = currentLevelIndex + 1;
+            document.getElementById('step-count').innerText = steps;
+        }
+
+        function checkWin() {
+            const boxesLeft = map.flat().filter(cell => cell === '$').length;
+            if (boxesLeft === 0) {
+                setTimeout(() => {
+                    if (currentLevelIndex === levels.length - 1) showFinalScreen();
+                    else document.getElementById('success-modal').classList.remove('hidden');
+                }, 200);
+            }
+        }
+
+        function nextLevel() {
+            document.getElementById('success-modal').classList.add('hidden');
+            currentLevelIndex++;
+            loadLevel(currentLevelIndex);
+        }
+
+        function resetLevel() { loadLevel(currentLevelIndex); }
+
+        function restartGame() {
+            document.getElementById('final-screen').classList.add('hidden');
+            currentLevelIndex = 0;
+            loadLevel(0);
+        }
+
+        function showFinalScreen() {
+            document.getElementById('final-screen').classList.remove('hidden');
+            const container = document.getElementById('confetti-container');
+            container.innerHTML = '';
+            const colors = ['#06b6d4', '#22d3ee', '#3b82f6', '#ffffff'];
+            for (let i = 0; i < 60; i++) {
+                const conf = document.createElement('div');
+                conf.style.cssText = `position:absolute;width:2px;height:10px;left:${Math.random() * 100}vw;background-color:${colors[Math.floor(Math.random() * colors.length)]};top:-20px;animation:rain 2.5s linear infinite;animation-delay:${Math.random() * 2}s;`;
+                container.appendChild(conf);
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            const key = e.key.toLowerCase();
+            const modalOpen = !document.getElementById('success-modal').classList.contains('hidden');
+            const finalOpen = !document.getElementById('final-screen').classList.contains('hidden');
+
+            if (e.key === 'Enter') {
+                if (modalOpen) nextLevel();
+                else if (finalOpen) restartGame();
+                return;
+            }
+
+            if (['w', 'arrowup'].includes(key)) handleMove(0, -1);
+            else if (['s', 'arrowdown'].includes(key)) handleMove(0, 1);
+            else if (['a', 'arrowleft'].includes(key)) handleMove(-1, 0);
+            else if (['d', 'arrowright'].includes(key)) handleMove(1, 0);
+            else if (key === 'r') resetLevel();
+        });
+
+        window.addEventListener('resize', renderMap);
+        window.onload = () => loadLevel(0);
+
+        // 动效定义
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes loading {
+                0% { transform: translateX(-100%); }
+                100% { transform: translateX(400%); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+
+</html>
