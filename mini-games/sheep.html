@@ -1032,6 +1032,10 @@
 
         let isMutedManually = false;
         let noteInterval = null; // 音符生成定时器
+        let animationIntervalId = null; // 动画定时器ID
+        let grassElementsCache = null; // 草元素缓存
+        let animationFrameCount = 0; // 动画帧计数
+        let cachedRatio = 0; // 缓存的音频ratio值
 
         async function initAudio() {
             try {
@@ -1101,7 +1105,7 @@
         // 启动音符生成定时器
         function startNoteGenerator() {
             if (noteInterval) return; // 已经在运行
-            noteInterval = setInterval(spawnMusicNote, 200);
+            noteInterval = setInterval(spawnMusicNote, 2000);  // 从1000ms改为2000ms（每2秒1个）
         }
 
         // 停止音符生成定时器
@@ -1333,40 +1337,61 @@
             }
         }
 
-        function animateGrass() {
-            requestAnimationFrame(animateGrass);
+        function startAnimation() {
+            if (animationIntervalId) return;
+            animationIntervalId = setInterval(animateGrass, 33);  // 30fps（接近原始60fps，保持流畅）
+        }
 
-            let ratio = 0;
-            if (analyser) {
+        function stopAnimation() {
+            if (animationIntervalId) {
+                clearInterval(animationIntervalId);
+                animationIntervalId = null;
+            }
+        }
+
+        function animateGrass() {
+            animationFrameCount++;
+
+            // 缓存草元素查询
+            if (!grassElementsCache) {
+                grassElementsCache = document.querySelectorAll('.grass');
+            }
+
+            // 只在音乐播放时更新动画
+            const isMusicPlaying = analyser && !isMutedManually;
+
+            // 每帧都分析音频，紧跟音乐节奏（从30fps降到30fps实时分析）
+            if (isMusicPlaying) {
                 analyser.getByteFrequencyData(dataArray);
                 let sum = 0;
                 const bassRange = 8;
                 for (let i = 0; i < bassRange; i++) sum += dataArray[i];
                 const avg = sum / bassRange;
-                ratio = avg / 255;
+                cachedRatio = avg / 255;
             } else {
-                // 静默活力算法：当音乐未加载或静音时，提供基础的慢节奏呼吸
-                ratio = (Math.sin(Date.now() / 1500) + 1) * 0.05;
+                cachedRatio = 0; // 音乐关闭时ratio为0
             }
 
-            const bounce = ratio * 45;
-            const scale = 1 + ratio * 0.18;
-            const btnScale = 1 + ratio * 0.15;
+            const bounce = cachedRatio * 45;
+            const scale = 1 + cachedRatio * 0.18;
+            const btnScale = 1 + cachedRatio * 0.15;
 
-            // UI 实时律动
+            // UI更新（每帧都更新，保持流畅）
             const title = document.getElementById('title-wrapper');
             const slogan = document.getElementById('slogan-wrapper');
             const btn = document.getElementById('btn-wrapper');
             if (title) title.style.transform = `scale(${scale})`;
-            if (slogan) slogan.style.transform = `scale(${1 + ratio * 0.15})`;
+            if (slogan) slogan.style.transform = `scale(${1 + cachedRatio * 0.15})`;
             if (btn) btn.style.transform = `scale(${btnScale})`;
 
-            document.querySelectorAll('.grass').forEach((g, idx) => {
-                const shift = Math.sin(Date.now() / 250 + idx) * 6;
-                g.style.transform = `translateY(${-bounce}px) rotate(${shift}deg)`;
-                // 即使静默也有基础透明度
-                g.style.opacity = 0.3 + ratio * 0.7;
-            });
+            // 只在音乐播放时更新草动画 - 所有草同时更新，紧跟音乐节奏
+            if (isMusicPlaying) {
+                grassElementsCache.forEach((g, idx) => {
+                    const shift = Math.sin(Date.now() / 250 + idx) * 6;
+                    g.style.transform = `translateY(${-bounce}px) rotate(${shift}deg)`;
+                    g.style.opacity = 0.3 + cachedRatio * 0.7;
+                });
+            }
         }
 
         const ICONS = ['🍎', '🍓', '🥕', '🌽', '🍇', '🍄', '🌳', '🧶', '🔔', '🥛', '🔥', '🧱', '🥦', '🍉', '🥨', '🍰'];
@@ -1392,12 +1417,20 @@
 
         window.onload = () => {
             initGrass();
-            animateGrass(); // 启动视觉循环
+            startAnimation(); // 启动视觉循环
             initAudio(); // 首页自动播放音乐
         };
 
         function startGame() {
-            document.getElementById('start-panel').style.display = 'none';
+            const startPanel = document.getElementById('start-panel');
+            startPanel.style.display = 'none';
+
+            // 停止首页所有动画，释放GPU资源
+            const sheepCircles = startPanel.querySelectorAll('.sheep-svg');
+            sheepCircles.forEach(sheep => {
+                sheep.style.animation = 'none';
+            });
+
             setTimeout(initAudio, 50); // 微延后，确保面板切换流畅
             initLevel(1);
         }
@@ -1443,16 +1476,34 @@
             stage.innerHTML = '';
             allCards = [];
             slotCards = [];
+            shiftCards = []; // 清空移出区
             moveHistory = []; // 清空撤回历史，防止引用已删除的 DOM
             gameState = 'playing';
             lastActionType = null; // 重置操作类型
+
+            // 清空卡槽和移出区的 DOM
+            slotContainer.innerHTML = '';
+            document.getElementById('shift-holder').innerHTML = '';
             updateSlotUI();
+
+            // 重置道具使用次数
+            propUsage = {
+                shift: 0,
+                undo: 0,
+                shuffle: 0
+            };
 
             // 第一关：隐藏道具和临时区
             if (level === 1) {
                 document.getElementById('props-container').classList.add('hidden-in-level1');
                 document.getElementById('tactical-zone').classList.add('hidden-in-level1');
             } else {
+                // 第二关：清空侧边堆叠区后再显示
+                const leftStack = document.getElementById('side-stack-left');
+                const rightStack = document.getElementById('side-stack-right');
+                if (leftStack) leftStack.innerHTML = '';
+                if (rightStack) rightStack.innerHTML = '';
+
                 document.getElementById('props-container').classList.remove('hidden-in-level1');
                 document.getElementById('tactical-zone').classList.remove('hidden-in-level1');
             }
@@ -1472,12 +1523,6 @@
 
             if (level === 1) {
                 // 第一关：3×3 九宫格平铺，不叠加，每种图标3张，共9张卡片
-                // 清除堆叠区的卡片
-                const leftStack = document.getElementById('side-stack-left');
-                const rightStack = document.getElementById('side-stack-right');
-                if (leftStack) leftStack.innerHTML = '';
-                if (rightStack) rightStack.innerHTML = '';
-
                 const pool = [ICONS[0], ICONS[1], ICONS[2]];
                 let deck = [];
                 // 每种图标3张，确保可以完成消除
@@ -1486,7 +1531,11 @@
                         deck.push(icon);
                     }
                 });
-                deck.sort(() => Math.random() - 0.5);
+                // Fisher-Yates 洗牌算法
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
 
                 const rows = 3;
                 const cols = 3;
@@ -1521,7 +1570,11 @@
                     const icon = ICONS[i % poolSize];
                     deck.push(icon, icon, icon);
                 }
-                deck.sort(() => Math.random() - 0.5);
+                // Fisher-Yates 洗牌算法（O(n)，分布均匀）
+                for (let i = deck.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [deck[i], deck[j]] = [deck[j], deck[i]];
+                }
 
                 const centerX = stageW / 2;
                 const shiftZoneHalfWidth = 120; // 中间留给移出区的宽度/2
@@ -1554,19 +1607,22 @@
                 const pyWidth = stageW * 0.5; // 宽度，让卡片水平方向分散
                 const pyMinX = (stageW - pyWidth) / 2;
 
-                // tactical-zone: position: absolute; bottom: 220px; height: cardHeight
-                // tactical-zone 相对于 game-container (视口) 定位
-                // tactical-zone 顶部位置（视口坐标）= 视口高度 - 220 - cardHeight
-                // 卡片坐标是相对于 game-stage 的，game-stage 从视口顶部开始
-                const viewportHeight = window.innerHeight;
-                const tacticalZoneTop = viewportHeight - 220 - cardHeight;
-                const pyTopY = 60; // 从 60px 开始
-                const pyMaxY = tacticalZoneTop - cardHeight - 30; // 卡片顶部最大值，离临时区留30px间距
+                // 计算卡片分布的 Y 轴范围
+                // tactical-zone 高度约 cardHeight + 一些间距，从 stage 底部预留空间
+                const tacticalZoneReservedHeight = cardHeight + 120; // 预留战术区域空间
+                const pyTopY = 30; // 从 30px 开始
+                const availableHeight = stageH - tacticalZoneReservedHeight - pyTopY;
+                const pyMinY = pyTopY + 2 * cardHeight; // 保证最小分布空间
+                // 基于可用高度计算，优先保证最小分布空间
+                const pyMaxYFromStage = pyTopY + availableHeight;
+                const pyMaxY = Math.max(pyMaxYFromStage, pyMinY);
+                // 确保至少有 10px 分布空间，避免所有卡片堆在同一位置
+                const effectiveMaxY = Math.max(pyMaxY, pyTopY + 10);
 
                 deck.forEach((icon, i) => {
                     const x = pyMinX + Math.random() * pyWidth;
                     // 卡牌在整个可用高度范围内随机分布
-                    const y = pyTopY + Math.random() * (pyMaxY - pyTopY);
+                    const y = pyTopY + Math.random() * (effectiveMaxY - pyTopY);
                     createCard(icon, x, y, 100 + i);
                 });
             }
@@ -1826,6 +1882,10 @@
         }
 
         function checkCover() {
+            // 第一步：计算每张卡片是否被遮挡（纯计算，不操作DOM）
+            const toAdd = [];   // 需要添加 covered 类的卡片
+            const toRemove = []; // 需要移除 covered 类的卡片
+
             allCards.forEach(c1 => {
                 if (c1.state !== 'stage') return;
                 let isCovered = false;
@@ -1840,8 +1900,22 @@
                         }
                     }
                 }
-                c1.el.classList.toggle('covered', isCovered);
+
+                // 收集需要更新的卡片（而不是立即更新）
+                if (isCovered) {
+                    if (!c1.el.classList.contains('covered')) {
+                        toAdd.push(c1.el);
+                    }
+                } else {
+                    if (c1.el.classList.contains('covered')) {
+                        toRemove.push(c1.el);
+                    }
+                }
             });
+
+            // 第二步：批量更新DOM（只更新状态改变的卡片）
+            toAdd.forEach(el => el.classList.add('covered'));
+            toRemove.forEach(el => el.classList.remove('covered'));
         }
 
         function startLevel2() {
@@ -1892,13 +1966,11 @@
                 return;
             }
 
-            playSound('click');
-
+            // 先检查是否可以移出（避免播放音效后什么都不做）
             if (slotCards.length === 0) return;
-            // 限制移出区最多3张卡片
             if (shiftCards.length >= 3) return;
 
-            // 移出最后 3 张 (或少于 3 张)，但不能超过剩余容量
+            playSound('click');
             const remainingCapacity = 3 - shiftCards.length;
             const count = Math.min(3, slotCards.length, remainingCapacity);
             if (count <= 0) return;
@@ -2074,7 +2146,11 @@
                 // 打乱卡片区卡片的位置
                 if (areaCards.length > 0) {
                     const positions = areaCards.map(c => ({ x: c.x, y: c.y, z: c.z }));
-                    positions.sort(() => Math.random() - 0.5);
+                    // Fisher-Yates 洗牌算法
+                    for (let i = positions.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [positions[i], positions[j]] = [positions[j], positions[i]];
+                    }
                     areaCards.forEach((c, i) => {
                         const pos = positions[i];
                         c.x = pos.x;
@@ -2109,8 +2185,11 @@
                         });
                         // 清空容器
                         leftContainer.innerHTML = '';
-                        // 打乱图标顺序
-                        icons.sort(() => Math.random() - 0.5);
+                        // Fisher-Yates 洗牌算法
+                        for (let i = icons.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [icons[i], icons[j]] = [icons[j], icons[i]];
+                        }
                         // 重新创建卡片（使用原有的偏移逻辑）
                         const sideStackCount = icons.length;
                         icons.forEach((icon, i) => {
@@ -2130,8 +2209,11 @@
                         });
                         // 清空容器
                         rightContainer.innerHTML = '';
-                        // 打乱图标顺序
-                        icons.sort(() => Math.random() - 0.5);
+                        // Fisher-Yates 洗牌算法
+                        for (let i = icons.length - 1; i > 0; i--) {
+                            const j = Math.floor(Math.random() * (i + 1));
+                            [icons[i], icons[j]] = [icons[j], icons[i]];
+                        }
                         // 重新创建卡片（使用原有的偏移逻辑）
                         const sideStackCount = icons.length;
                         icons.forEach((icon, i) => {
