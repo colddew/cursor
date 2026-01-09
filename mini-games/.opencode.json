@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "lsp": {
+    "python": {
+      "disabled": false,
+      "command": "pylsp"
+    },
+    "html": {
+      "disabled": false,
+      "command": "html-lsp"
+    },
+    "typescript": {
+      "disabled": false,
+      "command": "typescript-language-server",
+      "args": ["--stdio"]
+    }
+  },
+  "debug": false
+}
