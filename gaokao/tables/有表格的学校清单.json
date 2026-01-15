@@ -1,0 +1,3202 @@
+[
+  {
+    "学校名称": "北京服装学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656357596,method-view,schId-12.dhtml"
+  },
+  {
+    "学校名称": "北京林业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650649609,method-view,schId-20.dhtml"
+  },
+  {
+    "学校名称": "首都体育学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653188536,method-view,schId-26.dhtml"
+  },
+  {
+    "学校名称": "中国音乐学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659218838,method-view,schId-40.dhtml"
+  },
+  {
+    "学校名称": "中国戏曲学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657859564,method-view,schId-43.dhtml"
+  },
+  {
+    "学校名称": "北京舞蹈学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660196568,method-view,schId-45.dhtml"
+  },
+  {
+    "学校名称": "中华女子学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657307003,method-view,schId-740.dhtml"
+  },
+  {
+    "学校名称": "北京北大方正软件职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656221636,method-view,schId-1098.dhtml"
+  },
+  {
+    "学校名称": "北京经贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657119559,method-view,schId-1099.dhtml"
+  },
+  {
+    "学校名称": "北京戏曲艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6689701455,method-view,schId-1101.dhtml"
+  },
+  {
+    "学校名称": "北京汇佳职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654573357,method-view,schId-1102.dhtml"
+  },
+  {
+    "学校名称": "北京科技经营管理学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656103378,method-view,schId-1215.dhtml"
+  },
+  {
+    "学校名称": "北京科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656075301,method-view,schId-1943.dhtml"
+  },
+  {
+    "学校名称": "北京邮电大学世纪学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656270317,method-view,schId-403209.dhtml"
+  },
+  {
+    "学校名称": "北京网络职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657115176,method-view,schId-1672438407.dhtml"
+  },
+  {
+    "学校名称": "天津仁爱学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647619467,method-view,schId-481255.dhtml"
+  },
+  {
+    "学校名称": "北华航天工业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6635041370,method-view,schId-869.dhtml"
+  },
+  {
+    "学校名称": "河北工程技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637364910,method-view,schId-1277.dhtml"
+  },
+  {
+    "学校名称": "河北工艺美术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6632078855,method-view,schId-645331236.dhtml"
+  },
+  {
+    "学校名称": "渤海理工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673666019,method-view,schId-609386436.dhtml"
+  },
+  {
+    "学校名称": "承德应用技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642104845,method-view,schId-2018177540.dhtml"
+  },
+  {
+    "学校名称": "石家庄金融职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6740027982,method-view,schId-6729556639.dhtml"
+  },
+  {
+    "学校名称": "山西省财政税务专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650031944,method-view,schId-870.dhtml"
+  },
+  {
+    "学校名称": "长治职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646722146,method-view,schId-1041.dhtml"
+  },
+  {
+    "学校名称": "晋城职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650725223,method-view,schId-1255.dhtml"
+  },
+  {
+    "学校名称": "山西工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657486464,method-view,schId-1258.dhtml"
+  },
+  {
+    "学校名称": "山西应用科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6627278127,method-view,schId-1260.dhtml"
+  },
+  {
+    "学校名称": "山西机电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646765344,method-view,schId-1361.dhtml"
+  },
+  {
+    "学校名称": "山西财贸职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650574710,method-view,schId-1363.dhtml"
+  },
+  {
+    "学校名称": "山西林业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641450188,method-view,schId-1364.dhtml"
+  },
+  {
+    "学校名称": "山西水利职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648641488,method-view,schId-432487.dhtml"
+  },
+  {
+    "学校名称": "阳泉职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657555089,method-view,schId-1366.dhtml"
+  },
+  {
+    "学校名称": "临汾职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647838562,method-view,schId-1562.dhtml"
+  },
+  {
+    "学校名称": "山西金融职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643657117,method-view,schId-1799.dhtml"
+  },
+  {
+    "学校名称": "太原城市职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650763852,method-view,schId-1800.dhtml"
+  },
+  {
+    "学校名称": "山西信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649664154,method-view,schId-1806.dhtml"
+  },
+  {
+    "学校名称": "山西警官职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650685038,method-view,schId-1933.dhtml"
+  },
+  {
+    "学校名称": "潞安职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650543036,method-view,schId-1935.dhtml"
+  },
+  {
+    "学校名称": "山西文化旅游职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643413572,method-view,schId-1936.dhtml"
+  },
+  {
+    "学校名称": "山西管理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650744034,method-view,schId-1938.dhtml"
+  },
+  {
+    "学校名称": "山西电力职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647610011,method-view,schId-1984.dhtml"
+  },
+  {
+    "学校名称": "忻州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645628383,method-view,schId-2060.dhtml"
+  },
+  {
+    "学校名称": "山西华澳商贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646315276,method-view,schId-5146294.dhtml"
+  },
+  {
+    "学校名称": "运城幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657264632,method-view,schId-5356942.dhtml"
+  },
+  {
+    "学校名称": "山西经贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6633952805,method-view,schId-6223669.dhtml"
+  },
+  {
+    "学校名称": "山西铁道职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641455801,method-view,schId-18552102.dhtml"
+  },
+  {
+    "学校名称": "晋中师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650457537,method-view,schId-52921761.dhtml"
+  },
+  {
+    "学校名称": "阳泉师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647700357,method-view,schId-53410969.dhtml"
+  },
+  {
+    "学校名称": "运城护理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636353049,method-view,schId-353504105.dhtml"
+  },
+  {
+    "学校名称": "朔州师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6638192950,method-view,schId-985640270.dhtml"
+  },
+  {
+    "学校名称": "吕梁职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650428250,method-view,schId-984824506.dhtml"
+  },
+  {
+    "学校名称": "大同师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6651122803,method-view,schId-2027944334.dhtml"
+  },
+  {
+    "学校名称": "太原幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650833176,method-view,schId-2027760242.dhtml"
+  },
+  {
+    "学校名称": "长治幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629435794,method-view,schId-2716065360.dhtml"
+  },
+  {
+    "学校名称": "山西通用航空职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650417674,method-view,schId-2715957519.dhtml"
+  },
+  {
+    "学校名称": "朔州陶瓷职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650867692,method-view,schId-2718644101.dhtml"
+  },
+  {
+    "学校名称": "吕梁师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646696131,method-view,schId-4548755153.dhtml"
+  },
+  {
+    "学校名称": "大同数据科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649971065,method-view,schId-6646736167.dhtml"
+  },
+  {
+    "学校名称": "山西卫生健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643412773,method-view,schId-5351783.dhtml"
+  },
+  {
+    "学校名称": "呼伦贝尔学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672553710,method-view,schId-608.dhtml"
+  },
+  {
+    "学校名称": "内蒙古警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653197662,method-view,schId-1278.dhtml"
+  },
+  {
+    "学校名称": "辽宁大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659368528,method-view,schId-116.dhtml"
+  },
+  {
+    "学校名称": "沈阳工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672031439,method-view,schId-118.dhtml"
+  },
+  {
+    "学校名称": "沈阳航空航天大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676404521,method-view,schId-119.dhtml"
+  },
+  {
+    "学校名称": "沈阳理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649612588,method-view,schId-120.dhtml"
+  },
+  {
+    "学校名称": "辽宁科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659200960,method-view,schId-122.dhtml"
+  },
+  {
+    "学校名称": "辽宁工程技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649802960,method-view,schId-123.dhtml"
+  },
+  {
+    "学校名称": "辽宁石油化工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659373697,method-view,schId-124.dhtml"
+  },
+  {
+    "学校名称": "大连交通大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653608478,method-view,schId-126.dhtml"
+  },
+  {
+    "学校名称": "大连工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659524818,method-view,schId-128.dhtml"
+  },
+  {
+    "学校名称": "沈阳建筑大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658029704,method-view,schId-129.dhtml"
+  },
+  {
+    "学校名称": "辽宁工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670230286,method-view,schId-130.dhtml"
+  },
+  {
+    "学校名称": "沈阳农业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650663157,method-view,schId-131.dhtml"
+  },
+  {
+    "学校名称": "大连海洋大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654344135,method-view,schId-132.dhtml"
+  },
+  {
+    "学校名称": "中国医科大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657355273,method-view,schId-133.dhtml"
+  },
+  {
+    "学校名称": "锦州医科大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653228666,method-view,schId-134.dhtml"
+  },
+  {
+    "学校名称": "大连医科大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654389410,method-view,schId-135.dhtml"
+  },
+  {
+    "学校名称": "辽宁中医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675818878,method-view,schId-136.dhtml"
+  },
+  {
+    "学校名称": "沈阳药科大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672975714,method-view,schId-137.dhtml"
+  },
+  {
+    "学校名称": "沈阳医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659273865,method-view,schId-138.dhtml"
+  },
+  {
+    "学校名称": "辽宁师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653350434,method-view,schId-139.dhtml"
+  },
+  {
+    "学校名称": "沈阳师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657509881,method-view,schId-140.dhtml"
+  },
+  {
+    "学校名称": "渤海大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656419908,method-view,schId-141.dhtml"
+  },
+  {
+    "学校名称": "鞍山师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649635797,method-view,schId-142.dhtml"
+  },
+  {
+    "学校名称": "大连外国语大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6651561107,method-view,schId-144.dhtml"
+  },
+  {
+    "学校名称": "东北财经大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655197681,method-view,schId-145.dhtml"
+  },
+  {
+    "学校名称": "沈阳体育学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657047486,method-view,schId-147.dhtml"
+  },
+  {
+    "学校名称": "沈阳音乐学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655897988,method-view,schId-148.dhtml"
+  },
+  {
+    "学校名称": "鲁迅美术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676182410,method-view,schId-149.dhtml"
+  },
+  {
+    "学校名称": "抚顺师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649597578,method-view,schId-150.dhtml"
+  },
+  {
+    "学校名称": "锦州师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647635543,method-view,schId-151.dhtml"
+  },
+  {
+    "学校名称": "营口职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676090966,method-view,schId-152.dhtml"
+  },
+  {
+    "学校名称": "铁岭师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676683330,method-view,schId-153.dhtml"
+  },
+  {
+    "学校名称": "辽宁对外经贸学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648282570,method-view,schId-627.dhtml"
+  },
+  {
+    "学校名称": "大连职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656790525,method-view,schId-630.dhtml"
+  },
+  {
+    "学校名称": "沈阳大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676535361,method-view,schId-690.dhtml"
+  },
+  {
+    "学校名称": "抚顺职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649618814,method-view,schId-692.dhtml"
+  },
+  {
+    "学校名称": "辽宁农业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648027108,method-view,schId-674.dhtml"
+  },
+  {
+    "学校名称": "辽阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646548711,method-view,schId-748.dhtml"
+  },
+  {
+    "学校名称": "阜新高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648341503,method-view,schId-749.dhtml"
+  },
+  {
+    "学校名称": "大连大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648461943,method-view,schId-750.dhtml"
+  },
+  {
+    "学校名称": "辽宁科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648180716,method-view,schId-806.dhtml"
+  },
+  {
+    "学校名称": "辽宁警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649524532,method-view,schId-807.dhtml"
+  },
+  {
+    "学校名称": "辽宁省交通高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647850248,method-view,schId-827.dhtml"
+  },
+  {
+    "学校名称": "沈阳工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657653295,method-view,schId-872.dhtml"
+  },
+  {
+    "学校名称": "辽东学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648179149,method-view,schId-902.dhtml"
+  },
+  {
+    "学校名称": "盘锦职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647003794,method-view,schId-971.dhtml"
+  },
+  {
+    "学校名称": "辽宁职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648000378,method-view,schId-1119.dhtml"
+  },
+  {
+    "学校名称": "辽宁生态工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646523215,method-view,schId-1120.dhtml"
+  },
+  {
+    "学校名称": "沈阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675830785,method-view,schId-1121.dhtml"
+  },
+  {
+    "学校名称": "辽宁理工职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647723336,method-view,schId-1122.dhtml"
+  },
+  {
+    "学校名称": "辽宁金融职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653836433,method-view,schId-1368.dhtml"
+  },
+  {
+    "学校名称": "辽宁轨道交通职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646332291,method-view,schId-1369.dhtml"
+  },
+  {
+    "学校名称": "辽宁广告职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647607296,method-view,schId-1370.dhtml"
+  },
+  {
+    "学校名称": "辽宁机电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649742221,method-view,schId-1371.dhtml"
+  },
+  {
+    "学校名称": "辽宁经济职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646584255,method-view,schId-1372.dhtml"
+  },
+  {
+    "学校名称": "辽宁石化职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655167803,method-view,schId-1373.dhtml"
+  },
+  {
+    "学校名称": "渤海船舶职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647558028,method-view,schId-1404.dhtml"
+  },
+  {
+    "学校名称": "大连理工大学城市学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676586141,method-view,schId-1565.dhtml"
+  },
+  {
+    "学校名称": "沈阳工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654156265,method-view,schId-1568.dhtml"
+  },
+  {
+    "学校名称": "大连工业大学艺术与信息工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674740140,method-view,schId-1570.dhtml"
+  },
+  {
+    "学校名称": "大连科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671860992,method-view,schId-1574.dhtml"
+  },
+  {
+    "学校名称": "沈阳城市建设学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655379079,method-view,schId-1575.dhtml"
+  },
+  {
+    "学校名称": "大连医科大学中山学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673619765,method-view,schId-1579.dhtml"
+  },
+  {
+    "学校名称": "锦州医科大学医疗学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671397762,method-view,schId-1580.dhtml"
+  },
+  {
+    "学校名称": "辽宁师范大学海华学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656411346,method-view,schId-1582.dhtml"
+  },
+  {
+    "学校名称": "辽宁理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6678332695,method-view,schId-1584.dhtml"
+  },
+  {
+    "学校名称": "大连财经学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671421802,method-view,schId-1585.dhtml"
+  },
+  {
+    "学校名称": "沈阳城市学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659186680,method-view,schId-1587.dhtml"
+  },
+  {
+    "学校名称": "大连艺术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672943086,method-view,schId-1844.dhtml"
+  },
+  {
+    "学校名称": "辽宁中医药大学杏林学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659841468,method-view,schId-1854.dhtml"
+  },
+  {
+    "学校名称": "辽宁何氏医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670206251,method-view,schId-1855.dhtml"
+  },
+  {
+    "学校名称": "沈阳科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671394060,method-view,schId-1866.dhtml"
+  },
+  {
+    "学校名称": "大连东软信息学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671489931,method-view,schId-1874.dhtml"
+  },
+  {
+    "学校名称": "辽宁财贸学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655205842,method-view,schId-396816.dhtml"
+  },
+  {
+    "学校名称": "辽宁传媒学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659189511,method-view,schId-1242675.dhtml"
+  },
+  {
+    "学校名称": "大连枫叶职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656648108,method-view,schId-6185233.dhtml"
+  },
+  {
+    "学校名称": "辽宁装备制造职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647719921,method-view,schId-1246180.dhtml"
+  },
+  {
+    "学校名称": "辽河石油职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654131268,method-view,schId-1251628.dhtml"
+  },
+  {
+    "学校名称": "辽宁地质工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657341041,method-view,schId-5647304.dhtml"
+  },
+  {
+    "学校名称": "辽宁铁道职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648070382,method-view,schId-18914485.dhtml"
+  },
+  {
+    "学校名称": "辽宁建筑职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647650611,method-view,schId-6178828.dhtml"
+  },
+  {
+    "学校名称": "大连航运职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645953176,method-view,schId-18589688.dhtml"
+  },
+  {
+    "学校名称": "大连装备制造职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650581114,method-view,schId-55586232.dhtml"
+  },
+  {
+    "学校名称": "大连汽车职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647586004,method-view,schId-49657923.dhtml"
+  },
+  {
+    "学校名称": "辽宁现代服务职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653414475,method-view,schId-18695280.dhtml"
+  },
+  {
+    "学校名称": "辽宁工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647630583,method-view,schId-52475239.dhtml"
+  },
+  {
+    "学校名称": "铁岭卫生职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647566104,method-view,schId-52475537.dhtml"
+  },
+  {
+    "学校名称": "沈阳北软信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648133090,method-view,schId-368088463.dhtml"
+  },
+  {
+    "学校名称": "营口理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650471990,method-view,schId-587235178.dhtml"
+  },
+  {
+    "学校名称": "辽宁民族师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6668068828,method-view,schId-939899537.dhtml"
+  },
+  {
+    "学校名称": "辽宁轻工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675931683,method-view,schId-609393872.dhtml"
+  },
+  {
+    "学校名称": "辽宁特殊教育师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647678897,method-view,schId-1424132078.dhtml"
+  },
+  {
+    "学校名称": "辽宁师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675844568,method-view,schId-2620919260.dhtml"
+  },
+  {
+    "学校名称": "鞍山职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649639035,method-view,schId-2709885303.dhtml"
+  },
+  {
+    "学校名称": "长春理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647923348,method-view,schId-156.dhtml"
+  },
+  {
+    "学校名称": "吉林化工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650239321,method-view,schId-160.dhtml"
+  },
+  {
+    "学校名称": "吉林农业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646453178,method-view,schId-161.dhtml"
+  },
+  {
+    "学校名称": "吉林工程技术师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656042415,method-view,schId-167.dhtml"
+  },
+  {
+    "学校名称": "吉林财经大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659450704,method-view,schId-170.dhtml"
+  },
+  {
+    "学校名称": "吉林农业科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653307831,method-view,schId-810.dhtml"
+  },
+  {
+    "学校名称": "吉林工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653162428,method-view,schId-1376.dhtml"
+  },
+  {
+    "学校名称": "长春建筑学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647544825,method-view,schId-1850.dhtml"
+  },
+  {
+    "学校名称": "吉林医药学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645603858,method-view,schId-1945.dhtml"
+  },
+  {
+    "学校名称": "松原职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659389721,method-view,schId-5189576.dhtml"
+  },
+  {
+    "学校名称": "黑龙江八一农垦大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643388513,method-view,schId-181.dhtml"
+  },
+  {
+    "学校名称": "大庆职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657304571,method-view,schId-1201.dhtml"
+  },
+  {
+    "学校名称": "黑龙江林业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631750724,method-view,schId-1207.dhtml"
+  },
+  {
+    "学校名称": "黑龙江农业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676512623,method-view,schId-1208.dhtml"
+  },
+  {
+    "学校名称": "黑龙江农业经济职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676573730,method-view,schId-1383.dhtml"
+  },
+  {
+    "学校名称": "哈尔滨传媒职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676744000,method-view,schId-397565.dhtml"
+  },
+  {
+    "学校名称": "黑龙江旅游职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658302994,method-view,schId-1968.dhtml"
+  },
+  {
+    "学校名称": "哈尔滨北方航空职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659237847,method-view,schId-2018180562.dhtml"
+  },
+  {
+    "学校名称": "上海理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656337976,method-view,schId-201.dhtml"
+  },
+  {
+    "学校名称": "上海海事大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655973180,method-view,schId-202.dhtml"
+  },
+  {
+    "学校名称": "上海电力大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655909424,method-view,schId-204.dhtml"
+  },
+  {
+    "学校名称": "上海应用技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657741837,method-view,schId-205.dhtml"
+  },
+  {
+    "学校名称": "上海健康医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659516581,method-view,schId-206.dhtml"
+  },
+  {
+    "学校名称": "上海海洋大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657908725,method-view,schId-207.dhtml"
+  },
+  {
+    "学校名称": "上海中医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655793608,method-view,schId-209.dhtml"
+  },
+  {
+    "学校名称": "上海师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655870925,method-view,schId-211.dhtml"
+  },
+  {
+    "学校名称": "上海对外经贸大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656161568,method-view,schId-214.dhtml"
+  },
+  {
+    "学校名称": "上海旅游高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657134339,method-view,schId-216.dhtml"
+  },
+  {
+    "学校名称": "华东政法大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657802689,method-view,schId-217.dhtml"
+  },
+  {
+    "学校名称": "上海体育大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657314129,method-view,schId-218.dhtml"
+  },
+  {
+    "学校名称": "上海音乐学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657119405,method-view,schId-219.dhtml"
+  },
+  {
+    "学校名称": "上海戏剧学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656522496,method-view,schId-220.dhtml"
+  },
+  {
+    "学校名称": "上海大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656020550,method-view,schId-221.dhtml"
+  },
+  {
+    "学校名称": "上海东海职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656302475,method-view,schId-636.dhtml"
+  },
+  {
+    "学校名称": "上海工商职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656242644,method-view,schId-637.dhtml"
+  },
+  {
+    "学校名称": "上海工程技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655942458,method-view,schId-639.dhtml"
+  },
+  {
+    "学校名称": "上海立信会计金融学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657743714,method-view,schId-695.dhtml"
+  },
+  {
+    "学校名称": "上海电机学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656052097,method-view,schId-816.dhtml"
+  },
+  {
+    "学校名称": "上海出版印刷高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657118334,method-view,schId-894.dhtml"
+  },
+  {
+    "学校名称": "上海杉达学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655766963,method-view,schId-932.dhtml"
+  },
+  {
+    "学校名称": "上海政法学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655937649,method-view,schId-2120.dhtml"
+  },
+  {
+    "学校名称": "上海第二工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655796702,method-view,schId-953.dhtml"
+  },
+  {
+    "学校名称": "上海商学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655916022,method-view,schId-958.dhtml"
+  },
+  {
+    "学校名称": "上海行健职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657121657,method-view,schId-1076.dhtml"
+  },
+  {
+    "学校名称": "上海城建职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657187663,method-view,schId-1077.dhtml"
+  },
+  {
+    "学校名称": "上海交通职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656145139,method-view,schId-1078.dhtml"
+  },
+  {
+    "学校名称": "上海海事职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657178685,method-view,schId-1079.dhtml"
+  },
+  {
+    "学校名称": "上海电子信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657111005,method-view,schId-1080.dhtml"
+  },
+  {
+    "学校名称": "上海震旦职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656019967,method-view,schId-1111.dhtml"
+  },
+  {
+    "学校名称": "上海民远职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656187429,method-view,schId-1112.dhtml"
+  },
+  {
+    "学校名称": "上海思博职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656084181,method-view,schId-1114.dhtml"
+  },
+  {
+    "学校名称": "上海立达学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657130690,method-view,schId-1115.dhtml"
+  },
+  {
+    "学校名称": "上海工艺美术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657132680,method-view,schId-1116.dhtml"
+  },
+  {
+    "学校名称": "上海济光职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657226012,method-view,schId-1279.dhtml"
+  },
+  {
+    "学校名称": "上海建桥学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656237676,method-view,schId-1280.dhtml"
+  },
+  {
+    "学校名称": "上海工商外国语职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656166536,method-view,schId-1281.dhtml"
+  },
+  {
+    "学校名称": "上海科学技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657098050,method-view,schId-1282.dhtml"
+  },
+  {
+    "学校名称": "上海邦德职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656230896,method-view,schId-1386.dhtml"
+  },
+  {
+    "学校名称": "上海兴伟学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655994936,method-view,schId-1387.dhtml"
+  },
+  {
+    "学校名称": "上海中侨职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655736903,method-view,schId-1388.dhtml"
+  },
+  {
+    "学校名称": "上海视觉艺术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657149762,method-view,schId-481664.dhtml"
+  },
+  {
+    "学校名称": "上海外国语大学贤达经济人文学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656286415,method-view,schId-1878.dhtml"
+  },
+  {
+    "学校名称": "上海电影艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658216249,method-view,schId-1986.dhtml"
+  },
+  {
+    "学校名称": "上海师范大学天华学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657098940,method-view,schId-6251114.dhtml"
+  },
+  {
+    "学校名称": "上海中华职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6701130720,method-view,schId-2124.dhtml"
+  },
+  {
+    "学校名称": "上海科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655894996,method-view,schId-916519723.dhtml"
+  },
+  {
+    "学校名称": "上海科创职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656499391,method-view,schId-4558226324.dhtml"
+  },
+  {
+    "学校名称": "上海闵行职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657200355,method-view,schId-4557781002.dhtml"
+  },
+  {
+    "学校名称": "上海现代化工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656181933,method-view,schId-4558236517.dhtml"
+  },
+  {
+    "学校名称": "上海建设管理职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657159129,method-view,schId-4558192592.dhtml"
+  },
+  {
+    "学校名称": "上海浦东职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656175016,method-view,schId-5453815791.dhtml"
+  },
+  {
+    "学校名称": "上海纽约大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655977798,method-view,schId-539086822.dhtml"
+  },
+  {
+    "学校名称": "上海南湖职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656823468,method-view,schId-3156168109.dhtml"
+  },
+  {
+    "学校名称": "中国矿业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6678443517,method-view,schId-229.dhtml"
+  },
+  {
+    "学校名称": "南京艺术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676262098,method-view,schId-253.dhtml"
+  },
+  {
+    "学校名称": "南京邮电大学通达学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642964636,method-view,schId-6299602.dhtml"
+  },
+  {
+    "学校名称": "杭州电子科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659902205,method-view,schId-257.dhtml"
+  },
+  {
+    "学校名称": "浙江工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659267633,method-view,schId-258.dhtml"
+  },
+  {
+    "学校名称": "浙江理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659846112,method-view,schId-259.dhtml"
+  },
+  {
+    "学校名称": "浙江海洋大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659784751,method-view,schId-260.dhtml"
+  },
+  {
+    "学校名称": "浙江农林大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659825284,method-view,schId-261.dhtml"
+  },
+  {
+    "学校名称": "温州医科大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659539500,method-view,schId-262.dhtml"
+  },
+  {
+    "学校名称": "浙江中医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659578657,method-view,schId-263.dhtml"
+  },
+  {
+    "学校名称": "浙江师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659646749,method-view,schId-264.dhtml"
+  },
+  {
+    "学校名称": "杭州师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659499862,method-view,schId-265.dhtml"
+  },
+  {
+    "学校名称": "湖州师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659251715,method-view,schId-266.dhtml"
+  },
+  {
+    "学校名称": "绍兴文理学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659476407,method-view,schId-267.dhtml"
+  },
+  {
+    "学校名称": "台州学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659840581,method-view,schId-268.dhtml"
+  },
+  {
+    "学校名称": "温州大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659843826,method-view,schId-269.dhtml"
+  },
+  {
+    "学校名称": "丽水学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659535083,method-view,schId-270.dhtml"
+  },
+  {
+    "学校名称": "浙江工商大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659191853,method-view,schId-271.dhtml"
+  },
+  {
+    "学校名称": "嘉兴大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659861006,method-view,schId-272.dhtml"
+  },
+  {
+    "学校名称": "中国美术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6691737671,method-view,schId-273.dhtml"
+  },
+  {
+    "学校名称": "中国计量大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659403441,method-view,schId-274.dhtml"
+  },
+  {
+    "学校名称": "宁波职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6770427553,method-view,schId-646.dhtml"
+  },
+  {
+    "学校名称": "温州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659302306,method-view,schId-647.dhtml"
+  },
+  {
+    "学校名称": "浙江万里学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659207762,method-view,schId-657.dhtml"
+  },
+  {
+    "学校名称": "浙江科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659277253,method-view,schId-704.dhtml"
+  },
+  {
+    "学校名称": "宁波工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659333552,method-view,schId-705.dhtml"
+  },
+  {
+    "学校名称": "浙江水利水电学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659968005,method-view,schId-820.dhtml"
+  },
+  {
+    "学校名称": "浙江财经大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660190296,method-view,schId-821.dhtml"
+  },
+  {
+    "学校名称": "浙江警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660386554,method-view,schId-822.dhtml"
+  },
+  {
+    "学校名称": "衢州学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659234687,method-view,schId-823.dhtml"
+  },
+  {
+    "学校名称": "宁波大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659836530,method-view,schId-876.dhtml"
+  },
+  {
+    "学校名称": "浙江传媒学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659884591,method-view,schId-877.dhtml"
+  },
+  {
+    "学校名称": "浙江树人学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659685211,method-view,schId-938.dhtml"
+  },
+  {
+    "学校名称": "浙江交通职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659583528,method-view,schId-951.dhtml"
+  },
+  {
+    "学校名称": "金华职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659231012,method-view,schId-969.dhtml"
+  },
+  {
+    "学校名称": "宁波城市职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659439172,method-view,schId-1153.dhtml"
+  },
+  {
+    "学校名称": "浙江同济科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659264268,method-view,schId-6277151.dhtml"
+  },
+  {
+    "学校名称": "浙江工商职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659823672,method-view,schId-1270.dhtml"
+  },
+  {
+    "学校名称": "台州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659922197,method-view,schId-1271.dhtml"
+  },
+  {
+    "学校名称": "浙江工贸职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659225817,method-view,schId-1272.dhtml"
+  },
+  {
+    "学校名称": "浙江越秀外国语学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659239132,method-view,schId-1273.dhtml"
+  },
+  {
+    "学校名称": "浙江机电职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659423557,method-view,schId-1335.dhtml"
+  },
+  {
+    "学校名称": "浙江建设职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660140902,method-view,schId-1336.dhtml"
+  },
+  {
+    "学校名称": "浙江艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659727836,method-view,schId-1337.dhtml"
+  },
+  {
+    "学校名称": "浙江经贸职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659501716,method-view,schId-1338.dhtml"
+  },
+  {
+    "学校名称": "浙江商业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659614293,method-view,schId-432186.dhtml"
+  },
+  {
+    "学校名称": "浙江经济职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659525080,method-view,schId-1340.dhtml"
+  },
+  {
+    "学校名称": "浙江旅游职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659839269,method-view,schId-1341.dhtml"
+  },
+  {
+    "学校名称": "浙江育英职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659535408,method-view,schId-1342.dhtml"
+  },
+  {
+    "学校名称": "浙江警官职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660085782,method-view,schId-1343.dhtml"
+  },
+  {
+    "学校名称": "浙江金融职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659307690,method-view,schId-1344.dhtml"
+  },
+  {
+    "学校名称": "浙江工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660012941,method-view,schId-1345.dhtml"
+  },
+  {
+    "学校名称": "杭州职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659595475,method-view,schId-1346.dhtml"
+  },
+  {
+    "学校名称": "嘉兴职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660180909,method-view,schId-1348.dhtml"
+  },
+  {
+    "学校名称": "湖州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659512677,method-view,schId-1349.dhtml"
+  },
+  {
+    "学校名称": "绍兴职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659442799,method-view,schId-1350.dhtml"
+  },
+  {
+    "学校名称": "衢州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660364917,method-view,schId-1351.dhtml"
+  },
+  {
+    "学校名称": "丽水职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659441928,method-view,schId-1352.dhtml"
+  },
+  {
+    "学校名称": "宁波财经学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659495136,method-view,schId-1466.dhtml"
+  },
+  {
+    "学校名称": "浙江东方职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659856534,method-view,schId-1467.dhtml"
+  },
+  {
+    "学校名称": "义乌工商职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659828162,method-view,schId-1468.dhtml"
+  },
+  {
+    "学校名称": "浙大城市学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659202665,method-view,schId-1481.dhtml"
+  },
+  {
+    "学校名称": "浙大宁波理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659410339,method-view,schId-1482.dhtml"
+  },
+  {
+    "学校名称": "杭州医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659254060,method-view,schId-1483.dhtml"
+  },
+  {
+    "学校名称": "浙江纺织服装职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659266154,method-view,schId-1484.dhtml"
+  },
+  {
+    "学校名称": "杭州科技职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659430408,method-view,schId-18523497.dhtml"
+  },
+  {
+    "学校名称": "浙江长征职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659188479,method-view,schId-2064.dhtml"
+  },
+  {
+    "学校名称": "嘉兴南洋职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659203803,method-view,schId-1486.dhtml"
+  },
+  {
+    "学校名称": "浙江广厦建设职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659474481,method-view,schId-1487.dhtml"
+  },
+  {
+    "学校名称": "杭州万向职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659694753,method-view,schId-1488.dhtml"
+  },
+  {
+    "学校名称": "浙江工业大学之江学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660043883,method-view,schId-1621.dhtml"
+  },
+  {
+    "学校名称": "浙江师范大学行知学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659389175,method-view,schId-1622.dhtml"
+  },
+  {
+    "学校名称": "宁波大学科学技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659198368,method-view,schId-1623.dhtml"
+  },
+  {
+    "学校名称": "杭州电子科技大学信息工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659551631,method-view,schId-1625.dhtml"
+  },
+  {
+    "学校名称": "浙江理工大学科技与艺术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659727241,method-view,schId-1626.dhtml"
+  },
+  {
+    "学校名称": "浙江农林大学暨阳学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660272445,method-view,schId-1628.dhtml"
+  },
+  {
+    "学校名称": "温州医科大学仁济学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659671431,method-view,schId-1629.dhtml"
+  },
+  {
+    "学校名称": "湖州学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659310565,method-view,schId-1632.dhtml"
+  },
+  {
+    "学校名称": "绍兴理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659991639,method-view,schId-1633.dhtml"
+  },
+  {
+    "学校名称": "温州理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659601911,method-view,schId-1634.dhtml"
+  },
+  {
+    "学校名称": "浙江工商大学杭州商学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659384061,method-view,schId-1635.dhtml"
+  },
+  {
+    "学校名称": "嘉兴南湖学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660583981,method-view,schId-1636.dhtml"
+  },
+  {
+    "学校名称": "中国计量大学现代科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659244993,method-view,schId-1637.dhtml"
+  },
+  {
+    "学校名称": "浙江财经大学东方学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659451205,method-view,schId-1639.dhtml"
+  },
+  {
+    "学校名称": "温州商学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659191807,method-view,schId-6292509.dhtml"
+  },
+  {
+    "学校名称": "浙江邮电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659812741,method-view,schId-6292579.dhtml"
+  },
+  {
+    "学校名称": "宁波卫生职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659708516,method-view,schId-1981.dhtml"
+  },
+  {
+    "学校名称": "台州科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659343766,method-view,schId-6213996.dhtml"
+  },
+  {
+    "学校名称": "浙江国际海运职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659404791,method-view,schId-6293200.dhtml"
+  },
+  {
+    "学校名称": "浙江体育职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659858887,method-view,schId-6303640.dhtml"
+  },
+  {
+    "学校名称": "温州科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659377048,method-view,schId-6295431.dhtml"
+  },
+  {
+    "学校名称": "浙江汽车职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659523335,method-view,schId-18559813.dhtml"
+  },
+  {
+    "学校名称": "浙江横店影视职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660317722,method-view,schId-18442875.dhtml"
+  },
+  {
+    "学校名称": "上海财经大学浙江学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636111287,method-view,schId-18692290.dhtml"
+  },
+  {
+    "学校名称": "浙江农业商贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660088444,method-view,schId-375304435.dhtml"
+  },
+  {
+    "学校名称": "浙江外国语学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660133181,method-view,schId-6281472.dhtml"
+  },
+  {
+    "学校名称": "浙江特殊教育职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659420197,method-view,schId-1048622614.dhtml"
+  },
+  {
+    "学校名称": "浙江安防职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659753866,method-view,schId-1674118227.dhtml"
+  },
+  {
+    "学校名称": "浙江音乐学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660113231,method-view,schId-1674121084.dhtml"
+  },
+  {
+    "学校名称": "西湖大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659191352,method-view,schId-3764059324.dhtml"
+  },
+  {
+    "学校名称": "浙江宇翔职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659196174,method-view,schId-2741411893.dhtml"
+  },
+  {
+    "学校名称": "浙江金华科贸职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659460423,method-view,schId-3156209945.dhtml"
+  },
+  {
+    "学校名称": "湖州健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6770251257,method-view,schId-6740211551.dhtml"
+  },
+  {
+    "学校名称": "宁波东方理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6783583353,method-view,schId-6782513866.dhtml"
+  },
+  {
+    "学校名称": "浙江药科职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659725529,method-view,schId-1627.dhtml"
+  },
+  {
+    "学校名称": "宁波诺丁汉大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659382201,method-view,schId-405725.dhtml"
+  },
+  {
+    "学校名称": "温州肯恩大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659547658,method-view,schId-976553154.dhtml"
+  },
+  {
+    "学校名称": "浙江舟山群岛新区旅游与健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659659917,method-view,schId-1433654685.dhtml"
+  },
+  {
+    "学校名称": "宁波幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659780780,method-view,schId-402345.dhtml"
+  },
+  {
+    "学校名称": "安徽三联学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645741420,method-view,schId-676.dhtml"
+  },
+  {
+    "学校名称": "安徽第二医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629395828,method-view,schId-1398.dhtml"
+  },
+  {
+    "学校名称": "安徽新华学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648532877,method-view,schId-995.dhtml"
+  },
+  {
+    "学校名称": "民办万博科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641690480,method-view,schId-997.dhtml"
+  },
+  {
+    "学校名称": "安徽文达信息工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642244838,method-view,schId-1291.dhtml"
+  },
+  {
+    "学校名称": "安徽电子信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644345406,method-view,schId-1295.dhtml"
+  },
+  {
+    "学校名称": "民办合肥经济技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645803179,method-view,schId-1296.dhtml"
+  },
+  {
+    "学校名称": "安徽交通职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646711147,method-view,schId-1297.dhtml"
+  },
+  {
+    "学校名称": "池州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636214730,method-view,schId-1510.dhtml"
+  },
+  {
+    "学校名称": "安徽冶金科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643758064,method-view,schId-1670.dhtml"
+  },
+  {
+    "学校名称": "安徽工商职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647816222,method-view,schId-1673.dhtml"
+  },
+  {
+    "学校名称": "阜阳科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6623210695,method-view,schId-1675.dhtml"
+  },
+  {
+    "学校名称": "安庆职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631668412,method-view,schId-1678.dhtml"
+  },
+  {
+    "学校名称": "安徽信息工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642201500,method-view,schId-1858.dhtml"
+  },
+  {
+    "学校名称": "马鞍山学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636449324,method-view,schId-1859.dhtml"
+  },
+  {
+    "学校名称": "淮北理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636925347,method-view,schId-1865.dhtml"
+  },
+  {
+    "学校名称": "民办合肥财经职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6634851731,method-view,schId-5208245.dhtml"
+  },
+  {
+    "学校名称": "蚌埠经济技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644245735,method-view,schId-5203635.dhtml"
+  },
+  {
+    "学校名称": "皖江工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648445177,method-view,schId-7211813.dhtml"
+  },
+  {
+    "学校名称": "安徽矿业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6623187669,method-view,schId-18568500.dhtml"
+  },
+  {
+    "学校名称": "合肥科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641477871,method-view,schId-589807310.dhtml"
+  },
+  {
+    "学校名称": "黄山健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642329152,method-view,schId-2709830947.dhtml"
+  },
+  {
+    "学校名称": "宿州航空职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645861080,method-view,schId-3156210519.dhtml"
+  },
+  {
+    "学校名称": "芜湖航空职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645522211,method-view,schId-5441483427.dhtml"
+  },
+  {
+    "学校名称": "蚌埠城市轨道交通职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646403495,method-view,schId-5441518985.dhtml"
+  },
+  {
+    "学校名称": "福建中医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6662808016,method-view,schId-306.dhtml"
+  },
+  {
+    "学校名称": "福建师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646956129,method-view,schId-307.dhtml"
+  },
+  {
+    "学校名称": "福建警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653740982,method-view,schId-824.dhtml"
+  },
+  {
+    "学校名称": "福建华南女子职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649604034,method-view,schId-826.dhtml"
+  },
+  {
+    "学校名称": "福建农业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649591202,method-view,schId-1142.dhtml"
+  },
+  {
+    "学校名称": "厦门医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657951696,method-view,schId-49594317.dhtml"
+  },
+  {
+    "学校名称": "泉州纺织服装职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655406068,method-view,schId-1194.dhtml"
+  },
+  {
+    "学校名称": "福州黎明职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649923772,method-view,schId-2004.dhtml"
+  },
+  {
+    "学校名称": "厦门演艺职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660071980,method-view,schId-2006.dhtml"
+  },
+  {
+    "学校名称": "福建艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653291314,method-view,schId-5453648.dhtml"
+  },
+  {
+    "学校名称": "福建幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659524295,method-view,schId-617734600.dhtml"
+  },
+  {
+    "学校名称": "福州软件职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649809363,method-view,schId-5284073.dhtml"
+  },
+  {
+    "学校名称": "厦门软件职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649643240,method-view,schId-1245252.dhtml"
+  },
+  {
+    "学校名称": "厦门东海职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650655202,method-view,schId-5223447.dhtml"
+  },
+  {
+    "学校名称": "福建技术师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636251728,method-view,schId-2545795845.dhtml"
+  },
+  {
+    "学校名称": "福州墨尔本理工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650631505,method-view,schId-1814364262.dhtml"
+  },
+  {
+    "学校名称": "江西师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644658883,method-view,schId-324.dhtml"
+  },
+  {
+    "学校名称": "江西工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676169525,method-view,schId-626.dhtml"
+  },
+  {
+    "学校名称": "江西警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660296878,method-view,schId-829.dhtml"
+  },
+  {
+    "学校名称": "江西应用科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644297379,method-view,schId-1410.dhtml"
+  },
+  {
+    "学校名称": "江西应用技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647854934,method-view,schId-1414.dhtml"
+  },
+  {
+    "学校名称": "江西工业工程职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6622197890,method-view,schId-2095.dhtml"
+  },
+  {
+    "学校名称": "江西机电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676862040,method-view,schId-1448.dhtml"
+  },
+  {
+    "学校名称": "江西科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642725810,method-view,schId-1733.dhtml"
+  },
+  {
+    "学校名称": "南昌职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644329623,method-view,schId-1734.dhtml"
+  },
+  {
+    "学校名称": "江西工业贸易职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643645127,method-view,schId-1737.dhtml"
+  },
+  {
+    "学校名称": "江西应用工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637115991,method-view,schId-1739.dhtml"
+  },
+  {
+    "学校名称": "江西建设职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642405891,method-view,schId-1741.dhtml"
+  },
+  {
+    "学校名称": "抚州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657153616,method-view,schId-1742.dhtml"
+  },
+  {
+    "学校名称": "豫章师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644515802,method-view,schId-2013.dhtml"
+  },
+  {
+    "学校名称": "江西软件职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642446521,method-view,schId-2015.dhtml"
+  },
+  {
+    "学校名称": "江西制造职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642559457,method-view,schId-2094.dhtml"
+  },
+  {
+    "学校名称": "江西工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648070307,method-view,schId-1416.dhtml"
+  },
+  {
+    "学校名称": "上饶职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676668217,method-view,schId-2097.dhtml"
+  },
+  {
+    "学校名称": "江西航空职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641930880,method-view,schId-2098.dhtml"
+  },
+  {
+    "学校名称": "江西农业工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642708236,method-view,schId-2099.dhtml"
+  },
+  {
+    "学校名称": "赣西科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637260483,method-view,schId-2100.dhtml"
+  },
+  {
+    "学校名称": "江西新能源科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645257063,method-view,schId-6244445.dhtml"
+  },
+  {
+    "学校名称": "江西枫林涉外经贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642360062,method-view,schId-18251552.dhtml"
+  },
+  {
+    "学校名称": "江西泰豪动漫职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642244797,method-view,schId-17870221.dhtml"
+  },
+  {
+    "学校名称": "江西冶金职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644682518,method-view,schId-5677289.dhtml"
+  },
+  {
+    "学校名称": "江西管理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644522985,method-view,schId-46473741.dhtml"
+  },
+  {
+    "学校名称": "景德镇陶瓷职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641435031,method-view,schId-362878540.dhtml"
+  },
+  {
+    "学校名称": "共青科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6638189051,method-view,schId-374088270.dhtml"
+  },
+  {
+    "学校名称": "宜春幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677774927,method-view,schId-1420903156.dhtml"
+  },
+  {
+    "学校名称": "吉安职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643651096,method-view,schId-1692891700.dhtml"
+  },
+  {
+    "学校名称": "江西洪州职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676213389,method-view,schId-1431797156.dhtml"
+  },
+  {
+    "学校名称": "南昌影视传播职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6640652301,method-view,schId-1460015381.dhtml"
+  },
+  {
+    "学校名称": "赣州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629527206,method-view,schId-2380216729.dhtml"
+  },
+  {
+    "学校名称": "九江理工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676194660,method-view,schId-2717719097.dhtml"
+  },
+  {
+    "学校名称": "和君职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644793885,method-view,schId-3156211133.dhtml"
+  },
+  {
+    "学校名称": "吉安幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676235987,method-view,schId-4694957790.dhtml"
+  },
+  {
+    "学校名称": "江西樟树中医药职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6640599337,method-view,schId-5453793436.dhtml"
+  },
+  {
+    "学校名称": "赣东职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679731696,method-view,schId-5530927322.dhtml"
+  },
+  {
+    "学校名称": "新余职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6775528512,method-view,schId-6763668249.dhtml"
+  },
+  {
+    "学校名称": "江西飞行学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660096998,method-view,schId-613648227.dhtml"
+  },
+  {
+    "学校名称": "威海职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674996560,method-view,schId-1017.dhtml"
+  },
+  {
+    "学校名称": "山东传媒职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674747374,method-view,schId-6279066.dhtml"
+  },
+  {
+    "学校名称": "青岛工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676538371,method-view,schId-2709865359.dhtml"
+  },
+  {
+    "学校名称": "华北水利水电大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659302571,method-view,schId-68.dhtml"
+  },
+  {
+    "学校名称": "郑州大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676655872,method-view,schId-361.dhtml"
+  },
+  {
+    "学校名称": "河南理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725128421,method-view,schId-362.dhtml"
+  },
+  {
+    "学校名称": "郑州轻工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674746241,method-view,schId-363.dhtml"
+  },
+  {
+    "学校名称": "河南工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726199673,method-view,schId-364.dhtml"
+  },
+  {
+    "学校名称": "河南科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677718768,method-view,schId-365.dhtml"
+  },
+  {
+    "学校名称": "中原工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677236117,method-view,schId-366.dhtml"
+  },
+  {
+    "学校名称": "河南农业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679880514,method-view,schId-367.dhtml"
+  },
+  {
+    "学校名称": "河南科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725083701,method-view,schId-368.dhtml"
+  },
+  {
+    "学校名称": "河南牧业经济学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764439595,method-view,schId-369.dhtml"
+  },
+  {
+    "学校名称": "河南中医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764529383,method-view,schId-370.dhtml"
+  },
+  {
+    "学校名称": "河南医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726087481,method-view,schId-371.dhtml"
+  },
+  {
+    "学校名称": "河南大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650621574,method-view,schId-372.dhtml"
+  },
+  {
+    "学校名称": "河南师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725126698,method-view,schId-373.dhtml"
+  },
+  {
+    "学校名称": "信阳师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677064986,method-view,schId-374.dhtml"
+  },
+  {
+    "学校名称": "周口师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631844046,method-view,schId-375.dhtml"
+  },
+  {
+    "学校名称": "安阳师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677222118,method-view,schId-376.dhtml"
+  },
+  {
+    "学校名称": "许昌学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641763215,method-view,schId-377.dhtml"
+  },
+  {
+    "学校名称": "南阳师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725112839,method-view,schId-378.dhtml"
+  },
+  {
+    "学校名称": "洛阳师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764519291,method-view,schId-379.dhtml"
+  },
+  {
+    "学校名称": "商丘师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679239420,method-view,schId-380.dhtml"
+  },
+  {
+    "学校名称": "河南财经政法大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676731815,method-view,schId-381.dhtml"
+  },
+  {
+    "学校名称": "郑州航空工业管理学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679840248,method-view,schId-382.dhtml"
+  },
+  {
+    "学校名称": "河南职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674456216,method-view,schId-611.dhtml"
+  },
+  {
+    "学校名称": "漯河职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660270195,method-view,schId-622.dhtml"
+  },
+  {
+    "学校名称": "三门峡职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674705096,method-view,schId-628.dhtml"
+  },
+  {
+    "学校名称": "郑州铁路职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764450212,method-view,schId-629.dhtml"
+  },
+  {
+    "学校名称": "黄淮学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6640548016,method-view,schId-666.dhtml"
+  },
+  {
+    "学校名称": "平顶山学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657111313,method-view,schId-667.dhtml"
+  },
+  {
+    "学校名称": "郑州工程技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725086479,method-view,schId-712.dhtml"
+  },
+  {
+    "学校名称": "开封大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726681949,method-view,schId-713.dhtml"
+  },
+  {
+    "学校名称": "洛阳理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657269564,method-view,schId-714.dhtml"
+  },
+  {
+    "学校名称": "新乡学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674690525,method-view,schId-715.dhtml"
+  },
+  {
+    "学校名称": "信阳农林学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679903338,method-view,schId-773.dhtml"
+  },
+  {
+    "学校名称": "河南工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726207613,method-view,schId-774.dhtml"
+  },
+  {
+    "学校名称": "安阳工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674853069,method-view,schId-775.dhtml"
+  },
+  {
+    "学校名称": "河南工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764524176,method-view,schId-835.dhtml"
+  },
+  {
+    "学校名称": "焦作大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674013932,method-view,schId-836.dhtml"
+  },
+  {
+    "学校名称": "河南财政金融学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636209118,method-view,schId-879.dhtml"
+  },
+  {
+    "学校名称": "南阳理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725060050,method-view,schId-880.dhtml"
+  },
+  {
+    "学校名称": "河南城建学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725081397,method-view,schId-898.dhtml"
+  },
+  {
+    "学校名称": "濮阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726029936,method-view,schId-905.dhtml"
+  },
+  {
+    "学校名称": "河南警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656256287,method-view,schId-906.dhtml"
+  },
+  {
+    "学校名称": "郑州电力高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659468891,method-view,schId-929.dhtml"
+  },
+  {
+    "学校名称": "黄河科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725670429,method-view,schId-933.dhtml"
+  },
+  {
+    "学校名称": "焦作师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726215786,method-view,schId-118621.dhtml"
+  },
+  {
+    "学校名称": "郑州师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725230138,method-view,schId-1421.dhtml"
+  },
+  {
+    "学校名称": "黄河水利职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726301634,method-view,schId-966.dhtml"
+  },
+  {
+    "学校名称": "许昌职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673650592,method-view,schId-975.dhtml"
+  },
+  {
+    "学校名称": "河南工业和信息化职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726081908,method-view,schId-617863271.dhtml"
+  },
+  {
+    "学校名称": "河南水利与环境职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726042220,method-view,schId-602377171.dhtml"
+  },
+  {
+    "学校名称": "商丘职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659236734,method-view,schId-1227.dhtml"
+  },
+  {
+    "学校名称": "郑州科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764577852,method-view,schId-1228.dhtml"
+  },
+  {
+    "学校名称": "郑州工业应用技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725153226,method-view,schId-1229.dhtml"
+  },
+  {
+    "学校名称": "平顶山工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764434764,method-view,schId-1230.dhtml"
+  },
+  {
+    "学校名称": "周口职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726450448,method-view,schId-1232.dhtml"
+  },
+  {
+    "学校名称": "济源职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675864351,method-view,schId-1250.dhtml"
+  },
+  {
+    "学校名称": "河南司法警官职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655278846,method-view,schId-1262.dhtml"
+  },
+  {
+    "学校名称": "鹤壁职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659304187,method-view,schId-1274.dhtml"
+  },
+  {
+    "学校名称": "河南工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675771524,method-view,schId-1275.dhtml"
+  },
+  {
+    "学校名称": "郑州健康学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658207230,method-view,schId-1420.dhtml"
+  },
+  {
+    "学校名称": "郑州财经学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659192308,method-view,schId-1770.dhtml"
+  },
+  {
+    "学校名称": "黄河交通学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677362847,method-view,schId-1771.dhtml"
+  },
+  {
+    "学校名称": "河南检察职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659359963,method-view,schId-1772.dhtml"
+  },
+  {
+    "学校名称": "商丘工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764411685,method-view,schId-1773.dhtml"
+  },
+  {
+    "学校名称": "河南开封科技传媒学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764476782,method-view,schId-1774.dhtml"
+  },
+  {
+    "学校名称": "中原科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679874060,method-view,schId-1775.dhtml"
+  },
+  {
+    "学校名称": "信阳学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679195126,method-view,schId-1776.dhtml"
+  },
+  {
+    "学校名称": "安阳学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672857404,method-view,schId-1777.dhtml"
+  },
+  {
+    "学校名称": "豫北医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658165783,method-view,schId-1778.dhtml"
+  },
+  {
+    "学校名称": "新乡工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670106494,method-view,schId-1779.dhtml"
+  },
+  {
+    "学校名称": "郑州工商学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677109067,method-view,schId-1780.dhtml"
+  },
+  {
+    "学校名称": "郑州经贸学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675746470,method-view,schId-1781.dhtml"
+  },
+  {
+    "学校名称": "河南质量工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674513595,method-view,schId-1814.dhtml"
+  },
+  {
+    "学校名称": "郑州信息科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675841379,method-view,schId-1815.dhtml"
+  },
+  {
+    "学校名称": "漯河医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725255124,method-view,schId-2019.dhtml"
+  },
+  {
+    "学校名称": "南阳医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650480334,method-view,schId-2020.dhtml"
+  },
+  {
+    "学校名称": "商丘医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676829828,method-view,schId-2021.dhtml"
+  },
+  {
+    "学校名称": "郑州电子信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659195553,method-view,schId-2022.dhtml"
+  },
+  {
+    "学校名称": "信阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674627648,method-view,schId-2023.dhtml"
+  },
+  {
+    "学校名称": "嵩山少林武术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675896481,method-view,schId-2024.dhtml"
+  },
+  {
+    "学校名称": "郑州工业安全职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674969726,method-view,schId-2025.dhtml"
+  },
+  {
+    "学校名称": "永城职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671516914,method-view,schId-2026.dhtml"
+  },
+  {
+    "学校名称": "河南经贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725109313,method-view,schId-2027.dhtml"
+  },
+  {
+    "学校名称": "河南交通职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673977879,method-view,schId-2028.dhtml"
+  },
+  {
+    "学校名称": "河南农业职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676692829,method-view,schId-2029.dhtml"
+  },
+  {
+    "学校名称": "郑州旅游职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726767384,method-view,schId-2030.dhtml"
+  },
+  {
+    "学校名称": "郑州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676115015,method-view,schId-2031.dhtml"
+  },
+  {
+    "学校名称": "河南信息统计职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726057203,method-view,schId-603113983.dhtml"
+  },
+  {
+    "学校名称": "河南林业职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674588286,method-view,schId-605859610.dhtml"
+  },
+  {
+    "学校名称": "河南工业贸易职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675850956,method-view,schId-1234457.dhtml"
+  },
+  {
+    "学校名称": "商丘学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677424409,method-view,schId-488969.dhtml"
+  },
+  {
+    "学校名称": "郑州商学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676999751,method-view,schId-1131282.dhtml"
+  },
+  {
+    "学校名称": "郑州电力职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676074492,method-view,schId-873343.dhtml"
+  },
+  {
+    "学校名称": "河南科技职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673997742,method-view,schId-6664481.dhtml"
+  },
+  {
+    "学校名称": "河南建筑职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6678953312,method-view,schId-6459010.dhtml"
+  },
+  {
+    "学校名称": "漯河食品工程职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675798113,method-view,schId-18827020.dhtml"
+  },
+  {
+    "学校名称": "郑州城市职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674515579,method-view,schId-52942205.dhtml"
+  },
+  {
+    "学校名称": "安阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675909774,method-view,schId-18931658.dhtml"
+  },
+  {
+    "学校名称": "新乡职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674071447,method-view,schId-18720183.dhtml"
+  },
+  {
+    "学校名称": "驻马店职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672462090,method-view,schId-57316624.dhtml"
+  },
+  {
+    "学校名称": "焦作工贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675811296,method-view,schId-57293790.dhtml"
+  },
+  {
+    "学校名称": "许昌陶瓷职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676708345,method-view,schId-57292630.dhtml"
+  },
+  {
+    "学校名称": "郑州理工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675762650,method-view,schId-57294147.dhtml"
+  },
+  {
+    "学校名称": "郑州信息工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675953513,method-view,schId-57295445.dhtml"
+  },
+  {
+    "学校名称": "长垣烹饪职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670232064,method-view,schId-55698827.dhtml"
+  },
+  {
+    "学校名称": "开封文化艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676110888,method-view,schId-57294796.dhtml"
+  },
+  {
+    "学校名称": "河南应用技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674030463,method-view,schId-57296522.dhtml"
+  },
+  {
+    "学校名称": "河南艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6727210747,method-view,schId-57295060.dhtml"
+  },
+  {
+    "学校名称": "郑州升达经贸管理学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725636645,method-view,schId-205277833.dhtml"
+  },
+  {
+    "学校名称": "河南机电职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674015423,method-view,schId-362616132.dhtml"
+  },
+  {
+    "学校名称": "河南护理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659843948,method-view,schId-179455874.dhtml"
+  },
+  {
+    "学校名称": "许昌电气职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676164346,method-view,schId-179986581.dhtml"
+  },
+  {
+    "学校名称": "信阳涉外职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677232021,method-view,schId-178362256.dhtml"
+  },
+  {
+    "学校名称": "鹤壁汽车工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679670311,method-view,schId-179982655.dhtml"
+  },
+  {
+    "学校名称": "南阳职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675761462,method-view,schId-186990650.dhtml"
+  },
+  {
+    "学校名称": "郑州商贸旅游职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726054403,method-view,schId-183517828.dhtml"
+  },
+  {
+    "学校名称": "河南推拿职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676306331,method-view,schId-958799438.dhtml"
+  },
+  {
+    "学校名称": "洛阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675858360,method-view,schId-364091566.dhtml"
+  },
+  {
+    "学校名称": "郑州幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676767917,method-view,schId-385565397.dhtml"
+  },
+  {
+    "学校名称": "安阳幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674841515,method-view,schId-354861854.dhtml"
+  },
+  {
+    "学校名称": "郑州黄河护理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675977058,method-view,schId-366684243.dhtml"
+  },
+  {
+    "学校名称": "河南医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676988974,method-view,schId-200879.dhtml"
+  },
+  {
+    "学校名称": "郑州财税金融职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659206637,method-view,schId-616562094.dhtml"
+  },
+  {
+    "学校名称": "南阳农业职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674671565,method-view,schId-1821217283.dhtml"
+  },
+  {
+    "学校名称": "洛阳科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726356699,method-view,schId-618144949.dhtml"
+  },
+  {
+    "学校名称": "鹤壁能源化工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677108854,method-view,schId-2000590160.dhtml"
+  },
+  {
+    "学校名称": "平顶山文化艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676154949,method-view,schId-1435444996.dhtml"
+  },
+  {
+    "学校名称": "濮阳医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674780461,method-view,schId-2023285492.dhtml"
+  },
+  {
+    "学校名称": "驻马店幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677664481,method-view,schId-2009059962.dhtml"
+  },
+  {
+    "学校名称": "三门峡社会管理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674485018,method-view,schId-1823436641.dhtml"
+  },
+  {
+    "学校名称": "河南轻工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676436922,method-view,schId-1825006374.dhtml"
+  },
+  {
+    "学校名称": "河南测绘职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676114336,method-view,schId-1825963906.dhtml"
+  },
+  {
+    "学校名称": "信阳航空职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675861902,method-view,schId-2347752368.dhtml"
+  },
+  {
+    "学校名称": "郑州卫生健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673985583,method-view,schId-2027761632.dhtml"
+  },
+  {
+    "学校名称": "河南物流职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726234747,method-view,schId-2044787894.dhtml"
+  },
+  {
+    "学校名称": "河南地矿职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725190283,method-view,schId-2353265172.dhtml"
+  },
+  {
+    "学校名称": "郑州西亚斯学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764462784,method-view,schId-2367142635.dhtml"
+  },
+  {
+    "学校名称": "郑州亚欧交通职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676669473,method-view,schId-2544212220.dhtml"
+  },
+  {
+    "学校名称": "河南女子职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726418752,method-view,schId-2925751274.dhtml"
+  },
+  {
+    "学校名称": "河南对外经济贸易职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675984208,method-view,schId-2766800565.dhtml"
+  },
+  {
+    "学校名称": "濮阳石油化工职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725081136,method-view,schId-2721276083.dhtml"
+  },
+  {
+    "学校名称": "南阳科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6678358093,method-view,schId-2721086032.dhtml"
+  },
+  {
+    "学校名称": "兰考三农职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726538496,method-view,schId-2725746604.dhtml"
+  },
+  {
+    "学校名称": "汝州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674670550,method-view,schId-2721257546.dhtml"
+  },
+  {
+    "学校名称": "林州建筑职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675753155,method-view,schId-3151150718.dhtml"
+  },
+  {
+    "学校名称": "郑州电子商务职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6764485512,method-view,schId-2727336276.dhtml"
+  },
+  {
+    "学校名称": "郑州轨道工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676220905,method-view,schId-2706301674.dhtml"
+  },
+  {
+    "学校名称": "郑州体育职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676736439,method-view,schId-2717701913.dhtml"
+  },
+  {
+    "学校名称": "洛阳文化旅游职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676110178,method-view,schId-3156214940.dhtml"
+  },
+  {
+    "学校名称": "周口文理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674681345,method-view,schId-3156244130.dhtml"
+  },
+  {
+    "学校名称": "信阳艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726072394,method-view,schId-3156244781.dhtml"
+  },
+  {
+    "学校名称": "郑州城建职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675823738,method-view,schId-3156245850.dhtml"
+  },
+  {
+    "学校名称": "郑州医药健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675931422,method-view,schId-3156248653.dhtml"
+  },
+  {
+    "学校名称": "南阳工艺美术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674782935,method-view,schId-5121879211.dhtml"
+  },
+  {
+    "学校名称": "濮阳科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726023242,method-view,schId-5479722488.dhtml"
+  },
+  {
+    "学校名称": "商丘幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673904338,method-view,schId-5353598254.dhtml"
+  },
+  {
+    "学校名称": "周口理工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726406818,method-view,schId-5353599370.dhtml"
+  },
+  {
+    "学校名称": "焦作新材料职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6727806824,method-view,schId-5479737467.dhtml"
+  },
+  {
+    "学校名称": "开封职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6725319853,method-view,schId-5453803615.dhtml"
+  },
+  {
+    "学校名称": "洛阳商业职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726922274,method-view,schId-5441547232.dhtml"
+  },
+  {
+    "学校名称": "郑州软件职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674465413,method-view,schId-4703105643.dhtml"
+  },
+  {
+    "学校名称": "郑州智能科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677141603,method-view,schId-4758402974.dhtml"
+  },
+  {
+    "学校名称": "郑州食品工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726944108,method-view,schId-5479749756.dhtml"
+  },
+  {
+    "学校名称": "郑州汽车工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726165449,method-view,schId-5353602887.dhtml"
+  },
+  {
+    "学校名称": "郑州美术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6678297851,method-view,schId-4663574789.dhtml"
+  },
+  {
+    "学校名称": "驻马店农业工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660585726,method-view,schId-5530935972.dhtml"
+  },
+  {
+    "学校名称": "信阳科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675905022,method-view,schId-5638179069.dhtml"
+  },
+  {
+    "学校名称": "信阳工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674925479,method-view,schId-5544321971.dhtml"
+  },
+  {
+    "学校名称": "周口城市职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676209174,method-view,schId-5530937647.dhtml"
+  },
+  {
+    "学校名称": "河南新乡工商职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676125335,method-view,schId-5638187993.dhtml"
+  },
+  {
+    "学校名称": "河南体育学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726325746,method-view,schId-6131173517.dhtml"
+  },
+  {
+    "学校名称": "平顶山职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675781244,method-view,schId-5495814.dhtml"
+  },
+  {
+    "学校名称": "湖北理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6627554177,method-view,schId-668.dhtml"
+  },
+  {
+    "学校名称": "湘潭大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660152047,method-view,schId-408.dhtml"
+  },
+  {
+    "学校名称": "吉首大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658218448,method-view,schId-409.dhtml"
+  },
+  {
+    "学校名称": "湖南科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656175908,method-view,schId-412.dhtml"
+  },
+  {
+    "学校名称": "长沙理工大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656447340,method-view,schId-413.dhtml"
+  },
+  {
+    "学校名称": "湖南农业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657130268,method-view,schId-414.dhtml"
+  },
+  {
+    "学校名称": "中南林业科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660621585,method-view,schId-415.dhtml"
+  },
+  {
+    "学校名称": "湖南中医药大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659576932,method-view,schId-416.dhtml"
+  },
+  {
+    "学校名称": "湖南师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660022643,method-view,schId-417.dhtml"
+  },
+  {
+    "学校名称": "湖南理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6652843440,method-view,schId-418.dhtml"
+  },
+  {
+    "学校名称": "湘南学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657386225,method-view,schId-419.dhtml"
+  },
+  {
+    "学校名称": "衡阳师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6632826482,method-view,schId-420.dhtml"
+  },
+  {
+    "学校名称": "邵阳学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656192346,method-view,schId-421.dhtml"
+  },
+  {
+    "学校名称": "怀化学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675080364,method-view,schId-422.dhtml"
+  },
+  {
+    "学校名称": "湖南文理学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670548342,method-view,schId-423.dhtml"
+  },
+  {
+    "学校名称": "湖南科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677076830,method-view,schId-424.dhtml"
+  },
+  {
+    "学校名称": "湖南人文科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649771710,method-view,schId-425.dhtml"
+  },
+  {
+    "学校名称": "湖南工商大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672498947,method-view,schId-426.dhtml"
+  },
+  {
+    "学校名称": "南华大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659579753,method-view,schId-427.dhtml"
+  },
+  {
+    "学校名称": "长沙医学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653281811,method-view,schId-610.dhtml"
+  },
+  {
+    "学校名称": "长沙民政职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659560976,method-view,schId-614.dhtml"
+  },
+  {
+    "学校名称": "湖南工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672284734,method-view,schId-617.dhtml"
+  },
+  {
+    "学校名称": "株洲师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657294600,method-view,schId-623.dhtml"
+  },
+  {
+    "学校名称": "湖南信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648367291,method-view,schId-648.dhtml"
+  },
+  {
+    "学校名称": "长沙学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655607342,method-view,schId-719.dhtml"
+  },
+  {
+    "学校名称": "湖南工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643747668,method-view,schId-780.dhtml"
+  },
+  {
+    "学校名称": "湖南城市学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655392381,method-view,schId-838.dhtml"
+  },
+  {
+    "学校名称": "湖南工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6677873106,method-view,schId-839.dhtml"
+  },
+  {
+    "学校名称": "湖南财政经济学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660251223,method-view,schId-840.dhtml"
+  },
+  {
+    "学校名称": "湖南警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657956554,method-view,schId-841.dhtml"
+  },
+  {
+    "学校名称": "湖南工业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660250390,method-view,schId-842.dhtml"
+  },
+  {
+    "学校名称": "湖南女子学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658128178,method-view,schId-843.dhtml"
+  },
+  {
+    "学校名称": "湖南第一师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659934770,method-view,schId-950.dhtml"
+  },
+  {
+    "学校名称": "长沙航空职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644547031,method-view,schId-963.dhtml"
+  },
+  {
+    "学校名称": "湖南医药学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6651963916,method-view,schId-993.dhtml"
+  },
+  {
+    "学校名称": "湖南大众传媒职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6633913086,method-view,schId-1003.dhtml"
+  },
+  {
+    "学校名称": "永州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646832949,method-view,schId-1004.dhtml"
+  },
+  {
+    "学校名称": "湖南铁道职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6742820974,method-view,schId-1005.dhtml"
+  },
+  {
+    "学校名称": "湖南涉外经济学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655241097,method-view,schId-1006.dhtml"
+  },
+  {
+    "学校名称": "湖南科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644307779,method-view,schId-1007.dhtml"
+  },
+  {
+    "学校名称": "湖南生物机电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657930286,method-view,schId-1027.dhtml"
+  },
+  {
+    "学校名称": "湖南交通职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654260562,method-view,schId-1048.dhtml"
+  },
+  {
+    "学校名称": "湖南商务职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6742972122,method-view,schId-1050.dhtml"
+  },
+  {
+    "学校名称": "湖南体育职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654395933,method-view,schId-1056.dhtml"
+  },
+  {
+    "学校名称": "湖南工程职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659193062,method-view,schId-1058.dhtml"
+  },
+  {
+    "学校名称": "湖南网络工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645939573,method-view,schId-1125.dhtml"
+  },
+  {
+    "学校名称": "邵阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674602322,method-view,schId-1127.dhtml"
+  },
+  {
+    "学校名称": "湖南司法警官职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655804883,method-view,schId-1128.dhtml"
+  },
+  {
+    "学校名称": "长沙商贸旅游职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6628314563,method-view,schId-1130.dhtml"
+  },
+  {
+    "学校名称": "湖南科技大学潇湘学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656206807,method-view,schId-1156.dhtml"
+  },
+  {
+    "学校名称": "南华大学船山学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643681444,method-view,schId-1157.dhtml"
+  },
+  {
+    "学校名称": "湘潭理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675834233,method-view,schId-1158.dhtml"
+  },
+  {
+    "学校名称": "长沙工业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648388898,method-view,schId-1159.dhtml"
+  },
+  {
+    "学校名称": "湖南农业大学东方科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654687527,method-view,schId-1160.dhtml"
+  },
+  {
+    "学校名称": "中南林业科技大学涉外学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653290568,method-view,schId-1161.dhtml"
+  },
+  {
+    "学校名称": "常德学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657151584,method-view,schId-1162.dhtml"
+  },
+  {
+    "学校名称": "岳阳学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660247519,method-view,schId-1163.dhtml"
+  },
+  {
+    "学校名称": "衡阳师范学院南岳学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647978325,method-view,schId-1164.dhtml"
+  },
+  {
+    "学校名称": "湖南工程学院应用技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647747460,method-view,schId-1165.dhtml"
+  },
+  {
+    "学校名称": "湖南中医药大学湘杏学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654022031,method-view,schId-1166.dhtml"
+  },
+  {
+    "学校名称": "张家界学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657262248,method-view,schId-1167.dhtml"
+  },
+  {
+    "学校名称": "湖南环境生物职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644050577,method-view,schId-1221.dhtml"
+  },
+  {
+    "学校名称": "湖南邮电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654305545,method-view,schId-1326.dhtml"
+  },
+  {
+    "学校名称": "湘潭医卫职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653412201,method-view,schId-1327.dhtml"
+  },
+  {
+    "学校名称": "郴州职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641422331,method-view,schId-1328.dhtml"
+  },
+  {
+    "学校名称": "娄底职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649731868,method-view,schId-1329.dhtml"
+  },
+  {
+    "学校名称": "张家界航空工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674945953,method-view,schId-1330.dhtml"
+  },
+  {
+    "学校名称": "长沙环境保护职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659663063,method-view,schId-1489.dhtml"
+  },
+  {
+    "学校名称": "湖南艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659408856,method-view,schId-1490.dhtml"
+  },
+  {
+    "学校名称": "湖南机电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674364661,method-view,schId-1491.dhtml"
+  },
+  {
+    "学校名称": "长沙职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655543831,method-view,schId-1492.dhtml"
+  },
+  {
+    "学校名称": "怀化职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649936727,method-view,schId-1493.dhtml"
+  },
+  {
+    "学校名称": "岳阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6630496945,method-view,schId-1494.dhtml"
+  },
+  {
+    "学校名称": "常德职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660058779,method-view,schId-1495.dhtml"
+  },
+  {
+    "学校名称": "长沙南方职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6633976471,method-view,schId-1497.dhtml"
+  },
+  {
+    "学校名称": "潇湘职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643823919,method-view,schId-1498.dhtml"
+  },
+  {
+    "学校名称": "湖南化工职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659213804,method-view,schId-1499.dhtml"
+  },
+  {
+    "学校名称": "湖南城建职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656302797,method-view,schId-1500.dhtml"
+  },
+  {
+    "学校名称": "湖南石油化工职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642529477,method-view,schId-1501.dhtml"
+  },
+  {
+    "学校名称": "湖南中医药高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646674430,method-view,schId-2041.dhtml"
+  },
+  {
+    "学校名称": "湖南民族职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637291633,method-view,schId-2043.dhtml"
+  },
+  {
+    "学校名称": "长沙师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657274389,method-view,schId-2045.dhtml"
+  },
+  {
+    "学校名称": "湖南财经工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657687305,method-view,schId-2046.dhtml"
+  },
+  {
+    "学校名称": "益阳职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636133284,method-view,schId-2047.dhtml"
+  },
+  {
+    "学校名称": "湖南应用技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671010703,method-view,schId-2048.dhtml"
+  },
+  {
+    "学校名称": "湖南信息学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654155937,method-view,schId-2118.dhtml"
+  },
+  {
+    "学校名称": "湖南工艺美术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655808943,method-view,schId-18700412.dhtml"
+  },
+  {
+    "学校名称": "湖南九嶷职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649539316,method-view,schId-5269690.dhtml"
+  },
+  {
+    "学校名称": "湖南理工职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650378869,method-view,schId-6242534.dhtml"
+  },
+  {
+    "学校名称": "湖南交通工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637250513,method-view,schId-1253435.dhtml"
+  },
+  {
+    "学校名称": "湖南软件职业技术大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660454023,method-view,schId-5209323.dhtml"
+  },
+  {
+    "学校名称": "湖南汽车工程职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650349231,method-view,schId-1130516.dhtml"
+  },
+  {
+    "学校名称": "长沙电力职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657111681,method-view,schId-5391131.dhtml"
+  },
+  {
+    "学校名称": "湖南水利水电职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637281813,method-view,schId-5187496.dhtml"
+  },
+  {
+    "学校名称": "湖南现代物流职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675760905,method-view,schId-403943.dhtml"
+  },
+  {
+    "学校名称": "湖南高速铁路职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6634247766,method-view,schId-398547.dhtml"
+  },
+  {
+    "学校名称": "湖南安全技术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659930068,method-view,schId-5454837.dhtml"
+  },
+  {
+    "学校名称": "湖南电气职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657869666,method-view,schId-5472612.dhtml"
+  },
+  {
+    "学校名称": "益阳医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675947464,method-view,schId-5564739.dhtml"
+  },
+  {
+    "学校名称": "湖南都市职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674556240,method-view,schId-5230882.dhtml"
+  },
+  {
+    "学校名称": "湖南电子科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650455313,method-view,schId-5270443.dhtml"
+  },
+  {
+    "学校名称": "湖南国防工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653277273,method-view,schId-18483683.dhtml"
+  },
+  {
+    "学校名称": "湖南高尔夫旅游职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646570421,method-view,schId-52330208.dhtml"
+  },
+  {
+    "学校名称": "湖南工商职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644296259,method-view,schId-52994952.dhtml"
+  },
+  {
+    "学校名称": "湖南三一工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660206809,method-view,schId-164019379.dhtml"
+  },
+  {
+    "学校名称": "长沙卫生职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641501810,method-view,schId-382395103.dhtml"
+  },
+  {
+    "学校名称": "湖南食品药品职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659534214,method-view,schId-174232960.dhtml"
+  },
+  {
+    "学校名称": "湖南有色金属职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636636296,method-view,schId-364891369.dhtml"
+  },
+  {
+    "学校名称": "湖南吉利汽车职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655257140,method-view,schId-1806815278.dhtml"
+  },
+  {
+    "学校名称": "湖南幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641399783,method-view,schId-639779100.dhtml"
+  },
+  {
+    "学校名称": "湘南幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655479558,method-view,schId-989202585.dhtml"
+  },
+  {
+    "学校名称": "湖南劳动人事职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675956670,method-view,schId-962226111.dhtml"
+  },
+  {
+    "学校名称": "怀化师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658147144,method-view,schId-2387346128.dhtml"
+  },
+  {
+    "学校名称": "永州师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660208689,method-view,schId-2898289158.dhtml"
+  },
+  {
+    "学校名称": "衡阳幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670326320,method-view,schId-2795241590.dhtml"
+  },
+  {
+    "学校名称": "长沙幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631938891,method-view,schId-2894164649.dhtml"
+  },
+  {
+    "学校名称": "益阳师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676673031,method-view,schId-3717597995.dhtml"
+  },
+  {
+    "学校名称": "娄底幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6678367046,method-view,schId-3734068177.dhtml"
+  },
+  {
+    "学校名称": "常德科技职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6641477001,method-view,schId-4645113534.dhtml"
+  },
+  {
+    "学校名称": "邵阳工业职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675897229,method-view,schId-4645119672.dhtml"
+  },
+  {
+    "学校名称": "长沙轨道交通职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6640589682,method-view,schId-4633940661.dhtml"
+  },
+  {
+    "学校名称": "长沙文创艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657590022,method-view,schId-4633948651.dhtml"
+  },
+  {
+    "学校名称": "岳阳现代服务职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670922207,method-view,schId-4617096723.dhtml"
+  },
+  {
+    "学校名称": "郴州思科职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675748616,method-view,schId-4645077875.dhtml"
+  },
+  {
+    "学校名称": "怀化工商职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6675888882,method-view,schId-5544323808.dhtml"
+  },
+  {
+    "学校名称": "长沙医药健康职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676786701,method-view,schId-6315566110.dhtml"
+  },
+  {
+    "学校名称": "长沙科技学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674384192,method-view,schId-6656108224.dhtml"
+  },
+  {
+    "学校名称": "长沙科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650740031,method-view,schId-6646737652.dhtml"
+  },
+  {
+    "学校名称": "株洲科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6652300701,method-view,schId-6646733239.dhtml"
+  },
+  {
+    "学校名称": "衡阳理工职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648662555,method-view,schId-6648511595.dhtml"
+  },
+  {
+    "学校名称": "郴州智能科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655626136,method-view,schId-6655297816.dhtml"
+  },
+  {
+    "学校名称": "岳阳科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6726347327,method-view,schId-6721777112.dhtml"
+  },
+  {
+    "学校名称": "邵阳通航职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6745526204,method-view,schId-6721772278.dhtml"
+  },
+  {
+    "学校名称": "湘中幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656130443,method-view,schId-2000585532.dhtml"
+  },
+  {
+    "学校名称": "湘潭科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6647646928,method-view,schId-5217917.dhtml"
+  },
+  {
+    "学校名称": "广州航海学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660174642,method-view,schId-732.dhtml"
+  },
+  {
+    "学校名称": "广东岭南职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649887834,method-view,schId-1231.dhtml"
+  },
+  {
+    "学校名称": "广东省外语艺术职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654369359,method-view,schId-1434.dhtml"
+  },
+  {
+    "学校名称": "广东工程职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649772622,method-view,schId-5189393.dhtml"
+  },
+  {
+    "学校名称": "广东科贸职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660004313,method-view,schId-5232539.dhtml"
+  },
+  {
+    "学校名称": "中山职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657177852,method-view,schId-5163160.dhtml"
+  },
+  {
+    "学校名称": "香港中文大学(深圳)",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660021169,method-view,schId-956934555.dhtml"
+  },
+  {
+    "学校名称": "广西艺术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6623460202,method-view,schId-466.dhtml"
+  },
+  {
+    "学校名称": "北部湾大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6637048909,method-view,schId-863.dhtml"
+  },
+  {
+    "学校名称": "广西水利电力职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631387917,method-view,schId-864.dhtml"
+  },
+  {
+    "学校名称": "广西国际商务职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656207813,method-view,schId-1039.dhtml"
+  },
+  {
+    "学校名称": "桂林山水职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6628568269,method-view,schId-1796.dhtml"
+  },
+  {
+    "学校名称": "广西经贸职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6630452555,method-view,schId-2065.dhtml"
+  },
+  {
+    "学校名称": "广西英华国际职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629957921,method-view,schId-1312008.dhtml"
+  },
+  {
+    "学校名称": "百色职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629410347,method-view,schId-5122288.dhtml"
+  },
+  {
+    "学校名称": "广西理工职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6627310651,method-view,schId-7183831.dhtml"
+  },
+  {
+    "学校名称": "梧州职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6628120115,method-view,schId-18213703.dhtml"
+  },
+  {
+    "学校名称": "广西经济职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629949275,method-view,schId-18347534.dhtml"
+  },
+  {
+    "学校名称": "广西科技职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6630768195,method-view,schId-54928000.dhtml"
+  },
+  {
+    "学校名称": "广西培贤国际职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6627631524,method-view,schId-925358182.dhtml"
+  },
+  {
+    "学校名称": "钦州幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6629585854,method-view,schId-2709847921.dhtml"
+  },
+  {
+    "学校名称": "广西物流职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6628228445,method-view,schId-2709933294.dhtml"
+  },
+  {
+    "学校名称": "防城港职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631612734,method-view,schId-3156259880.dhtml"
+  },
+  {
+    "学校名称": "广西信息职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6628191213,method-view,schId-3156262444.dhtml"
+  },
+  {
+    "学校名称": "广西农业工程职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6630933305,method-view,schId-3156262845.dhtml"
+  },
+  {
+    "学校名称": "北海康养职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6628154749,method-view,schId-3156263590.dhtml"
+  },
+  {
+    "学校名称": "桂林信息工程职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6631710255,method-view,schId-4663525869.dhtml"
+  },
+  {
+    "学校名称": "玉林职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636963490,method-view,schId-5548154559.dhtml"
+  },
+  {
+    "学校名称": "海南职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6644720744,method-view,schId-946.dhtml"
+  },
+  {
+    "学校名称": "三亚学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670487478,method-view,schId-402800.dhtml"
+  },
+  {
+    "学校名称": "三亚航空旅游职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649505583,method-view,schId-474731.dhtml"
+  },
+  {
+    "学校名称": "三亚中瑞酒店管理职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6673821283,method-view,schId-1820739238.dhtml"
+  },
+  {
+    "学校名称": "海南健康管理职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6669187912,method-view,schId-2024092768.dhtml"
+  },
+  {
+    "学校名称": "四川美术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6646323885,method-view,schId-507.dhtml"
+  },
+  {
+    "学校名称": "重庆工商大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6652184433,method-view,schId-912.dhtml"
+  },
+  {
+    "学校名称": "重庆工程学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6645793918,method-view,schId-1135.dhtml"
+  },
+  {
+    "学校名称": "重庆移通学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653180491,method-view,schId-1870.dhtml"
+  },
+  {
+    "学校名称": "西南交通大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6660324332,method-view,schId-471.dhtml"
+  },
+  {
+    "学校名称": "遵义医科大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654161273,method-view,schId-511.dhtml"
+  },
+  {
+    "学校名称": "黔南民族医学高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655558663,method-view,schId-886.dhtml"
+  },
+  {
+    "学校名称": "贵州警察学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653967795,method-view,schId-986.dhtml"
+  },
+  {
+    "学校名称": "遵义医药高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653576099,method-view,schId-5287793.dhtml"
+  },
+  {
+    "学校名称": "贵州理工学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657237012,method-view,schId-592558303.dhtml"
+  },
+  {
+    "学校名称": "云南师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6658412417,method-view,schId-530.dhtml"
+  },
+  {
+    "学校名称": "楚雄师范学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6671444622,method-view,schId-789.dhtml"
+  },
+  {
+    "学校名称": "云南司法警官职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653375730,method-view,schId-1090.dhtml"
+  },
+  {
+    "学校名称": "丽江文化旅游学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659908030,method-view,schId-1663.dhtml"
+  },
+  {
+    "学校名称": "昆明文理学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6655574407,method-view,schId-405036.dhtml"
+  },
+  {
+    "学校名称": "红河卫生职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6654179779,method-view,schId-574999061.dhtml"
+  },
+  {
+    "学校名称": "曲靖职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6676857953,method-view,schId-2376009635.dhtml"
+  },
+  {
+    "学校名称": "西安交通大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6679604778,method-view,schId-546.dhtml"
+  },
+  {
+    "学校名称": "西安电子科技大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659154084,method-view,schId-549.dhtml"
+  },
+  {
+    "学校名称": "西安铁路职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6656442886,method-view,schId-4995422.dhtml"
+  },
+  {
+    "学校名称": "宁夏大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657979308,method-view,schId-587.dhtml"
+  },
+  {
+    "学校名称": "宁夏师范大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6686215513,method-view,schId-589.dhtml"
+  },
+  {
+    "学校名称": "宁夏警官职业学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6670055458,method-view,schId-1527.dhtml"
+  },
+  {
+    "学校名称": "宁夏幼儿师范高等专科学校",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6632161864,method-view,schId-1103997562.dhtml"
+  },
+  {
+    "学校名称": "新疆大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649778771,method-view,schId-590.dhtml"
+  },
+  {
+    "学校名称": "乌鲁木齐职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6672003971,method-view,schId-858.dhtml"
+  },
+  {
+    "学校名称": "克拉玛依职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6643902025,method-view,schId-1072.dhtml"
+  },
+  {
+    "学校名称": "新疆能源职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648813750,method-view,schId-6407788.dhtml"
+  },
+  {
+    "学校名称": "新疆职业大学",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6649699313,method-view,schId-5567940.dhtml"
+  },
+  {
+    "学校名称": "哈密职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6650901212,method-view,schId-1011433472.dhtml"
+  },
+  {
+    "学校名称": "新疆科技职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6651068819,method-view,schId-962177812.dhtml"
+  },
+  {
+    "学校名称": "吐鲁番职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6653357908,method-view,schId-1672680699.dhtml"
+  },
+  {
+    "学校名称": "新疆科信职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6636611576,method-view,schId-2370811136.dhtml"
+  },
+  {
+    "学校名称": "阿勒泰职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6659659066,method-view,schId-2376015048.dhtml"
+  },
+  {
+    "学校名称": "喀什理工职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6674267140,method-view,schId-4634136478.dhtml"
+  },
+  {
+    "学校名称": "新星职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6642603265,method-view,schId-4604001857.dhtml"
+  },
+  {
+    "学校名称": "乌鲁木齐职业技术学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6648228761,method-view,schId-5530951084.dhtml"
+  },
+  {
+    "学校名称": "上海公安学院",
+    "详情页链接": "https://gaokao.chsi.com.cn/zsgs/zhangcheng/listVerifedZszc--infoId-6657192826,method-view,schId-222.dhtml"
+  }
+]
