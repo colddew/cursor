@@ -1,0 +1,18 @@
+# Environment Variables
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Output Files
+*.xlsx
+error_response.txt
+
+# OS Files
+.DS_Store
