@@ -1,4 +1,5 @@
 import time
+from datetime import datetime
 import os
 import sys
 import json
@@ -93,75 +94,92 @@ def json_to_excel(json_data, output_path):
         traceback.print_exc()
         return False
 
+def save_markdown_to_excel(md_text, output_excel_path):
+    """将 Gemini 返回的 Markdown 表格转换为 Excel (增强版)"""
+    import re
+    import io
+    try:
+        if not md_text or not md_text.strip():
+            print("⚠️  Markdown 内容为空")
+            return False
+
+        lines = [l.strip() for l in md_text.split('\n') if '|' in l]
+
+        separator_pattern = re.compile(r'^[\s\-\|]+$')
+        lines = [l for l in lines if not separator_pattern.match(l)]
+
+        if not lines:
+            print("⚠️  未找到有效的表格行")
+            print(f"原始响应:\n{md_text[:500]}...")
+            return False
+
+        max_cols = max(l.count('|') for l in lines)
+        final_lines = []
+        for l in lines:
+            current_cols = l.count('|')
+            if current_cols < max_cols:
+                l += '|' * (max_cols - current_cols)
+            final_lines.append(l)
+
+        csv_content = "\n".join(final_lines)
+        df = pd.read_csv(io.StringIO(csv_content), sep='|', engine='python', on_bad_lines='skip')
+
+        df = df.dropna(axis=1, how='all')
+
+        df = df.apply(lambda x: x.str.strip() if x.dtype == "object" else x)
+
+        df.to_excel(output_excel_path, index=False)
+        print(f"✅ Markdown 表格已保存到: {output_excel_path}")
+        return True
+    except Exception as e:
+        print(f"❌ Markdown 转换失败: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
+
 def process_image(image_path, prompt_path):
     """主处理流程 (使用新版 google-genai SDK + 高分辨率配置)"""
     api_key = get_api_key()
     client = genai.Client(api_key=api_key)
 
     # 模型版本
-    model_name = os.getenv("GEMINI_MODEL", "gemini-3-flash-preview")
+    model_name = os.getenv("GEMINI_MODEL", "gemini-3-pro-preview")
     print(f"🚀 正在初始化模型: {model_name}...")
     
     image_bytes = encode_image(image_path)
     system_instruction = load_system_prompt(prompt_path)
-    
-    # 定义 JSON Schema (保持不变)
-    response_schema = {
-        "type": "object",
-        "properties": {
-            "pages": {
-                "type": "array",
-                "items": {
-                    "type": "object",
-                    "properties": {
-                        "page_number": {"type": "integer"},
-                        "content": {
-                            "type": "array",
-                            "items": {
-                                "type": "object",
-                                "properties": {
-                                    "type": {"type": "string", "enum": ["text", "table"]},
-                                    "text_content": {"type": "string"},
-                                    "table_data": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "array",
-                                            "items": {"type": "string"}
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "required": ["pages"]
-    }
 
     print("✨ 正在发送请求给 Gemini (开启高分辨率扫描)...")
     try:
-        # 构造多模态内容
+        # 构造多模态内容（提示词使用 system_instruction）
         contents = [
             types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
-            system_instruction
+            "请开始解析此页图片"
         ]
         
         response = client.models.generate_content(
             model=model_name,
             contents=contents,
             config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=response_schema,
-                temperature=0.0,  # 降到 0，让它变死板，死板才准
-        top_p=0.95,
-        max_output_tokens=8192, # 给够空间，防止表格写一半断了
-                media_resolution=types.MediaResolution.MEDIA_RESOLUTION_HIGH # 强制高倍率扫描边缘细节
+                response_mime_type="text/plain",
+                temperature=0.0,
+                top_p=0.01,
+                system_instruction=system_instruction,
+                media_resolution=types.MediaResolution.MEDIA_RESOLUTION_HIGH
             )
         )
-        
-        output_excel = os.path.splitext(image_path)[0] + "_gemini.xlsx"
-        success = json_to_excel(response.text, output_excel)
+
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        base_name = os.path.splitext(os.path.basename(image_path))[0]
+        output_excel = os.path.join(os.path.dirname(image_path), f"{base_name}_gemini_{timestamp}.xlsx")
+        raw_output = os.path.join(os.path.dirname(image_path), f"{base_name}_raw_{timestamp}.md")
+
+        response_text = response.text or ""
+
+        with open(raw_output, 'w', encoding='utf-8') as f:
+            f.write(response_text)
+
+        success = save_markdown_to_excel(response_text, output_excel)
         
         if success:
             print("\n🎉 处理完成！")
