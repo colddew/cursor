@@ -5,9 +5,11 @@
 ```
 pdf2excel/
 ├── scripts/            # 处理脚本 (按省份逻辑划分：anhui, zhejiang)
-├── docs/               # 全量文档 (01-12, 涵盖技术选型及实测结果)
+├── docs/               # 全量文档 (技术选型、性能报告、SOP)
 ├── data/               # 待处理图片 (按省份子目录存放)
 ├── output/             # 识别结果 (自动化分类输出)
+├── test/               # 测试模块
+│   └── regression/     # ⭐ 自动化回归测试 (含黄金用例库)
 ├── .env                # 凭证配置 (不可提交)
 └── README.md           # 本说明文件
 ```
@@ -43,6 +45,12 @@ AISTUDIO_TOKEN=你的访问令牌
 
 ```bash
 ./venv/bin/python scripts/aistudio_paddleocr_vl.py data/zhejiang.png
+```
+
+### 4. 运行回归测试 (验证环境)
+
+```bash
+./venv/bin/python scripts/run_regression_test.py --compare-only
 ```
 
 ---
