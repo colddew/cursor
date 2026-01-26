@@ -38,25 +38,62 @@ from scripts.common.excel_utils import (
 )
 from scripts.common.table_detection import detect_table
 
-class AnhuiProcessor:
-    # 正则规则 (兼容 StructureV3 的紧凑模式，移除行首锚点以支持非对齐文本)
-    GROUP_PATTERN = re.compile(r"(\d{3,})\s*(.*?)\s*(\d+\s*人.*)")
-    
-    # Code组变为可选，名称组排除数字开头
-    MAJOR_PATTERN = re.compile(r"([A-Za-z0-9]{2})?\s*([^\d\n\s]{2,}[^\s人]*)\s*(\d+\s*人.*)")
-    
-    # 填报说明特征模式 (基于结构描述特征)
-    INSTRUCTION_FEATURES = [
-        r"前\s*\d+\s*位数字为.*代码",
-        r"含\s*\d+\s*位专业组代码",
-        r"括号内为专业收费标准",
-        r"专业名称后数字为.*人数",
-        r"院校名称后为专业组"
-    ]
+import sys
+# 禁用生成 __pycache__
+sys.dont_write_bytecode = True
+import os
+import re
+import time
+import argparse
+import yaml
+from pathlib import Path
+from dotenv import load_dotenv
 
+# 加载配置 (尽量在其他导入前执行)
+load_dotenv()
+
+from openpyxl import Workbook
+from openpyxl.styles import Font
+
+# 自动定位项目根目录并加入 sys.path
+script_dir = Path(__file__).resolve().parent
+project_root = script_dir.parent.parent
+if str(project_root) not in sys.path:
+    sys.path.insert(0, str(project_root))
+
+from scripts.common.baidu_api import call_structure_v3
+from scripts.common.baidu_api_ocr import call_paddleocr_vl
+from scripts.common.excel_utils import (
+    get_header_style, get_common_styles, setup_columns, 
+    write_data_row, write_text_row, html_table_to_excel,
+    autofit_columns, BeautifulSoup
+)
+from scripts.common.table_detection import detect_table
+
+class AnhuiProcessor:
     def __init__(self):
         self.api_url = os.getenv('AISTUDIO_STRUCTURE_URL')
         self.token = os.getenv('AISTUDIO_STRUCTURE_TOKEN') or os.getenv('AISTUDIO_TOKEN')
+        
+        # 1. 加载业务规则配置
+        self.rules = self._load_rules()
+        
+        # 2. 从配置编译正则模式 (如果加载失败则使用硬编码保底)
+        self.GROUP_PATTERN = re.compile(self.rules.get('patterns', {}).get('group', r"(\d{3,})\s*(.*?)\s*(\d+\s*人.*)"))
+        self.MAJOR_PATTERN = re.compile(self.rules.get('patterns', {}).get('major', r"([A-Za-z0-9]{2})?\s*([^\d\n\s]{2,}[^\s人]*)\s*(\d+\s*人.*)"))
+        self.INSTRUCTION_FEATURES = self.rules.get('instruction_features', [])
+        self.INSTRUCTION_KEYWORDS = self.rules.get('instruction_keywords', [])
+
+    def _load_rules(self):
+        """从 yaml 加载省份规则"""
+        rule_path = project_root / "config" / "anhui_rules.yaml"
+        if rule_path.exists():
+            try:
+                with open(rule_path, 'r', encoding='utf-8') as f:
+                    return yaml.safe_load(f)
+            except Exception as e:
+                print(f"⚠️ 警告: 加载配置文件失败 ({e})，将使用默认规则")
+        return {}
 
     def is_instruction_line(self, line):
         """判断是否为填报说明类型的无效文字"""
@@ -64,22 +101,16 @@ class AnhuiProcessor:
         if re.match(r'^\d{2,4}\s+', line) and re.search(r'\d+\s*人', line):
             return False
         
-        # 检查特征模式
+        # 检查特征模式 (从配置读取)
         for feature in self.INSTRUCTION_FEATURES:
             if re.search(feature, line):
                 return True
         
-        # 额外特征词检查（Page 05 特有的说明文字）
-        instruction_keywords = [
-            "考生本人务必", "填报志愿", "志愿信息", "录入错误",
-            "招生计划不分", "科目组合", "综合分计算公式", "综合分=",
-            "平行志愿", "院校专业组志愿", "专业服从志愿",
-            "$$"  # 数学公式标记
-        ]
-        if any(kw in line for kw in instruction_keywords):
+        # 额外特征词检查 (从配置读取)
+        if any(kw in line for kw in self.INSTRUCTION_KEYWORDS):
             return True
         
-        # 超长段落检查：超过100字符很可能是说明文字（不再要求不包含"人"）
+        # 超长段落检查：超过100字符很可能是说明文字
         if len(line) > 100:
             return True
         
