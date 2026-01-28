@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+import sys; sys.dont_write_bytecode = True"""
 Apple Vision Framework OCR 提取器
 适用于 macOS 10.15+ (包括 Intel Mac)
 无需安装依赖，使用系统内置 OCR

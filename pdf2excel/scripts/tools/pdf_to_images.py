@@ -1,4 +1,7 @@
 """
+import sys
+sys.dont_write_bytecode = True
+"""
 PDF 转图片工具
 使用 PyMuPDF 进行高质量转换
 """

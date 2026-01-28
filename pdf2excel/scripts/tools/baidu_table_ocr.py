@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+import sys; sys.dont_write_bytecode = True"""
 百度表格识别 API - 专门针对表格优化
 比通用 OCR 更适合处理表格内容
 """

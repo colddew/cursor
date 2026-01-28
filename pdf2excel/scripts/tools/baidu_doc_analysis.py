@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+import sys; sys.dont_write_bytecode = True"""
 百度文档解析服务 - 2026年最新
 支持表格识别、版面分析、阅读顺序等
 服务位置：百度AI开放平台 > 文字识别 > 文档解析

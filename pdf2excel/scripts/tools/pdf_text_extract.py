@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+import sys; sys.dont_write_bytecode = True"""
 PDF 文本提取器 - 保留布局结构
 适用于有文本但无表格结构的 PDF
 """
